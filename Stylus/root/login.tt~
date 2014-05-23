@@ -1,0 +1,74 @@
+       
+	<h1 style="margin:0;font-size:32px;font-weight:600;color:#000;padding-left:30px;padding-top:40px;text-transform:uppercase;">Login</h1>
+    <div style="padding: 10px 20px;margin:20px 0;">
+        <div style="padding: 10px 20px;margin:20px 0;">
+		    <!--<form action='/stylus/login/auth' method='post'>-->
+		    <form>
+		    	<label class="form_label" for="username">Username</label>
+		    	<div class="input" style="margin-bottom:25px;">
+		    		<input class="login_input" id="username" name="username" placeholder="Username" type="text">
+		    	</div>
+		    	<label class="form_label" for="password">Password</label>
+		    	<div class="input">
+		    		<input class="login_input" id="password" name="password" placeholder="Password" type="password">
+		    	</div>
+		    	<button id="login" class="button">Log in</button>			
+		    </form>
+	    </div>
+    </div>
+
+	<script type="text/javascript" language="javascript" charset="utf-8">
+	
+	    // set 'background' for the inputs
+	    $('form div.input input.login_input').on('focus', function() {
+	        console.log('input - focused ...');
+			$(this).parent().addClass('input_active');
+		});
+		$('form div.input input.login_input').on('focusout', function() {
+			$(this).parent().removeClass('input_active');
+		});
+		
+		// process button 'click'
+		$('button#login').on('click', function(e) {
+            e.preventDefault();
+            console.log('Clicked login button ...');
+            
+            //reset border-color
+            $('div.input').css({"border-color": "#fff"});
+
+			// client-side validation - just check that fields have been populated
+			// all other validation will be done on the server
+			var username = $('#username').val();
+			var password = $('#password').val();
+			if ( !username ) {
+			    $('#username').parent().css({"border-color": "#254960"});
+			    $('p#message').text('Username missing - please enter.');
+			}
+			else if ( !password ) {
+			    $('#password').parent().css({"border-color": "#254960"});
+			    $('p#message').text('Password missing - please enter.');
+			}
+			else {
+			    var formData = {
+			        username: username,
+			        password: password
+		        };
+			    $.ajax({
+			        url: '/stylus/login/auth',
+			        type: 'POST',
+			        data: formData,
+			        dataType: 'json',
+			        success: function(data,status) {
+			            console.log('login data : ' + data.json.success);
+			            //window.location.assign('/stylus/contact');    
+			        },
+			        error: function(jqXHR,status,error) {
+			            $('#username').parent().css({"border-color": "#254960"});
+			            $('#password').parent().css({"border-color": "#254960"});
+			            $('p#message').text('Invalid Username / Password - please try again.');
+			        }
+			    });
+			}
+
+		});
+	</script>
