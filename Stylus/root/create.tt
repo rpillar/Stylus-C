@@ -138,9 +138,9 @@
 	    		</div>
                 <label class="form_label" for="create">Article</label>
                 <div class="input">
-                    <textarea class="login_input wmd-input" id="create" placeholder="Article" type="text" rows="16"></textarea>
+                    <textarea class="login_input wmd-input" id="article" placeholder="Article" type="text" rows="16"></textarea>
                 </div>
-                <button class="button">Create</button>
+                <button class="button" id="create">Create</button>
             </form>
         </div>
     </div>
@@ -159,11 +159,69 @@
         $('.login_input').on('focusout', function() {
             $(this).parent().removeClass('input_active');
         });
+        
+        // process button 'click'
+		$('button#create').on('click', function(e) {
+            e.preventDefault();
+            console.log('Clicked create button ...');
+            
+            //reset border-color
+            $('#dd').css({"border-color": "lightgray"});
+            $('div.input').css({"border-color": "#fff"});
+
+			// client-side validation - just check that fields have been populated
+			// all other validation will be done on the server
+			var type    = $('#dd span').text();
+			console.log('type is : ' + type);
+			var title   = $('#title').val();
+			var article = $('#article').val();
+			if ( type == 'Article Type' ) {
+			    $('#dd').css({"border-top-color": "#254960", "border-bottom-color": "#254960" });
+			    $('p#message').text('Type missing - please enter.');
+			}
+			else if ( !title ) {
+			    $('#title').parent().css({"border-color": "#254960"});
+			    $('p#message').text('Title missing - please enter.');
+			}
+			else if ( !article ) {
+			    $('#article').parent().css({"border-color": "#254960"});
+			    $('p#message').text('Article missing - please enter.');
+			}
+			else {
+			    var formData = {
+			        title: title,
+			        article: article
+		        };
+			    $.ajax({
+			        url: '/stylus/login/auth',
+			        type: 'POST',
+			        data: formData,
+			        dataType: 'json',
+			        success: function(data,status) {
+			            console.log('login data : ' + data.json.success);
+			            if ( data.json.success == 0 ) {
+			                $('#username').parent().css({"border-color": "#254960"});
+			                $('#password').parent().css({"border-color": "#254960"});
+			                $('p#message').text('Invalid Username / Password - please try again.');
+			            }
+			            else {
+			                window.location.assign('/stylus');			            
+			            }   
+			        },
+			        error: function(jqXHR,status,error) {
+			            $('#username').parent().css({"border-color": "#254960"});
+			            $('#password').parent().css({"border-color": "#254960"});
+			            $('p#message').text('Invalid Username / Password - please try again.');
+			        }
+			    });
+			}
+
+		});
     </script>
     
     <script type="text/javascript">
         $(document).ready(function() {
-            new WMD("create", "toolbar", { preview: "preview" });
+            new WMD("article", "toolbar", { preview: "preview" });
         });
     </script>
     
