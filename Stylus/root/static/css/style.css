@@ -128,11 +128,13 @@ body {
         min-width: 85%;
     }
     div.input_active {
-        background-color: #000;
+        /*background-color: #000;*/
+        background-color: gray;
     }
     .input .login_input:focus {
         color: #fff;
-        background-color: #000;
+        /*background-color: #000;*/
+        background-color: gray;
         border-left: 4px solid #fff;
     }
     .button {

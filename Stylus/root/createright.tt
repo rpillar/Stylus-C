@@ -1,12 +1,12 @@
     <section style="display:block;float:left;position:relative;">
         <div style="padding-right:50px;">
             <aside style="padding: 40px;margin-top:30px;color:#acacac;font-size:16px;line-height:24px;">
-                <div>
-                    <h2><span style="padding: 5px;border-top: 1px dotted black;border-bottom: 1px dotted black;color: #8F8F8F;">Preview</span></h2>
-                </div>
-                <div>
+                <div style="height:70px;">
                     <p id="message" style="font-size:16px;line-height:2.5;margin-top:20px;margin-bottom:20px;padding-left:10px;border-left:4px solid #254960;font-weight:300;text-transform:uppercase;"></p>
                 </div>
+                <div>
+                    <h2><span style="padding: 5px;border-top: 2px solid #254960;border-bottom: 2px solid #254960;color:#8F8F8F;">Preview</span></h2>
+                </div>                
                 <div id="preview" class="wmd-preview" style="padding-right:50px;">
                 </div>
             </aside>            

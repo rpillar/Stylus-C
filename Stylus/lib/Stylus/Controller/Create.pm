@@ -52,6 +52,38 @@ sub index :Path :Args(0) {
 	$c->stash->{righthalf} = 'createright.tt';
 }
 
+=head2 add
+
+=cut
+
+sub add :Local {
+    my ( $self, $c ) = @_;
+
+    my $type    = $c->request->params->{type};
+    my $title   = $c->request->params->{title};
+    my $article = $c->request->params->{article};
+    
+    my $stylus_article = $c->model('DB::Article')->create(
+        {
+            type    => $type,
+            title   => $title,
+            content => $article,
+        }
+    );
+    
+    $c->stash->{current_view} = 'JSON_Service';
+    if ( $stylus_article ) {
+        $c->stash->{json} = {
+            success => 1,
+        };
+    }
+    else {
+        $c->stash->{json} = {
+            success => 0,
+        };
+    }
+}
+
 =head2 end
 
 Attempt to render a view, if needed.

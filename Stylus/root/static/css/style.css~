@@ -145,25 +145,25 @@ body {
         color: gray;
         font-size:16px;
         font-weight: 400; 
-        letter-spacing:2px;        
+        letter-spacing:1px;        
     }
     input:-moz-placeholder, textarea:-moz-placeholder { /* Firefox 18- */
         color: gray; 
         font-size:16px;
         font-weight: 400; 
-        letter-spacing:2px;        
+        letter-spacing:1px;        
     }
     input::-moz-placeholder, textarea::-moz-placeholder {  /* Firefox 19+ */
         color: gray; 
         font-size:16px;
         font-weight: 400;  
-        letter-spacing:2px;        
+        letter-spacing:1px;        
     }
     input:-ms-input-placeholder, textarea:-ms-input-placeholder {  
         color: gray; 
         font-size:16px;
         font-weight: 400;  
-        letter-spacing:2px;                
+        letter-spacing:1px;                
     }
     
 	.hide {

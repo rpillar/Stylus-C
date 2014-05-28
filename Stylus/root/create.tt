@@ -12,8 +12,8 @@
     /* Styles */
     background: #fff;
     /*border-radius: 7px;*/
-    border-top: 1px solid rgba(0,0,0,0.15);
-    border-bottom: 1px solid rgba(0,0,0,0.15);
+    border-top: 2px solid rgba(0,0,0,0.15);
+    border-bottom: 2px solid rgba(0,0,0,0.15);
     /*box-shadow: 0 1px 1px rgba(50,50,50,0.1);*/
     cursor: pointer;
     outline: none;
@@ -48,7 +48,7 @@
     /* Styles */
     background: white;
     border-radius: inherit;
-    border: 1px solid rgba(0,0,0,0.17);
+    border: 2px solid rgba(0,0,0,0.17);
     box-shadow: 0 0 5px rgba(0,0,0,0.1);
     font-weight: normal;
     transition: all 0.3s ease-in;
@@ -65,7 +65,7 @@
     text-decoration: none;
     text-transform: none;
     /*color: #8aa8bd;*/
-    border-bottom: 1px solid #e6e8ea;
+    border-bottom: 2px solid #e6e8ea;
     box-shadow: inset 0 1px 0 rgba(255,255,255,1);
     transition: all 0.3s ease-out;
 }
@@ -189,29 +189,26 @@
 			}
 			else {
 			    var formData = {
+			        type: type,
 			        title: title,
 			        article: article
 		        };
 			    $.ajax({
-			        url: '/stylus/login/auth',
+			        url: '/stylus/create/add',
 			        type: 'POST',
 			        data: formData,
 			        dataType: 'json',
 			        success: function(data,status) {
 			            console.log('login data : ' + data.json.success);
-			            if ( data.json.success == 0 ) {
-			                $('#username').parent().css({"border-color": "#254960"});
-			                $('#password').parent().css({"border-color": "#254960"});
-			                $('p#message').text('Invalid Username / Password - please try again.');
+			            if ( data.json.success == 0 ) {			                
+			                $('p#message').text('There was a problem adding this article - please try again or contact us.');
 			            }
 			            else {
-			                window.location.assign('/stylus');			            
+			                window.location.assign('/stylus/articles');			            
 			            }   
 			        },
-			        error: function(jqXHR,status,error) {
-			            $('#username').parent().css({"border-color": "#254960"});
-			            $('#password').parent().css({"border-color": "#254960"});
-			            $('p#message').text('Invalid Username / Password - please try again.');
+			        error: function(jqXHR,status,error) {			            
+			            $('p#message').text('A problem has occurred - please try again in a few minutes or contact us.');
 			        }
 			    });
 			}
@@ -219,12 +216,14 @@
 		});
     </script>
     
+    <!-- WMD stuff -->
     <script type="text/javascript">
         $(document).ready(function() {
             new WMD("article", "toolbar", { preview: "preview" });
         });
     </script>
     
+    <!-- dropdown code -->
     <script type="text/javascript">
         function DropDown(el) {
             this.dd = el;
