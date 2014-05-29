@@ -30,7 +30,7 @@ sub auto :Private {
     }
     
     unless ( $c->user_exists ) {
-        $c->log->debug( " User dows not exist - rediect to login page ...");
+        $c->log->debug( " User does not exist - redirect to login page ...");
         $c->response->redirect($c->uri_for('/stylus/login'));
         return 0;
     }

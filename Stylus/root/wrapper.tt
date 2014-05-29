@@ -17,7 +17,7 @@
 <ul class="navigator">
 <li id="home"><a href="/stylus">home</a></li>
 [% IF c.user_exists %]
-<li><a href="#">articles</a></li>
+<li><a href="/stylus/articles">articles</a></li>
 [% END %]
 [% IF c.user_exists %]
 <li><a href="/stylus/create">create</a></li>

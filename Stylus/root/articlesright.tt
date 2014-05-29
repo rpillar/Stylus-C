@@ -1,0 +1,24 @@
+    <section style="display:block;float:left;position:relative;">
+        <div style="padding-right:50px;">
+            <aside style="padding: 40px;margin-top:30px;color:#acacac;font-size:16px;line-height:24px;">
+                <div>
+                    <h3 style="font-weight:700;">Stylus - Howto</h3>
+                    <p style="font-size:14px;font-weight:700;">2014-05-21</p>
+                    <p style="font-size:16px;line-height:1.5;margin-top:20px;margin-bottom:20px;color:#acacac;font-weight:400;">
+                        This is just a short intro into how Stylus can be used to provide a content management platform.
+                    </p>
+                    <span style="font-size:14px;border-bottom:1px dotted black;"><a href="#">read more ...</a></span>
+                    <hr />
+                </div>
+                <div>
+                    <h3 style="font-weight:700;">Rumbletums Cafe - Events</h3>
+                    <p style="font-size:14px;font-weight:700;">2014-05-21</p>
+                    <p style="font-size:16px;line-height:1.5;margin-top:20px;margin-bottom:20px;color:#acacac;font-weight:400;">
+                        Just a short list of events that are comming up at Rumbletums.
+                    </p>
+                    <span style="font-size:14px;border-bottom:1px dotted black;"><a href="#">read more ...</a></span>
+                    <hr />
+                </div>
+            </aside>            
+        </div>
+    </section>
