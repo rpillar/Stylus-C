@@ -2,6 +2,8 @@ package Stylus::Controller::Create;
 use Moose;
 use namespace::autoclean;
 
+use Data::Dumper;
+
 BEGIN { extends 'Catalyst::Controller'; }
 
 __PACKAGE__->config(namespace => 'stylus/create');
@@ -73,11 +75,13 @@ sub add :Local {
     
     $c->stash->{current_view} = 'JSON_Service';
     if ( $stylus_article ) {
+        $c->log->debug('Create article - worked');
         $c->stash->{json} = {
             success => 1,
         };
     }
     else {
+        $c->log->debug('Create article - an error has occurred');
         $c->stash->{json} = {
             success => 0,
         };
