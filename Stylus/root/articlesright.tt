@@ -1,7 +1,7 @@
     <section style="display:block;float:left;position:relative;">
         <div style="padding-right:50px;">
             <aside style="padding: 40px;margin-top:30px;color:#acacac;font-size:16px;line-height:24px;">
-                <div>
+                <!--<div>
                     <h3 style="font-weight:700;">Stylus - Howto</h3>
                     <p style="font-size:14px;font-weight:700;">2014-05-21</p>
                     <p style="font-size:16px;line-height:1.5;margin-top:20px;margin-bottom:20px;color:#acacac;font-weight:400;">
@@ -9,16 +9,17 @@
                     </p>
                     <span style="font-size:14px;border-bottom:1px dotted black;"><a href="#">read more ...</a></span>
                     <hr />
-                </div>
+                </div>-->
+                [% FOREACH article IN articles %]
                 <div>
-                    <h3 style="font-weight:700;">Rumbletums Cafe - Events</h3>
-                    <p style="font-size:14px;font-weight:700;">2014-05-21</p>
+                    <h3 style="font-weight:600;display:inline;">[% article.title %]</h3><span>&nbsp;-&nbsp;</span><span><h4 style="font-weight:300;display:inline;">(&nbsp;[% article.type %]&nbsp;)</h4></span>
                     <p style="font-size:16px;line-height:1.5;margin-top:20px;margin-bottom:20px;color:#acacac;font-weight:400;">
-                        Just a short list of events that are comming up at Rumbletums.
+                        [% article.content %]
                     </p>
                     <span style="font-size:14px;border-bottom:1px dotted black;"><a href="#">read more ...</a></span>
                     <hr />
                 </div>
+                [% END %]
             </aside>            
         </div>
     </section>
