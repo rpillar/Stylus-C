@@ -13,7 +13,7 @@
                 [% FOREACH article IN articles %]
                 <div>
                     <h3 style="font-weight:600;display:inline;">[% article.title %]</h3><span>&nbsp;-&nbsp;</span><span><h4 style="font-weight:300;display:inline;">(&nbsp;[% article.type %]&nbsp;)</h4></span>
-                    <p style="font-size:16px;line-height:1.5;margin-top:20px;margin-bottom:20px;color:#acacac;font-weight:400;">
+                    <p style="font-size:16px;line-height:1.5;margin-top:20px;margin-bottom:20px;color:#acacac;font-weight:400;" class="article_content">
                         [% article.content %]
                     </p>
                     <span style="font-size:14px;border-bottom:1px dotted black;"><a href="#">read more ...</a></span>
@@ -23,3 +23,11 @@
             </aside>            
         </div>
     </section>
+    
+    <script>
+      $(function(){
+          $('.article_content').succinct({
+              size: 150
+          });
+      });
+    </script>
