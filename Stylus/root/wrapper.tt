@@ -3,6 +3,7 @@
 <head>
 <!-- script libraries -->
 <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<script src="/static/js/succinct.min.js"></script>
 <!-- style stuff -->
 <link rel="stylesheet" type="text/css" href="/static/css/font-awesome.css" />
 <link rel="stylesheet" type="text/css" href="/static/css/style.css" />
