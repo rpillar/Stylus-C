@@ -50,6 +50,10 @@ sub index :Path :Args(0) {
 	$c->stash->{template}  = 'index.tt';
 	$c->stash->{initial}   = 'articles.tt';
 	$c->stash->{righthalf} = 'articlesright.tt';
+	
+	# get articles data
+	my @articles = $c->model('DB::Article')->all;
+	$c->stash->{articles} = \@articles;
 }
 
 
