@@ -2,10 +2,12 @@
 <html>
 <head>
 <!-- script libraries -->
-<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<!-- <script src="http://code.jquery.com/jquery-1.9.1.js"></script> -->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script src="/static/js/succinct.min.js"></script>
 <!-- style stuff -->
 <link rel="stylesheet" type="text/css" href="/static/css/font-awesome.css" />
+<link rel="stylesheet" type="text/css" href="/static/css/bootstrap.css" />
 <link rel="stylesheet" type="text/css" href="/static/css/style.css" />
 <title>Stylus</title>
 </head>
@@ -35,10 +37,10 @@
 <h2 style="margin-top:300px;width:170px;height:80px;font-size:42px;font-weight:300;-moz-transform:rotate(-90deg);-webkit-transform:rotate(-90deg);"><span style="border-bottom: 3px solid gray;">STYLUS</span></h2>
 </aside>
 <section style="border: 0 solid red;display:block;float:left;width:58%;position:relative">
-<div style="padding-left:125px;border-right:1px solid #eee;min-height:900px;">[% content %]</div>
+<div class="mCustomScrollbar" style="margin:20px 0;padding-left:125px;border-right:1px solid #eee;min-height:900px;overflow:auto;">[% content %]</div>
 </section>
 <section style="display:block;float:left;width:42%;position:relative;">
-<div style="padding-right:50px;">[% INCLUDE $righthalf %]</div>
+<div class="mCustomScrollbar" style="margin:20px 0;padding-right:50px;max-height:900px;overflow:auto;">[% INCLUDE $righthalf %]</div>
 </section>
 <!-- custom script stuff -->
 <script>
