@@ -62,14 +62,16 @@ sub add :Local {
     my ( $self, $c ) = @_;
 
     my $type    = $c->request->params->{type};
+    my $date    = $c->request->params->{date};
     my $title   = $c->request->params->{title};
     my $article = $c->request->params->{article};
     
     my $stylus_article = $c->model('DB::Article')->create(
         {
-            type    => $type,
-            title   => $title,
-            content => $article,
+            type       => $type,
+            event_date => $date,
+            title      => $title,
+            content    => $article,
         }
     );
     

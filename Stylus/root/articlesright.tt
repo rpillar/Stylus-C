@@ -1,33 +1,94 @@
-    <section style="display:block;float:left;position:relative;">
+
+    <link rel="stylesheet" type="text/css" href="/static/css/nanoscroller.css" />
+    
+    <style>
+        a:hover, a:active, a:focus {
+            outline: 0;
+        }
+        .article_block {
+            padding: 15px 5px;
+            border-bottom: 1px solid lightgray;
+            width:100%;
+        }
+        .article_block:hover {
+            background-color: #383838;
+            color: white;
+        }
+        .article_block:hover h3 {
+            background-color:  #383838;
+            color: white;
+        }
+        .article_block:hover h4 {
+            background-color:  #383838;
+            color: white;
+        }
+        .article_block:hover h5 {
+            background-color:  #383838;
+            color: white;
+        }
+        .article_block a {
+            text-decoration: none;
+            cursor: pointer;
+        }
+        
+        /* nano styling */
+        .nano {
+            width: 100%;
+            height: 900px; 
+        }
+        .nano .nano-content {
+            padding: 10px;
+        }
+        .nano .nano-pane {
+            background: white;
+        }
+        .nano .nano-slider {
+            background: #111;
+        }
+    </style>
+
+    <section style="display:block;float:left;position:relative;width:100%;">
         <div style="padding-right:50px;">
-            <aside style="padding: 40px;margin-top:30px;color:#acacac;font-size:16px;line-height:24px;">
-                <!--<div>
-                    <h3 style="font-weight:700;">Stylus - Howto</h3>
-                    <p style="font-size:14px;font-weight:700;">2014-05-21</p>
-                    <p style="font-size:16px;line-height:1.5;margin-top:20px;margin-bottom:20px;color:#acacac;font-weight:400;">
-                        This is just a short intro into how Stylus can be used to provide a content management platform.
-                    </p>
-                    <span style="font-size:14px;border-bottom:1px dotted black;"><a href="#">read more ...</a></span>
-                    <hr />
-                </div>-->
-                [% FOREACH article IN articles %]
-                <div>
-                    <h3 style="font-weight:600;display:inline;">[% article.title %]</h3><span>&nbsp;-&nbsp;</span><span><h4 style="font-weight:300;display:inline;">(&nbsp;[% article.type %]&nbsp;)</h4></span>
-                    <p style="font-size:16px;line-height:1.5;margin-top:20px;margin-bottom:20px;color:#acacac;font-weight:400;" class="article_content">
-                        [% article.content %]
-                    </p>
-                    <span style="font-size:14px;border-bottom:1px dotted black;"><a href="#">read more ...</a></span>
-                    <hr />
+            <aside style="padding:40px;margin-top:30px;color:#acacac;font-size:16px;line-height:24px;">    
+                <div class="nano">
+                    <div class="nano-content">            
+                    [% FOREACH article IN articles %]
+                        <div class="article_block">
+                            <a href="#" class="article_link">
+                                <h3 style="font-weight:600;display:inline;margin:0;padding:12px 0;">[% article.title %]</h3><span>&nbsp;-&nbsp;</span><span><h4 style="font-weight:300;display:inline;color:gray;">(&nbsp;[% article.type %]&nbsp;)</h4></span>
+                                [% IF article.type == 'Event' %]
+                                    <h5 style="margin:12px 0;">[% article.event_date.ymd %]</h5>
+                                [% END %]
+                                <p style="font-size:16px;line-height:1.5;margin:0;padding-top:10px;padding-bottom:20px;color:#acacac;font-weight:400;" class="article_content">
+                                    [% article.content %]
+                                </p>
+                            </a>
+                        </div>
+                    [% END %]
+                    </div>
                 </div>
-                [% END %]
-            </aside>            
+            </aside>           
         </div>
     </section>
     
+    <!-- nanoscroller -->
+    <script type="text/javascript" src="/static/js/nanoscroller.js"></script>   
+    
+    <script>
+        $('.nano').nanoScroller();
+    </script>
+        
     <script>
       $(function(){
           $('.article_content').succinct({
               size: 150
           });
-      });
+      });      
+    </script>
+    
+    <script>
+        $('a.article_link').on('click', function(){
+            var content = $('p.article_content',this).text();
+            console.log('content is : ' + content);
+        });
     </script>

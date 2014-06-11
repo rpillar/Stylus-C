@@ -187,12 +187,17 @@
 			// client-side validation - just check that fields have been populated
 			// all other validation will be done on the server
 			var type    = $('#dd span').text();
+			var date    = $('#eventDate').val();
 			var title   = $('#title').val();
 			var article = $('#article').val();
 			
 			if ( type == 'Article Type' ) {
 			    $('#dd').css({"border-top-color": "#254960", "border-bottom-color": "#254960" });
 			    $('p#message').text('Type missing - please enter.');
+			}
+			else if ( type == 'Event' && !date ) {
+			    $('#eventDate').parent().css({"border-color": "#254960"});
+			    $('p#message').text('Event Date missing - please enter.');
 			}
 			else if ( !title ) {
 			    $('#title').parent().css({"border-color": "#254960"});
@@ -205,6 +210,7 @@
 			else {
 			    var formData = {
 			        type: type,
+			        date: date,
 			        title: title,
 			        article: article
 		        };
@@ -241,7 +247,7 @@
     <!-- datepicker stuff -->
     <script type="text/javascript">
         $(document).ready(function() {
-            $('#eventDate').datepicker({ format: 'dd-mm-yyyy' })
+            $('#eventDate').datepicker({ format: 'yyyy-mm-dd' })
         });
     </script>
     

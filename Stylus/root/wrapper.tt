@@ -37,10 +37,10 @@
 <h2 style="margin-top:300px;width:170px;height:80px;font-size:42px;font-weight:300;-moz-transform:rotate(-90deg);-webkit-transform:rotate(-90deg);"><span style="border-bottom: 3px solid gray;">STYLUS</span></h2>
 </aside>
 <section style="border: 0 solid red;display:block;float:left;width:58%;position:relative">
-<div class="mCustomScrollbar" style="margin:20px 0;padding-left:125px;border-right:1px solid #eee;min-height:900px;overflow:auto;">[% content %]</div>
+<div style="margin:20px 0;padding-left:125px;border-right:1px solid #eee;min-height:900px;overflow:auto;">[% content %]</div>
 </section>
 <section style="display:block;float:left;width:42%;position:relative;">
-<div class="mCustomScrollbar" style="margin:20px 0;padding-right:50px;max-height:900px;overflow:auto;">[% INCLUDE $righthalf %]</div>
+<div style="margin:20px 0;padding-right:50px;max-height:900px;overflow:auto;">[% INCLUDE $righthalf %]</div>
 </section>
 <!-- custom script stuff -->
 <script>
