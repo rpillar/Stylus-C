@@ -51,11 +51,38 @@ sub index :Path :Args(0) {
 	$c->stash->{initial}   = 'articles.tt';
 	$c->stash->{righthalf} = 'articlesright.tt';
 	
-	# get articles data
+	# get articles data - set initial article values
 	my @articles = $c->model('DB::Article')->all;
+    $c->stash->{init} = $articles[0];
 	$c->stash->{articles} = \@articles;
 }
 
+=head2 retrieve
+
+=cut
+
+sub retrieve :Local {
+    my ( $self, $c ) = @_;
+    
+    my $id = $c->request->params->{id};
+    
+    # get article data
+	my $article = $c->model('DB::Article')->find({
+	    id => $id
+	});
+	
+	$c->stash->{current_view} = 'JSON_Service';
+	$c->stash->{article_title}   = $article->title;	
+	$c->stash->{article_content} = $article->content;    
+}
+
+=head2 end
+
+Attempt to render a view, if needed.
+
+=cut
+
+sub end : ActionClass('RenderView') {}
 
 =head1 AUTHOR
 

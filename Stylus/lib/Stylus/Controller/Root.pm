@@ -33,7 +33,7 @@ sub index :Path :Args(0) {
     $c->stash->{current_view} = 'TT';	
 	$c->stash->{template}  = 'index.tt';
 	$c->stash->{initial}   = 'home.tt';
-	$c->stash->{righthalf} = 'defaultright.tt';
+	$c->stash->{righthalf} = 'homeright.tt';
 }
 
 =head2 default

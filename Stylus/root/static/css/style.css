@@ -15,6 +15,10 @@ body {
         text-decoration: none;
     }
     
+    a:hover, a:active, a:focus {
+        outline: 0;
+    }
+    
     aside.navbar {
         position: fixed;
         left: 0;

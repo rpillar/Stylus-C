@@ -126,7 +126,7 @@
 </style>
     
     <h1 style="margin:0;font-size:32px;font-weight:600;color:#000;padding-left:30px;padding-top:40px;text-transform:uppercase;">create</h1>
-    <div style="padding: 10px 20px;margin:20px 0;">
+    <div style="padding:10px 20px;margin:20px 0;">
         <div style="padding:10px 20px;margin:20px 0;">           
             <form>
                 <div style="margin-left:22px;border-left:4px solid #254960;">
@@ -153,7 +153,7 @@
                 <div class="input">
                     <textarea class="login_input wmd-input" id="article" placeholder="Article" type="text" rows="16"></textarea>
                 </div>
-                <button class="button" id="create">Create</button>
+                <button class="button" id="create" style="margin-bottom:20px;">Create</button>
             </form>
         </div>
     </div>
@@ -178,7 +178,6 @@
         // process button 'click'
 		$('button#create').on('click', function(e) {
             e.preventDefault();
-            console.log('Clicked create button ...');
             
             //reset border-color
             $('#dd').css({"border-color": "lightgray"});
@@ -220,7 +219,6 @@
 			        data: formData,
 			        dataType: 'json',
 			        success: function(data,status) {
-			            console.log('login data : ' + data.json.success);
 			            if ( data.json.success == 0 ) {			                
 			                $('p#message').text('There was a problem adding this article - please try again or contact us.');
 			            }

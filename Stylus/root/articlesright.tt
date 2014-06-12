@@ -1,5 +1,5 @@
 
-    <link rel="stylesheet" type="text/css" href="/static/css/nanoscroller.css" />
+    <link rel="stylesheet" href="http://malihu.github.io/custom-scrollbar/jquery.mCustomScrollbar.min.css" />
     
     <style>
         a:hover, a:active, a:focus {
@@ -31,35 +31,22 @@
             cursor: pointer;
         }
         
-        /* nano styling */
-        .nano {
-            width: 100%;
-            height: 900px; 
-        }
-        .nano .nano-content {
-            padding: 10px;
-        }
-        .nano .nano-pane {
-            background: white;
-        }
-        .nano .nano-slider {
-            background: #111;
-        }
     </style>
 
     <section style="display:block;float:left;position:relative;width:100%;">
-        <div style="padding-right:50px;">
-            <aside style="padding:40px;margin-top:30px;color:#acacac;font-size:16px;line-height:24px;">    
-                <div class="nano">
-                    <div class="nano-content">            
+        <div style="padding-right:20px;">
+            <aside style="padding:40px 10px 40px 40px;margin-top:30px;color:#acacac;font-size:16px;line-height:24px;">    
+                <div id="articles-block">
+                    <div class="mCustomScrollbar" style="max-height:800px;overflow:auto;">            
                     [% FOREACH article IN articles %]
                         <div class="article_block">
                             <a href="#" class="article_link">
+                                <input type="hidden" value="[% article.id %]" class="article_id">
                                 <h3 style="font-weight:600;display:inline;margin:0;padding:12px 0;">[% article.title %]</h3><span>&nbsp;-&nbsp;</span><span><h4 style="font-weight:300;display:inline;color:gray;">(&nbsp;[% article.type %]&nbsp;)</h4></span>
                                 [% IF article.type == 'Event' %]
-                                    <h5 style="margin:12px 0;">[% article.event_date.ymd %]</h5>
+                                    <h5 style="margin:0;padding:10px 0;">Date - [% article.event_date.ymd %]</h5>
                                 [% END %]
-                                <p style="font-size:16px;line-height:1.5;margin:0;padding-top:10px;padding-bottom:20px;color:#acacac;font-weight:400;" class="article_content">
+                                <p style="font-size:16px;line-height:1.5;margin:0;padding-top:10px;padding-bottom:10px;color:#acacac;font-weight:400;" class="article_content">
                                     [% article.content %]
                                 </p>
                             </a>
@@ -71,11 +58,16 @@
         </div>
     </section>
     
-    <!-- nanoscroller -->
-    <script type="text/javascript" src="/static/js/nanoscroller.js"></script>   
-    
+    <!-- customer scrollbar -->
+    <script src="http://malihu.github.io/custom-scrollbar/jquery.mCustomScrollbar.concat.min.js"></script>    
     <script>
-        $('.nano').nanoScroller();
+        $(".content").mCustomScrollbar({
+            theme:"dark-2",
+            scrollInertia: 800,
+            scrollButtons: {
+                enable: true
+            }
+        });
     </script>
         
     <script>
@@ -88,7 +80,25 @@
     
     <script>
         $('a.article_link').on('click', function(){
-            var content = $('p.article_content',this).text();
-            console.log('content is : ' + content);
+            var id = $(this).find('.article_id').val();
+            
+            var formData = {
+		        id: id
+	        };
+		    $.ajax({
+		        url: '/stylus/articles/retrieve',
+		        type: 'POST',
+		        data: formData,
+		        dataType: 'json',
+		        success: function(data,status) {
+		            $('h2#article-title').text( data.article_title );
+		            $('p#article-content').text( data.article_content );		               
+		        },
+		        error: function(jqXHR,status,error) {	
+		            $('h2#article-title').text('** Error **');		            
+		            $('p#article-content').text('A problem has occurred - please try again in a few minutes or contact us.');
+		        }
+		    });
+            
         });
     </script>

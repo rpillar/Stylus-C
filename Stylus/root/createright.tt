@@ -1,9 +1,9 @@
     <section style="display:block;float:left;position:relative;">
         <div style="padding-right:50px;">
             <!--<aside style="padding: 40px;margin-top:30px;color:#acacac;font-size:16px;line-height:24px;">-->
-            <aside style="padding: 40px;color:#acacac;font-size:16px;line-height:24px;">
+            <aside style="padding: 40px;color:#acacac;line-height:24px;">
                 <div style="height:70px;">
-                    <p id="message" style="font-size:16px;line-height:2.5;margin-top:20px;margin-bottom:20px;padding-left:10px;border-left:4px solid #254960;font-weight:300;text-transform:uppercase;"></p>
+                    <p id="message" style="font-size:18px;line-height:2.5;margin-top:20px;margin-bottom:20px;padding-left:10px;border-left:4px solid #254960;font-weight:300;text-transform:uppercase;"></p>
                 </div>
                 <div style="margin-bottom:20px;">
                     <h2><span style="border-top: 1px solid #254960;border-bottom: 1px solid #254960;color:#8F8F8F;">Preview</span></h2>
