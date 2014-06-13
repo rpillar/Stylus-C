@@ -27,10 +27,6 @@ Catalyst Controller.
 sub auto :Private {
     my ( $self, $c ) = @_;
     
-    #if ( $c->controller && $c->controller eq 'Login' ) {
-    #    return 1;    
-    #}
-    
     unless ( $c->user_exists ) {
         $c->log->debug( " User does not exist - redirect to login page ...");
         $c->response->redirect($c->uri_for('/stylus/login'));
