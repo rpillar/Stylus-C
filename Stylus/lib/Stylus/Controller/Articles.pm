@@ -27,6 +27,10 @@ sub auto :Private {
     
     unless ( $c->user_exists ) {
         $c->log->debug( " User does not exist - redirect to login page ...");
+        if ( $c->req->method eq 'POST' ) {
+            $c->response->status(303);
+        }    
+        
         $c->response->redirect($c->uri_for('/stylus/login'));
         return 0;
     }
@@ -61,6 +65,7 @@ sub retrieve :Local {
     my ( $self, $c ) = @_;
     
     my $id = $c->request->params->{id};
+    $c->log->debug('In Articles->retrieve - about to get data for - id : ' . $id);
     
     # get article data
 	my $article = $c->model('DB::Article')->find({
