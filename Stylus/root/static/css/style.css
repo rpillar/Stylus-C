@@ -103,6 +103,9 @@ body {
         font-weight: 550;
         display: block;
     }
+    textarea, input {
+        outline: none;
+    }
     div.input {
         position:relative;
         display: block;
