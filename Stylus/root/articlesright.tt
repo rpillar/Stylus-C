@@ -95,8 +95,8 @@
 		            $('p#article-content').text( data.article_content );		               
 		        },
 		        error: function(jqXHR,status,error) {	
-		            $('h2#article-title').text('** Error **');		            
-		            $('p#article-content').text('A problem has occurred - please try again in a few minutes or contact us.');
+		            // assume an error means we need to 'login' again ...
+	                window.location.assign('/stylus/login');	
 		        }
 		    });
             

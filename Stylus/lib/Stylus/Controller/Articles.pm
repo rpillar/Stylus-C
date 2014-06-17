@@ -28,7 +28,9 @@ sub auto :Private {
     unless ( $c->user_exists ) {
         $c->log->debug( " User does not exist - redirect to login page ...");
         if ( $c->req->method eq 'POST' ) {
-            $c->response->status(303);
+            $c->log->debug('Articles : session timed out on ajax request');
+	        $c->response->redirect($c->uri_for('/stylus/login'));
+            $c->detach;
         }    
         
         $c->response->redirect($c->uri_for('/stylus/login'));
