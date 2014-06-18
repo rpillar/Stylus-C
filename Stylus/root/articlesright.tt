@@ -93,6 +93,10 @@
 		        dataType: 'json',
 		        success: function(data,status) {
 		            $('h2#article-title').text( data.article_title );
+		            if ( data.type == 'Event' ) {
+		                $('#event_date').text( data.event_date );
+		                $('#event').show();
+		            }
 		            $('p#article-content').text( data.article_content );		               
 		        },
 		        error: function(jqXHR,status,error) {	

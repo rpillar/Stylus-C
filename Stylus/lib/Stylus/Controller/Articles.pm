@@ -2,6 +2,8 @@ package Stylus::Controller::Articles;
 use Moose;
 use namespace::autoclean;
 
+use Data::Dumper;
+
 BEGIN { extends 'Catalyst::Controller'; }
 
 __PACKAGE__->config(namespace => 'stylus/articles');
@@ -56,6 +58,7 @@ sub index :Path :Args(0) {
 	# get articles data - set initial article values
 	my @articles = $c->model('DB::Article')->all;
     $c->stash->{init} = $articles[0];
+    
 	$c->stash->{articles} = \@articles;
 }
 
@@ -76,6 +79,11 @@ sub retrieve :Local {
 	
 	$c->stash->{current_view} = 'JSON_Service';
 	$c->stash->{article_title}   = $article->title;	
+	$c->stash->{type}            = $article->type; 
+	# only 'inflate' if I need to ...
+	if ( $article->type eq 'Event' ) {
+	    $c->stash->{event_date}  = $article->event_date->ymd; 
+	}
 	$c->stash->{article_content} = $article->content;    
 }
 

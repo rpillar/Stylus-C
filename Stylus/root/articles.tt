@@ -2,7 +2,20 @@
 	<div style="padding: 10px 20px;margin:20px 0;">
 	    <div style="padding:20px;">
 	    	<h2 style="font-size:24px;font-weight:700;text-transform:uppercase;" id="article-title">[% init.title %]</h2>
+	    	[% IF init.type == 'Event' %]
+	    	<span id="event">
+	    	    <h3>Event</h3>&nbsp;-&nbsp;<span id="event_date">[% init.event_date %]</span>
+    	    </span>
+    	    [% ELSE %]
+    	    <span id="event"></span>
+	    	[% END %]
 	    	<p id="article-content" style="font-size:18px;line-height:1.5;margin:0;padding-top:10px;padding-bottom:10px;color:#acacac;font-weight:400;">[% init.content %]</p>
+	    	[% IF init.publish == 'n' %]
+	    	<button class="button" id="publish" style="margin-bottom:20px;">Publish</button>
+	    	[% ELSE %]
+	    	<button class="button" id="hide" style="margin-bottom:20px;">Hide</button>
+	    	[% END %]
+	    	
 	    	<button class="button" id="edit" style="margin-bottom:20px;">Edit</button>
 	    	<button class="button" id="delete" style="margin-bottom:20px;">Delete</button>
 	    </div>
