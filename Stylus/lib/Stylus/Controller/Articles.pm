@@ -79,12 +79,14 @@ sub retrieve :Local {
 	
 	$c->stash->{current_view} = 'JSON_Service';
 	$c->stash->{article_title}   = $article->title;	
-	$c->stash->{type}            = $article->type; 
+	$c->stash->{article_type}            = $article->type;
+	 
 	# only 'inflate' if I need to ...
 	if ( $article->type eq 'Event' ) {
 	    $c->stash->{event_date}  = $article->event_date->ymd; 
 	}
-	$c->stash->{article_content} = $article->content;    
+	$c->stash->{article_content} = $article->content;
+	$c->stash->{article_publish} = $article->publish;    
 }
 
 =head2 end

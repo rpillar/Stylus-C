@@ -80,6 +80,8 @@
     </script>
     
     <script>
+           
+        // process 'click' on an article ...
         $('a.article_link').on('click', function(){
             var id = $(this).find('.article_id').val();
             
@@ -93,11 +95,32 @@
 		        dataType: 'json',
 		        success: function(data,status) {
 		            $('h2#article-title').text( data.article_title );
-		            if ( data.type == 'Event' ) {
-		                $('#event_date').text( data.event_date );
-		                $('#event').show();
+		            
+		            // a 'hack' to ensure that event dates are displayed - for initial and subsequent page displays ...
+		            if ( data.article_type == 'Event' ) {
+		                // if a 'page load' event is displayed - then hide
+		                $('#init_event').hide();
+		                
+		                // display the event date
+		                if ( data.event_date ) {
+		                    $('span#event').html( '<h5 style="display:inline;">Date :-</h5>&nbsp;<span id="event_date"></span>');
+		                    $('span#event_date').text(data.event_date);
+		                    $('span#event').show();
+	                    }
 		            }
-		            $('p#article-content').text( data.article_content );		               
+		            else {
+		                $('#init_event').hide();
+		                $('#event').hide();
+		            }
+		            $('p#article-content').text( data.article_content );	
+		            
+		            // set publish / hide button value
+		            if ( data.article_publish == 'y' ) {
+		                $('button#publish').text('Hide');
+		            }
+		            else {
+		                $('button#publish').text('Publish');
+		            }	               
 		        },
 		        error: function(jqXHR,status,error) {	
 		            // assume an error means we need to 'login' again ...
@@ -105,5 +128,23 @@
 		        }
 		    });
             
+        });
+        
+        // process a 'button' click
+        $('button#publish').on( 'click', function() {
+            //check current value
+            var pub_val = $('button#publish').text();
+            if ( pub_val == 'Publish' ) {
+            
+            }
+            if ( pub_val == 'Edit' ) {
+            
+            }
+        });
+        $('.button #edit').on( 'click', function() {
+        
+        });
+        $('.button #delete').on( 'click', function() {
+        
         });
     </script>
