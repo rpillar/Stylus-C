@@ -62,6 +62,34 @@ sub index :Path :Args(0) {
 	$c->stash->{articles} = \@articles;
 }
 
+### all general methods come after this ###
+
+=head2 delete 
+
+=cut
+
+sub delete :Local {
+    my ( $self, $c ) = @_;
+    
+    my $id   = $c->request->params->{id};
+    
+    # get article data
+	my $article = $c->model('DB::Article')->find({
+	    id => $id
+	});
+	
+	$c->stash->{current_view} = 'JSON_Service';
+		
+	# delete
+	try {
+	    $article->delete;
+    }
+    catch {
+        return 0;
+    };
+    return 1;	
+}
+
 =head2 publish
 
 =cut

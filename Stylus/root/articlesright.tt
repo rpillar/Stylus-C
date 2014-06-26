@@ -162,11 +162,37 @@
                 $('button#delete').val('2');
                 $('button#delete').css('width', '160px');
                 $('button#delete').css('background-color', 'red');
-                $('button#delete').text('Are you sure ?');
-            
+                $('button#delete').text('Are you sure ?');            
+            }  
+            if ( delete_value == 2) {
+                var id = $('#article_id').val(); 
+                delete_art(id);          
             }        
         });
-        
+ 
+        // ===== functions ===== //
+
+        // function to delete an article / event
+        var delete_art = function(id) {
+            var formData = {
+		        id: id
+	        };
+		    $.ajax({
+		        url: '/stylus/articles/delete',
+		        type: 'POST',
+		        data: formData,
+		        dataType: 'json',
+		        success: function(data,status) {
+		            window.location.assign('/stylus/articles');
+		        },
+		        error: function(jqXHR,status,error) {	
+		            // assume an error - not sure what to do here - go to 'home' for now ...
+	                window.location.assign('/stylus');	
+		        }
+		    });
+            
+        };
+                      
         // function to update the publish / hide flag for an article / event
         var set_publish = function(id,update) {
             var formData = {
