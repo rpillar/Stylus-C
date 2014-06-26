@@ -95,10 +95,7 @@
 		        dataType: 'json',
 		        success: function(data,status) {
 		            // ensure that 'delete' button css / text is always reset - just in case ...
-		            $('button#delete').css('width', '120px');
-                    $('button#delete').css('background-color', '#254960');
-                    $('button#delete').text('Delete');
-                    $('button#delete').val('1');
+		            set_delete_css();		            
                     
                     // set article details
 		            $('input#article_id').val( data.article_id );
@@ -140,6 +137,9 @@
         
         // process a 'button' click
         $('button#publish').on( 'click', function() {
+            // (re)set delete button css / text
+            set_delete_css();
+            
             //check current value
             var pub_val = $('button#publish').text();
             var id = $('input#article_id').val();
@@ -150,7 +150,9 @@
                 set_publish(id,'n');
             }
         });
-        $('.button #edit').on( 'click', function() {
+        $('button#edit').on( 'click', function() {
+            // (re)set delete button css / text
+            set_delete_css();
         
         });
         $('button#delete').on( 'click', function() {
@@ -191,4 +193,12 @@
 		    });
             
         };
+        
+        // function to reset text / css for the delete button when required
+        var set_delete_css = function() {
+            $('button#delete').css('width', '120px');
+            $('button#delete').css('background-color', '#254960');
+            $('button#delete').text('Delete');
+            $('button#delete').val('1');
+        }
     </script>
