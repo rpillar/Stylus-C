@@ -8,7 +8,9 @@
 <!-- style stuff -->
 <link rel="stylesheet" type="text/css" href="/static/css/font-awesome.css" />
 <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.css" />
+<link href='http://fonts.googleapis.com/css?family=Oxygen' rel='stylesheet' type='text/css'>
 <link rel="stylesheet" type="text/css" href="/static/css/style.css" />
+
 <title>Stylus</title>
 </head>
 <body>

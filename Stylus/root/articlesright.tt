@@ -94,6 +94,14 @@
 		        data: formData,
 		        dataType: 'json',
 		        success: function(data,status) {
+		            // ensure that 'delete' button css / text is always reset - just in case ...
+		            $('button#delete').css('width', '120px');
+                    $('button#delete').css('background-color', '#254960');
+                    $('button#delete').text('Delete');
+                    $('button#delete').val('1');
+                    
+                    // set article details
+		            $('input#article_id').val( data.article_id );
 		            $('h2#article-title').text( data.article_title );
 		            
 		            // a 'hack' to ensure that event dates are displayed - for initial and subsequent page displays ...
@@ -134,17 +142,53 @@
         $('button#publish').on( 'click', function() {
             //check current value
             var pub_val = $('button#publish').text();
+            var id = $('input#article_id').val();
             if ( pub_val == 'Publish' ) {
-            
+                set_publish(id,'y');
             }
-            if ( pub_val == 'Edit' ) {
-            
+            if ( pub_val == 'Hide' ) {
+                set_publish(id,'n');
             }
         });
         $('.button #edit').on( 'click', function() {
         
         });
-        $('.button #delete').on( 'click', function() {
-        
+        $('button#delete').on( 'click', function() {
+            console.log('Clicked on the delete button');
+            delete_value = $('button#delete').val();
+            if ( delete_value == 1) {
+                $('button#delete').val('2');
+                $('button#delete').css('width', '160px');
+                $('button#delete').css('background-color', 'red');
+                $('button#delete').text('Are you sure ?');
+            
+            }        
         });
+        
+        // function to update the publish / hide flag for an article / event
+        var set_publish = function(id,update) {
+            var formData = {
+		        id: id,
+		        flag : update
+	        };
+		    $.ajax({
+		        url: '/stylus/articles/publish',
+		        type: 'POST',
+		        data: formData,
+		        dataType: 'json',
+		        success: function(data,status) {
+		            if ( update == 'n' ) {
+                        $('button#publish').text('Publish');
+                    }
+                    else {
+                        $('button#publish').text('Hide');
+                    }
+		        },
+		        error: function(jqXHR,status,error) {	
+		            // assume an error - not sure what to do here - go to 'home' for now ...
+	                window.location.assign('/stylus');	
+		        }
+		    });
+            
+        };
     </script>

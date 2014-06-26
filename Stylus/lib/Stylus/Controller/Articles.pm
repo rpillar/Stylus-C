@@ -62,6 +62,33 @@ sub index :Path :Args(0) {
 	$c->stash->{articles} = \@articles;
 }
 
+=head2 publish
+
+=cut
+
+sub publish :Local {
+    my ( $self, $c ) = @_;
+    
+    my $id   = $c->request->params->{id};
+    my $flag = $c->request->params->{flag};
+    $c->log->debug('In Articles->publish - about to update data for - id : ' . $id);
+    
+    # get article data
+	my $article = $c->model('DB::Article')->find({
+	    id => $id
+	});
+	
+	$c->stash->{current_view} = 'JSON_Service';
+	try {
+	    $article->update(
+	        { publish => $flag }
+	    );
+    }
+    catch {
+        return 0;
+    };   
+}
+
 =head2 retrieve
 
 =cut
@@ -78,8 +105,9 @@ sub retrieve :Local {
 	});
 	
 	$c->stash->{current_view} = 'JSON_Service';
+	$c->stash->{article_id}      = $article->id;
 	$c->stash->{article_title}   = $article->title;	
-	$c->stash->{article_type}            = $article->type;
+	$c->stash->{article_type}    = $article->type;
 	 
 	# only 'inflate' if I need to ...
 	if ( $article->type eq 'Event' ) {
