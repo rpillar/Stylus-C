@@ -6,7 +6,7 @@ use Data::Dumper;
 
 BEGIN { extends 'Catalyst::Controller'; }
 
-__PACKAGE__->config(namespace => 'stylus/articles');
+#__PACKAGE__->config(namespace => 'stylus/articles');
 
 =head1 NAME
 
@@ -46,7 +46,7 @@ sub auto :Private {
 
 =cut
 
-sub index :Path :Args(0) {
+sub index :Path( '/stylus/articles' ) :Args(0) {
     my ( $self, $c ) = @_;
 
     # set initial content for 'landing' page
@@ -64,30 +64,68 @@ sub index :Path :Args(0) {
 
 ### all general methods come after this ###
 
+=head2 base 
+
+=cut
+
+sub base :Chained('/') PathPart('stylus/articles/id') CaptureArgs( $id ) {
+    my ( $self, $c, $id) = @_;
+    
+    $c->log->debug('in Articles - base');
+    
+    # remove all non-digits
+    #$id =~ s/\D//g;
+    
+    # get article ...
+    my $article = $c->model('DB::Article')->find({
+        id => $id
+    });
+    if ( $article) {
+        $c->stash->{article} = $article
+    }
+    else {
+        $c->stash->{curent_view} = 'TT';
+        $c->stash->{template} = '404.tt';
+        $c->detach;
+    }
+}
+
 =head2 delete 
 
 =cut
 
-sub delete :Local {
+sub delete :Chained('base') :PathPart('delete') Args(0) {
     my ( $self, $c ) = @_;
     
-    my $id   = $c->request->params->{id};
-    
-    # get article data
-	my $article = $c->model('DB::Article')->find({
-	    id => $id
-	});
+    $c->log->debug('Article - delete process.');
 	
 	$c->stash->{current_view} = 'JSON_Service';
 		
 	# delete
 	try {
-	    $article->delete;
+	    $c->stash->{article}->delete;
     }
     catch {
         return 0;
     };
     return 1;	
+}
+
+=head2 edit 
+
+=cut
+
+sub edit :Chained('base') :PathPart('edit') Args(0) {
+    my ( $self, $c ) = @_;
+    
+    $c->log->debug('Article - edit process.');
+    
+    # edit page
+    $c->stash->{current_view} = 'TT';	
+	$c->stash->{template}  = 'index.tt';
+	$c->stash->{initial}   = 'edit.tt';
+	$c->stash->{righthalf} = 'editright.tt';
+	
 }
 
 =head2 publish
@@ -121,28 +159,22 @@ sub publish :Local {
 
 =cut
 
-sub retrieve :Local {
+sub retrieve :Chained('base') :PathPart('retrieve') Args(0) {
     my ( $self, $c ) = @_;
     
-    my $id = $c->request->params->{id};
-    $c->log->debug('In Articles->retrieve - about to get data for - id : ' . $id);
-    
-    # get article data
-	my $article = $c->model('DB::Article')->find({
-	    id => $id
-	});
+    $c->log->debug('In Articles->retrieve');
 	
 	$c->stash->{current_view} = 'JSON_Service';
-	$c->stash->{article_id}      = $article->id;
-	$c->stash->{article_title}   = $article->title;	
-	$c->stash->{article_type}    = $article->type;
+	$c->stash->{article_id}      = $c->stash->{article}->id;
+	$c->stash->{article_title}   = $c->stash->{article}->title;	
+	$c->stash->{article_type}    = $c->stash->{article}->type;
 	 
 	# only 'inflate' if I need to ...
-	if ( $article->type eq 'Event' ) {
-	    $c->stash->{event_date}  = $article->event_date->ymd; 
+	if ( $c->stash->{article}->type eq 'Event' ) {
+	    $c->stash->{event_date}  = $c->stash->{article}->event_date->ymd; 
 	}
-	$c->stash->{article_content} = $article->content;
-	$c->stash->{article_publish} = $article->publish;    
+	$c->stash->{article_content} = $c->stash->{article}->content;
+	$c->stash->{article_publish} = $c->stash->{article}->publish;    
 }
 
 =head2 end
