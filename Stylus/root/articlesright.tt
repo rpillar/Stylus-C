@@ -141,6 +141,7 @@
         $('button#publish').on( 'click', function() {
             // (re)set delete button css / text
             set_delete_css();
+            $('button#delete').val(1);
             
             //check current value
             var pub_val = $('button#publish').text();
@@ -155,6 +156,7 @@
         $('button#edit').on( 'click', function() {
             // (re)set delete button css / text
             set_delete_css();
+            $('button#delete').val(1);
             
             var id       = $('input#article_id').val();
             var edit_url = '/stylus/articles/id/' + id + '/edit';
@@ -162,7 +164,6 @@
         
         });
         $('button#delete').on( 'click', function() {
-            console.log('Clicked on the delete button');
             delete_value = $('button#delete').val();
             if ( delete_value == 1) {
                 $('button#delete').val('2');
@@ -206,8 +207,9 @@
 		        id: id,
 		        flag : update
 	        };
+            var publish_url = '/stylus/articles/id/' + id + '/publish/' + update;
 		    $.ajax({
-		        url: '/stylus/articles/publish',
+		        url: publish_url,
 		        type: 'POST',
 		        data: formData,
 		        dataType: 'json',

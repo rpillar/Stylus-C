@@ -57,7 +57,13 @@ sub index :Path( '/stylus/articles' ) :Args(0) {
 	
 	# get articles data - set initial article values
 	my @articles = $c->model('DB::Article')->all;
-    $c->stash->{init} = $articles[0];
+
+    $c->stash->{init}->{id}         = $articles[0]->id;
+    $c->stash->{init}->{type}       = $articles[0]->type;
+    $c->stash->{init}->{event_date} = $articles[0]->event_date->ymd;
+    $c->stash->{init}->{title}      = $articles[0]->title;
+    $c->stash->{init}->{content}    = $articles[0]->content;
+    $c->stash->{init}->{publish}    = $articles[0]->publish;
     
 	$c->stash->{articles} = \@articles;
 }
@@ -68,18 +74,19 @@ sub index :Path( '/stylus/articles' ) :Args(0) {
 
 =cut
 
-sub base :Chained('/') PathPart('stylus/articles/id') CaptureArgs( $id ) {
+sub base :Chained('/') PathPart('stylus/articles/id') :CaptureArgs( 1 ) {
     my ( $self, $c, $id) = @_;
     
     $c->log->debug('in Articles - base');
     
     # remove all non-digits
-    #$id =~ s/\D//g;
+    $id =~ s/\D//g;
     
     # get article ...
     my $article = $c->model('DB::Article')->find({
         id => $id
     });
+
     if ( $article) {
         $c->stash->{article} = $article
     }
@@ -94,7 +101,7 @@ sub base :Chained('/') PathPart('stylus/articles/id') CaptureArgs( $id ) {
 
 =cut
 
-sub delete :Chained('base') :PathPart('delete') Args(0) {
+sub delete :Chained('base') :PathPart('delete') :Args(0) {
     my ( $self, $c ) = @_;
     
     $c->log->debug('Article - delete process.');
@@ -104,10 +111,13 @@ sub delete :Chained('base') :PathPart('delete') Args(0) {
 	# delete
 	try {
 	    $c->stash->{article}->delete;
+        $c->stash->{article} = undef;
     }
     catch {
+        $c->stash->{article} = undef;
         return 0;
     };
+    
     return 1;	
 }
 
@@ -115,7 +125,7 @@ sub delete :Chained('base') :PathPart('delete') Args(0) {
 
 =cut
 
-sub edit :Chained('base') :PathPart('edit') Args(0) {
+sub edit :Chained('base') :PathPart('edit') :Args(0) {
     my ( $self, $c ) = @_;
     
     $c->log->debug('Article - edit process.');
@@ -125,6 +135,8 @@ sub edit :Chained('base') :PathPart('edit') Args(0) {
 	$c->stash->{template}  = 'index.tt';
 	$c->stash->{initial}   = 'edit.tt';
 	$c->stash->{righthalf} = 'editright.tt';
+
+    # pre-fill data fields
 	
 }
 
@@ -132,37 +144,32 @@ sub edit :Chained('base') :PathPart('edit') Args(0) {
 
 =cut
 
-sub publish :Local {
-    my ( $self, $c ) = @_;
+sub publish :Chained('base') :PathPart('publish') :Args(1) {
+    my ( $self, $c, $flag ) = @_;
     
-    my $id   = $c->request->params->{id};
-    my $flag = $c->request->params->{flag};
-    $c->log->debug('In Articles->publish - about to update data for - id : ' . $id);
-    
-    # get article data
-	my $article = $c->model('DB::Article')->find({
-	    id => $id
-	});
+    $c->log->debug('In Articles - publish - about to update data for - id : ' . $c->stash->{article}->id . ' with flag : ' . $flag);
 	
 	$c->stash->{current_view} = 'JSON_Service';
 	try {
-	    $article->update(
+	    $c->stash->{article}->update(
 	        { publish => $flag }
 	    );
+        $c->stash->{article} = undef;
     }
     catch {
+        $c->stash->{article} = undef;
         return 0;
-    };   
+    };
 }
 
 =head2 retrieve
 
 =cut
 
-sub retrieve :Chained('base') :PathPart('retrieve') Args(0) {
+sub retrieve :Chained('base') :PathPart('retrieve') :Args(0) {
     my ( $self, $c ) = @_;
     
-    $c->log->debug('In Articles->retrieve');
+    $c->log->debug('In Articles - retrieve');
 	
 	$c->stash->{current_view} = 'JSON_Service';
 	$c->stash->{article_id}      = $c->stash->{article}->id;
@@ -174,7 +181,10 @@ sub retrieve :Chained('base') :PathPart('retrieve') Args(0) {
 	    $c->stash->{event_date}  = $c->stash->{article}->event_date->ymd; 
 	}
 	$c->stash->{article_content} = $c->stash->{article}->content;
-	$c->stash->{article_publish} = $c->stash->{article}->publish;    
+	$c->stash->{article_publish} = $c->stash->{article}->publish;   
+
+    # set stash 'article' to undef - not required for the response
+    $c->stash->{article} = undef; 
 }
 
 =head2 end
