@@ -29,7 +29,10 @@ sub index :Path :Args(0) {
     $c->stash->{current_view} = 'TT';	
 	$c->stash->{template}  = 'index.tt';
 	$c->stash->{initial}   = 'login.tt';
-	$c->stash->{righthalf} = 'defaultright.tt';
+	$c->stash->{righthalf} = 'loginright.tt';
+	
+	# initial message
+	$c->stash->{message} = 'Login using a valid Username / Password';
 }
 
 =head2 auth
