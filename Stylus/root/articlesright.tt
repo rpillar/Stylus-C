@@ -95,6 +95,8 @@
 		        data: formData,
 		        dataType: 'json',
 		        success: function(data,status) {
+                    console.log('Articles - retrieve ajax call - sucess');
+                    
 		            // ensure that 'delete' button css / text is always reset - just in case ...
 		            set_delete_css();		            
                     
@@ -130,8 +132,9 @@
 		        },
 		        error: function(jqXHR,status,error) {	
 		            // assume an error means we need to 'login' again ...
-		            console.log('articles - an error has occurred on the ajax call - retrieve');
-	                //window.location.assign('/stylus/login');	
+		            console.log('articles - an error has occurred on the ajax call - retrieve : status - ' + status + ' / ' + error);
+                    console.log('articles - an error has occurred : jqXHR - ' + jqXHR);
+	                window.location.assign('/stylus/login');	
 		        }
 		    });
             

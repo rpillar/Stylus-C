@@ -25,6 +25,8 @@ Catalyst Controller.
 sub index :Path :Args(0) {
     my ( $self, $c ) = @_;
 
+    $c->log->debug('Login controller - process - status : ' . $c->res->status);
+
     # set initial content for 'landing' page
     $c->stash->{current_view} = 'TT';	
 	$c->stash->{template}  = 'index.tt';
