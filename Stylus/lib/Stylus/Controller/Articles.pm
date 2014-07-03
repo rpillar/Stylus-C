@@ -33,9 +33,11 @@ sub auto :Private {
             $c->log->debug('Articles : session timed out on ajax request');
 	        $c->response->redirect($c->uri_for('/stylus/login'));
             $c->detach;
+            return;
         }    
         
         $c->response->redirect($c->uri_for('/stylus/login'));
+        $c->detach;
         return 0;
     }
     
