@@ -105,8 +105,9 @@ body {
         color: #a9a9a9;
         line-height: 28px;
         padding-left: 34px;
-        font-size: 17px;
-        font-weight: 550;
+        font-size: 19px;
+        font-weight: 600;
+        letter-spacing:1px; 
         display: block;
     }
     textarea, input {
@@ -115,24 +116,22 @@ body {
     div.input {
         position:relative;
         display: block;
-        background-color: #f8f8f8;
         margin: 0;
         padding: 0;
         overflow: auto;
         width: auto;
-        border: 2px solid white;
+        border: 2px solid #DCDCDC;
     }
     .input .login_input {
         display: block;
         background-color: transparent;
         border: 0;
-        /*border-left: 4px solid #8f8f8f;*/
         border-left: 4px solid #254960;
         padding-left: 12px;
         margin: 15px;
         margin-left: 20px;
         color: #8f8f8f;
-        font-size: 17px;
+        font-size: 19px;
         line-height: 24px;
         padding-top: 8px;
         padding-bottom: 2px;
@@ -140,15 +139,17 @@ body {
         border-radius: 0;
         min-width: 85%;
     }
+    .input textarea .login_input {
+        width:100%;
+    }
     div.input_active {
-        /*background-color: #000;*/
-        background-color: gray;
+        border: 2px solid #00FFFF;
     }
     .input .login_input:focus {
-        color: #fff;
-        /*background-color: #000;*/
+        /*color: #fff;
+        background-color: #000;
         background-color: gray;
-        border-left: 4px solid #fff;
+        border-left: 4px solid #fff;*/
     }
     .button {
         margin-top: 25px;

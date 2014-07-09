@@ -21,6 +21,8 @@
 
 	<script type="text/javascript" language="javascript" charset="utf-8">
 	    $('.login_input').on('focus', function() {
+	        // reset border-color ...
+            $(this).parent().css({'border-color': '#00FFFF'});
 			$(this).parent().addClass('input_active');
 		});
 		$('.login_input').on('focusout', function() {
@@ -33,7 +35,7 @@
             console.log('clicked on contact ...');
             
             //reset border-color
-            $('div.input').css({"border-color": "#fff"});
+            $('div.input').css({"border-color": "#DCDCDC"});
 
 			// client-side validation - just check that fields have been populated
 			// all other validation will be done on the server

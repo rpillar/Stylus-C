@@ -151,7 +151,7 @@
 	    		</div>
                 <label class="form_label" for="create">Article</label>
                 <div class="input">
-                    <textarea class="login_input wmd-input" id="article" placeholder="Article" type="text" rows="16"></textarea>
+                    <textarea class="login_input wmd-input" id="article" placeholder="Article" type="text" rows="12"></textarea>
                 </div>
                 <button class="button" id="create" style="margin-bottom:20px;">Create</button>
             </form>
@@ -169,9 +169,13 @@
     
     <script type="text/javascript" language="javascript" charset="utf-8">
         $('.login_input').on('focus', function() {
+            // reset border-color ...
+            $(this).parent().css({'border-color': '#00FFFF'});
             $(this).parent().addClass('input_active');
         });
         $('.login_input').on('focusout', function() {
+            // reset border-color ...
+            $(this).parent().css({'border-color': '#DCDCDC'});
             $(this).parent().removeClass('input_active');
         });
         
@@ -181,7 +185,7 @@
             
             //reset border-color
             $('#dd').css({"border-color": "lightgray"});
-            $('div.input').css({"border-color": "#fff"});
+            $('div.input').css({"border-color": "#DCDCDC"});
 
 			// client-side validation - just check that fields have been populated
 			// all other validation will be done on the server

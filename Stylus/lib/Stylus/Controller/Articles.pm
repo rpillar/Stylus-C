@@ -139,9 +139,6 @@ sub edit :Chained('base') :PathPart('edit') :Args(0) {
 	$c->stash->{template}  = 'index.tt';
 	$c->stash->{initial}   = 'edit.tt';
 	$c->stash->{righthalf} = 'editright.tt';
-
-    # pre-fill data fields
-	
 }
 
 =head2 publish
@@ -189,6 +186,30 @@ sub retrieve :Chained('base') :PathPart('retrieve') :Args(0) {
 
     # set stash 'article' to undef - not required for the response
     $c->stash->{article} = undef; 
+}
+
+=head2 update 
+
+=cut
+
+sub update :Chained('base') :PathPart('update') :Args(3) {
+    my ( $self, $c, $eventdate, $title, $content ) = @_;
+    
+    $c->log->debug('Article - update process.');
+    
+	$c->stash->{current_view} = 'JSON_Service';
+	try {
+	    $c->stash->{article}->update(
+	        { event_date => $eventdate, title => $title, content => $content }
+	    );
+        $c->stash->{article} = undef;
+        return 1;
+    }
+    catch {
+        $c->stash->{article} = undef;
+        return 0;
+    };
+    
 }
 
 =head2 end

@@ -1,122 +1,5 @@
     
 <style>
-.wrapper-dropdown-3 {
-    /* Size and position */
-    position: relative;
-    width: 200px;
-    /*margin: 0 auto;*/
-    margin-left: 10px;
-    margin-bottom:20px;
-    padding: 10px;
- 
-    /* Styles */
-    background: #fff;
-    /*border-radius: 7px;*/
-    border-top: 2px solid rgba(0,0,0,0.15);
-    border-bottom: 2px solid rgba(0,0,0,0.15);
-    /*box-shadow: 0 1px 1px rgba(50,50,50,0.1);*/
-    cursor: pointer;
-    outline: none;
- 
-    /* Font settings */
-    /*font-weight: bold;
-    color: #8AA8BD;*/
-    font-size: 15px;
-    color: #8F8F8F;
-    z-index: 100;
-} 
-.wrapper-dropdown-3:after {
-    content: "";
-    width: 0;
-    height: 0;
-    position: absolute;
-    right: 15px;
-    top: 50%;
-    margin-top: -3px;
-    border-width: 6px 6px 0 6px;
-    border-style: solid;
-    border-color: #8aa8bd transparent;
-}   
-.wrapper-dropdown-3 .dropdown {
-  /* Size & position */
-    position: absolute;
-    /*top: 140%;*/
-    top: 90%;
-    left: 0;
-    right: 0;
- 
-    /* Styles */
-    background: white;
-    border-radius: inherit;
-    border: 2px solid rgba(0,0,0,0.17);
-    box-shadow: 0 0 5px rgba(0,0,0,0.1);
-    font-weight: normal;
-    transition: all 0.3s ease-in;
-    list-style: none;
- 
-    /* Hiding */
-    opacity: 0;
-    pointer-events: none;
-}
- 
-.wrapper-dropdown-3 .dropdown li a {
-    display: block;
-    padding: 10px;
-    text-decoration: none;
-    text-transform: none;
-    /*color: #8aa8bd;*/
-    border-bottom: 2px solid #e6e8ea;
-    box-shadow: inset 0 1px 0 rgba(255,255,255,1);
-    transition: all 0.3s ease-out;
-}
- 
-.wrapper-dropdown-3 .dropdown li i {
-    float: right;
-    color: inherit;
-}
- 
-.wrapper-dropdown-3 .dropdown li:first-of-type a {
-    border-radius: 7px 7px 0 0;
-}
- 
-.wrapper-dropdown-3 .dropdown li:last-of-type a {
-    border-radius: 0 0 7px 7px;
-    border: none;
-}
- 
-/* Hover state */
- 
-.wrapper-dropdown-3 .dropdown li:hover a {
-    background: #f3f8f8;
-}
-.wrapper-dropdown-3 .dropdown:after {
-    content: "";
-    width: 0;
-    height: 0;
-    position: absolute;
-    bottom: 100%;
-    right: 15px;
-    border-width: 0 6px 6px 6px;
-    border-style: solid;
-    border-color: #fff transparent;   
-}
- 
-.wrapper-dropdown-3 .dropdown:before {
-    content: "";
-    width: 0;
-    height: 0;
-    position: absolute;
-    bottom: 100%;
-    right: 13px;
-    border-width: 0 8px 8px 8px;
-    border-style: solid;
-    border-color: rgba(0,0,0,0.1) transparent;   
-}
-.wrapper-dropdown-3.active .dropdown {
-    opacity: 1;
-    pointer-events: auto;
-}
-
 .datefield-hide {
     display: none;
 }
@@ -125,29 +8,33 @@
 }
 </style>
     
-    <h1 style="margin:0;font-size:32px;font-weight:600;color:#000;padding-left:30px;padding-top:40px;text-transform:uppercase;">create</h1>
+    <h1 style="margin:0;font-size:32px;font-weight:600;color:#000;padding-left:30px;padding-top:40px;text-transform:uppercase;">Edit</h1>
     <div style="padding:10px 20px;margin:20px 0;">
         <div style="padding:10px 20px;margin:20px 0;">           
-            <form>
-                <div style="margin-left:22px;border-left:4px solid #254960;">
-                    <div id="dd" class="wrapper-dropdown-3" tabindex="1">
-                        <span>Article Type</span>
-                        <ul class="dropdown">
-                            <li><a href="#">Event</a></li>
-                            <li><a href="#"></i>Article</a></li>
-                            <li><a href="#"></i>News</a></li>
-                        </ul>
-                    </div>
-                </div>                
+            <form> 
+                <div class="input" style="margin-bottom:25px;">
+                    <h3 class='login_input' id="type" style="font-weight:400;font-size:22px;color:gray;">[% article.type %]</h3>
+                </div>   
+                [% IF article.type == 'Event' %]
+                <div id="datefield">
+                    <label class="form_label" for="title">Date</label>
+	    		    <div class="input" style="margin-bottom:25px;width:350px;">
+	    			    <input class="login_input" id="eventDate" name="eventDate" placeholder="Date" type="text" value="[% article.event_date.ymd %]" style="width:200px;">
+	    		    </div>
+                </div>   
+                [% END %]          
                 <label class="form_label" for="title">Title</label>
-	    		<div class="input" style="margin-bottom:25px;">
-	    			<h3 class='login_input' style="font-weight:400;font-size:22px;color:black;">[% article.title %]</h4>
+	    		<div class="input" style="margin-bottom:25px;">	    			
+	    			<input class="login_input" id="title" name="title" placeholder="Title" type="text" value="[% article.title %]">
 	    		</div>
                 <label class="form_label" for="create">Article</label>
                 <div class="input">
-                    <textarea class="login_input wmd-input" id="article" placeholder="Article" type="text" rows="16"></textarea>
+                    <textarea class="login_input wmd-input" id="article" placeholder="Article" type="text" rows="12">[% article.content %]</textarea>
                 </div>
-                <button class="button" id="create" style="margin-bottom:20px;">Create</button>
+                <button class="button" id="update" style="margin-bottom:20px;">Update</button>
+                
+                <!-- store 'id' of current article -->
+	    	    <input id='article_id' type='hidden' value="[% article.id %]">
             </form>
         </div>
     </div>
@@ -163,14 +50,17 @@
     
     <script type="text/javascript" language="javascript" charset="utf-8">
         $('.login_input').on('focus', function() {
+            // reset border-color ...
+            $(this).parent().css({'border-color': '#00FFFF'});
             $(this).parent().addClass('input_active');
         });
         $('.login_input').on('focusout', function() {
+            $(this).parent().css({'border-color': '#DCDCDC'});
             $(this).parent().removeClass('input_active');
         });
         
         // process button 'click'
-		$('button#create').on('click', function(e) {
+		$('button#update').on('click', function(e) {
             e.preventDefault();
             
             //reset border-color
@@ -179,16 +69,13 @@
 
 			// client-side validation - just check that fields have been populated
 			// all other validation will be done on the server
-			var type    = $('#dd span').text();
+			var type    = $('#type').text();
 			var date    = $('#eventDate').val();
 			var title   = $('#title').val();
 			var article = $('#article').val();
+			var id      = $('#article_id').val();
 			
-			if ( type == 'Article Type' ) {
-			    $('#dd').css({"border-top-color": "#254960", "border-bottom-color": "#254960" });
-			    $('p#message').text('Type missing - please enter.');
-			}
-			else if ( type == 'Event' && !date ) {
+			if ( type == 'Event' && !date ) {
 			    $('#eventDate').parent().css({"border-color": "#254960"});
 			    $('p#message').text('Event Date missing - please enter.');
 			}
@@ -207,13 +94,14 @@
 			        title: title,
 			        article: article
 		        };
+		        var update_url = '/stylus/articles/id/' + id + '/update/' + date + '/' + title + '/' + article;
 			    $.ajax({
-			        url: '/stylus/create/add',
+			        url: update_url,
 			        type: 'POST',
 			        data: formData,
 			        dataType: 'json',
 			        success: function(data,status) {
-			            if ( data.json.success == 0 ) {			                
+			            if ( data.success == 0 ) {			                
 			                $('p#message').text('There was a problem adding this article - please try again or contact us.');
 			            }
 			            else {
