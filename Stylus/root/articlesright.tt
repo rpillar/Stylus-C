@@ -30,12 +30,45 @@
             text-decoration: none;
             cursor: pointer;
         }
+        /*.search_icon {
+            display: block;
+            width:40px;
+            height:40px;
+            background: url(/static/images/search.svg);
+            background-size: 50px 50px;
+            margin-bottom:15px;
+            opacity: 0.6;
+        }*/
+        #filter input[type="text"] {
+            background: url(/static/images/search-white.png) no-repeat 15px 10px #fcfcfc;
+            border: 1px solid #254960;
+            font-size: 20px;
+            color: #254960;;
+            width: 230px;
+            padding: 6px 15px 6px 35px;
+            -webkit-border-radius: 20px;
+            -moz-border-radius: 20px;
+            border-radius: 20px;
+            text-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+            -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15) inset;
+            -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15) inset;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15) inset;
+            -webkit-transition: all 0.7s ease 0s;
+            -moz-transition: all 0.7s ease 0s;
+            -o-transition: all 0.7s ease 0s;
+            transition: all 0.7s ease 0s;
+            margin-bottom: 15px;
+        }
+        #filter input[type="text"]:focus {
+            width: 300px;
+        }
         
     </style>
 
     <section style="display:block;float:left;position:relative;width:100%;">
         <div style="padding-right:20px;">
-            <aside style="padding:40px 10px 40px 40px;margin-top:30px;color:#acacac;font-size:16px;line-height:24px;">    
+            <aside style="padding:40px 10px 40px 40px;margin-top:30px;color:#acacac;font-size:16px;line-height:24px;"> 
+                <form method="get" action="/articles/filter" id="filter"><input name="q" type="text" size="30" placeholder="Filter..." /></form>  
                 <div id="articles-block">
                     <div class="mCustomScrollbar" style="max-height:800px;overflow:auto;">            
                     [% FOREACH article IN articles %]

@@ -3,6 +3,7 @@ use Moose;
 use namespace::autoclean;
 
 use Data::Dumper;
+use Text::Markdown 'markdown';
 
 BEGIN { extends 'Catalyst::Controller'; }
 
@@ -61,15 +62,34 @@ sub index :Path( '/stylus/articles' ) :Args(0) {
 	
 	# get articles data - set initial article values
 	my @articles = $c->model('DB::Article')->all;
+	
+	# convert all 'content' to HTML (stored as Markdown)
+	my @data;
+	foreach ( @articles) {
+	    my $row = {
+	        id         => $_->id,
+	        type       => $_->type,
+	        title      => $_->title,
+	        content    => markdown( $_->content ),
+	        publish    => $_->publish,
+	    };
+	    if ( $_->type eq 'Event' ) {
+	        $row->{event_date} = $_->event_date->ymd;
+	    }
+	    else {
+	        $row->{event_date} = 0;
+	    }
+	    push(@data, $row);
+	}
 
-    $c->stash->{init}->{id}         = $articles[0]->id;
-    $c->stash->{init}->{type}       = $articles[0]->type;
-    $c->stash->{init}->{event_date} = $articles[0]->event_date->ymd;
-    $c->stash->{init}->{title}      = $articles[0]->title;
-    $c->stash->{init}->{content}    = $articles[0]->content;
-    $c->stash->{init}->{publish}    = $articles[0]->publish;
+    $c->stash->{init}->{id}         = $data[0]->{id};
+    $c->stash->{init}->{type}       = $data[0]->{type};
+    $c->stash->{init}->{event_date} = $data[0]->{event_date};
+    $c->stash->{init}->{title}      = $data[0]->{title};
+    $c->stash->{init}->{content}    = $data[0]->{content};
+    $c->stash->{init}->{publish}    = $data[0]->{publish};
     
-	$c->stash->{articles} = \@articles;
+	$c->stash->{articles} = \@data;
 }
 
 ### all general methods come after this ###

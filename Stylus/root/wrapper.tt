@@ -7,6 +7,8 @@
 <script src="/static/js/succinct.min.js"></script>
 <!-- style stuff -->
 <link rel="stylesheet" type="text/css" href="/static/css/font-awesome.css" />
+<!--<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">-->
+
 <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.css" />
 <link href='http://fonts.googleapis.com/css?family=Raleway:400,300,700' rel='stylesheet' type='text/css'>
 <link rel="stylesheet" type="text/css" href="/static/css/style.css" />

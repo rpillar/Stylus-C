@@ -32,6 +32,7 @@
                     <textarea class="login_input wmd-input" id="article" placeholder="Article" type="text" rows="12">[% article.content %]</textarea>
                 </div>
                 <button class="button" id="update" style="margin-bottom:20px;">Update</button>
+                <button class="button" id="cancel" style="margin-bottom:20px;">Cancel</button>
                 
                 <!-- store 'id' of current article -->
 	    	    <input id='article_id' type='hidden' value="[% article.id %]">
@@ -59,7 +60,7 @@
             $(this).parent().removeClass('input_active');
         });
         
-        // process button 'click'
+        // process 'update' button 'click'
 		$('button#update').on('click', function(e) {
             e.preventDefault();
             
@@ -115,6 +116,13 @@
 			}
 
 		});
+		
+		// process 'cancel' button 'click'
+		$('button#cancel').on('click', function(e) {
+            e.preventDefault();
+            
+            window.location.assign('/stylus/articles');
+        });
     </script>
     
     <!-- WMD stuff -->
