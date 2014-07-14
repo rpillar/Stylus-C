@@ -70,7 +70,8 @@ sub index :Path( '/stylus/articles' ) :Args(0) {
 	        id         => $_->id,
 	        type       => $_->type,
 	        title      => $_->title,
-	        content    => markdown( $_->content ),
+	        #content    => markdown( $_->content ),
+	        content    => $_->content,
 	        publish    => $_->publish,
 	    };
 	    if ( $_->type eq 'Event' ) {

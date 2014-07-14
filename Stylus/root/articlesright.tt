@@ -26,6 +26,14 @@
             background-color:  #383838;
             color: white;
         }
+        .article_block:hover a p {
+            background-color:  #383838;
+            color: white;
+        }
+        .article_block a p {
+            font-weight: 500;
+            color: #acacac;
+        }
         .article_block a {
             text-decoration: none;
             cursor: pointer;
@@ -78,7 +86,7 @@
                                 <h3 style="font-weight:600;margin:0;padding:12px 0;">[% article.title %]</h3><span>
                                 <h4 style="margin:5px 0;font-weight:300;color:gray;">(&nbsp;[% article.type %]&nbsp;)</h4></span>
                                 [% IF article.type == 'Event' %]
-                                    <h5 style="margin:0;padding:10px 0;">Date - [% article.event_date.ymd %]</h5>
+                                    <h5 style="margin:0;padding:10px 0;">Date - [% article.event_date %]</h5>
                                 [% END %]
                                 <p style="font-size:16px;line-height:1.5;margin:0;padding-top:10px;padding-bottom:10px;color:#acacac;font-weight:400;" class="article_content">
                                     [% article.content %]
