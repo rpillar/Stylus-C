@@ -13,6 +13,7 @@
         .article_block:hover {
             background-color: #383838;
             color: white;
+            cursor:pointer;
         }
         .article_block:hover h3 {
             background-color:  #383838;
@@ -88,9 +89,12 @@
                                 [% IF article.type == 'Event' %]
                                     <h5 style="margin:0;padding:10px 0;">Date - [% article.event_date %]</h5>
                                 [% END %]
-                                <p style="font-size:16px;line-height:1.5;margin:0;padding-top:10px;padding-bottom:10px;color:#acacac;font-weight:400;" class="article_content">
+                                <!--<p style="font-size:16px;line-height:1.5;margin:0;padding-top:10px;padding-bottom:10px;color:#acacac;font-weight:400;" class="article_content">
                                     [% article.content %]
-                                </p>
+                                </p>-->
+                                <span style="font-size:16px;line-height:1.5;margin:0;padding-top:10px;padding-bottom:10px;color:#acacac;font-weight:400;" class="article_content">
+                                    [% article.content %]
+                                </span>
                             </a>
                         </div>
                     [% END %]
@@ -167,7 +171,8 @@
 		                    $('#init_event').hide();
 		                    $('#event').hide();
 		                }
-		                $('p#article-content').text( data.article_content );	
+		                $('p#article-content').text( data.article_content );
+		                $('span#article-content').html( data.article_content );	
 		            
 		                // set publish / hide button value
 		                if ( data.article_publish == 'y' ) {

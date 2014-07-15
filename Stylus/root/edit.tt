@@ -76,6 +76,7 @@
 			var article = $('#article').val();
 			var id      = $('#article_id').val();
 			
+			console.log('update - my article is ' + article);
 			if ( type == 'Event' && !date ) {
 			    $('#eventDate').parent().css({"border-color": "#254960"});
 			    $('p#message').text('Event Date missing - please enter.');
@@ -95,7 +96,7 @@
 			        title: title,
 			        article: article
 		        };
-		        var update_url = '/stylus/articles/id/' + id + '/update/' + date + '/' + title + '/' + article;
+		        var update_url = '/stylus/articles/id/' + id + '/update/';
 			    $.ajax({
 			        url: update_url,
 			        type: 'POST',

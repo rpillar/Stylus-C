@@ -5,7 +5,7 @@
 	    	
 	    	<!-- hacks to process initial page load - almost certainly could be done better -->
 	    	[% IF init.type == 'Event' %]
-    	    <span id='event'>
+    	    <span id='event' style="margin-bottom:10px;">
     	        <h5 style="display:inline;">Date :-</h5>
     	        &nbsp;
     	        <span id="event_date">[% init.event_date %]</span>
@@ -14,7 +14,8 @@
     	    <span id="event" style='display:none;'></span>
 	    	[% END %]
 	    	
-	    	<p id="article-content" style="font-size:18px;line-height:1.5;margin:0;padding-top:10px;padding-bottom:10px;color:#acacac;font-weight:400;">[% init.content %]</p>
+	    	<!--<p id="article-content" style="font-size:18px;line-height:1.5;margin:0;padding-top:10px;padding-bottom:10px;color:#acacac;font-weight:400;">[% init.content %]</p>-->
+	    	<span id="article-content" style="font-size:18px;line-height:1.5;margin:0;padding-top:10px;padding-bottom:10px;color:#acacac;font-weight:400;">[% init.content %]</span>
 	    	<!-- set initial value of 'publish' / 'hide' button -->
 	    	<button class="button" id="publish" style="margin-bottom:20px;">[% IF init.publish == 'n' %]Publish[% ELSE %]Hide[% END %]</button>	    	
 	    	<button class="button" id="edit" style="margin-bottom:20px;">Edit</button>

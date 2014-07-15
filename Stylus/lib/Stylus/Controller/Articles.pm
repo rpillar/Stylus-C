@@ -70,8 +70,8 @@ sub index :Path( '/stylus/articles' ) :Args(0) {
 	        id         => $_->id,
 	        type       => $_->type,
 	        title      => $_->title,
-	        #content    => markdown( $_->content ),
-	        content    => $_->content,
+	        content    => markdown( $_->content ),
+	        #content    => $_->content,
 	        publish    => $_->publish,
 	    };
 	    if ( $_->type eq 'Event' ) {
@@ -202,7 +202,7 @@ sub retrieve :Chained('base') :PathPart('retrieve') :Args(0) {
 	if ( $c->stash->{article}->type eq 'Event' ) {
 	    $c->stash->{event_date}  = $c->stash->{article}->event_date->ymd; 
 	}
-	$c->stash->{article_content} = $c->stash->{article}->content;
+	$c->stash->{article_content} = markdown( $c->stash->{article}->content );
 	$c->stash->{article_publish} = $c->stash->{article}->publish;   
 
     # set stash 'article' to undef - not required for the response
@@ -213,15 +213,19 @@ sub retrieve :Chained('base') :PathPart('retrieve') :Args(0) {
 
 =cut
 
-sub update :Chained('base') :PathPart('update') :Args(3) {
+sub update :Chained('base') :PathPart('update') :Args(0) {
     my ( $self, $c, $eventdate, $title, $content ) = @_;
-    
+
+    my $date    = $c->request->params->{date};
+    my $title   = $c->request->params->{title};
+    my $article = $c->request->params->{article}; 
+       
     $c->log->debug('Article - update process.');
     
 	$c->stash->{current_view} = 'JSON_Service';
 	try {
 	    $c->stash->{article}->update(
-	        { event_date => $eventdate, title => $title, content => $content }
+	        { event_date => $date, title => $title, content => $article }
 	    );
         $c->stash->{article} = undef;
         return 1;
