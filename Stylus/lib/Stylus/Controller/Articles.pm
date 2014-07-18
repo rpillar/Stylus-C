@@ -63,15 +63,26 @@ sub index :Path( '/stylus/articles' ) :Args(0) {
 	# get articles data - set initial article values
 	my @articles = $c->model('DB::Article')->all;
 	
-	# convert all 'content' to HTML (stored as Markdown)
+	# trim 'content' and convert to HTML (stored as Markdown)
 	my @data;
 	foreach ( @articles) {
+	    # get length of string / position of first line-break
+	    my $content_len = length( $_->content );
+	    my $line_end_pos = index($_->content, $/);
+	    
+	    my $content;
+	    if ( $line_end_pos > 0 && $line_end_pos < $content_len ) {
+	        $content = substr( $_->content,0,$line_end_pos);
+	    }
+	    else {
+	        $content = $_->content;
+	    }
+
 	    my $row = {
 	        id         => $_->id,
 	        type       => $_->type,
 	        title      => $_->title,
-	        content    => markdown( $_->content ),
-	        #content    => $_->content,
+	        content    => markdown( $content ),
 	        publish    => $_->publish,
 	    };
 	    if ( $_->type eq 'Event' ) {

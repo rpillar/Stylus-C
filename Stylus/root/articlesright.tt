@@ -77,14 +77,14 @@
     <section style="display:block;float:left;position:relative;width:100%;">
         <div style="padding-right:20px;">
             <aside style="padding:40px 10px 40px 40px;margin-top:30px;color:#acacac;font-size:16px;line-height:24px;"> 
-                <form method="get" action="/articles/filter" id="filter"><input name="q" type="text" size="30" placeholder="Filter..." /></form>  
+                <form method="post" action="" id="filter"><input id="filterinput" name="q" type="text" size="30" placeholder="Filter..." /></form>  
                 <div id="articles-block">
                     <div class="mCustomScrollbar" style="max-height:800px;overflow:auto;">            
                     [% FOREACH article IN articles %]
                         <div class="article_block">
                             <a href="#" class="article_link">
                                 <input type="hidden" value="[% article.id %]" class="article_id">
-                                <h3 style="font-weight:600;margin:0;padding:12px 0;">[% article.title %]</h3><span>
+                                <h3 id="article_title" style="font-weight:600;margin:0;padding:12px 0;">[% article.title %]</h3><span>
                                 <h4 style="margin:5px 0;font-weight:300;color:gray;">(&nbsp;[% article.type %]&nbsp;)</h4></span>
                                 [% IF article.type == 'Event' %]
                                     <h5 style="margin:0;padding:10px 0;">Date - [% article.event_date %]</h5>
@@ -115,7 +115,8 @@
             }
         });
     </script>
-        
+    
+    // succinct - truncate article text (if required)    
     <script>
       $(function(){
           $('.article_content').succinct({
@@ -124,6 +125,7 @@
       });      
     </script>
     
+    // click on an article link ....
     <script>
            
         // process 'click' on an article ...
@@ -230,6 +232,29 @@
                 delete_art(id);          
             }        
         });
+        
+        // filter articles list - by title
+        $("#filterinput").keyup(function(){
+ 
+            // Retrieve the input field text and reset the count to zero
+            var filter = $(this).val(), count = 0;
+ 
+            // Loop through the comment list
+            $("#article_title").each(function(){
+ 
+                // If the list item does not contain the text phrase fade it out
+                if ($(this).text().search(new RegExp(filter, "i")) < 0) {
+                    $(this).fadeOut();
+ 
+                // Show the list item if the phrase matches and increase the count by 1
+                } else {
+                    $(this).show();
+                    count++;
+                }
+            });
+ 
+        });
+        
  
         // ===== functions ===== //
 
