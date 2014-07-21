@@ -84,7 +84,7 @@
                         <div class="article_block">
                             <a href="#" class="article_link">
                                 <input type="hidden" value="[% article.id %]" class="article_id">
-                                <h3 id="article_title" style="font-weight:600;margin:0;padding:12px 0;">[% article.title %]</h3><span>
+                                <h3 class="article_title" style="font-weight:600;margin:0;padding:12px 0;">[% article.title %]</h3><span>
                                 <h4 style="margin:5px 0;font-weight:300;color:gray;">(&nbsp;[% article.type %]&nbsp;)</h4></span>
                                 [% IF article.type == 'Event' %]
                                     <h5 style="margin:0;padding:10px 0;">Date - [% article.event_date %]</h5>
@@ -116,7 +116,7 @@
         });
     </script>
     
-    // succinct - truncate article text (if required)    
+    <!-- succinct - truncate article text (if required) -->    
     <script>
       $(function(){
           $('.article_content').succinct({
@@ -125,7 +125,7 @@
       });      
     </script>
     
-    // click on an article link ....
+    <!-- click on an article link .... -->
     <script>
            
         // process 'click' on an article ...
@@ -231,30 +231,7 @@
                 var id = $('#article_id').val(); 
                 delete_art(id);          
             }        
-        });
-        
-        // filter articles list - by title
-        $("#filterinput").keyup(function(){
- 
-            // Retrieve the input field text and reset the count to zero
-            var filter = $(this).val(), count = 0;
- 
-            // Loop through the comment list
-            $("#article_title").each(function(){
- 
-                // If the list item does not contain the text phrase fade it out
-                if ($(this).text().search(new RegExp(filter, "i")) < 0) {
-                    $(this).fadeOut();
- 
-                // Show the list item if the phrase matches and increase the count by 1
-                } else {
-                    $(this).show();
-                    count++;
-                }
-            });
- 
-        });
-        
+        });        
  
         // ===== functions ===== //
 
@@ -329,4 +306,30 @@
             $('button#delete').text('Delete');
             $('button#delete').val('1');
         }
+    </script>
+    
+    <!-- filter articles ... -->
+    <script>
+        $(document).ready(function(){
+            $("#filterinput").keyup(function(){
+ 
+                // Retrieve the input field text and reset the count to zero
+                var filter = $(this).val(), count = 0;
+ 
+                // Loop through the comment list
+                $("h3.article_title").each(function(){
+ 
+                    // If the list item does not contain the text phrase fade it out
+                    if ($(this).text().search(new RegExp(filter, "i")) < 0) {
+                        $(this).parents('div.article_block').fadeOut();
+ 
+                    // Show the list item if the phrase matches and increase the count by 1
+                    } else {
+                        $(this).parents('div.article_block').show();
+                        count++;
+                    }
+                });
+ 
+            });
+        });
     </script>

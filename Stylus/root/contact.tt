@@ -20,22 +20,22 @@
     </div>
 
 	<script type="text/javascript" language="javascript" charset="utf-8">
-	    $('.login_input').on('focus', function() {
-	        // reset border-color ...
-            $(this).parent().css({'border-color': '#00FFFF'});
+
+		// set 'background' for the inputs
+	    $('form div.input .login_input').on('focus', function() {
 			$(this).parent().addClass('input_active');
 		});
-		$('.login_input').on('focusout', function() {
+		$('form div.input .login_input').on('focusout', function() {
 			$(this).parent().removeClass('input_active');
 		});
 		
 		// process button 'click'
 		$('button#contact').on('click', function(e) {
             e.preventDefault();
-            console.log('clicked on contact ...');
             
-            //reset border-color
-            $('div.input').css({"border-color": "#DCDCDC"});
+            //reset border-color and remove 'active' class
+            $('div.input').removeClass('input_active');
+            $('div.input').removeClass('input_error');
 
 			// client-side validation - just check that fields have been populated
 			// all other validation will be done on the server
@@ -44,19 +44,19 @@
 			var comments = $('#comments').val();
 			
 			if ( !name ) {
-			    $('#name').parent().css({"border-color": "#254960"});
+			    $('#name').parent().addClass('input_error');
 			    $('p#message').text('Name missing - please enter.');
 			}
 			else if ( !email ) {
-			    $('#email').parent().css({"border-color": "#254960"});
+			    $('#email').parent().addClass('input_error');
 			    $('p#message').text('Email address missing - please enter.');
 			}
 			else if ( !validateEmail(email) ) {
-			    $('#email').parent().css({"border-color": "#254960"});
+			    $('#email').parent().addClass('input_error');
 			    $('p#message').text('Invalid Email address - please correct.');
 			}
 			else if ( !comments ) {
-			    $('#comments').parent().css({"border-color": "#254960"});
+			    $('#comments').parent().addClass('input_error');
 			    $('p#message').text('No comment has been entered - please enter.');
 			}
 			else {
