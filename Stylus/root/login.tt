@@ -20,31 +20,31 @@
 	<script type="text/javascript" language="javascript" charset="utf-8">
 	
 	    // set 'background' for the inputs
-	    $('form div.input input.login_input').on('focus', function() {
+	    $('form div.input .login_input').on('focus', function() {
 			$(this).parent().addClass('input_active');
 		});
-		$('form div.input input.login_input').on('focusout', function() {
+		$('form div.input .login_input').on('focusout', function() {
 			$(this).parent().removeClass('input_active');
 		});
 		
 		// process button 'click'
 		$('button#login').on('click', function(e) {
             e.preventDefault();
-            console.log('Clicked login button ...');
             
-            //reset border-color
-            $('div.input').css({"border-color": "#DCDCDC"});
+            //reset border-color and remove 'active' class
+            $('div.input').removeClass('input_active');
+            $('div.input').removeClass('input_error');
 
 			// client-side validation - just check that fields have been populated
 			// all other validation will be done on the server
 			var username = $('#username').val();
 			var password = $('#password').val();
 			if ( !username ) {
-			    $('#username').parent().css({"border-color": "#254960"});
+			    $('#username').parent().addClass('input_error');
 			    $('p#message').text('Username missing - please enter.');
 			}
 			else if ( !password ) {
-			    $('#password').parent().css({"border-color": "#254960"});
+			    $('#password').parent().addClass('input_error');
 			    $('p#message').text('Password missing - please enter.');
 			}
 			else {
