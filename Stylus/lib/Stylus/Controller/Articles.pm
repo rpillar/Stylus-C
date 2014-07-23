@@ -106,6 +106,20 @@ sub index :Path( '/stylus/articles' ) :Args(0) {
 
 ### all general methods come after this ###
 
+### create a 'new' article ###
+
+sub create_start :Path( '/stylus/articles/create' ) :Args(0) {
+    my ( $self, $c ) = @_;
+
+    # set initial content for 'landing' page
+    $c->stash->{current_view} = 'TT';	
+	$c->stash->{template}  = 'index.tt';
+	$c->stash->{initial}   = 'create.tt';
+	$c->stash->{righthalf} = 'createright.tt';
+}
+
+### chained methods ###
+
 =head2 base 
 
 =cut
@@ -225,7 +239,7 @@ sub retrieve :Chained('base') :PathPart('retrieve') :Args(0) {
 =cut
 
 sub update :Chained('base') :PathPart('update') :Args(0) {
-    my ( $self, $c, $eventdate, $title, $content ) = @_;
+    my ( $self, $c ) = @_;
 
     my $date    = $c->request->params->{date};
     my $title   = $c->request->params->{title};

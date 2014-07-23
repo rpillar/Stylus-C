@@ -10,7 +10,7 @@
 <!--<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">-->
 
 <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.css" />
-<link href='http://fonts.googleapis.com/css?family=Raleway:400,300,700' rel='stylesheet' type='text/css'>
+<!--<link href='http://fonts.googleapis.com/css?family=Raleway:400,300,700' rel='stylesheet' type='text/css'>-->
 <link rel="stylesheet" type="text/css" href="/static/css/style.css" />
 
 <title>Stylus</title>
@@ -27,7 +27,7 @@
 <li><a href="/stylus/articles">articles</a></li>
 [% END %]
 [% IF c.user_exists %]
-<li><a href="/stylus/create">create</a></li>
+<li><a href="/stylus/articles/create">create</a></li>
 [% END %]
 <li id="contact" style="margin-top:15px;"><a href="/stylus/contact">contact</a></li>
 <hr style="margin-left:20px;">

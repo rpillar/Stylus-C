@@ -2,7 +2,7 @@ body {
         width: 100%;
         margin: 0;
         background-color: #fff;
-        font-family: 'Raleway', 'Helvetica Neue', 'Helvetica', 'Lato';
+        font-family: 'Open Sans','Raleway', 'Helvetica Neue', 'Helvetica', 'Lato';
         font-weight: 400;
     }
     a {
@@ -131,7 +131,8 @@ body {
         margin: 15px;
         margin-left: 20px;
         color: #8f8f8f;
-        font-size: 19px;
+        font-size: 18px;
+        font-weight: 300;
         line-height: 24px;
         padding-top: 8px;
         padding-bottom: 2px;
