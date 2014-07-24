@@ -118,6 +118,42 @@ sub create_start :Path( '/stylus/articles/create' ) :Args(0) {
 	$c->stash->{righthalf} = 'createright.tt';
 }
 
+=head2 add
+
+=cut
+
+sub add :Path( '/stylus/articles/add' ) :Args(0) {
+    my ( $self, $c ) = @_;
+
+    my $type    = $c->request->params->{type};
+    my $date    = $c->request->params->{date};
+    my $title   = $c->request->params->{title};
+    my $article = $c->request->params->{article};
+    
+    my $stylus_article = $c->model('DB::Article')->create(
+        {
+            type       => $type,
+            event_date => $date,
+            title      => $title,
+            content    => $article,
+        }
+    );
+    
+    $c->stash->{current_view} = 'JSON_Service';
+    if ( $stylus_article ) {
+        $c->log->debug('Create article - worked');
+        $c->stash->{json} = {
+            success => 1,
+        };
+    }
+    else {
+        $c->log->debug('Create article - an error has occurred');
+        $c->stash->{json} = {
+            success => 0,
+        };
+    }
+}
+
 ### chained methods ###
 
 =head2 base 
