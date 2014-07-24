@@ -216,7 +216,7 @@
 			        article: article
 		        };
 			    $.ajax({
-			        url: '/stylus/create/add',
+			        url: '/stylus/articles/add',
 			        type: 'POST',
 			        data: formData,
 			        dataType: 'json',

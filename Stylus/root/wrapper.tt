@@ -28,9 +28,11 @@
 [% END %]
 [% IF c.user_exists %]
 <li><a href="/stylus/articles/create">create</a></li>
+<hr style="margin-top:10px;margin-bottom:10px;margin-left:20px;">
+<li id="contact" style="margin-top:5px;"><a href="/stylus/settings">settings</a></li>
 [% END %]
-<li id="contact" style="margin-top:15px;"><a href="/stylus/contact">contact</a></li>
-<hr style="margin-left:20px;">
+<li id="contact" style="margin-top:5px;"><a href="/stylus/contact">contact</a></li>
+<hr style="margin-top:10px;margin-bottom:10px;margin-left:20px;">
 [% IF c.user_exists %]
 <li><a href="/stylus/logout">logout</a></li>
 [% ELSE %]
