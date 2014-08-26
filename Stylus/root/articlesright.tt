@@ -142,7 +142,6 @@
 		        data: formData,
 		        dataType: 'json',
 		        success: function(data,status) {
-                    console.log('Articles - retrieve ajax call - sucess');
                     
                     // check for logged_in state
                     if ( data.logged_in == '0') {

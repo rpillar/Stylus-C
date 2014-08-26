@@ -7,8 +7,6 @@ use Text::Markdown 'markdown';
 
 BEGIN { extends 'Catalyst::Controller'; }
 
-#__PACKAGE__->config(namespace => 'stylus/articles');
-
 =head1 NAME
 
 Stylus::Controller::Articles - Catalyst Controller
@@ -37,10 +35,11 @@ sub auto :Private {
         	$c->detach;
             return;
         }
-        else {    
+        else {
+            $c->log->debug('Articles : get request ...');	    
             $c->response->redirect($c->uri_for('/stylus/login'));
             $c->detach;
-            return 0;
+            return;
         }
     }
     
