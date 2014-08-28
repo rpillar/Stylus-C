@@ -24,12 +24,13 @@
 <ul class="navigator">
 <li id="home"><a href="/stylus">home</a></li>
 [% IF c.user_exists %]
-<li><a href="/stylus/articles">articles</a></li>
+<li><a href="/stylus/articles">content</a></li>
 [% END %]
 [% IF c.user_exists %]
 <li><a href="/stylus/articles/create">create</a></li>
 <hr style="margin-top:10px;margin-bottom:10px;margin-left:20px;">
 <li id="contact" style="margin-top:5px;"><a href="/stylus/settings">settings</a></li>
+<hr style="margin-top:10px;margin-bottom:10px;margin-left:20px;">
 [% END %]
 <li id="contact" style="margin-top:5px;"><a href="/stylus/contact">contact</a></li>
 <hr style="margin-top:10px;margin-bottom:10px;margin-left:20px;">

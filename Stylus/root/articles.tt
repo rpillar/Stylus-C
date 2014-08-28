@@ -1,4 +1,4 @@
-	<h1 style="margin:0;font-size:32px;font-weight:600;color:#000;padding-left:30px;padding-top:40px;text-transform:uppercase;">Articles</h1>
+	<h1 style="margin:0;font-size:32px;font-weight:600;color:#000;padding-left:30px;padding-top:40px;text-transform:uppercase;">Content</h1>
 	<div style="padding: 10px 20px;margin:20px 0;">
 	    <div style="padding:20px;">
 	    	<h2 style="font-size:24px;font-weight:700;text-transform:uppercase;" id="article-title">[% init.title %]</h2>
