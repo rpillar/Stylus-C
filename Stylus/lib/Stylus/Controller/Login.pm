@@ -34,7 +34,7 @@ sub index :Path :Args(0) {
 	$c->stash->{righthalf} = 'loginright.tt';
 	
 	# initial message
-	$c->stash->{message} = 'Login using a valid Username / Password';
+	$c->stash->{message} = 'Login using a valid Username / Domain / Password';
 }
 
 =head2 auth
