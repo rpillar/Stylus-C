@@ -1,0 +1,35 @@
+<html>
+
+<head>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+</head>
+
+<body>
+
+    <div>
+        <p>
+            Stylus - ajax json test ....
+        </p>
+    </div>
+    
+    <script>
+        console.log('Hello World');
+    
+        $.ajax({
+		    url: 'http://localhost:3000/stylus/get',
+			type: 'GET',
+			data: '',
+			dataType: 'json',
+			success: function(data,status) {
+			    console.log('login data : ' + data.json.success);
+			},
+			error: function(jqXHR,status,error) {
+			    console.log('error : ' + status + ' / ' + error);
+			}
+		});
+    
+    </script>
+
+</body>
+
+</html>

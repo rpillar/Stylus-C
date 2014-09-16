@@ -5,7 +5,7 @@ use namespace::autoclean;
 use Data::Dumper;
 use Text::Markdown 'markdown';
 
-BEGIN { extends 'Catalyst::Controller::REST'; }
+BEGIN { extends 'Catalyst::Controller'; }
 
 =head1 NAME
 
@@ -19,19 +19,45 @@ Catalyst Controller.
 
 =cut
 
+__PACKAGE__->config(
+    namespace => 'stylus/get',
+    action => {
+        '*' => {
+            # Attributes common to all actions
+            # in this controller
+            Consumes => 'JSON',
+            Path => '',
+        }
+    }
+);
+ 
+# end action is always called at the end of the route
+sub end :Private {
+    my ( $self, $c ) = @_;
+    # Render the stash using our JSON view
+    $c->forward($c->view('JSON_Service'));
+}
+ 
+# We use the error action to handle errors
+sub error :Private {
+    my ( $self, $c, $code, $reason ) = @_;
+    $reason ||= 'Unknown Error';
+    $code ||= 500;
+ 
+    $c->res->status($code);
+    # Error text is rendered as JSON as well
+    $c->stash->{data} = { error => $reason };
+}
+
 =head2 get
 
 =cut
 
-sub articles_list : Path('/stylus/articles/articles_list') :Args(0) : ActionClass('REST') { }
-
-sub articles_list_GET {
+sub articles_list :GET :Args(0) {
     my ( $self, $c ) = @_;
     
  	# get articles data
-	my @articles = $c->model('DB::Article')->all;
-    
-    $c->stash->{articles} = \@articles;
+	$c->stash->{articles} = [ map { id => $_->id, type => $_->type, title => $_->title  }, $c->model('DB::Article')->all ];
 }
 
 1;
