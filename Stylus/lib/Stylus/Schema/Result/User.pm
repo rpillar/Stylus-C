@@ -74,6 +74,12 @@ __PACKAGE__->table("users");
   data_type: 'integer'
   is_nullable: 1
 
+=head2 domain
+
+  data_type: 'char'
+  is_nullable: 1
+  size: 25
+
 =cut
 
 __PACKAGE__->add_columns(
@@ -91,6 +97,8 @@ __PACKAGE__->add_columns(
   { data_type => "text", is_nullable => 1 },
   "active",
   { data_type => "integer", is_nullable => 1 },
+  "domain",
+  { data_type => "char", is_nullable => 1, size => 25 },
 );
 
 =head1 PRIMARY KEY
@@ -141,11 +149,11 @@ __PACKAGE__->has_many(
 
 Type: many_to_many
 
-Composing rels: L</user_role_roles> -> role
+Composing rels: L</user_role_users> -> role
 
 =cut
 
-__PACKAGE__->many_to_many("roles", "user_role_roles", "role");
+__PACKAGE__->many_to_many("roles", "user_role_users", "role");
 
 =head2 users
 
@@ -158,8 +166,8 @@ Composing rels: L</user_role_roles> -> user
 __PACKAGE__->many_to_many("users", "user_role_roles", "user");
 
 
-# Created by DBIx::Class::Schema::Loader v0.07035 @ 2014-05-20 12:26:51
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:5dVo83eac+vHt5BkEwQZxg
+# Created by DBIx::Class::Schema::Loader v0.07042 @ 2014-09-22 15:09:12
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:6zlZU5GDmtPXRN1FcJg0LQ
 
 __PACKAGE__->many_to_many(roles => 'user_roles', 'role');
 

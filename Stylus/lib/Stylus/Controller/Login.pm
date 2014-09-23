@@ -25,8 +25,6 @@ Catalyst Controller.
 sub index :Path :Args(0) {
     my ( $self, $c ) = @_;
 
-    $c->log->debug('Login controller - process - status : ' . $c->res->status);
-
     # set initial content for 'landing' page
     $c->stash->{current_view} = 'TT';	
 	$c->stash->{template}  = 'index.tt';
@@ -45,11 +43,12 @@ sub auth :Local {
     my ( $self, $c ) = @_;
     
     my $username = $c->request->params->{username};
+    my $domain   = $c->request->params->{domain};
     my $password = $c->request->params->{password};
     
     $c->stash->{current_view} = 'JSON_Service';
 
-    unless ( $c->authenticate({ username => $username, password => $password, })) {
+    unless ( $c->authenticate({ username => $username, domain => $domain, password => $password, })) {
         $c->stash->{json} = {
             success => 0,
         };

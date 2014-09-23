@@ -50,8 +50,8 @@ sub auto :Private {
 
 =cut
 
-sub index :Path( '/stylus/articles' ) :Args(0) {
-    my ( $self, $c ) = @_;
+sub index :Path( '/stylus/articles' ) :Args(1) {
+    my ( $self, $c, $domain ) = @_;
 
     # set initial content for 'landing' page
     $c->stash->{current_view} = 'TT';	
@@ -60,13 +60,13 @@ sub index :Path( '/stylus/articles' ) :Args(0) {
 	$c->stash->{righthalf} = 'articlesright.tt';
 	
 	# get articles data - set initial article values
-	my @articles = $c->model('DB::Article')->all;
+	my @articles = $c->model('DB::Article')->find({ domain => $domain });
 	
 	# trim 'content' and convert to HTML (stored as Markdown)
 	my @data;
 	foreach ( @articles) {
 	    # get length of string / position of first line-break
-	    my $content_len = length( $_->content );
+	    my $content_len  = length( $_->content );
 	    my $line_end_pos = index($_->content, $/);
 	    
 	    my $content;
