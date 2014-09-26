@@ -50,8 +50,9 @@ sub auto :Private {
 
 =cut
 
-sub index :Path( '/stylus/articles' ) :Args(1) {
-    my ( $self, $c, $domain ) = @_;
+sub index :Path( '/stylus/articles' ) :Args(0) {
+    #my ( $self, $c, $domain ) = @_;
+    my ( $self, $c ) = @_;
 
     # set initial content for 'landing' page
     $c->stash->{current_view} = 'TT';	
@@ -60,7 +61,8 @@ sub index :Path( '/stylus/articles' ) :Args(1) {
 	$c->stash->{righthalf} = 'articlesright.tt';
 	
 	# get articles data - set initial article values
-	my @articles = $c->model('DB::Article')->find({ domain => $domain });
+	#my @articles = $c->model('DB::Article')->find({ domain => $domain });
+	my @articles = $c->model('DB::Article')->all;
 	
 	# trim 'content' and convert to HTML (stored as Markdown)
 	my @data;
