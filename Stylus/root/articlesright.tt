@@ -1,6 +1,6 @@
 
     <link rel="stylesheet" href="http://malihu.github.io/custom-scrollbar/jquery.mCustomScrollbar.min.css" />
-    
+
     <style>
         a:hover, a:active, a:focus {
             outline: 0;
@@ -71,15 +71,15 @@
         #filter input[type="text"]:focus {
             width: 300px;
         }
-        
+
     </style>
 
     <section style="display:block;float:left;position:relative;width:100%;">
         <div style="padding-right:20px;">
-            <aside style="padding:40px 10px 40px 40px;margin-top:30px;color:#acacac;font-size:16px;line-height:24px;"> 
-                <form method="post" action="" id="filter"><input id="filterinput" name="q" type="text" size="30" placeholder="Filter..." /></form>  
+            <aside style="padding:40px 10px 40px 40px;margin-top:30px;color:#acacac;font-size:16px;line-height:24px;">
+                <form method="post" action="" id="filter"><input id="filterinput" name="q" type="text" size="30" placeholder="Filter..." /></form>
                 <div id="articles-block">
-                    <div class="mCustomScrollbar" style="max-height:750px;overflow:auto;">            
+                    <div class="mCustomScrollbar" style="max-height:750px;overflow:auto;">
                     [% FOREACH article IN articles %]
                         <div class="article_block">
                             <a href="#" class="article_link">
@@ -100,12 +100,12 @@
                     [% END %]
                     </div>
                 </div>
-            </aside>           
+            </aside>
         </div>
     </section>
-    
+
     <!-- customer scrollbar -->
-    <script src="http://malihu.github.io/custom-scrollbar/jquery.mCustomScrollbar.concat.min.js"></script>    
+    <script src="http://malihu.github.io/custom-scrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
     <script>
         $(".content").mCustomScrollbar({
             theme:"dark-2",
@@ -115,52 +115,55 @@
             }
         });
     </script>
-    
-    <!-- succinct - truncate article text (if required) -->    
+
+    <!-- succinct - truncate article text (if required) -->
     <script>
       $(function(){
           $('.article_content').succinct({
               size: 150
           });
-      });      
+      });
     </script>
-    
+
     <!-- click on an article link .... -->
     <script>
-           
+
         // process 'click' on an article ...
         $('a.article_link').on('click', function(){
             var id = $(this).find('.article_id').val();
-            
-            var retrieve_url = '/stylus/articles/id/' + id + '/retrieve';
-            var formData = {
-		        id: id
-	        };
+
+            //var retrieve_url = '/stylus/articles/' + id + '/article';
+            var retrieve_url = '/stylus/article/' + id;
+
+            //var formData = {
+		    //    id: id
+	        //};
 		    $.ajax({
 		        url: retrieve_url,
-		        type: 'POST',
-		        data: formData,
+		        //type: 'POST',
+                type: 'GET',
+		        //data: formData,
 		        dataType: 'json',
 		        success: function(data,status) {
-                    
+
                     // check for logged_in state
                     if ( data.logged_in == '0') {
                         window.location.assign('/stylus/login');
                     }
                     else {
-                    
+
 		                // ensure that 'delete' button css / text is always reset - just in case ...
-		                set_delete_css();		            
-                    
+		                set_delete_css();
+
                         // set article details
 		                $('input#article_id').val( data.article_id );
 		                $('h2#article-title').text( data.article_title );
-		            
+
 		                // a 'hack' to ensure that event dates are displayed - for initial and subsequent page displays ...
 		                if ( data.article_type == 'Event' ) {
 		                    // if a 'page load' event is displayed - then hide
 		                    $('#init_event').hide();
-		                
+
 		                    // display the event date
 		                    if ( data.event_date ) {
 		                        $('span#event').html( '<h5 style="display:inline;">Date :-</h5>&nbsp;<span id="event_date"></span>');
@@ -173,8 +176,8 @@
 		                    $('#event').hide();
 		                }
 		                $('p#article-content').text( data.article_content );
-		                $('span#article-content').html( data.article_content );	
-		            
+		                $('span#article-content').html( data.article_content );
+
 		                // set publish / hide button value
 		                if ( data.article_publish == 'y' ) {
 		                $('button#publish').text('Hide');
@@ -182,22 +185,22 @@
 		                else {
 		                    $('button#publish').text('Publish');
 		                }
-	                }	               
+	                }
 		        },
-		        error: function(jqXHR,status,error) {	
+		        error: function(jqXHR,status,error) {
 		            console.log('articles - an error has occurred on the ajax call - retrieve : status - ' + status + ' / ' + error);
-	                window.location.assign('/stylus');	
+	                window.location.assign('/stylus');
 		        }
 		    });
-            
+
         });
-        
+
         // process a 'button' click
         $('button#publish').on( 'click', function() {
             // (re)set delete button css / text
             set_delete_css();
             $('button#delete').val(1);
-            
+
             //check current value
             var pub_val = $('button#publish').text();
             var id = $('input#article_id').val();
@@ -212,11 +215,11 @@
             // (re)set delete button css / text
             set_delete_css();
             $('button#delete').val(1);
-            
+
             var id       = $('input#article_id').val();
             var edit_url = '/stylus/articles/id/' + id + '/edit';
-            window.location.assign(edit_url);	
-        
+            window.location.assign(edit_url);
+
         });
         $('button#delete').on( 'click', function() {
             delete_value = $('button#delete').val();
@@ -224,14 +227,14 @@
                 $('button#delete').val('2');
                 $('button#delete').css('width', '160px');
                 $('button#delete').css('background-color', 'red');
-                $('button#delete').text('Are you sure ?');            
-            }  
+                $('button#delete').text('Are you sure ?');
+            }
             if ( delete_value == 2) {
-                var id = $('#article_id').val(); 
-                delete_art(id);          
-            }        
-        });        
- 
+                var id = $('#article_id').val();
+                delete_art(id);
+            }
+        });
+
         // ===== functions ===== //
 
         // function to delete an article / event
@@ -246,7 +249,7 @@
 		        data: formData,
 		        dataType: 'json',
 		        success: function(data,status) {
-		        
+
 		            // check for logged_in state
                     if ( data.logged_in == '0') {
                         window.location.assign('/stylus/login');
@@ -255,28 +258,27 @@
 		                window.location.assign('/stylus/articles');
 	                }
 		        },
-		        error: function(jqXHR,status,error) {	
+		        error: function(jqXHR,status,error) {
 		            console.log('articles - an error has occurred on the ajax call - retrieve : status - ' + status + ' / ' + error);
-	                window.location.assign('/stylus');	
+	                window.location.assign('/stylus');
 		        }
 		    });
-            
+
         };
-                      
+
         // function to update the publish / hide flag for an article / event
         var set_publish = function(id,update) {
             var formData = {
-		        id: id,
 		        flag : update
 	        };
-            var publish_url = '/stylus/articles/id/' + id + '/publish/' + update;
+            var publish_url = '/stylus/article/' + id + '/publish';
 		    $.ajax({
 		        url: publish_url,
-		        type: 'POST',
+		        type: 'PUT',
 		        data: formData,
 		        dataType: 'json',
 		        success: function(data,status) {
-		        
+
 		            // check for logged_in state
                     if ( data.logged_in == '0') {
                         window.location.assign('/stylus/login');
@@ -290,14 +292,14 @@
                         }
                     }
 		        },
-		        error: function(jqXHR,status,error) {	
+		        error: function(jqXHR,status,error) {
 		            console.log('articles - an error has occurred on the ajax call - retrieve : status - ' + status + ' / ' + error);
-	                window.location.assign('/stylus');	
+	                window.location.assign('/stylus');
 		        }
 		    });
-            
+
         };
-        
+
         // function to reset text / css for the delete button when required
         var set_delete_css = function() {
             $('button#delete').css('width', '120px');
@@ -306,29 +308,29 @@
             $('button#delete').val('1');
         }
     </script>
-    
+
     <!-- filter articles ... -->
     <script>
         $(document).ready(function(){
             $("#filterinput").keyup(function(){
- 
+
                 // Retrieve the input field text and reset the count to zero
                 var filter = $(this).val(), count = 0;
- 
+
                 // Loop through the comment list
                 $("h3.article_title").each(function(){
- 
+
                     // If the list item does not contain the text phrase fade it out
                     if ($(this).text().search(new RegExp(filter, "i")) < 0) {
                         $(this).parents('div.article_block').fadeOut();
- 
+
                     // Show the list item if the phrase matches and increase the count by 1
                     } else {
                         $(this).parents('div.article_block').show();
                         count++;
                     }
                 });
- 
+
             });
         });
     </script>
