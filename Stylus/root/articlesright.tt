@@ -132,17 +132,11 @@
         $('a.article_link').on('click', function(){
             var id = $(this).find('.article_id').val();
 
-            //var retrieve_url = '/stylus/articles/' + id + '/article';
             var retrieve_url = '/stylus/article/' + id;
 
-            //var formData = {
-		    //    id: id
-	        //};
 		    $.ajax({
 		        url: retrieve_url,
-		        //type: 'POST',
                 type: 'GET',
-		        //data: formData,
 		        dataType: 'json',
 		        success: function(data,status) {
 

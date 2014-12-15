@@ -4,7 +4,7 @@
 	    	<h2 style="font-size:24px;"><span style="font-weight:700;text-transform:uppercase;">Stylus</span> - a lightweight content engine</h2>
 	    	<p style="font-size:18px;line-height:1.5;margin-top:20px;margin-bottom:20px;color:#acacac;font-weight:300;">
 	    	<span style="border-bottom:1px dotted black;">Stylus</span> is a content engine / static webpage generator that you can easily use with your own site in order to add your own articles, news items, events and anything else you can think of.
-		It's not intended to be 'front-facing' but is a management tool - that is it can be used to manage some of the dynamic bits of your website - nothing more, nothing less. You can define content for different sections of your website and then either generate the webpage(s) themselves or add a small amount of javascript to your site in order to load content when specific webpages are viewed.</p>
+		It's not intended to be 'front-facing' but is a management tool - that is it can be used to manage some of the dynamic bits of your website - nothing more, nothing less. You can define content for different sections of your website and then either generate the webpage(s) yourself or add a small amount of javascript to your site in order to load content when specific webpages are viewed.</p>
 
 	    	<p style="font-size:18px;line-height:1.5;margin-top:20px;margin-bottom:20px;color:#acacac;font-weight:300;">
 			Additional code and templates can be found on github as examples of how <span style="border-bottom:1px dotted black;">Stylus</span> content can be inserted into your website and styled accordingly.
