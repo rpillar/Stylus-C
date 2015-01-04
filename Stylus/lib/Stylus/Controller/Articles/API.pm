@@ -3,6 +3,7 @@ use Moose;
 use namespace::autoclean;
 
 use Data::Dumper;
+use Text::Markdown 'markdown';
 use Try::Tiny;
 
 BEGIN { extends 'Catalyst::Controller::REST' }
@@ -44,6 +45,10 @@ sub publish :Chained('base') PathPart('publish') Args(0) : ActionClass('REST') {
     my ($self, $c) = @_;
 }
 
+=head2 article_GET
+
+=cut
+
 sub article_GET :Private {
     my ($self, $c) = @_;
 
@@ -54,13 +59,16 @@ sub article_GET :Private {
         $date = $article->event_date->ymd;
     }
 
+    # convert markdown content
+    my $content = markdown( $article->content );
+
     $self->status_ok(
         $c,
         entity => {
             id      => $article->id,
             title   => $article->title,
             type    => $article->type,
-            content => $article->content,
+            content => $content,
             publish => $article->publish,
             date    => $date,
         },

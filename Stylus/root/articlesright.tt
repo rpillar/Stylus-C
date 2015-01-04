@@ -150,11 +150,11 @@
 		                set_delete_css();
 
                         // set article details
-		                $('input#article_id').val( data.article_id );
-		                $('h2#article-title').text( data.article_title );
+		                $('input#article_id').val( data.id );
+		                $('h2#article-title').text( data.title );
 
 		                // a 'hack' to ensure that event dates are displayed - for initial and subsequent page displays ...
-		                if ( data.article_type == 'Event' ) {
+		                if ( data.type == 'Event' ) {
 		                    // if a 'page load' event is displayed - then hide
 		                    $('#init_event').hide();
 
@@ -169,8 +169,7 @@
 		                    $('#init_event').hide();
 		                    $('#event').hide();
 		                }
-		                $('p#article-content').text( data.article_content );
-		                $('span#article-content').html( data.article_content );
+                        $('span#article-content p').html( data.content );
 
 		                // set publish / hide button value
 		                if ( data.article_publish == 'y' ) {
