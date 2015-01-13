@@ -159,7 +159,7 @@ sub add :Path( '/stylus/articles/add' ) :Args(0) {
 
 =cut
 
-sub base :Chained('/') PathPart('stylus/articles/') :CaptureArgs( 1 ) {
+sub base :Chained('/') PathPart('stylus/articles') :CaptureArgs( 1 ) {
     my ( $self, $c, $id) = @_;
 
     $c->log->debug('in Articles - base');

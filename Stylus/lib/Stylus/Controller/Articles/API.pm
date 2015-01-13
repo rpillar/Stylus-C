@@ -78,6 +78,9 @@ sub article_GET :Private {
 sub article_PUT :Private {
     my ($self, $c) = @_;
 
+    # get updated article data ..
+    my $data = $c->req->data || $c->req->params;
+
     $self->status_created(
         $c,
         location => $c->req->uri,
@@ -87,11 +90,30 @@ sub article_PUT :Private {
     );
 }
 
+sub article_DELETE :Private {
+    my ($self, $c) = @_;
+
+    try {
+        $c->stash->{article}->delete();
+        $self->status_accepted( $c, entity => { status => "deleted" } );
+    }
+    catch {
+        $self->status_bad_request(
+            $c,
+            message => "Articles : there has been an error deleting data from the stylus db !",
+        );
+    };
+}
+
 sub publish_PUT :Private {
-    my ( $self, $c, $flag ) = @_;
+    my ( $self, $c, ) = @_;
 
     my $article = $c->stash->{article};
 
+    # get value of 'publish' to set ..
+    my $data = $c->req->data || $c->req->params;
+
+    my $flag = $data->{flag};
     try {
         $c->stash->{article}->update(
             { publish => $flag }

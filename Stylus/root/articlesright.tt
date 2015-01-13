@@ -15,6 +15,10 @@
             color: white;
             cursor:pointer;
         }
+        .article_block:hover h2 {
+            background-color:  #383838;
+            color: white;
+        }
         .article_block:hover h3 {
             background-color:  #383838;
             color: white;
@@ -172,8 +176,8 @@
                         $('span#article-content p').html( data.content );
 
 		                // set publish / hide button value
-		                if ( data.article_publish == 'y' ) {
-		                $('button#publish').text('Hide');
+		                if ( data.publish == 'y' ) {
+		                      $('button#publish').text('Hide');
 		                }
 		                else {
 		                    $('button#publish').text('Publish');
@@ -210,7 +214,7 @@
             $('button#delete').val(1);
 
             var id       = $('input#article_id').val();
-            var edit_url = '/stylus/articles/id/' + id + '/edit';
+            var edit_url = '/stylus/articles/' + id + '/edit';
             window.location.assign(edit_url);
 
         });
@@ -235,10 +239,10 @@
             var formData = {
 		        id: id
 	        };
-	        var delete_url = '/stylus/articles/id/' + id + '/delete';
+	        var delete_url = '/stylus/article/' + id;
 		    $.ajax({
 		        url: delete_url,
-		        type: 'POST',
+		        type: 'DELETE',
 		        data: formData,
 		        dataType: 'json',
 		        success: function(data,status) {

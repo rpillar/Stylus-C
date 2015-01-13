@@ -3,7 +3,7 @@
             <p id="message" style="font-size:16px;line-height:2.5;margin-top:20px;margin-bottom:20px;padding-left:10px;border-left:4px solid #254960;font-weight:300;text-transform:uppercase;"></p>
         </div>
 		<p style="border-left:4px solid #254960;padding-left:10px;font-size:20px;line-height:1.5;margin-top:20px;margin-bottom:20px;color:#acacac;font-weight:300;">
-			Built by <a href="http://www.developontheweb.co.uk/stylus.html" target="_blank"><span style="text-transform:uppercase;text-decoration:none;color:#254960;font-weight:400;">developonthe<span style="font-style:italic;">web</span></span></a> - get the code from <a href="https://github.com/rpillar/Stylus-C" target="_blank">github</a>.
+			Built by <a href="http://www.developontheweb.co.uk/stylus.html" target="_blank" style="text-decoration: none;"><span style="text-transform:uppercase;text-decoration:none;color:#254960;font-weight:400;">developonthe<span style="font-style:italic;">web</span></span></a> - get the code from <a href="https://github.com/rpillar/Stylus-C" target="_blank">github</a>.
 			No guarentees supplied - use at your own risk.
 		</p>
 	</aside>
