@@ -1,0 +1,243 @@
+
+    <link rel="stylesheet" href="http://malihu.github.io/custom-scrollbar/jquery.mCustomScrollbar.min.css" />
+
+    <style>
+        a:hover, a:active, a:focus {
+            outline: 0;
+        }
+        .partial_block {
+            padding: 15px 5px;
+            border-bottom: 1px solid lightgray;
+            width:100%;
+        }
+        .partial_block:hover {
+            background-color: #383838;
+            color: white;
+            cursor:pointer;
+        }
+        .partial_block:hover h2 {
+            background-color:  #383838;
+            color: white;
+        }
+        .partial_block:hover h3 {
+            background-color:  #383838;
+            color: white;
+        }
+        .partial_block:hover h4 {
+            background-color:  #383838;
+            color: white;
+        }
+        .partial_block:hover h5 {
+            background-color:  #383838;
+            color: white;
+        }
+        .partial_block:hover a p {
+            background-color:  #383838;
+            color: white;
+        }
+        .partial_block a p {
+            font-weight: 500;
+            color: #acacac;
+        }
+        .partial_block a {
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        #filter input[type="text"] {
+            background: url(/static/images/search-white.png) no-repeat 15px 10px #fcfcfc;
+            border: 1px solid #254960;
+            font-size: 20px;
+            color: #254960;;
+            width: 230px;
+            padding: 6px 15px 6px 35px;
+            -webkit-border-radius: 20px;
+            -moz-border-radius: 20px;
+            border-radius: 20px;
+            text-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+            -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15) inset;
+            -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15) inset;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15) inset;
+            -webkit-transition: all 0.7s ease 0s;
+            -moz-transition: all 0.7s ease 0s;
+            -o-transition: all 0.7s ease 0s;
+            transition: all 0.7s ease 0s;
+            margin-bottom: 15px;
+        }
+        #filter input[type="text"]:focus {
+            width: 300px;
+        }
+
+    </style>
+
+    <section style="display:block;float:left;position:relative;width:100%;">
+        <div style="padding-right:20px;">
+            <aside style="padding:40px 10px 40px 40px;margin-top:30px;color:#acacac;font-size:16px;line-height:24px;">
+                <form method="post" action="" id="filter"><input id="filterinput" name="q" type="text" size="30" placeholder="Filter..." /></form>
+                <div id="partials-block">
+                    <div class="mCustomScrollbar" style="max-height:750px;overflow:auto;">
+                    [% FOREACH partial IN partials %]
+                        <div class="partial_block">
+                            <a href="#" class="partial_link">
+                                <input type="hidden" value="[% partial.id %]" class="partial_id">
+                                <h3 class="partial_name" style="font-size:24px;font-weight:600;margin:0;padding:12px 0;">[% partial.name %]</h3><span>
+                                <h4 style="margin:5px 0;font-weight:300;color:gray;">(&nbsp;[% partial.type %]&nbsp;)</h4></span>
+                            </a>
+                        </div>
+                    [% END %]
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </section>
+
+    <!-- customer scrollbar -->
+    <script src="http://malihu.github.io/custom-scrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script>
+        $(".content").mCustomScrollbar({
+            theme:"dark-2",
+            scrollInertia: 800,
+            scrollButtons: {
+                enable: true
+            }
+        });
+    </script>
+
+    <!-- succinct - truncate partial text (if required) -->
+    <script>
+      $(function(){
+          $('.partial_content').succinct({
+              size: 150
+          });
+      });
+    </script>
+
+    <!-- click on an partial link .... -->
+    <script>
+
+        // process 'click' on an partial ...
+        $('a.partial_link').on('click', function(){
+            var id = $(this).find('.partial_id').val();
+
+            var retrieve_url = '/stylus/partial/' + id;
+
+		    $.ajax({
+		        url: retrieve_url,
+                type: 'GET',
+		        dataType: 'json',
+		        success: function(data,status) {
+
+                    // check for logged_in state
+                    if ( data.logged_in == '0') {
+                        window.location.assign('/stylus/login');
+                    }
+                    else {
+
+		                // ensure that 'delete' button css / text is always reset - just in case ...
+		                set_delete_css();
+
+                        // set partial details
+		                $('input#partial_id').val( data.id );
+		                $('h2#partial-name').text( data.name );
+
+                        $('span#partial-content p').html( data.partial );
+	                }
+		        },
+		        error: function(jqXHR,status,error) {
+		            console.log('partials - an error has occurred on the ajax call - retrieve : status - ' + status + ' / ' + error);
+	                window.location.assign('/stylus');
+		        }
+		    });
+
+        });
+
+        // process a 'button' click
+        $('button#edit').on( 'click', function() {
+            // (re)set delete button css / text
+            set_delete_css();
+            $('button#delete').val(1);
+
+            var id       = $('input#partial_id').val();
+            var edit_url = '/stylus/partials/' + id + '/edit';
+            window.location.assign(edit_url);
+
+        });
+        $('button#delete').on( 'click', function() {
+            delete_value = $('button#delete').val();
+            if ( delete_value == 1) {
+                $('button#delete').val('2');
+                $('button#delete').css('width', '160px');
+                $('button#delete').css('background-color', 'red');
+                $('button#delete').text('Are you sure ?');
+            }
+            if ( delete_value == 2) {
+                var id = $('#partial_id').val();
+                delete_art(id);
+            }
+        });
+
+        // ===== functions ===== //
+
+        // function to delete an partial
+        var delete_art = function(id) {
+            var formData = {
+		        id: id
+	        };
+	        var delete_url = '/stylus/partial/' + id;
+		    $.ajax({
+		        url: delete_url,
+		        type: 'DELETE',
+		        data: formData,
+		        dataType: 'json',
+		        success: function(data,status) {
+
+		            // check for logged_in state
+                    if ( data.logged_in == '0') {
+                        window.location.assign('/stylus/login');
+                    }
+                    else {
+		                window.location.assign('/stylus/partials');
+	                }
+		        },
+		        error: function(jqXHR,status,error) {
+		            console.log('partials - an error has occurred on the ajax call - retrieve : status - ' + status + ' / ' + error);
+	                window.location.assign('/stylus');
+		        }
+		    });
+
+        };
+
+        // function to reset text / css for the delete button when required
+        var set_delete_css = function() {
+            $('button#delete').css('width', '120px');
+            $('button#delete').css('background-color', '#254960');
+            $('button#delete').text('Delete');
+            $('button#delete').val('1');
+        }
+    </script>
+
+    <!-- filter partials ... -->
+    <script>
+        $(document).ready(function(){
+            $("#filterinput").keyup(function(){
+
+                // Retrieve the input field text and reset the count to zero
+                var filter = $(this).val(), count = 0;
+
+                // Loop through the comment list
+                $("h3.partial_name").each(function(){
+
+                    // If the list item does not contain the text phrase fade it out
+                    if ($(this).text().search(new RegExp(filter, "i")) < 0) {
+                        $(this).parents('div.partial_block').fadeOut();
+
+                    // Show the list item if the phrase matches and increase the count by 1
+                    } else {
+                        $(this).parents('div.partial_block').show();
+                        count++;
+                    }
+                });
+
+            });
+        });
+    </script>

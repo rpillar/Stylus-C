@@ -14,7 +14,7 @@
     	    <span id="event" style='display:none;'></span>
 	    	[% END %]
 	    	
-	    	<span id="article-content" style="font-size:17px;line-height:1.5;margin:0;padding-top:10px;padding-bottom:10px;color:#acacac;font-weight:300;">[% init.content %]</span>
+	    	<span id="article-content" style="font-size:17px;line-height:1.5;margin:0;padding-top:10px;padding-bottom:10px;color:#acacac;font-weight:400;">[% init.content %]</span>
 	    	<!-- set initial value of 'publish' / 'hide' button -->
 	    	<button class="button" id="publish" style="margin-bottom:20px;">[% IF init.publish == 'n' %]Publish[% ELSE %]Hide[% END %]</button>	    	
 	    	<button class="button" id="edit" style="margin-bottom:20px;">Edit</button>

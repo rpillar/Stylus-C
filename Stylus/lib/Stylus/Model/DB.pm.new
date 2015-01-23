@@ -10,8 +10,7 @@ __PACKAGE__->config(
         dsn => 'dbi:SQLite:stylus.db',
         user => '',
         password => '',
-        on_connect => q{},
-        do => q{PRAGMA foreign_keys = ON},
+        on_connect_do => q{PRAGMA foreign_keys = ON},
     }
 );
 

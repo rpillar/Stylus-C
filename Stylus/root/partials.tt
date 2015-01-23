@@ -1,0 +1,22 @@
+	<h1 style="margin:0;font-size:32px;font-weight:600;color:#000;padding-left:30px;padding-top:40px;text-transform:uppercase;">Partials</h1>
+	<div style="padding: 10px 20px;margin:20px 0;">
+	    <div style="padding:20px;">
+		[% IF init %]
+	    	<h2 style="font-size:24px;font-weight:700;text-transform:uppercase;" id="partial-name">[% init.name %]</h2>
+	    	<span id="partial-content" style="font-size:17px;line-height:1.5;margin:0;padding-top:10px;padding-bottom:10px;color:#acacac;font-weight:400;">[% init.partial %]</span>
+
+	    	<button class="button" id="edit" style="margin-bottom:20px;">Edit</button>
+	    	<button class="button" id="delete" style="margin-bottom:20px;" value='1'>Delete</button>
+
+	    	<!-- store 'id' of current article -->
+	    	<input id='partial_id' type='hidden' value="[% init.id %]">
+		[% ELSE %]
+			<p style="font-size:18px;line-height:1.5;margin-top:20px;margin-bottom:20px;color:#acacac;font-weight:400;">No partials have been created yet.</p>
+			<p style="font-size:18px;line-height:1.5;margin-top:20px;margin-bottom:20px;color:#acacac;font-weight:400;">A <span style="border-bottom:1px dashed gray;">partial</span> is a small amount of html (and maybe 'css')
+			that will define the outline structure of a small portion of a webpage. An example is given below</p>
+			<p>
+				<script src="https://gist.github.com/rpillar/65d7aa252a8da5d9ee60.js"></script>
+			</p>
+		[% END %]
+	    </div>
+    </div>
