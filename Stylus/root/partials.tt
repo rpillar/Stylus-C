@@ -1,4 +1,4 @@
-	<h1 style="margin:0;font-size:32px;font-weight:600;color:#000;padding-left:30px;padding-top:40px;text-transform:uppercase;">Partials</h1>
+	<h1 style="margin:0;font-size:32px;font-weight:600;color:#000;padding-left:30px;padding-top:40px;text-transform:uppercase;"><span style="border-bottom:4px solid lightblue;">Partials</span></h1>
 	<div style="padding: 10px 20px;margin:20px 0;">
 	    <div style="padding:20px;">
 		[% IF init %]
@@ -11,12 +11,18 @@
 	    	<!-- store 'id' of current article -->
 	    	<input id='partial_id' type='hidden' value="[% init.id %]">
 		[% ELSE %]
-			<p style="font-size:18px;line-height:1.5;margin-top:20px;margin-bottom:20px;color:#acacac;font-weight:400;">No partials have been created yet.</p>
-			<p style="font-size:18px;line-height:1.5;margin-top:20px;margin-bottom:20px;color:#acacac;font-weight:400;">A <span style="border-bottom:1px dashed gray;">partial</span> is a small amount of html (and maybe 'css')
-			that will define the outline structure of a small portion of a webpage. An example is given below</p>
-			<p>
-				<script src="https://gist.github.com/rpillar/65d7aa252a8da5d9ee60.js"></script>
-			</p>
+			<div>
+				<p style="font-size:18px;line-height:1.5;margin-top:20px;margin-bottom:20px;color:#acacac;font-weight:400;">A <span style="border-bottom:1px dashed gray;">partial</span> is a small amount of html (and maybe 'css')
+				that will define the outline structure of a small portion of a webpage. An example is given below :-</p>
+
+				<p>
+					<script src="https://gist.github.com/rpillar/65d7aa252a8da5d9ee60.js"></script>
+				</p>
+
+				<p>
+					<button class="button" id="create_partial" style="width:300px;margin-bottom:20px;">Create a New Partial</button>
+				</p>
+			</div>
 		[% END %]
 	    </div>
     </div>

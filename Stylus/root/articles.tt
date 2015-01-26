@@ -1,25 +1,37 @@
-	<h1 style="margin:0;font-size:32px;font-weight:600;color:#000;padding-left:30px;padding-top:40px;text-transform:uppercase;">Content</h1>
+	<h1 style="margin:0;font-size:32px;font-weight:600;color:#000;padding-left:30px;padding-top:40px;text-transform:uppercase;"><span style="border-bottom:4px solid lightblue;">Content</span></h1>
 	<div style="padding: 10px 20px;margin:20px 0;">
 	    <div style="padding:20px;">
-	    	<h2 style="font-size:24px;font-weight:700;text-transform:uppercase;" id="article-title">[% init.title %]</h2>
-	    	
+	    	<!--<h2 style="font-size:24px;font-weight:700;text-transform:uppercase;" id="article-title">[% init.title %]</h2>-->
+
 	    	<!-- hacks to process initial page load - almost certainly could be done better -->
 	    	[% IF init.type == 'Event' %]
-    	    <span id='event' style="margin-bottom:10px;">
+    	   <!-- <span id='event' style="margin-bottom:10px;">
     	        <h5 style="display:inline;">Date :-</h5>
     	        &nbsp;
     	        <span id="event_date">[% init.event_date %]</span>
-    	    </span>
+    	    </span>-->
     	    [% ELSE %]
-    	    <span id="event" style='display:none;'></span>
+    	    <!--<span id="event" style='display:none;'></span>-->
 	    	[% END %]
-	    	
-	    	<span id="article-content" style="font-size:17px;line-height:1.5;margin:0;padding-top:10px;padding-bottom:10px;color:#acacac;font-weight:400;">[% init.content %]</span>
+
+	    	<!--<span id="article-content" style="font-size:17px;line-height:1.5;margin:0;padding-top:10px;padding-bottom:10px;color:#acacac;font-weight:400;">[% init.content %]</span>-->
 	    	<!-- set initial value of 'publish' / 'hide' button -->
-	    	<button class="button" id="publish" style="margin-bottom:20px;">[% IF init.publish == 'n' %]Publish[% ELSE %]Hide[% END %]</button>	    	
+	    	<!--<button class="button" id="publish" style="margin-bottom:20px;">[% IF init.publish == 'n' %]Publish[% ELSE %]Hide[% END %]</button>
 	    	<button class="button" id="edit" style="margin-bottom:20px;">Edit</button>
-	    	<button class="button" id="delete" style="margin-bottom:20px;" value='1'>Delete</button>
-	    	
+	    	<button class="button" id="delete" style="margin-bottom:20px;" value='1'>Delete</button>-->
+
+			<div>
+				<p style="font-size:18px;line-height:1.5;margin-top:20px;margin-bottom:20px;color:#acacac;font-weight:400;">Add <span style="border-bottom:1px dashed gray;">content</span> to your website
+				- you can create anything that you want to add to your website. It could be a news item, an article or an event (content types can be defined on the <strong>settings</strong> page).
+				</p>
+				<p style="font-size:18px;line-height:1.5;margin-top:20px;margin-bottom:20px;color:#acacac;font-weight:400;">Existing content is listed on the right-hand side - only the first 200 characters are displayed.
+				Select one to view - then / edit / delete / set the 'publish' flag as appropriate.
+				</p>
+				<p>
+					<button class="button" id="create_partial" style="width:300px;margin-bottom:20px;">Create new Content</button>
+				</p>
+			</div>
+
 	    	<!-- store 'id' of current article -->
 	    	<input id='article_id' type='hidden' value="[% init.id %]">
 	    </div>
