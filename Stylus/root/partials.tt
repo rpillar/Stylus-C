@@ -20,7 +20,7 @@
 				</p>
 
 				<p>
-					<button class="button" id="create_partial" style="width:300px;margin-bottom:20px;">Create a New Partial</button>
+					<button class="button" id="create_partial" style="background-color:#1abc9c;width:300px;margin-bottom:20px;">Create a New Partial</button>
 				</p>
 			</div>
 		[% END %]

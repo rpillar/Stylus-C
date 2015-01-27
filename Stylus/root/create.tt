@@ -1,4 +1,4 @@
-    
+
 <style>
 .wrapper-dropdown-3 {
     /* Size and position */
@@ -8,7 +8,7 @@
     margin-left: 10px;
     margin-bottom:20px;
     padding: 10px;
- 
+
     /* Styles */
     background: #fff;
     /*border-radius: 7px;*/
@@ -17,14 +17,14 @@
     /*box-shadow: 0 1px 1px rgba(50,50,50,0.1);*/
     cursor: pointer;
     outline: none;
- 
+
     /* Font settings */
     /*font-weight: bold;
     color: #8AA8BD;*/
     font-size: 15px;
     color: #8F8F8F;
     z-index: 100;
-} 
+}
 .wrapper-dropdown-3:after {
     content: "";
     width: 0;
@@ -36,7 +36,7 @@
     border-width: 6px 6px 0 6px;
     border-style: solid;
     border-color: #8aa8bd transparent;
-}   
+}
 .wrapper-dropdown-3 .dropdown {
   /* Size & position */
     position: absolute;
@@ -44,7 +44,7 @@
     top: 90%;
     left: 0;
     right: 0;
- 
+
     /* Styles */
     background: white;
     border-radius: inherit;
@@ -53,12 +53,12 @@
     font-weight: normal;
     transition: all 0.3s ease-in;
     list-style: none;
- 
+
     /* Hiding */
     opacity: 0;
     pointer-events: none;
 }
- 
+
 .wrapper-dropdown-3 .dropdown li a {
     display: block;
     padding: 10px;
@@ -69,23 +69,23 @@
     box-shadow: inset 0 1px 0 rgba(255,255,255,1);
     transition: all 0.3s ease-out;
 }
- 
+
 .wrapper-dropdown-3 .dropdown li i {
     float: right;
     color: inherit;
 }
- 
+
 .wrapper-dropdown-3 .dropdown li:first-of-type a {
     border-radius: 7px 7px 0 0;
 }
- 
+
 .wrapper-dropdown-3 .dropdown li:last-of-type a {
     border-radius: 0 0 7px 7px;
     border: none;
 }
- 
+
 /* Hover state */
- 
+
 .wrapper-dropdown-3 .dropdown li:hover a {
     background: #f3f8f8;
 }
@@ -98,9 +98,9 @@
     right: 15px;
     border-width: 0 6px 6px 6px;
     border-style: solid;
-    border-color: #fff transparent;   
+    border-color: #fff transparent;
 }
- 
+
 .wrapper-dropdown-3 .dropdown:before {
     content: "";
     width: 0;
@@ -110,24 +110,34 @@
     right: 13px;
     border-width: 0 8px 8px 8px;
     border-style: solid;
-    border-color: rgba(0,0,0,0.1) transparent;   
+    border-color: rgba(0,0,0,0.1) transparent;
 }
 .wrapper-dropdown-3.active .dropdown {
     opacity: 1;
     pointer-events: auto;
 }
 
+.titlefield-hide {
+    display: none;
+    clear: both;
+}
+.titlefield-show {
+    display: normal;
+    clear: both;
+}
 .datefield-hide {
     display: none;
+    clear: both;
 }
 .datefield-show {
     display: normal;
+    clear: both;
 }
 </style>
-    
-    <h1 style="margin:0;font-size:32px;font-weight:600;color:#000;padding-left:30px;padding-top:40px;text-transform:uppercase;">create</h1>
+
+    <h1 style="margin:0;font-size:32px;font-weight:600;color:#000;padding-left:30px;padding-top:40px;text-transform:uppercase;"><span style="border-bottom:4px solid lightblue;">create</span></h1>
     <div style="padding:10px 20px;margin:20px 0;">
-        <div style="padding:10px 20px;margin:20px 0;">           
+        <div style="padding:10px 20px;margin:20px 0;">
             <form>
                 <div style="margin-left:22px;border-left:4px solid #254960;">
                     <div id="dd" class="wrapper-dropdown-3" tabindex="1">
@@ -139,36 +149,42 @@
                         </ul>
                     </div>
                 </div>
-                <div id="datefield" class="datefield-hide">
-                    <label class="form_label" for="title">Date</label>
-	    		    <div class="input" style="margin-bottom:25px;width:350px;">
-	    			    <input class="login_input" id="eventDate" name="eventDate" placeholder="Date" type="text" style="width:200px;">
+                <button class="button" id="title-button" style="margin-bottom:20px;width:220px;">Add Title</button>
+                <button class="button" id="date-button" style="margin-bottom:20px;width:220px;">Add Date</button>
+                <div id="titlefield" class="titlefield-hide">
+                    <label class="form_label" for="title">Title</label>
+	    		    <div class="input" style="margin-bottom:25px;">
+	    			    <input class="login_input" id="title" name="title" placeholder="Title" type="text">
 	    		    </div>
                 </div>
-                <label class="form_label" for="title">Title</label>
-	    		<div class="input" style="margin-bottom:25px;">
-	    			<input class="login_input" id="title" name="title" placeholder="Title" type="text">
-	    		</div>
-                <label class="form_label" for="create">Article</label>
-                <div class="input">
-                    <textarea class="login_input wmd-input" id="article" placeholder="Article" type="text" rows="12"></textarea>
+                <div id="datefield" class="datefield-hide">
+                    <label class="form_label" for="title">Date</label>
+                    <div class="input" style="margin-bottom:25px;width:350px;">
+                        <input class="login_input" id="eventDate" name="eventDate" placeholder="Date" type="text" style="width:200px;">
+                    </div>
                 </div>
-                <button class="button" id="create" style="margin-bottom:20px;">Create</button>
+                <div style="clear:both;display:block;">
+                    <label class="form_label" for="create">Article</label>
+                    <div class="input">
+                        <textarea class="login_input wmd-input" id="article" placeholder="Article" type="text" rows="12"></textarea>
+                    </div>
+                </div>
+                <button class="button" id="create" style="background-color:#1abc9c;margin-bottom:20px;width:220px;">Create</button>
             </form>
         </div>
     </div>
-    
+
     <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
     <!-- Datepicker -->
     <script type="text/javascript" src="/static/datepicker/js/bootstrap-datepicker.js"></script>
     <!-- WMD -->
     <script type="text/javascript" src="/static/js/showdown.js"></script>
-    <script type="text/javascript" src="/static/js/wmd.js"></script>  
+    <script type="text/javascript" src="/static/js/wmd.js"></script>
     <!-- Additional scripts -->
     <script type="text/javascript" src="/static/js/functions.js"></script>
-    
+
     <script type="text/javascript" language="javascript" charset="utf-8">
-    
+
         // set 'background' for the inputs
 	    $('form div.input .login_input').on('focus', function() {
 			$(this).parent().addClass('input_active');
@@ -176,11 +192,41 @@
 		$('form div.input .login_input').on('focusout', function() {
 			$(this).parent().removeClass('input_active');
 		});
-        
+
+        // process 'add title' button 'click'
+        $('button#title-button').on('click', function(e) {
+            e.preventDefault();
+
+            if ( $('#titlefield').is(':visible') ) {
+                $(this).text('Add Title');
+                $('#titlefield').removeClass('titlefield-show').addClass('titlefield-hide');
+            }
+            else {
+                $(this).text('Remove Title');
+                $('#titlefield').removeClass('titlefield-hide').addClass('titlefield-show');
+                $('#titlefield').focus();
+            }
+        });
+
+        // process 'add date' button 'click'
+        $('button#date-button').on('click', function(e) {
+            e.preventDefault();
+
+            if ( $('#datefield').is(':visible') ) {
+                $(this).text('Add Date');
+                $('#datefield').removeClass('datefield-show').addClass('datefield-hide');
+            }
+            else {
+                $(this).text('Remove Date');
+                $('#datefield').removeClass('datefield-hide').addClass('datefield-show');
+                $('#datefield').focus();
+            }
+        });
+
         // process button 'click'
 		$('button#create').on('click', function(e) {
             e.preventDefault();
-            
+
             //reset border-color and remove 'active' class
             $('div.input').removeClass('input_active');
             $('div.input').removeClass('input_error');
@@ -191,7 +237,7 @@
 			var date    = $('#eventDate').val();
 			var title   = $('#title').val();
 			var article = $('#article').val();
-			
+
 			if ( type == 'Article Type' ) {
 			    $('#dd').css({"border-top-color": "#254960", "border-bottom-color": "#254960" });
 			    $('p#message').text('Type missing - please enter.');
@@ -221,14 +267,14 @@
 			        data: formData,
 			        dataType: 'json',
 			        success: function(data,status) {
-			            if ( data.json.success == 0 ) {			                
+			            if ( data.json.success == 0 ) {
 			                $('p#message').text('There was a problem adding this article - please try again or contact us.');
 			            }
 			            else {
-			                window.location.assign('/stylus/articles');			            
-			            }   
+			                window.location.assign('/stylus/articles');
+			            }
 			        },
-			        error: function(jqXHR,status,error) {			            
+			        error: function(jqXHR,status,error) {
 			            $('p#message').text('A problem has occurred - please try again in a few minutes or contact us.');
 			        }
 			    });
@@ -236,7 +282,7 @@
 
 		});
     </script>
-    
+
     <!-- WMD stuff -->
     <script type="text/javascript">
         $(document).ready(function() {
@@ -250,7 +296,7 @@
             $('#eventDate').datepicker({ format: 'yyyy-mm-dd' })
         });
     </script>
-    
+
     <!-- dropdown code -->
     <script type="text/javascript">
         function DropDown(el) {
@@ -264,26 +310,17 @@
         DropDown.prototype = {
             initEvents : function() {
                 var obj = this;
- 
+
                 obj.dd.on('click', function(event){
                    $(this).toggleClass('active');
                    return false;
                 });
-         
+
                 obj.opts.on('click',function(){
                     var opt = $(this);
                     obj.val = opt.text();
                     obj.index = opt.index();
                     obj.placeholder.text(obj.val);
-                    
-                    if ( obj.val == 'Event' ) {
-                        $('#datefield').removeClass('datefield-hide');
-                        $('#datefield').addClass('datefield-show');
-                    }
-                    else {
-                        $('#datefield').removeClass('datefield-show');
-                        $('#datefield').addClass('datefield-hide');
-                    }
                 });
             },
             getValue : function() {
@@ -299,5 +336,5 @@
                 // all dropdowns
                 $('.wrapper-dropdown-3').removeClass('active');
             });
-        }); 
+        });
     </script>

@@ -1,38 +1,168 @@
+	<style>
+		.contentdate-hide {
+			display: none;
+			clear: both;
+		}
+		.contentdate-show {
+			display: normal;
+			clear: both;
+		}
+	</style>
+
 	<h1 style="margin:0;font-size:32px;font-weight:600;color:#000;padding-left:30px;padding-top:40px;text-transform:uppercase;"><span style="border-bottom:4px solid lightblue;">Content</span></h1>
 	<div style="padding: 10px 20px;margin:20px 0;">
 	    <div style="padding:20px;">
-	    	<!--<h2 style="font-size:24px;font-weight:700;text-transform:uppercase;" id="article-title">[% init.title %]</h2>-->
 
-	    	<!-- hacks to process initial page load - almost certainly could be done better -->
-	    	[% IF init.type == 'Event' %]
-    	   <!-- <span id='event' style="margin-bottom:10px;">
-    	        <h5 style="display:inline;">Date :-</h5>
-    	        &nbsp;
-    	        <span id="event_date">[% init.event_date %]</span>
-    	    </span>-->
-    	    [% ELSE %]
-    	    <!--<span id="event" style='display:none;'></span>-->
-	    	[% END %]
-
-	    	<!--<span id="article-content" style="font-size:17px;line-height:1.5;margin:0;padding-top:10px;padding-bottom:10px;color:#acacac;font-weight:400;">[% init.content %]</span>-->
-	    	<!-- set initial value of 'publish' / 'hide' button -->
-	    	<!--<button class="button" id="publish" style="margin-bottom:20px;">[% IF init.publish == 'n' %]Publish[% ELSE %]Hide[% END %]</button>
-	    	<button class="button" id="edit" style="margin-bottom:20px;">Edit</button>
-	    	<button class="button" id="delete" style="margin-bottom:20px;" value='1'>Delete</button>-->
-
-			<div>
+			<div id='article-intro' style="width:100%;">
 				<p style="font-size:18px;line-height:1.5;margin-top:20px;margin-bottom:20px;color:#acacac;font-weight:400;">Add <span style="border-bottom:1px dashed gray;">content</span> to your website
 				- you can create anything that you want to add to your website. It could be a news item, an article or an event (content types can be defined on the <strong>settings</strong> page).
 				</p>
 				<p style="font-size:18px;line-height:1.5;margin-top:20px;margin-bottom:20px;color:#acacac;font-weight:400;">Existing content is listed on the right-hand side - only the first 200 characters are displayed.
 				Select one to view - then / edit / delete / set the 'publish' flag as appropriate.
 				</p>
+			</div>
+			<div id='full-article' style="display:none;width:100%;">
+				<h2 style="font-size:24px;font-weight:700;text-transform:uppercase;" id="article-title"></h2>
+				<div id="content-date" class="contentdate-hide">
+					<h4></h4>
+				</div>
+				<span id="article-content" style="font-size:17px;line-height:1.5;margin:0;padding-top:10px;padding-bottom:10px;color:#acacac;font-weight:400;"></span>
+				<!-- set initial value of 'publish' / 'hide' button -->
+				<div>
+					<button class="button" id="publish" style="margin-bottom:20px;"></button>
+					<button class="button" id="edit" style="margin-bottom:20px;">Edit</button>
+					<button class="button" id="delete" style="margin-bottom:20px;" value='1'>Delete</button>
+				</div>
+				<!-- store 'id' of current article -->
+				<input id='article_id' type='hidden' value="[% init.id %]">
+			</div>
+			<div style="display:block;width:100%;">
 				<p>
-					<button class="button" id="create_partial" style="width:300px;margin-bottom:20px;">Create new Content</button>
+					<button class="button" id="create_article" style="background-color:#1abc9c;width:300px;margin-bottom:20px;">Create new Content</button>
 				</p>
 			</div>
 
-	    	<!-- store 'id' of current article -->
-	    	<input id='article_id' type='hidden' value="[% init.id %]">
 	    </div>
     </div>
+
+	<script>
+
+	// process a 'button' click
+	$('button#publish').on( 'click', function() {
+		// (re)set delete button css / text
+		set_delete_css();
+		$('button#delete').val(1);
+
+		//check current value
+		var pub_val = $('button#publish').text();
+		var id = $('input#article_id').val();
+		if ( pub_val == 'Publish' ) {
+			set_publish(id,'y');
+		}
+		if ( pub_val == 'Hide' ) {
+			set_publish(id,'n');
+		}
+	});
+	$('button#edit').on( 'click', function() {
+		// (re)set delete button css / text
+		set_delete_css();
+		$('button#delete').val(1);
+
+		var id       = $('input#article_id').val();
+		var edit_url = '/stylus/articles/' + id + '/edit';
+		window.location.assign(edit_url);
+
+	});
+	$('button#delete').on( 'click', function() {
+		delete_value = $('button#delete').val();
+		if ( delete_value == 1) {
+			$('button#delete').val('2');
+			$('button#delete').css('width', '160px');
+			$('button#delete').css('background-color', 'red');
+			$('button#delete').text('Are you sure ?');
+		}
+		if ( delete_value == 2) {
+			var id = $('#article_id').val();
+			delete_art(id);
+		}
+	});
+
+	$('button#create_article').on( 'click', function() {
+		var create_url = '/stylus/articles/create'
+		window.location.assign(create_url);
+	});
+
+	// ===== functions ===== //
+
+	// function to delete an article / event
+	var delete_art = function(id) {
+		var formData = {
+			id: id
+		};
+		var delete_url = '/stylus/article/' + id;
+		$.ajax({
+			url: delete_url,
+			type: 'DELETE',
+			data: formData,
+			dataType: 'json',
+			success: function(data,status) {
+
+				// check for logged_in state
+				if ( data.logged_in == '0') {
+					window.location.assign('/stylus/login');
+				}
+				else {
+					window.location.assign('/stylus/articles');
+				}
+			},
+			error: function(jqXHR,status,error) {
+				console.log('articles - an error has occurred on the ajax call - retrieve : status - ' + status + ' / ' + error);
+				window.location.assign('/stylus');
+			}
+		});
+
+	};
+
+	// function to update the publish / hide flag for an article / event
+	var set_publish = function(id,update) {
+		var formData = {
+			flag : update
+		};
+		var publish_url = '/stylus/article/' + id + '/publish';
+		$.ajax({
+			url: publish_url,
+			type: 'PUT',
+			data: formData,
+			dataType: 'json',
+			success: function(data,status) {
+
+				// check for logged_in state
+				if ( data.logged_in == '0') {
+					window.location.assign('/stylus/login');
+				}
+				else {
+					if ( update == 'n' ) {
+						$('button#publish').text('Publish');
+					}
+					else {
+						$('button#publish').text('Hide');
+					}
+				}
+			},
+			error: function(jqXHR,status,error) {
+				console.log('articles - an error has occurred on the ajax call - retrieve : status - ' + status + ' / ' + error);
+				window.location.assign('/stylus');
+			}
+		});
+
+	};
+
+	// function to reset text / css for the delete button when required
+	var set_delete_css = function() {
+		$('button#delete').css('width', '120px');
+		$('button#delete').css('background-color', '#254960');
+		$('button#delete').text('Delete');
+		$('button#delete').val('1');
+	}
+
+	</script>

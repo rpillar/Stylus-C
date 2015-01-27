@@ -93,9 +93,6 @@
                                 [% IF article.type == 'Event' %]
                                     <h5 style="margin:0;padding:10px 0;">Date - [% article.event_date %]</h5>
                                 [% END %]
-                                <!--<p style="font-size:16px;line-height:1.5;margin:0;padding-top:10px;padding-bottom:10px;color:#acacac;font-weight:400;" class="article_content">
-                                    [% article.content %]
-                                </p>-->
                                 <span style="font-size:16px;line-height:1.5;margin:0;padding-top:10px;padding-bottom:10px;color:#acacac;font-weight:400;" class="article_content">
                                     [% article.content %]
                                 </span>
@@ -129,7 +126,6 @@
       });
     </script>
 
-    <!-- click on an article link .... -->
     <script>
 
         // process 'click' on an article ...
@@ -157,32 +153,28 @@
 		                $('input#article_id').val( data.id );
 		                $('h2#article-title').text( data.title );
 
-		                // a 'hack' to ensure that event dates are displayed - for initial and subsequent page displays ...
-		                if ( data.type == 'Event' ) {
-		                    // if a 'page load' event is displayed - then hide
-		                    $('#init_event').hide();
-
-		                    // display the event date
-		                    if ( data.event_date ) {
-		                        $('span#event').html( '<h5 style="display:inline;">Date :-</h5>&nbsp;<span id="event_date"></span>');
-		                        $('span#event_date').text(data.event_date);
-		                        $('span#event').show();
-	                        }
-		                }
+		                // a 'hack' to ensure that event dates are displayed ...
+		                if ( data.date ) {
+                            $('#content-date h4').text('Date : ' + data.date);
+		                    $('#content-date').removeClass('contentdate-hide').addClass('contentdate-show');
+	                    }
 		                else {
-		                    $('#init_event').hide();
-		                    $('#event').hide();
+		                    $('#content-date').removeClass('contentdate-show').addClass('contentdate-hide');
 		                }
-                        $('span#article-content p').html( data.content );
+                        $('span#article-content').html( data.content );
 
 		                // set publish / hide button value
 		                if ( data.publish == 'y' ) {
-		                      $('button#publish').text('Hide');
+		                    $('button#publish').text('Hide');
 		                }
 		                else {
 		                    $('button#publish').text('Publish');
 		                }
 	                }
+                    // hide article-intro
+                    $('#article-intro').hide();
+                    // show article-content
+                    $('#full-article').show();
 		        },
 		        error: function(jqXHR,status,error) {
 		            console.log('articles - an error has occurred on the ajax call - retrieve : status - ' + status + ' / ' + error);
@@ -192,118 +184,6 @@
 
         });
 
-        // process a 'button' click
-        $('button#publish').on( 'click', function() {
-            // (re)set delete button css / text
-            set_delete_css();
-            $('button#delete').val(1);
-
-            //check current value
-            var pub_val = $('button#publish').text();
-            var id = $('input#article_id').val();
-            if ( pub_val == 'Publish' ) {
-                set_publish(id,'y');
-            }
-            if ( pub_val == 'Hide' ) {
-                set_publish(id,'n');
-            }
-        });
-        $('button#edit').on( 'click', function() {
-            // (re)set delete button css / text
-            set_delete_css();
-            $('button#delete').val(1);
-
-            var id       = $('input#article_id').val();
-            var edit_url = '/stylus/articles/' + id + '/edit';
-            window.location.assign(edit_url);
-
-        });
-        $('button#delete').on( 'click', function() {
-            delete_value = $('button#delete').val();
-            if ( delete_value == 1) {
-                $('button#delete').val('2');
-                $('button#delete').css('width', '160px');
-                $('button#delete').css('background-color', 'red');
-                $('button#delete').text('Are you sure ?');
-            }
-            if ( delete_value == 2) {
-                var id = $('#article_id').val();
-                delete_art(id);
-            }
-        });
-
-        // ===== functions ===== //
-
-        // function to delete an article / event
-        var delete_art = function(id) {
-            var formData = {
-		        id: id
-	        };
-	        var delete_url = '/stylus/article/' + id;
-		    $.ajax({
-		        url: delete_url,
-		        type: 'DELETE',
-		        data: formData,
-		        dataType: 'json',
-		        success: function(data,status) {
-
-		            // check for logged_in state
-                    if ( data.logged_in == '0') {
-                        window.location.assign('/stylus/login');
-                    }
-                    else {
-		                window.location.assign('/stylus/articles');
-	                }
-		        },
-		        error: function(jqXHR,status,error) {
-		            console.log('articles - an error has occurred on the ajax call - retrieve : status - ' + status + ' / ' + error);
-	                window.location.assign('/stylus');
-		        }
-		    });
-
-        };
-
-        // function to update the publish / hide flag for an article / event
-        var set_publish = function(id,update) {
-            var formData = {
-		        flag : update
-	        };
-            var publish_url = '/stylus/article/' + id + '/publish';
-		    $.ajax({
-		        url: publish_url,
-		        type: 'PUT',
-		        data: formData,
-		        dataType: 'json',
-		        success: function(data,status) {
-
-		            // check for logged_in state
-                    if ( data.logged_in == '0') {
-                        window.location.assign('/stylus/login');
-                    }
-                    else {
-		                if ( update == 'n' ) {
-                            $('button#publish').text('Publish');
-                        }
-                        else {
-                            $('button#publish').text('Hide');
-                        }
-                    }
-		        },
-		        error: function(jqXHR,status,error) {
-		            console.log('articles - an error has occurred on the ajax call - retrieve : status - ' + status + ' / ' + error);
-	                window.location.assign('/stylus');
-		        }
-		    });
-
-        };
-
-        // function to reset text / css for the delete button when required
-        var set_delete_css = function() {
-            $('button#delete').css('width', '120px');
-            $('button#delete').css('background-color', '#254960');
-            $('button#delete').text('Delete');
-            $('button#delete').val('1');
-        }
     </script>
 
     <!-- filter articles ... -->
