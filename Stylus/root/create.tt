@@ -242,14 +242,6 @@
 			    $('#dd').css({"border-top-color": "#254960", "border-bottom-color": "#254960" });
 			    $('p#message').text('Type missing - please enter.');
 			}
-			else if ( type == 'Event' && !date ) {
-			    $('#eventDate').parent().addClass('input_error');
-			    $('p#message').text('Event Date missing - please enter.');
-			}
-			else if ( !title ) {
-			    $('#title').parent().addClass('input_error');
-			    $('p#message').text('Title missing - please enter.');
-			}
 			else if ( !article ) {
 			    $('#article').parent().addClass('input_error');
 			    $('p#message').text('Article missing - please enter.');
@@ -262,8 +254,8 @@
 			        article: article
 		        };
 			    $.ajax({
-			        url: '/stylus/articles/add',
-			        type: 'POST',
+			        url: '/stylus/article',
+			        type: 'PUT',
 			        data: formData,
 			        dataType: 'json',
 			        success: function(data,status) {
