@@ -207,6 +207,7 @@
             if ( $('#titlefield').is(':visible') ) {
                 $(this).text('Add Title');
                 $('#titlefield').removeClass('titlefield-show').addClass('titlefield-hide');
+                $('#title').val('');
             }
             else {
                 $(this).text('Remove Title');
@@ -222,6 +223,7 @@
             if ( $('#datefield').is(':visible') ) {
                 $(this).text('Add Date');
                 $('#datefield').removeClass('datefield-show').addClass('datefield-hide');
+                $('#eventDate').val('');
             }
             else {
                 $(this).text('Remove Date');
@@ -262,19 +264,19 @@
 		        };
 			    $.ajax({
 			        url: '/stylus/article',
-			        type: 'PUT',
+			        type: 'POST',
 			        data: formData,
 			        dataType: 'json',
 			        success: function(data,status) {
 			            if ( data.json.success == 0 ) {
-			                $('p#message').text('There was a problem adding this article - please try again or contact us.');
+			                $('p#message').text('There was a problem adding this article - please try again.');
 			            }
 			            else {
 			                window.location.assign('/stylus/articles');
 			            }
 			        },
 			        error: function(jqXHR,status,error) {
-			            $('p#message').text('A problem has occurred - please try again in a few minutes or contact us.');
+			            $('p#message').text('A problem has occurred - please try again.');
 			        }
 			    });
 			}

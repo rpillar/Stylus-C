@@ -17,7 +17,7 @@ __PACKAGE__->config(default => 'application/json');
 sub base :Chained('/') PathPart('stylus/article') :CaptureArgs( 1 ) {
     my ( $self, $c, $id) = @_;
 
-    $c->log->debug('in Articles API - article');
+    $c->log->debug('in Articles API - article_base');
 
     # remove all non-digits
     $id =~ s/\D//g;
@@ -31,6 +31,24 @@ sub base :Chained('/') PathPart('stylus/article') :CaptureArgs( 1 ) {
             $c->stash->{article} = $article;
         }
     }
+}
+
+=head2 article_new - 'base' method for 'new' articles
+
+=cut
+
+sub base_new :Chained('/') PathPart('stylus/article') :CaptureArgs( 0 ) {
+    my ( $self, $c ) = @_;
+
+    $c->log->debug('in Articles API - article_new');
+}
+
+=head2 article_new
+
+=cut
+
+sub article_new :Chained('base_new') PathPart('') Args(0) : ActionClass('REST') {
+    my ($self, $c) = @_;
 }
 
 =head2 article
@@ -79,11 +97,36 @@ sub article_GET :Private {
     );
 }
 
-sub article_POST :Private {
+=head2 article_DELETE
+
+=cut
+
+sub article_DELETE :Private {
+    my ($self, $c) = @_;
+
+    try {
+        $c->stash->{article}->delete();
+        $self->status_accepted( $c, entity => { status => "deleted" } );
+    }
+    catch {
+        $self->status_bad_request(
+            $c,
+            message => "Articles : there has been an error deleting data from the stylus db !",
+        );
+    };
+}
+
+=head2 article_new_POST
+
+=cut
+
+sub article_new_POST :Private {
     my ($self, $c) = @_;
 
     # get updated article data ..
     my $data = $c->req->data || $c->req->params;
+    $c->log->debug( Dumper($data) );
+    $c->log->debug('Article type : ' . $data->type);
 
     $self->status_created(
         $c,
@@ -129,23 +172,6 @@ sub article_POST :Private {
 #        };
 #    }
 #}
-
-
-
-sub article_DELETE :Private {
-    my ($self, $c) = @_;
-
-    try {
-        $c->stash->{article}->delete();
-        $self->status_accepted( $c, entity => { status => "deleted" } );
-    }
-    catch {
-        $self->status_bad_request(
-            $c,
-            message => "Articles : there has been an error deleting data from the stylus db !",
-        );
-    };
-}
 
 sub publish_PUT :Private {
     my ( $self, $c, ) = @_;
