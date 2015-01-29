@@ -1,4 +1,8 @@
 
+<link rel="stylesheet" type="text/css" href="/static/pickadate/themes/default.css" />
+<link rel="stylesheet" type="text/css" href="/static/pickadate/themes/default.date.css" />
+<link rel="stylesheet" type="text/css" href="/static/pickadate/themes/default.time.css" />
+
 <style>
 .wrapper-dropdown-3 {
     /* Size and position */
@@ -160,7 +164,7 @@
                 <div id="datefield" class="datefield-hide">
                     <label class="form_label" for="title">Date</label>
                     <div class="input" style="margin-bottom:25px;width:350px;">
-                        <input class="login_input" id="eventDate" name="eventDate" placeholder="Date" type="text" style="width:200px;">
+                        <input class="login_input" id="eventDate" name="eventDate" placeholder="Date" type="text" input size="16" style="width:200px; readonly">
                     </div>
                 </div>
                 <div style="clear:both;display:block;">
@@ -173,10 +177,13 @@
             </form>
         </div>
     </div>
+    <div id='date-outlet'></div>
 
     <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
     <!-- Datepicker -->
-    <script type="text/javascript" src="/static/datepicker/js/bootstrap-datepicker.js"></script>
+    <script type="text/javascript" src="/static/pickadate/picker.js"></script>
+    <script type="text/javascript" src="/static/pickadate/picker.date.js"></script>
+    <script type="text/javascript" src="/static/pickadate/picker.time.js"></script>
     <!-- WMD -->
     <script type="text/javascript" src="/static/js/showdown.js"></script>
     <script type="text/javascript" src="/static/js/wmd.js"></script>
@@ -285,7 +292,9 @@
     <!-- datepicker stuff -->
     <script type="text/javascript">
         $(document).ready(function() {
-            $('#eventDate').datepicker({ format: 'yyyy-mm-dd' })
+            $('#eventDate').pickadate({
+                container: '#date-outlet'
+            });
         });
     </script>
 

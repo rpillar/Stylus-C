@@ -4,7 +4,7 @@ use namespace::autoclean;
 
 use Data::Dumper;
 use Text::Markdown 'markdown';
-use Scaler::Util;
+use Scalar::Util qw( looks_like_number);
 use Try::Tiny;
 
 BEGIN { extends 'Catalyst::Controller::REST' }
