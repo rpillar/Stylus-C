@@ -146,30 +146,6 @@ sub base :Chained('/') PathPart('stylus/articles') :CaptureArgs( 1 ) {
     }
 }
 
-=head2 delete
-
-=cut
-
-sub delete :Chained('base') :PathPart('delete') :Args(0) {
-    my ( $self, $c ) = @_;
-
-    $c->log->debug('Article - delete process.');
-
-	$c->stash->{current_view} = 'JSON_Service';
-
-	# delete
-	try {
-	    $c->stash->{article}->delete;
-        $c->stash->{article} = undef;
-    }
-    catch {
-        $c->stash->{article} = undef;
-        return 0;
-    };
-
-    return 1;
-}
-
 =head2 edit
 
 =cut

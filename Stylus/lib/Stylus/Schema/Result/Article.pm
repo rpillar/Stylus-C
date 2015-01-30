@@ -77,6 +77,11 @@ __PACKAGE__->table("article");
   is_nullable: 1
   size: 25
 
+=head2 article_date
+
+  data_type: 'text'
+  is_nullable: 1
+
 =cut
 
 __PACKAGE__->add_columns(
@@ -94,6 +99,8 @@ __PACKAGE__->add_columns(
   { data_type => "char", is_nullable => 1, size => 1 },
   "domain",
   { data_type => "char", is_nullable => 1, size => 25 },
+  "article_date",
+  { data_type => "text", is_nullable => 1 },
 );
 
 =head1 PRIMARY KEY
@@ -109,8 +116,8 @@ __PACKAGE__->add_columns(
 __PACKAGE__->set_primary_key("id");
 
 
-# Created by DBIx::Class::Schema::Loader v0.07042 @ 2014-09-22 15:09:12
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:rgN3e8RZ6C8THNGJG80l/Q
+# Created by DBIx::Class::Schema::Loader v0.07042 @ 2015-01-30 17:13:23
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:Lr4sJuOYY9Buc7ZiHwSPpw
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

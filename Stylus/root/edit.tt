@@ -1,4 +1,8 @@
 
+<link rel="stylesheet" type="text/css" href="/static/pickadate/themes/default.css" />
+<link rel="stylesheet" type="text/css" href="/static/pickadate/themes/default.date.css" />
+<link rel="stylesheet" type="text/css" href="/static/pickadate/themes/default.time.css" />
+
 <style>
 .datefield-hide {
     display: none;
@@ -15,11 +19,11 @@
                 <div class="input" style="margin-bottom:25px;">
                     <h3 class='login_input' id="type" style="font-weight:400;font-size:22px;color:gray;">[% article.type %]</h3>
                 </div>
-                [% IF article.type == 'Event' %]
+                [% IF article.article_date %]
                 <div id="datefield">
                     <label class="form_label" for="title">Date</label>
 	    		    <div class="input" style="margin-bottom:25px;width:350px;">
-	    			    <input class="login_input" id="eventDate" name="eventDate" placeholder="Date" type="text" value="[% article.event_date.ymd %]" style="width:200px;">
+	    			    <input class="login_input" id="articleDate" name="articleDate" placeholder="Date" type="text" value="[% article.article_date %]" data-value="[% article.article_date %]" style="width:200px;">
 	    		    </div>
                 </div>
                 [% END %]
@@ -42,7 +46,9 @@
 
     <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
     <!-- Datepicker -->
-    <script type="text/javascript" src="/static/datepicker/js/bootstrap-datepicker.js"></script>
+    <script type="text/javascript" src="/static/pickadate/picker.js"></script>
+    <script type="text/javascript" src="/static/pickadate/picker.date.js"></script>
+    <script type="text/javascript" src="/static/pickadate/picker.time.js"></script>
     <!-- WMD -->
     <script type="text/javascript" src="/static/js/showdown.js"></script>
     <script type="text/javascript" src="/static/js/wmd.js"></script>
@@ -71,20 +77,12 @@
 			// client-side validation - just check that fields have been populated
 			// all other validation will be done on the server
 			var type    = $('#type').text();
-			var date    = $('#eventDate').val();
+			var date    = $('#articleDate_hidden').val();
 			var title   = $('#title').val();
 			var article = $('#article').val();
 			var id      = $('#article_id').val();
 
-			if ( type == 'Event' && !date ) {
-			    $('#eventDate').parent().addClass('input_error');
-			    $('p#message').text('Event Date missing - please enter.');
-			}
-			else if ( !title ) {
-			    $('#title').parent().addClass('input_error');
-			    $('p#message').text('Title missing - please enter.');
-			}
-			else if ( !article ) {
+			if ( !article ) {
 			    $('#article').parent().addClass('input_error');
 			    $('p#message').text('Article missing - please enter.');
 			}
@@ -135,7 +133,10 @@
     <!-- datepicker stuff -->
     <script type="text/javascript">
         $(document).ready(function() {
-            $('#eventDate').datepicker({ format: 'yyyy-mm-dd' })
+            $('#articleDate').pickadate({
+                formatSubmit: 'yyyy-mm-dd',
+                hiddenName: true
+            });
         });
     </script>
 
@@ -163,15 +164,6 @@
                     obj.val = opt.text();
                     obj.index = opt.index();
                     obj.placeholder.text(obj.val);
-
-                    if ( obj.val == 'Event' ) {
-                        $('#datefield').removeClass('datefield-hide');
-                        $('#datefield').addClass('datefield-show');
-                    }
-                    else {
-                        $('#datefield').removeClass('datefield-show');
-                        $('#datefield').addClass('datefield-hide');
-                    }
                 });
             },
             getValue : function() {

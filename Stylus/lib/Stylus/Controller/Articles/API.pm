@@ -125,53 +125,35 @@ sub article_new_POST :Private {
 
     # get updated article data ..
     my $data = $c->req->data || $c->req->params;
-    $c->log->debug( Dumper($data) );
-    $c->log->debug('Article type : ' . $data->type);
 
-    $self->status_created(
-        $c,
-        location => $c->req->uri,
-        entity  => {
-
-        },
+    my $stylus_article = $c->model('DB::Article')->create(
+        {
+            type         => $data->{type},
+            article_date => $data->{date},
+            title        => $data->{title},
+            content      => $data->{article},
+        }
     );
+
+    if ( $stylus_article ) {
+        $self->status_created(
+            $c,
+            location => $c->req->uri,
+            entity  => {
+            },
+        );
+    }
+    else {
+        $self->status_bad_request(
+            $c,
+            message => "Articles : there has been an error creating an article !",
+        );
+    }
 }
 
-=head2 add
+=head2 publish_POST
 
 =cut
-
-#sub add :Path( '/stylus/articles/add' ) :Args(0) {
-#    my ( $self, $c ) = @_;
-
-#    my $type    = $c->request->params->{type};
-#    my $date    = $c->request->params->{date};
-#    my $title   = $c->request->params->{title};
-#    my $article = $c->request->params->{article};
-
-#    my $stylus_article = $c->model('DB::Article')->create(
-#        {
-#            type       => $type,
-#            event_date => $date,
-#            title      => $title,
-#            content    => $article,
-#        }
-#    );
-
-#    $c->stash->{current_view} = 'JSON_Service';
-#    if ( $stylus_article ) {
-#        $c->log->debug('Create article - worked');
-#        $c->stash->{json} = {
-#            success => 1,
-#        };
-#    }
-#    else {
-#        $c->log->debug('Create article - an error has occurred');
-#        $c->stash->{json} = {
-#            success => 0,
-#        };
-#    }
-#}
 
 sub publish_PUT :Private {
     my ( $self, $c, ) = @_;
@@ -191,7 +173,6 @@ sub publish_PUT :Private {
             $c,
             location => $c->req->uri,
             entity  => {
-
             },
         );
     }
