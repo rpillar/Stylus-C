@@ -4,11 +4,21 @@
 <link rel="stylesheet" type="text/css" href="/static/pickadate/themes/default.time.css" />
 
 <style>
+.titlefield-hide {
+    display: none;
+    clear: both;
+}
+.titlefield-show {
+    display: normal;
+    clear: both;
+}
 .datefield-hide {
     display: none;
+    clear: both;
 }
 .datefield-show {
     display: normal;
+    clear: both;
 }
 </style>
 
@@ -16,27 +26,41 @@
     <div style="padding:10px 20px;margin:20px 0;">
         <div style="padding:10px 20px;margin:20px 0;">
             <form>
-                <div class="input" style="margin-bottom:25px;">
+                <div class="input" style="margin-bottom:10px;">
                     <h3 class='login_input' id="type" style="font-weight:400;font-size:22px;color:gray;">[% article.type %]</h3>
                 </div>
+
+                <button class="button" id="title-button" style="margin-bottom:20px;width:220px;">[% IF article.title %]Remove Title [% ELSE %] Add Title[% END %]</button>
+                <button class="button" id="date-button" style="margin-bottom:20px;width:220px;">[% IF article.article_date %]Remove Date [% ELSE %]Add Date[% END %]</button>
+
                 [% IF article.article_date %]
-                <div id="datefield">
-                    <label class="form_label" for="title">Date</label>
+                <div id="datefield" class="datefield-show">
+                [% ELSE %]
+                <div id="datefield" class="datefield-hide">
+                [% END %]
+                    <label class="form_label" for="articleDate">Date</label>
 	    		    <div class="input" style="margin-bottom:25px;width:350px;">
 	    			    <input class="login_input" id="articleDate" name="articleDate" placeholder="Date" type="text" value="[% article.article_date %]" data-value="[% article.article_date %]" style="width:200px;">
 	    		    </div>
                 </div>
+                [% IF article.title %]
+                <div id="titlefield" class="titlefield-show">
+                [% ELSE %]
+                <div id="titlefield" class="titlefield-hide">
                 [% END %]
-                <label class="form_label" for="title">Title</label>
-	    		<div class="input" style="margin-bottom:25px;">
-	    			<input class="login_input" id="title" name="title" placeholder="Title" type="text" value="[% article.title %]">
-	    		</div>
-                <label class="form_label" for="create">Article</label>
-                <div class="input">
-                    <textarea class="login_input wmd-input" id="article" placeholder="Article" type="text" rows="12">[% article.content %]</textarea>
+                    <label class="form_label" for="title">Title</label>
+	    		    <div class="input" style="margin-bottom:25px;">
+	    			    <input class="login_input" id="title" name="title" placeholder="Title" type="text" value="[% article.title %]">
+	    		    </div>
                 </div>
-                <button class="button" id="update" style="margin-bottom:20px;">Update</button>
-                <button class="button" id="cancel" style="margin-bottom:20px;">Cancel</button>
+                <div style="clear:both;display:block;">
+                    <label class="form_label" for="create">Article</label>
+                    <div class="input">
+                        <textarea class="login_input wmd-input" id="article" placeholder="Article" type="text" rows="12">[% article.content %]</textarea>
+                    </div>
+                </div>
+                <button class="button" id="update" style="background-color:#1abc9c;margin-bottom:20px;width:220px;">Update</button>
+                <button class="button" id="cancel" style="margin-bottom:20px;width:220px;">Cancel</button>
 
                 <!-- store 'id' of current article -->
 	    	    <input id='article_id' type='hidden' value="[% article.id %]">
@@ -56,14 +80,6 @@
     <script type="text/javascript" src="/static/js/functions.js"></script>
 
     <script type="text/javascript" language="javascript" charset="utf-8">
-
-        // set 'background' for the inputs
-	    $('form div.input .login_input').on('focus', function() {
-			$(this).parent().addClass('input_active');
-		});
-		$('form div.input .login_input').on('focusout', function() {
-			$(this).parent().removeClass('input_active');
-		});
 
         // process 'update' button 'click'
 		$('button#update').on('click', function(e) {
@@ -93,10 +109,10 @@
 			        title: title,
 			        article: article
 		        };
-		        var update_url = '/stylus/articles/' + id + '/update/';
+		        var update_url = '/stylus/article/' + id;
 			    $.ajax({
 			        url: update_url,
-			        type: 'POST',
+			        type: 'PUT',
 			        data: formData,
 			        dataType: 'json',
 			        success: function(data,status) {

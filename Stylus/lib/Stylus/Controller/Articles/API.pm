@@ -116,6 +116,40 @@ sub article_DELETE :Private {
     };
 }
 
+=head2 article_PUT
+
+=cut
+
+sub article_PUT :Private {
+    my ($self, $c) = @_;
+
+    # get article data ..
+    my $data = $c->req->data || $c->req->params;
+
+    try {
+        $c->stash->{article}->update(
+            {
+                article_date => $data->{date},
+                title        => $data->{title},
+                content      => $data->{article},
+            }
+        );
+
+        $self->status_created(
+            $c,
+            location => $c->req->uri,
+            entity  => {
+            },
+        );
+    }
+    catch {
+        $self->status_bad_request(
+            $c,
+            message => "Articles : there has been an error updating the 'publish' flag !",
+        );
+    };
+}
+
 =head2 article_new_POST
 
 =cut
@@ -123,7 +157,7 @@ sub article_DELETE :Private {
 sub article_new_POST :Private {
     my ($self, $c) = @_;
 
-    # get updated article data ..
+    # get article data ..
     my $data = $c->req->data || $c->req->params;
 
     my $stylus_article = $c->model('DB::Article')->create(
