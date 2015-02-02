@@ -78,27 +78,23 @@ sub index :Path( '/stylus/articles' ) :Args(0) {
 	    }
 
 	    my $row = {
-	        id         => $_->id,
-	        type       => $_->type,
-	        title      => $_->title,
-	        content    => markdown( $content ),
-	        publish    => $_->publish,
+	        id           => $_->id,
+	        type         => $_->type,
+	        title        => $_->title,
+	        content      => markdown( $content ),
+	        publish      => $_->publish,
+	        article_date => $_->article_date,
 	    };
-	    if ( $_->type eq 'Event' ) {
-	        $row->{event_date} = $_->event_date->ymd;
-	    }
-	    else {
-	        $row->{event_date} = 0;
-	    }
+
 	    push(@data, $row);
 	}
 
-    $c->stash->{init}->{id}         = $data[0]->{id};
-    $c->stash->{init}->{type}       = $data[0]->{type};
-    $c->stash->{init}->{event_date} = $data[0]->{event_date};
-    $c->stash->{init}->{title}      = $data[0]->{title};
-    $c->stash->{init}->{content}    = $data[0]->{content};
-    $c->stash->{init}->{publish}    = $data[0]->{publish};
+    #$c->stash->{init}->{id}         = $data[0]->{id};
+    #$c->stash->{init}->{type}       = $data[0]->{type};
+    #$c->stash->{init}->{event_date} = $data[0]->{event_date};
+    #$c->stash->{init}->{title}      = $data[0]->{title};
+    #$c->stash->{init}->{content}    = $data[0]->{content};
+    #$c->stash->{init}->{publish}    = $data[0]->{publish};
 
 	$c->stash->{articles} = \@data;
 }

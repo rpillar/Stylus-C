@@ -81,6 +81,37 @@
 
     <script type="text/javascript" language="javascript" charset="utf-8">
 
+        // process 'add title' button 'click'
+        $('button#title-button').on('click', function(e) {
+            e.preventDefault();
+
+            if ( $('#titlefield').is(':visible') ) {
+                $(this).text('Add Title');
+                $('#titlefield').removeClass('titlefield-show').addClass('titlefield-hide');
+                $('#title').val('');
+            }
+            else {
+                $(this).text('Remove Title');
+                $('#titlefield').removeClass('titlefield-hide').addClass('titlefield-show');
+            }
+        });
+
+        // process 'add date' button 'click'
+        $('button#date-button').on('click', function(e) {
+            e.preventDefault();
+
+            if ( $('#datefield').is(':visible') ) {
+                $(this).text('Add Date');
+                $('#datefield').removeClass('datefield-show').addClass('datefield-hide');
+                $('#articleDate').val('');
+                $('#articleDate_hidden').val('');
+            }
+            else {
+                $(this).text('Remove Date');
+                $('#datefield').removeClass('datefield-hide').addClass('datefield-show');
+            }
+        });
+
         // process 'update' button 'click'
 		$('button#update').on('click', function(e) {
             e.preventDefault();

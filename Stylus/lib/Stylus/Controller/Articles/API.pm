@@ -76,11 +76,6 @@ sub article_GET :Private {
 
     my $article = $c->stash->{article};
 
-    my $date = 0;
-    if ( $article->type eq 'Event' ) {
-        $date = $article->event_date->ymd;
-    }
-
     # convert markdown content
     my $content = markdown( $article->content );
 
@@ -92,7 +87,7 @@ sub article_GET :Private {
             type    => $article->type,
             content => $content,
             publish => $article->publish,
-            date    => $date,
+            date    => $article->article_date,
         },
     );
 }

@@ -43,22 +43,18 @@
             text-decoration: none;
             cursor: pointer;
         }
-        /*.search_icon {
-            display: block;
-            width:40px;
-            height:40px;
-            background: url(/static/images/search.svg);
-            background-size: 50px 50px;
-            margin-bottom:15px;
-            opacity: 0.6;
-        }*/
+        .article_link {
+            width: inherit;
+            height: inherit;
+        }
         #filter input[type="text"] {
             background: url(/static/images/search-white.png) no-repeat 15px 10px #fcfcfc;
-            border: 1px solid #254960;
+            /*border: 1px solid #254960;*/
+            border: 2px solid lightblue;
             font-size: 20px;
             color: #254960;;
             width: 230px;
-            padding: 6px 15px 6px 35px;
+            padding: 10px 15px 10px 35px;
             -webkit-border-radius: 20px;
             -moz-border-radius: 20px;
             border-radius: 20px;
@@ -90,9 +86,11 @@
                                 <input type="hidden" value="[% article.id %]" class="article_id">
                                 <h3 class="article_title" style="font-size:24px;font-weight:600;margin:0;padding:12px 0;">[% article.title %]</h3><span>
                                 <h4 style="margin:5px 0;font-weight:300;color:gray;">(&nbsp;[% article.type %]&nbsp;)</h4></span>
-                                [% IF article.type == 'Event' %]
-                                    <h5 style="margin:0;padding:10px 0;">Date - [% article.event_date %]</h5>
-                                [% END %]
+                                <span>
+                                    [% IF article.article_date %]
+                                    <h5 style="margin:0;padding:10px 0;">Date - [% article.article_date %]</h5>
+                                    [% END %]
+                                </span>
                                 <span style="font-size:16px;line-height:1.5;margin:0;padding-top:10px;padding-bottom:10px;color:#acacac;font-weight:400;" class="article_content">
                                     [% article.content %]
                                 </span>
@@ -126,9 +124,8 @@
       });
     </script>
 
+    <!-- process 'click' on an article ... -->
     <script>
-
-        // process 'click' on an article ...
         $('a.article_link').on('click', function(){
             var id = $(this).find('.article_id').val();
 
