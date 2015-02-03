@@ -7,13 +7,23 @@
 
     	#container {
       		/*margin-top: 40px;*/
-      		height: 400px;
+      		height: 470px;
       		/*border: 1px solid lightgray;
-      		padding: 10px;*/
+      		padding: 20px;*/
     	}
     	#editor {
       		height: 470px;
+			marin-left: 22px;
     	}
+
+		/* override bootstrap styling for editor */
+		pre {
+			border: none;
+		}
+		/* override ace styling */
+		.ace-tm .ace-gutter {
+			background-color: white;
+		}
   	</style>
 
 	<h1 style="margin:0;font-size:32px;font-weight:600;color:#000;padding-left:30px;padding-top:40px;text-transform:uppercase;"><span style="border-bottom:4px solid lightblue;">Create Partial</span></h1>
@@ -29,12 +39,20 @@
 						</ul>
 					</div>
 				</div>
-				<div style="clear:both;display:block;">
+				<div style="clear:both;">
+					<label class="form_label" for="create">Label</label>
+					<div class="input" style="margin-bottom:25px;">
+						<input class="login_input" id="label" name="label" placeholder="Label" type="text">
+					</div>
+				</div>
+				<div style="clear:both;">
 					<label class="form_label" for="create">Partial / Layout code</label>
-					<div id="container">
+					<div id="container" style="margin-top:15px;margin-bottom:30px;margin-left:22px;border-left:4px solid #254960;border-right:1px solid lightgray;">
 						<pre id="editor"></pre>
 					</div>
 				</div>
+				<button class="button" id="create" style="background-color:#1abc9c;margin-bottom:20px;width:220px;">Create</button>
+				<button class="button" id="cancel" style="margin-bottom:20px;width:220px;">Cancel</button>
 	    	</form>
 		</div>
     </div>
@@ -46,5 +64,18 @@
     	//editor.setTheme("ace/theme/twilight");
     	editor.setTheme("ace/theme/textmate");
     	editor.getSession().setMode("ace/mode/html");
-    	document.getElementById('editor').style.fontSize='16px';
+		editor.setHighlightActiveLine(false);
+		editor.setShowPrintMargin(false);
+		//editor.renderer.setShowGutter(false);
+    	document.getElementById('editor').style.fontSize='12px';
+	</script>
+
+	<script>
+		// set 'background' for the inputs
+		$('form div.input .login_input').on('focus', function() {
+			$(this).parent().addClass('input_active');
+		});
+		$('form div.input .login_input').on('focusout', function() {
+			$(this).parent().removeClass('input_active');
+		});
 	</script>
