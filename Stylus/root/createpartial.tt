@@ -1,0 +1,50 @@
+	<link rel="stylesheet" type="text/css" href="/static/css/wrapper-dropdown.css" />
+
+  	<style type="text/css" media="screen">
+    	/*body {
+        	overflow: hidden;
+    	}*/
+
+    	#container {
+      		/*margin-top: 40px;*/
+      		height: 400px;
+      		/*border: 1px solid lightgray;
+      		padding: 10px;*/
+    	}
+    	#editor {
+      		height: 470px;
+    	}
+  	</style>
+
+	<h1 style="margin:0;font-size:32px;font-weight:600;color:#000;padding-left:30px;padding-top:40px;text-transform:uppercase;"><span style="border-bottom:4px solid lightblue;">Create Partial</span></h1>
+	<div style="padding:10px 20px;margin:20px 0;">
+		<div style="padding:10px 20px;margin:20px 0;">
+			<form>
+				<div style="margin-bottom:30px;margin-left:22px;border-left:4px solid #254960;">
+					<div id="dd" class="wrapper-dropdown-3" tabindex="1">
+						<span>Partial Type</span>
+						<ul class="dropdown">
+							<li><a href="#">Partial</a></li>
+							<li><a href="#"></i>Layout</a></li>
+						</ul>
+					</div>
+				</div>
+				<div style="clear:both;display:block;">
+					<label class="form_label" for="create">Partial / Layout code</label>
+					<div id="container">
+						<pre id="editor"></pre>
+					</div>
+				</div>
+	    	</form>
+		</div>
+    </div>
+
+	<script type="text/javascript" src="/static/js/wrapper-dropdown.js"></script>
+	<script src="/static/ace/ace-builds/src-min/ace.js" type="text/javascript" charset="utf-8"></script>
+	<script>
+    	var editor = ace.edit("editor");
+    	//editor.setTheme("ace/theme/twilight");
+    	editor.setTheme("ace/theme/textmate");
+    	editor.getSession().setMode("ace/mode/html");
+    	document.getElementById('editor').style.fontSize='16px';
+	</script>

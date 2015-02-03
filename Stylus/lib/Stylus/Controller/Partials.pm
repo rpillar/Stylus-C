@@ -70,13 +70,14 @@ sub index :Path( '/stylus/partials' ) :Args(0) {
 
 ### create a 'new' partial ###
 
-sub create_start :Path( '/stylus/partials/create' ) :Args(0) {
+sub create :Path( '/stylus/partials/create' ) :Args(0) {
     my ( $self, $c ) = @_;
 
     # set initial content for 'landing' page
     $c->stash->{current_view} = 'TT';
     $c->stash->{template}  = 'index.tt';
     $c->stash->{initial}   = 'createpartial.tt';
+    $c->stash->{righthalf} = 'createpartialsright.tt';
 }
 
 ### chained methods ###

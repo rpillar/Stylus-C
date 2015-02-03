@@ -26,3 +26,10 @@
 		[% END %]
 	    </div>
     </div>
+
+	<script>
+	$('button#create_partial').on( 'click', function() {
+		var create_url = '/stylus/partials/create'
+		window.location.assign(create_url);
+	});
+	</script>
