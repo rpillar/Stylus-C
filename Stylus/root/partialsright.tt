@@ -44,13 +44,14 @@
             cursor: pointer;
         }
 
-        #filter input[type="text"] {
+#filter input[type="text"] {
             background: url(/static/images/search-white.png) no-repeat 15px 10px #fcfcfc;
-            border: 1px solid #254960;
+            /*border: 1px solid #254960;*/
+            border: 3px solid lightblue;
             font-size: 20px;
             color: #254960;;
             width: 230px;
-            padding: 6px 15px 6px 35px;
+            padding: 10px 15px 10px 35px;
             -webkit-border-radius: 20px;
             -moz-border-radius: 20px;
             border-radius: 20px;

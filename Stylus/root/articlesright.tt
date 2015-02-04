@@ -50,7 +50,7 @@
         #filter input[type="text"] {
             background: url(/static/images/search-white.png) no-repeat 15px 10px #fcfcfc;
             /*border: 1px solid #254960;*/
-            border: 2px solid lightblue;
+            border: 3px solid lightblue;
             font-size: 20px;
             color: #254960;;
             width: 230px;

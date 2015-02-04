@@ -1,3 +1,14 @@
+	<style>
+		.p_text {
+			font-size:18px;
+			line-height:1.5;
+			margin-top:20px;
+			margin-bottom:20px;
+			color:#acacac;
+			font-weight:400;
+		}
+	</style>
+
 	<h1 style="margin:0;font-size:32px;font-weight:600;color:#000;padding-left:30px;padding-top:40px;text-transform:uppercase;"><span style="border-bottom:4px solid lightblue;">Partials</span></h1>
 	<div style="padding: 10px 20px;margin:20px 0;">
 	    <div style="padding:20px;">
@@ -12,13 +23,15 @@
 	    	<input id='partial_id' type='hidden' value="[% init.id %]">
 		[% ELSE %]
 			<div>
-				<p style="font-size:18px;line-height:1.5;margin-top:20px;margin-bottom:20px;color:#acacac;font-weight:400;">A <span style="border-bottom:1px dashed gray;">partial</span> is a small amount of html (and maybe 'css')
-				that will define the outline structure of a small portion of a webpage. An example is given below :-</p>
+				<p class="p_text">A <span style="border-bottom:1px dashed gray;">partial</span> in a general sense is a small amount of html (and maybe 'css')
+				that defines the outline structure of a small portion of a webpage.</p>
+				<p class="p_text">In the context of Stylus (confusingly I know) a partial can be either a 'true' <span style="border-bottom:1px dashed gray;">partial</span> (as defined above) or a <span style="border-bottom:1px dashed gray;">layout</span>. A 'layout' is intended for defining a webpage - into which 'partials' can be inserted if required. In this way a 'layout' may include a number of different 'partials' with each of them defining a portion of the completed webpage. For example you may have common 'partials' for webpage 'headers' and 'footers'. </p>
+				<p class="p_text">An example of a <span style="border-bottom:1px dashed gray;">partial</span> (in the Stylus sense) is given below :-</p>
 
 				<p>
 					<script src="https://gist.github.com/rpillar/65d7aa252a8da5d9ee60.js"></script>
 				</p>
-
+				<p class="p_text">Here the <span style="border-bottom:1px dashed gray;">partial</span> that we want to insert has been stored with a 'label' of <span style="border-bottom:1px dashed gray;">'p1'</span>, the 'domain' that it is associated with is <span style="border-bottom:1px dashed gray;">'demo'</span>, the 'type' of content that we want to display here is <span style="border-bottom:1px dashed gray;">'article'</span> and the 'number' of articles that should be displayed is <span style="border-bottom:1px dashed gray;">'3'</span>. For 'partials' that are not intended to display dynamic content the 'type' and 'number' parameters can be left blank.</p>
 				<p>
 					<button class="button" id="create_partial" style="background-color:#1abc9c;width:300px;margin-bottom:20px;">Create a New Partial</button>
 				</p>

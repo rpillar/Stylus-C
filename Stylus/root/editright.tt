@@ -5,11 +5,11 @@
                 <div style="height:70px;">
                     <p id="message" style="font-size:20px;line-height:2.5;margin-top:20px;margin-bottom:20px;padding-left:10px;border-left:4px solid #254960;font-weight:300;text-transform:uppercase;"></p>
                 </div>
-                <div style="margin-bottom:20px;">
-                    <h2><span style="border-top: 1px solid #254960;border-bottom: 1px solid #254960;color:#8F8F8F;">Preview</span></h2>
-                </div>                
+                <div style="margin-bottom:40px;">
+                    <h2><span style="border-top: 1px solid #254960;border-bottom: 1px solid #254960;color:#254960;font-weight:300;text-transform:uppercase;padding:10px 0;">Preview</span></h2>
+                </div>
                 <div id="preview" class="wmd-preview" style="padding-right:50px;">
                 </div>
-            </aside>            
+            </aside>
         </div>
     </section>
