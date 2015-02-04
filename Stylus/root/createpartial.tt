@@ -58,7 +58,7 @@
     </div>
 
 	<script type="text/javascript" src="/static/js/wrapper-dropdown.js"></script>
-	<script src="/static/ace/ace-builds/src-min/ace.js" type="text/javascript" charset="utf-8"></script>
+	<script src="/static/ace/src-min/ace.js" type="text/javascript" charset="utf-8"></script>
 	<script>
     	var editor = ace.edit("editor");
     	//editor.setTheme("ace/theme/twilight");
@@ -78,7 +78,7 @@
 		$('form div.input .login_input').on('focusout', function() {
 			$(this).parent().removeClass('input_active');
 		});
-		
+
 		// process 'cancel' button 'click'
 		$('button#cancel').on('click', function(e) {
 			e.preventDefault();
