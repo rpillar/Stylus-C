@@ -1,8 +1,31 @@
+	<style>
+		pre {
+			font-size: 12px;
+			line-height: 1.2;
+			padding: 5px;
+		}
+	</style>
+
 	<aside style="padding: 40px;margin-top:40px;color:#acacac;font-size:16px;line-height:24px;">
-	    <div style="height:70px;">
-            <p id="message" style="font-size:16px;line-height:2.5;margin-top:20px;margin-bottom:20px;padding-left:10px;border-left:4px solid #254960;font-weight:300;text-transform:uppercase;"></p>
-        </div>
-		<p style="border-left:4px solid #254960;padding-left:10px;font-size:18px;line-height:1.5;margin-top:20px;margin-bottom:20px;color:#acacac;font-weight:400;">
-		
+	    <h2 style="margin:0;font-size:24px;font-weight:400;color:#000;padding-top:40px;text-transform:uppercase;"><span style="border-bottom:4px solid lightblue;">Layouts / Partials Info</span></h2>
+		<p style="padding-left:10px;font-size:18px;line-height:1.5;margin-top:20px;margin-bottom:10px;color:#acacac;font-weight:400;">
+			A 'layout' is analogous to a 'webpage' and as such should define the esential components that are required :-
+			<ul>
+				<li style="font-size:16px;"><span><</span><span>!DOCTYPE html</span><span>></span></li>
+				<li style="font-size:16px;">opening <span><</span><span>html</span><span>></span> - closing <span><</span><span>/html</span><span>></span> tags</li>
+				<li style="font-size:16px;">appropriate entries within the <span><</span><span>head</span><span>> / <span><</span><span>style</span><span>></span> tags if required.</li>
+				<li style="font-size:16px;">etc.</li>
+			</ul>
+		</p>
+		<p style="padding-left:10px;font-size:18px;line-height:1.5;margin-top:10px;margin-bottom:20px;color:#acacac;font-weight:400;">
+			A 'partial' can inserted into a 'layout' (or into another 'partial') using the following (JSON like) syntax :-
+		</p>
+		<pre><code>
+##########
+{ "partial": "p1", "domain": "demo", "type": "article", "number": "3" }
+==========
+		</code></pre>
+		<p style="padding-left:10px;font-size:18px;line-height:1.5;margin-top:10px;margin-bottom:20px;color:#acacac;font-weight:400;">
+			A 'partial' declaration should always be preceded by a 'marker' of 10 'hashes' (or pound signs !) and terminated by a 'marker' of 10 'equals' signs.
 		</p>
 	</aside>

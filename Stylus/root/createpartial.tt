@@ -7,12 +7,12 @@
 
     	#container {
       		/*margin-top: 40px;*/
-      		height: 470px;
+      		height: 380px;
       		/*border: 1px solid lightgray;
       		padding: 20px;*/
     	}
     	#editor {
-      		height: 470px;
+      		height: 380px;
 			marin-left: 22px;
     	}
 
@@ -43,6 +43,12 @@
 					<label class="form_label" for="create">Label</label>
 					<div class="input" style="margin-bottom:25px;">
 						<input class="login_input" id="label" name="label" placeholder="Label" type="text">
+					</div>
+				</div>
+				<div style="clear:both;">
+					<label class="form_label" for="description">Description</label>
+					<div class="input" style="margin-bottom:25px;">
+						<input class="login_input" id="description" name="description" placeholder="Description - not mandatory" type="text">
 					</div>
 				</div>
 				<div style="clear:both;">

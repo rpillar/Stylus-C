@@ -67,6 +67,12 @@ __PACKAGE__->table("partials");
   data_type: 'text'
   is_nullable: 1
 
+=head2 description
+
+  data_type: 'char'
+  is_nullable: 1
+  size: 80
+
 =cut
 
 __PACKAGE__->add_columns(
@@ -80,6 +86,8 @@ __PACKAGE__->add_columns(
   { data_type => "char", is_nullable => 1, size => 20 },
   "partial",
   { data_type => "text", is_nullable => 1 },
+  "description",
+  { data_type => "char", is_nullable => 1, size => 80 },
 );
 
 =head1 PRIMARY KEY
@@ -95,8 +103,8 @@ __PACKAGE__->add_columns(
 __PACKAGE__->set_primary_key("id");
 
 
-# Created by DBIx::Class::Schema::Loader v0.07042 @ 2015-01-23 16:43:27
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:mtrrlHYnGhYfvmuSVnXe2A
+# Created by DBIx::Class::Schema::Loader v0.07042 @ 2015-02-05 09:01:55
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:+PxZjwRZkRhrZzxUjRWXRw
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration
