@@ -1,5 +1,5 @@
 
-	<h1 style="margin:0;font-size:32px;font-weight:600;color:#000;padding-left:30px;padding-top:40px;text-transform:uppercase;">Login</h1>
+	<h1 style="margin:0;font-size:32px;font-weight:600;color:#000;padding-left:30px;padding-top:40px;text-transform:uppercase;"><span style="border-bottom:4px solid lightblue;">login</span></h1>
     <div style="padding: 10px 20px;margin:20px 0;">
         <div style="padding: 10px 20px;margin:20px 0;">
 		    <!--<form action='/stylus/login/auth' method='post'>-->
