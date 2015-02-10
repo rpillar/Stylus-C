@@ -1,23 +1,38 @@
+	<style>
+		.login-active {
+			display: normal;
+		}
+		.login-hidden {
+			display: none;
+		}
+	</style>
 
 	<h1 style="margin:0;font-size:32px;font-weight:600;color:#000;padding-left:30px;padding-top:40px;text-transform:uppercase;"><span style="border-bottom:4px solid lightblue;">login</span></h1>
     <div style="padding: 10px 20px;margin:20px 0;">
         <div style="padding: 10px 20px;margin:20px 0;">
 		    <!--<form action='/stylus/login/auth' method='post'>-->
-		    <form>
+		    <form id="login-1" class="login-active">
 		    	<label class="form_label" for="username">Username</label>
 		    	<div class="input" style="margin-bottom:25px;">
 		    		<input class="login_input" id="username" name="username" placeholder="Username" type="text" autofocus autocomplete="off">
 		    	</div>
-		    	<label class="form_label" for="domain">Domain</label>
+		    	<!--<label class="form_label" for="domain">Domain</label>
 		    	<div class="input" style="margin-bottom:25px;">
 		    		<input class="login_input" id="domain" name="domain" placeholder="Domain" type="text" autocomplete="off">
-		    	</div>
+		    	</div>-->
 		    	<label class="form_label" for="password">Password</label>
 		    	<div class="input">
 		    		<input class="login_input" id="password" name="password" placeholder="Password" type="password">
 		    	</div>
-		    	<button id="login" class="button">Log in</button>
+		    	<button id="login-1" class="button">Log in</button>
 		    </form>
+			<form id="login-2" class="login-hidden">
+				<label class="form_label" for="domain">Domain</label>
+				<div class="input" style="margin-bottom:25px;">
+					<input class="login_input" id="domain" name="domain" placeholder="Domain" type="text" autocomplete="off">
+				</div>
+				<button id="login-2" class="button">Continue</button>
+			</form>
 	    </div>
     </div>
 
@@ -31,8 +46,8 @@
 			$(this).parent().removeClass('input_active');
 		});
 
-		// process button 'click'
-		$('button#login').on('click', function(e) {
+		// process 'login-1' button 'click'
+		$('button#login-1').on('click', function(e) {
             e.preventDefault();
 
             //reset border-color and remove 'active' class
@@ -42,15 +57,10 @@
 			// client-side validation - just check that fields have been populated
 			// all other validation will be done on the server
 			var username = $('#username').val();
-			var domain   = $('#domain').val();
 			var password = $('#password').val();
 			if ( !username ) {
 			    $('#username').parent().addClass('input_error');
 			    $('p#message').text('Username missing - please enter.');
-			}
-			else if ( !domain ) {
-			    $('#domain').parent().addClass('input_error');
-			    $('p#message').text('Domain missing - please enter.');
 			}
 			else if ( !password ) {
 			    $('#password').parent().addClass('input_error');
@@ -59,7 +69,6 @@
 			else {
 			    var formData = {
 			        username: username,
-			        domain: domain,
 			        password: password
 		        };
 			    $.ajax({
@@ -71,17 +80,18 @@
 			            console.log('login data : ' + data.json.success);
 			            if ( data.json.success == 0 ) {
 			                $('#username').parent().css({"border-color": "#254960"});
-			                $('#domain').parent().css({"border-color": "#254960"});
 			                $('#password').parent().css({"border-color": "#254960"});
 			                $('p#message').text('Invalid Username / Domain / Password - please try again.');
 			            }
 			            else {
-			                window.location.assign('/stylus');
+							$('#login-1').removeClass('login-active').addClass('login-hidden');
+							$('#login-2').removeClass('login-hidden').addClass('login-active');
+							$('p#message').text('Select a domain and Continue.');
+							$('#domain').focus();
 			            }
 			        },
 			        error: function(jqXHR,status,error) {
 			            $('#username').parent().css({"border-color": "#254960"});
-			            $('#domain').parent().css({"border-color": "#254960"});
 			            $('#password').parent().css({"border-color": "#254960"});
 			            $('p#message').text('Invalid Username / Domain / Password - please try again.');
 			        }
@@ -89,4 +99,47 @@
 			}
 
 		});
+
+		// process 'login-2' button 'click' - select a domain
+		$('button#login-2').on('click', function(e) {
+			e.preventDefault();
+
+			//reset border-color and remove 'active' class
+			$('div.input').removeClass('input_active');
+			$('div.input').removeClass('input_error');
+
+			// client-side validation - just check that fields have been populated
+			// all other validation will be done on the server
+			var domain   = $('#domain').val();
+			if ( !domain ) {
+			    $('#domain').parent().addClass('input_error');
+			    $('p#message').text('A Domain has not been selected.');
+			}
+			else {
+				var formData = {
+				    domain: domain
+				};
+				$.ajax({
+					url: '/stylus/login/check_domain',
+					type: 'POST',
+					data: formData,
+					dataType: 'json',
+					success: function(data,status) {
+						if ( data.json.success == 0 ) {
+						    $('#domain').parent().css({"border-color": "#254960"});
+							$('p#message').text('The domain that has been selected is invalid - please correct.');
+						}
+						else {
+							window.location.assign('/stylus');
+						}
+					},
+					error: function(jqXHR,status,error) {
+					    $('#domain').parent().css({"border-color": "#254960"});
+						$('p#message').text('The domain that has been selected is invalid - please correct.');
+					}
+				});
+			}
+
+		});
+
 	</script>

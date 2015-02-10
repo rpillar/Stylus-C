@@ -26,13 +26,13 @@ sub index :Path :Args(0) {
     my ( $self, $c ) = @_;
 
     # set initial content for 'landing' page
-    $c->stash->{current_view} = 'TT';	
+    $c->stash->{current_view} = 'TT';
 	$c->stash->{template}  = 'index.tt';
 	$c->stash->{initial}   = 'login.tt';
 	$c->stash->{righthalf} = 'loginright.tt';
-	
+
 	# initial message
-	$c->stash->{message} = 'Login using a valid Username / Domain / Password';
+	$c->stash->{message} = 'Login using a valid Username / Password';
 }
 
 =head2 auth
@@ -41,14 +41,14 @@ sub index :Path :Args(0) {
 
 sub auth :Local {
     my ( $self, $c ) = @_;
-    
+
     my $username = $c->request->params->{username};
-    my $domain   = $c->request->params->{domain};
     my $password = $c->request->params->{password};
-    
+
     $c->stash->{current_view} = 'JSON_Service';
 
-    unless ( $c->authenticate({ username => $username, domain => $domain, password => $password, })) {
+    #unless ( $c->authenticate({ username => $username, domain => $domain, password => $password, })) {
+    unless ( $c->authenticate({ username => $username, password => $password, })) {
         $c->stash->{json} = {
             success => 0,
         };
@@ -58,6 +58,12 @@ sub auth :Local {
             success => 1,
         };
     }
+}
+
+sub check_domain :Local {
+    my ( $self, $c ) = @_;
+
+    my $domain   = $c->request->params->{domain};
 }
 
 

@@ -2,7 +2,7 @@ package Stylus::Controller::Partials;
 use Moose;
 use namespace::autoclean;
 
-use Data::Dumper;
+use DDP;
 use Text::Markdown 'markdown';
 
 BEGIN { extends 'Catalyst::Controller'; }
@@ -60,10 +60,12 @@ sub index :Path( '/stylus/partials' ) :Args(0) {
     $c->stash->{righthalf} = 'partialsright.tt';
 
     # get partials data - set initial partial values
-    my @partials = $c->model('DB::Partial')->all;
+    my @partials = $c->model('DB::Partial')->find({
+        domain => 'demo',
+    });
 
     my @data;
-    $c->stash->{articles} = \@data;
+    $c->stash->{partials} = \@data;
 }
 
 ### all general methods come after this ###
