@@ -94,7 +94,11 @@ sub index :Path( '/stylus/articles' ) :Args(0) {
 
 ### all general methods come after this ###
 
-### create a 'new' article ###
+=head2 create
+
+create a 'new' article
+
+=cut
 
 sub create :Path( '/stylus/articles/create' ) :Args(0) {
     my ( $self, $c ) = @_;

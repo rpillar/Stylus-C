@@ -68,7 +68,11 @@ sub index :Path( '/stylus/partials' ) :Args(0) {
 
 ### all general methods come after this ###
 
-### create a 'new' partial ###
+=head2 create
+
+create a 'new' partial
+
+=cut
 
 sub create :Path( '/stylus/partials/create' ) :Args(0) {
     my ( $self, $c ) = @_;
