@@ -113,7 +113,7 @@
 			var domain   = $('#domain').val();
 			if ( !domain ) {
 			    $('#domain').parent().addClass('input_error');
-			    $('p#message').text('A Domain has not been selected.');
+			    $('p#message').text('A Domain has not been entered.');
 			}
 			else {
 				var formData = {
@@ -127,7 +127,7 @@
 					success: function(data,status) {
 						if ( data.json.success == 0 ) {
 						    $('#domain').parent().css({"border-color": "#254960"});
-							$('p#message').text('The domain that has been selected is invalid - please correct.');
+							$('p#message').text('The domain that has been entered is invalid - please correct.');
 						}
 						else {
 							window.location.assign('/stylus');
@@ -135,7 +135,7 @@
 					},
 					error: function(jqXHR,status,error) {
 					    $('#domain').parent().css({"border-color": "#254960"});
-						$('p#message').text('The domain that has been selected is invalid - please correct.');
+						$('p#message').text('The domain that has been entered is invalid - please correct.');
 					}
 				});
 			}

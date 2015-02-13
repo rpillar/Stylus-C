@@ -22,6 +22,8 @@ Catalyst Controller.
 
 =cut
 
+use Data::Dumper;
+
 sub index :Path :Args(0) {
     my ( $self, $c ) = @_;
 
@@ -64,6 +66,27 @@ sub check_domain :Local {
     my ( $self, $c ) = @_;
 
     my $domain   = $c->request->params->{domain};
+
+    $c->stash->{current_view} = 'JSON_Service';
+
+    # check that domain is associated with this user ...
+    my $user_domain = $c->model('DB::UserDomain')->find({
+        uid    => $c->user->id,
+        domain => $domain,
+    });
+    $c->log->debug('Login - user_domain check : ' . $user_domain->domain );
+
+    if ( $user_domain ) {
+        $c->session->{user_domain} = $domain;
+        $c->stash->{json} =  {
+            success => 1
+        }
+    }
+    else {
+        $c->stash->{json} = {
+            success => 0
+        }
+    }
 }
 
 

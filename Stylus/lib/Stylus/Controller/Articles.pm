@@ -60,33 +60,38 @@ sub index :Path( '/stylus/articles' ) :Args(0) {
 	$c->stash->{righthalf} = 'articlesright.tt';
 
 	# get articles data - set initial article values
-	my @articles = $c->model('DB::Article')->all;
+	#my @articles = $c->model('DB::Article')->all;
+    my $articles_rs = $c->model('DB::Article')->search(
+        { domain => $c->session->{user_domain} }
+    );
 
 	# trim 'content' and convert to HTML (stored as Markdown)
 	my @data;
-	foreach ( @articles) {
-	    # get length of string / position of first line-break
-	    my $content_len  = length( $_->content );
-	    my $line_end_pos = index($_->content, $/);
+    if ( $articles_rs->count ) {
+	    while ( my $article = $articles_rs->next ) {
+	        # get length of string / position of first line-break
+	        my $content_len  = length( $article->content );
+	        my $line_end_pos = index($article->content, $/);
 
-	    my $content;
-	    if ( $line_end_pos > 0 && $line_end_pos < $content_len ) {
-	        $content = substr( $_->content,0,$line_end_pos);
-	    }
-	    else {
-	        $content = $_->content;
-	    }
+	        my $content;
+	        if ( $line_end_pos > 0 && $line_end_pos < $content_len ) {
+	            $content = substr( $article->content,0,$line_end_pos);
+	        }
+	        else {
+	            $content = $article->content;
+	        }
+            $c->log->debug( 'Article - index, adding : ' . $article->id );
+	        my $row = {
+	            id           => $article->id,
+	            type         => $article->type,
+	            title        => $article->title,
+	            content      => markdown( $content ),
+	            publish      => $article->publish,
+	            article_date => $article->article_date,
+	        };
 
-	    my $row = {
-	        id           => $_->id,
-	        type         => $_->type,
-	        title        => $_->title,
-	        content      => markdown( $content ),
-	        publish      => $_->publish,
-	        article_date => $_->article_date,
-	    };
-
-	    push(@data, $row);
+	        push(@data, $row);
+        }
 	}
 
 	$c->stash->{articles} = \@data;
