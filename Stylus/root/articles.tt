@@ -69,7 +69,7 @@
 		$('button#delete').val(1);
 
 		var id       = $('input#article_id').val();
-		var edit_url = '/stylus/articles/' + id + '/edit';
+		var edit_url = '/stylus/content/' + id + '/edit';
 		window.location.assign(edit_url);
 
 	});
@@ -88,7 +88,7 @@
 	});
 
 	$('button#create_article').on( 'click', function() {
-		var create_url = '/stylus/articles/create'
+		var create_url = '/stylus/content/create'
 		window.location.assign(create_url);
 	});
 
@@ -99,7 +99,7 @@
 		var formData = {
 			id: id
 		};
-		var delete_url = '/stylus/article/' + id;
+		var delete_url = '/stylus/content/' + id;
 		$.ajax({
 			url: delete_url,
 			type: 'DELETE',
@@ -112,7 +112,7 @@
 					window.location.assign('/stylus/login');
 				}
 				else {
-					window.location.assign('/stylus/articles');
+					window.location.assign('/stylus/content');
 				}
 			},
 			error: function(jqXHR,status,error) {
@@ -128,7 +128,7 @@
 		var formData = {
 			flag : update
 		};
-		var publish_url = '/stylus/article/' + id + '/publish';
+		var publish_url = '/stylus/content/' + id + '/publish';
 		$.ajax({
 			url: publish_url,
 			type: 'PUT',

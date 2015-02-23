@@ -22,10 +22,19 @@
 		</p>
 		<pre><code>
 ##########
-{ "partial": "p1", "domain": "demo", "type": "article", "number": "3" }
+{ "partial": "p1", "type": "article", "number": "3", "order": "desc" }
 ==========
 		</code></pre>
 		<p style="padding-left:10px;font-size:18px;line-height:1.5;margin-top:10px;margin-bottom:20px;color:#acacac;font-weight:400;">
 			A 'partial' declaration should always be preceded by a 'marker' of 10 'hashes' (or pound signs !) and terminated by a 'marker' of 10 'equals' signs.
+		</p>
+		<p style="padding-left:10px;font-size:18px;line-height:1.5;margin-top:10px;margin-bottom:20px;color:#acacac;font-weight:400;">
+			There are four parameters that can be set (currently) - <span style="border-bottom:1px solid lightblue;">partial</span>, <span style="border-bottom:1px solid lightblue;">type</span>, <span style="border-bottom:1px solid lightblue;">number</span> and <span style="border-bottom:1px solid lightblue;">order</span>.
+			<ul>
+				<li style="font-size:16px;">'partial' - the 'label' assigned to the 'content' when it was created,</li>
+				<li style="font-size:16px;">'type' - one of the 'content' types - article / news / event etc,</li>
+				<li style="font-size:16px;">'number' - this parameter is optional and will be used to control the number of articles / events that are displayed in this 'partial' (if not present then all the content for the specified type will be displayed), </li>
+				<li style="font-size:16px;">'order' - can be used to specify the order the content is displayed - 'oldest' / 'latest' first.</li>
+			</ul>
 		</p>
 	</aside>

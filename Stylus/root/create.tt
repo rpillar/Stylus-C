@@ -148,12 +148,12 @@
 			        article: article
 		        };
 			    $.ajax({
-			        url: '/stylus/article',
+			        url: '/stylus/content',
 			        type: 'POST',
 			        data: formData,
 			        dataType: 'json',
 			        success: function(data,status) {
-			            window.location.assign('/stylus/articles');
+			            window.location.assign('/stylus/content');
 			        },
 			        error: function(jqXHR,status,error) {
 			            $('p#message').text('A problem has occurred - please try again.');
@@ -166,7 +166,7 @@
         // process 'cancel' button 'click'
         $('button#cancel').on('click', function(e) {
             e.preventDefault();
-            window.location.assign('/stylus/articles');
+            window.location.assign('/stylus/content');
         });
     </script>
 

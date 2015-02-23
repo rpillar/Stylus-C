@@ -48,7 +48,7 @@
 				<div style="clear:both;">
 					<label class="form_label" for="description">Description</label>
 					<div class="input" style="margin-bottom:25px;">
-						<input class="login_input" id="description" name="description" placeholder="Description - not mandatory" type="text">
+						<input class="login_input" id="description" name="description" placeholder="Description - (optional)" type="text">
 					</div>
 				</div>
 				<div style="clear:both;">

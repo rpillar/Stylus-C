@@ -50,7 +50,7 @@ sub auto :Private {
 
 =cut
 
-sub index :Path( '/stylus/articles' ) :Args(0) {
+sub index :Path( '/stylus/content' ) :Args(0) {
     my ( $self, $c ) = @_;
 
     # set initial content for 'landing' page
@@ -105,7 +105,7 @@ create a 'new' article
 
 =cut
 
-sub create :Path( '/stylus/articles/create' ) :Args(0) {
+sub create :Path( '/stylus/content/create' ) :Args(0) {
     my ( $self, $c ) = @_;
 
     # set initial content for 'landing' page
@@ -121,7 +121,7 @@ sub create :Path( '/stylus/articles/create' ) :Args(0) {
 
 =cut
 
-sub base :Chained('/') PathPart('stylus/articles') :CaptureArgs( 1 ) {
+sub base :Chained('/') PathPart('stylus/content') :CaptureArgs( 1 ) {
     my ( $self, $c, $id) = @_;
 
     $c->log->debug('in Articles - base');

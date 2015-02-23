@@ -140,7 +140,7 @@
 			        title: title,
 			        article: article
 		        };
-		        var update_url = '/stylus/article/' + id;
+		        var update_url = '/stylus/content/' + id;
 			    $.ajax({
 			        url: update_url,
 			        type: 'PUT',
@@ -151,7 +151,7 @@
 			                $('p#message').text('There was a problem adding this article - please try again or contact us.');
 			            }
 			            else {
-			                window.location.assign('/stylus/articles');
+			                window.location.assign('/stylus/content');
 			            }
 			        },
 			        error: function(jqXHR,status,error) {
@@ -165,7 +165,7 @@
 		// process 'cancel' button 'click'
 		$('button#cancel').on('click', function(e) {
             e.preventDefault();
-            window.location.assign('/stylus/articles');
+            window.location.assign('/stylus/content');
         });
     </script>
 

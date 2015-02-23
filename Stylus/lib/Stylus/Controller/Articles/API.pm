@@ -14,10 +14,10 @@ __PACKAGE__->config(default => 'application/json');
 
 =cut
 
-sub base :Chained('/') PathPart('stylus/article') :CaptureArgs( 1 ) {
+sub base :Chained('/') PathPart('stylus/content') :CaptureArgs( 1 ) {
     my ( $self, $c, $id) = @_;
 
-    $c->log->debug('in Articles API - article_base');
+    $c->log->debug('in Content API - article_base');
 
     # remove all non-digits
     $id =~ s/\D//g;
@@ -37,7 +37,7 @@ sub base :Chained('/') PathPart('stylus/article') :CaptureArgs( 1 ) {
 
 =cut
 
-sub base_new :Chained('/') PathPart('stylus/article') :CaptureArgs( 0 ) {
+sub base_new :Chained('/') PathPart('stylus/content') :CaptureArgs( 0 ) {
     my ( $self, $c ) = @_;
 
     $c->log->debug('in Articles API - article_new');
