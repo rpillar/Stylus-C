@@ -148,7 +148,7 @@
 			        article: article
 		        };
 			    $.ajax({
-			        url: '/stylus/content',
+			        url: '/stylus/content-process',
 			        type: 'POST',
 			        data: formData,
 			        dataType: 'json',

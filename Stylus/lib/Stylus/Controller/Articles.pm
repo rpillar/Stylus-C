@@ -101,7 +101,7 @@ sub index :Path( '/stylus/content' ) :Args(0) {
 
 =head2 create
 
-create a 'new' article
+create 'new' content
 
 =cut
 
@@ -113,6 +113,36 @@ sub create :Path( '/stylus/content/create' ) :Args(0) {
 	$c->stash->{template}  = 'index.tt';
 	$c->stash->{initial}   = 'create.tt';
 	$c->stash->{righthalf} = 'createright.tt';
+}
+
+=head2 create_process
+
+process 'new' content
+
+=cut
+
+sub create_process :Path( '/stylus/content/create-process' ) :Args(0) {
+    my ( $self, $c ) = @_;
+
+    # get article data ..
+    my $data = $c->req->data || $c->req->params;
+
+    my $stylus_article = $c->model('DB::Article')->create(
+        {
+            type         => $data->{type},
+            article_date => $data->{date},
+            title        => $data->{title},
+            content      => $data->{article},
+        }
+    );
+
+    if ( $stylus_article ) {
+
+    }
+    else {
+        
+    }
+
 }
 
 ### chained methods ###
