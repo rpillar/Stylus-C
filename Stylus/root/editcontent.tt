@@ -43,7 +43,7 @@
 	    			    <input class="login_input" id="articleDate" name="articleDate" placeholder="Date" type="text" value="[% content_data.article_date %]" data-value="[% content_data.article_date %]" style="width:200px;">
 	    		    </div>
                 </div>
-                [% IF article.title %]
+                [% IF content_data.title %]
                 <div id="titlefield" class="titlefield-show">
                 [% ELSE %]
                 <div id="titlefield" class="titlefield-hide">

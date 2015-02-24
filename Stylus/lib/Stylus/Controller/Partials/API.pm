@@ -140,12 +140,13 @@ sub partial_new_POST :Private {
     # get partial data ..
     my $data = $c->req->data || $c->req->params;
 
-    my $stylus_partial = $c->model('DB::Partials')->create(
+    my $stylus_partial = $c->model('DB::Partial')->create(
         {
             type        => $data->{type},
-            label       => $data->{label},
+            name        => $data->{label},
             description => $data->{description},
             partial     => $data->{partial},
+            domain      => $c->session->{user_domain},
         }
     );
 

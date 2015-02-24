@@ -17,45 +17,45 @@ __PACKAGE__->config(default => 'application/json');
 sub base :Chained('/') PathPart('stylus/content') :CaptureArgs( 1 ) {
     my ( $self, $c, $id) = @_;
 
-    $c->log->debug('in Content API - article_base');
+    $c->log->debug('in Content API - base');
 
     # remove all non-digits
     $id =~ s/\D//g;
 
     if ( looks_like_number( $id ) ) {
         # get article ...
-        my $article = $c->model('DB::Article')->find({
+        my $content = $c->model('DB::Article')->find({
             id => $id
         });
-        if ( $article ) {
-            $c->stash->{article} = $article;
+        if ( $content ) {
+            $c->stash->{content} = $content;
         }
     }
 }
 
-=head2 article_new - 'base' method for 'new' articles
+=head2 base_new - 'base' method for 'new' content
 
 =cut
 
 sub base_new :Chained('/') PathPart('stylus/content') :CaptureArgs( 0 ) {
     my ( $self, $c ) = @_;
 
-    $c->log->debug('in Articles API - base_new');
+    $c->log->debug('in Content API - base_new');
 }
 
 =head2 article_new
 
 =cut
 
-sub article_new :Chained('base_new') PathPart('create-process') Args(0) : ActionClass('REST') {
+sub content_new :Chained('base_new') PathPart('create-process') Args(0) : ActionClass('REST') {
     my ($self, $c) = @_;
 }
 
-=head2 article
+=head2 content
 
 =cut
 
-sub article :Chained('base') PathPart('') Args(0) : ActionClass('REST') {
+sub content :Chained('base') PathPart('') Args(0) : ActionClass('REST') {
     my ($self, $c) = @_;
 }
 
@@ -67,62 +67,62 @@ sub publish :Chained('base') PathPart('publish') Args(0) : ActionClass('REST') {
     my ($self, $c) = @_;
 }
 
-=head2 article_GET
+=head2 content_GET
 
 =cut
 
-sub article_GET :Private {
+sub content_GET :Private {
     my ($self, $c) = @_;
 
-    my $article = $c->stash->{article};
+    my $content = $c->stash->{content};
 
     # convert markdown content
-    my $content = markdown( $article->content );
+    my $content_item = markdown( $content->content );
 
     $self->status_ok(
         $c,
         entity => {
-            id      => $article->id,
-            title   => $article->title,
-            type    => $article->type,
-            content => $content,
-            publish => $article->publish,
-            date    => $article->article_date,
+            id      => $content->id,
+            title   => $content->title,
+            type    => $content->type,
+            content => $content_item,
+            publish => $content->publish,
+            date    => $content->article_date,
         },
     );
 }
 
-=head2 article_DELETE
+=head2 content_DELETE
 
 =cut
 
-sub article_DELETE :Private {
+sub content_DELETE :Private {
     my ($self, $c) = @_;
 
     try {
-        $c->stash->{article}->delete();
+        $c->stash->{content}->delete();
         $self->status_accepted( $c, entity => { status => "deleted" } );
     }
     catch {
         $self->status_bad_request(
             $c,
-            message => "Articles : there has been an error deleting data from the stylus db !",
+            message => "Content : there has been an error deleting data from the Stylus DB !",
         );
     };
 }
 
-=head2 article_PUT
+=head2 content_PUT
 
 =cut
 
-sub article_PUT :Private {
+sub content_PUT :Private {
     my ($self, $c) = @_;
 
-    # get article data ..
+    # get content data ..
     my $data = $c->req->data || $c->req->params;
 
     try {
-        $c->stash->{article}->update(
+        $c->stash->{content}->update(
             {
                 article_date => $data->{date},
                 title        => $data->{title},
@@ -140,22 +140,22 @@ sub article_PUT :Private {
     catch {
         $self->status_bad_request(
             $c,
-            message => "Articles : there has been an error updating the 'publish' flag !",
+            message => "Content : there has been an error updating the 'publish' flag !",
         );
     };
 }
 
-=head2 article_new_POST
+=head2 content_new_POST
 
 =cut
 
-sub article_new_POST :Private {
+sub content_new_POST :Private {
     my ($self, $c) = @_;
 
-    # get article data ..
+    # get content data ..
     my $data = $c->req->data || $c->req->params;
 
-    my $stylus_article = $c->model('DB::Article')->create(
+    my $stylus_content = $c->model('DB::Article')->create(
         {
             type         => $data->{type},
             article_date => $data->{date},
@@ -165,7 +165,7 @@ sub article_new_POST :Private {
         }
     );
 
-    if ( $stylus_article ) {
+    if ( $stylus_content ) {
         $self->status_created(
             $c,
             location => $c->req->uri,
@@ -176,7 +176,7 @@ sub article_new_POST :Private {
     else {
         $self->status_bad_request(
             $c,
-            message => "Articles : there has been an error creating an article !",
+            message => "Content : there has been an error creating content !",
         );
     }
 }
@@ -188,14 +188,14 @@ sub article_new_POST :Private {
 sub publish_PUT :Private {
     my ( $self, $c, ) = @_;
 
-    my $article = $c->stash->{article};
+    my $content = $c->stash->{content};
 
     # get value of 'publish' to set ..
     my $data = $c->req->data || $c->req->params;
 
     my $flag = $data->{flag};
     try {
-        $c->stash->{article}->update(
+        $c->stash->{content}->update(
             { publish => $flag }
         );
 
@@ -209,7 +209,7 @@ sub publish_PUT :Private {
     catch {
         $self->status_bad_request(
             $c,
-            message => "Articles : there has been an error updating the 'publish' flag !",
+            message => "Content : there has been an error updating the 'publish' flag !",
         );
     };
 }

@@ -74,9 +74,9 @@
 		editor.setShowPrintMargin(false);
 		//editor.renderer.setShowGutter(false);
     	document.getElementById('editor').style.fontSize='12px';
-	</script>
 
-	<script>
+		// form processing ...
+
 		// set 'background' for the inputs
 		$('form div.input .login_input').on('focus', function() {
 			$(this).parent().addClass('input_active');
@@ -85,9 +85,60 @@
 			$(this).parent().removeClass('input_active');
 		});
 
+		// process button 'click'
+		$('button#create').on('click', function(e) {
+			e.preventDefault();
+
+			//reset border-color and remove 'active' class
+			$('div.input').removeClass('input_active');
+			$('div.input').removeClass('input_error');
+
+			// client-side validation - just check that fields have been populated
+			// all other validation will be done on the server
+			var type        = $('#dd span').text();
+			var label       = $('#label').val();
+			var description = $('#description').val();
+			var partial     = editor.getValue();
+
+			if ( type == 'Partial Type' ) {
+				$('#dd').css({"border-top-color": "#254960", "border-bottom-color": "#254960" });
+				$('p#message').text('Partial Type missing - please enter.');
+			}
+			else if ( !label ) {
+				$('#label').parent().addClass('input_error');
+				$('p#message').text('Label missing - please enter.');
+			}
+			else if ( !partial ) {
+				$('#editor').parent().addClass('input_error');
+				$('p#message').text('No Partial code entered - please enter.');
+			}
+			else {
+				var formData = {
+					type: type,
+					label: label,
+					description: description,
+					partial: partial
+				};
+				$.ajax({
+					url: '/stylus/partials/create-process',
+					type: 'POST',
+					data: formData,
+					dataType: 'json',
+					success: function(data,status) {
+						window.location.assign('/stylus/partials');
+					},
+					error: function(jqXHR,status,error) {
+						$('p#message').text('A problem has occurred - please try again.');
+					}
+				});
+			}
+
+		});
+
 		// process 'cancel' button 'click'
 		$('button#cancel').on('click', function(e) {
 			e.preventDefault();
 			window.location.assign('/stylus/partials');
 		});
+
 	</script>

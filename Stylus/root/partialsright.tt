@@ -6,42 +6,10 @@
             outline: 0;
         }
         .partial_block {
+            clear: both;
             padding: 15px 5px;
-            border-bottom: 1px solid lightgray;
+            border-top: 1px solid lightgray;
             width:100%;
-        }
-        .partial_block:hover {
-            background-color: #383838;
-            color: white;
-            cursor:pointer;
-        }
-        .partial_block:hover h2 {
-            background-color:  #383838;
-            color: white;
-        }
-        .partial_block:hover h3 {
-            background-color:  #383838;
-            color: white;
-        }
-        .partial_block:hover h4 {
-            background-color:  #383838;
-            color: white;
-        }
-        .partial_block:hover h5 {
-            background-color:  #383838;
-            color: white;
-        }
-        .partial_block:hover a p {
-            background-color:  #383838;
-            color: white;
-        }
-        .partial_block a p {
-            font-weight: 500;
-            color: #acacac;
-        }
-        .partial_block a {
-            text-decoration: none;
-            cursor: pointer;
         }
 
 #filter input[type="text"] {
@@ -79,11 +47,15 @@
                     <div class="mCustomScrollbar" style="max-height:750px;overflow:auto;">
                     [% FOREACH partial IN partials %]
                         <div class="partial_block">
-                            <a href="#" class="partial_link">
+                            <div>
                                 <input type="hidden" value="[% partial.id %]" class="partial_id">
-                                <h3 class="partial_name" style="font-size:24px;font-weight:600;margin:0;padding:12px 0;">[% partial.name %]</h3><span>
-                                <h4 style="margin:5px 0;font-weight:300;color:gray;">(&nbsp;[% partial.type %]&nbsp;)</h4></span>
-                            </a>
+                                <h3 class="partial_name" style="font-size:24px;font-weight:600;margin:0;padding:12px 0;display:inline;">[% partial.label %]</h3><span style="margin-left:15px;font-size:18px;font-weight:400;color:gray;">(&nbsp;[% partial.type %]&nbsp;)</span>
+                                <p style="font-size:16px;line-height:1.5;margin:0;padding-top:10px;padding-bottom:10px;color:#acacac;font-weight:400;">[% partial.description %]</p>
+                            </div>
+                            <div>
+                                <button class="button" id="edit" style="background-color:#617b8b;margin-top:0;margin-bottom:10px;width:110px;font-size:12px;padding:14px 0;">Edit</button>
+                                <button class="button" id="delete" style="background-color:#617b8b;margin-top:0;margin-bottom:10px;width:110px;font-size:12px;padding:14px 0;" value='1'>Delete</button>
+                            </div>
                         </div>
                     [% END %]
                     </div>
@@ -102,15 +74,6 @@
                 enable: true
             }
         });
-    </script>
-
-    <!-- succinct - truncate partial text (if required) -->
-    <script>
-      $(function(){
-          $('.partial_content').succinct({
-              size: 150
-          });
-      });
     </script>
 
     <!-- click on an partial link .... -->

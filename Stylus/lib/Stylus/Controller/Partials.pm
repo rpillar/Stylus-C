@@ -60,11 +60,26 @@ sub index :Path( '/stylus/partials' ) :Args(0) {
     $c->stash->{righthalf} = 'partialsright.tt';
 
     # get partials data - set initial partial values
-    my @partials = $c->model('DB::Partial')->find({
-        domain => 'demo',
-    });
+    my $partials_rs = $c->model('DB::Partial')->search(
+        { domain => $c->session->{user_domain} },
+        { order_by => [ qw/ type / ] }
+    );
 
     my @data;
+    if ( $partials_rs->count ) {
+        while ( my $partial = $partials_rs->next ) {
+
+            my $row = {
+                id           => $partial->id,
+                type         => $partial->type,
+                description  => $partial->description,
+                label        => $partial->name,
+            };
+
+            push(@data, $row);
+        }
+    }
+p @data;
     $c->stash->{partials} = \@data;
 }
 

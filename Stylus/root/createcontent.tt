@@ -132,7 +132,7 @@
 			var title   = $('#title').val();
 			var article = $('#article').val();
 
-			if ( type == 'Article Type' ) {
+			if ( type == 'Content Type' ) {
 			    $('#dd').css({"border-top-color": "#254960", "border-bottom-color": "#254960" });
 			    $('p#message').text('Content Type missing - please enter.');
 			}
@@ -168,6 +168,7 @@
             e.preventDefault();
             window.location.assign('/stylus/content');
         });
+        
     </script>
 
     <!-- WMD stuff -->
