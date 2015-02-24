@@ -94,7 +94,7 @@
 
 	// ===== functions ===== //
 
-	// function to delete an article / event
+	// function to delete content
 	var delete_art = function(id) {
 		var formData = {
 			id: id
@@ -123,7 +123,7 @@
 
 	};
 
-	// function to update the publish / hide flag for an article / event
+	// function to update the publish / hide flag for content
 	var set_publish = function(id,update) {
 		var formData = {
 			flag : update

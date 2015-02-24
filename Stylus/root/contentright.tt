@@ -80,19 +80,19 @@
                 <form method="post" action="" id="filter"><input id="filterinput" name="q" type="text" size="30" placeholder="Filter..." /></form>
                 <div id="articles-block">
                     <div class="mCustomScrollbar" style="max-height:750px;overflow:auto;">
-                    [% FOREACH article IN articles %]
+                    [% FOREACH item IN content_data %]
                         <div class="article_block">
                             <a href="#" class="article_link">
-                                <input type="hidden" value="[% article.id %]" class="article_id">
-                                <h3 class="article_title" style="font-size:24px;font-weight:600;margin:0;padding:12px 0;">[% article.title %]</h3><span>
-                                <h4 style="margin:5px 0;font-weight:300;color:gray;">(&nbsp;[% article.type %]&nbsp;)</h4></span>
+                                <input type="hidden" value="[% item.id %]" class="article_id">
+                                <h3 class="article_title" style="font-size:24px;font-weight:600;margin:0;padding:12px 0;">[% item.title %]</h3><span>
+                                <h4 style="margin:5px 0;font-weight:300;color:gray;">(&nbsp;[% item.type %]&nbsp;)</h4></span>
                                 <span>
-                                    [% IF article.article_date %]
-                                    <h5 style="margin:0;padding:10px 0;">Date - [% article.article_date %]</h5>
+                                    [% IF item.article_date %]
+                                    <h5 style="margin:0;padding:10px 0;">Date - [% item.article_date %]</h5>
                                     [% END %]
                                 </span>
                                 <span style="font-size:16px;line-height:1.5;margin:0;padding-top:10px;padding-bottom:10px;color:#acacac;font-weight:400;" class="article_content">
-                                    [% article.content %]
+                                    [% item.content %]
                                 </span>
                             </a>
                         </div>
@@ -129,7 +129,7 @@
         $('a.article_link').on('click', function(){
             var id = $(this).find('.article_id').val();
 
-            var retrieve_url = '/stylus/article/' + id;
+            var retrieve_url = '/stylus/content/' + id;
 
 		    $.ajax({
 		        url: retrieve_url,

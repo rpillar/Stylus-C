@@ -1,4 +1,4 @@
-package Stylus::Controller::Articles;
+package Stylus::Controller::Content;
 use Moose;
 use namespace::autoclean;
 
@@ -9,7 +9,7 @@ BEGIN { extends 'Catalyst::Controller'; }
 
 =head1 NAME
 
-Stylus::Controller::Articles - Catalyst Controller
+Stylus::Controller::Content - Catalyst Controller
 
 =head1 DESCRIPTION
 
@@ -29,14 +29,14 @@ sub auto :Private {
     unless ( $c->user_exists ) {
         $c->log->debug( " User does not exist - redirect to login page ...");
         if ( $c->req->method eq 'POST' ) {
-            $c->log->debug('Articles : session timed out on ajax request');
+            $c->log->debug('Content : session timed out on ajax request');
         	$c->stash->{current_view} = 'JSON_Service';
         	$c->stash->{logged_in}    = 0;
         	$c->detach;
             return;
         }
         else {
-            $c->log->debug('Articles : get request ...');
+            $c->log->debug('Content : get request ...');
             $c->response->redirect($c->uri_for('/stylus/login'));
             $c->detach;
             return;
@@ -56,45 +56,44 @@ sub index :Path( '/stylus/content' ) :Args(0) {
     # set initial content for 'landing' page
     $c->stash->{current_view} = 'TT';
 	$c->stash->{template}  = 'index.tt';
-	$c->stash->{initial}   = 'articles.tt';
-	$c->stash->{righthalf} = 'articlesright.tt';
+	$c->stash->{initial}   = 'content.tt';
+	$c->stash->{righthalf} = 'contentright.tt';
 
-	# get articles data - set initial article values
-	#my @articles = $c->model('DB::Article')->all;
-    my $articles_rs = $c->model('DB::Article')->search(
+	# get content data - set initial content values
+    my $content_rs = $c->model('DB::Article')->search(
         { domain => $c->session->{user_domain} }
     );
 
 	# trim 'content' and convert to HTML (stored as Markdown)
 	my @data;
-    if ( $articles_rs->count ) {
-	    while ( my $article = $articles_rs->next ) {
+    if ( $content_rs->count ) {
+	    while ( my $content = $content_rs->next ) {
 	        # get length of string / position of first line-break
-	        my $content_len  = length( $article->content );
-	        my $line_end_pos = index($article->content, $/);
+	        my $content_len  = length( $content->content );
+	        my $line_end_pos = index($content->content, $/);
 
-	        my $content;
+	        my $content_text;
 	        if ( $line_end_pos > 0 && $line_end_pos < $content_len ) {
-	            $content = substr( $article->content,0,$line_end_pos);
+	            $content_text = substr( $content->content,0,$line_end_pos);
 	        }
 	        else {
-	            $content = $article->content;
+	            $content_text = $content->content;
 	        }
-            $c->log->debug( 'Article - index, adding : ' . $article->id );
+
 	        my $row = {
-	            id           => $article->id,
-	            type         => $article->type,
-	            title        => $article->title,
-	            content      => markdown( $content ),
-	            publish      => $article->publish,
-	            article_date => $article->article_date,
+	            id           => $content->id,
+	            type         => $content->type,
+	            title        => $content->title,
+	            content      => markdown( $content_text ),
+	            publish      => $content->publish,
+	            article_date => $content->article_date,
 	        };
 
 	        push(@data, $row);
         }
 	}
 
-	$c->stash->{articles} = \@data;
+	$c->stash->{content_data} = \@data;
 }
 
 ### all general methods come after this ###
@@ -111,38 +110,8 @@ sub create :Path( '/stylus/content/create' ) :Args(0) {
     # set initial content for 'landing' page
     $c->stash->{current_view} = 'TT';
 	$c->stash->{template}  = 'index.tt';
-	$c->stash->{initial}   = 'create.tt';
-	$c->stash->{righthalf} = 'createright.tt';
-}
-
-=head2 create_process
-
-process 'new' content
-
-=cut
-
-sub create_process :Path( '/stylus/content/create-process' ) :Args(0) {
-    my ( $self, $c ) = @_;
-
-    # get article data ..
-    my $data = $c->req->data || $c->req->params;
-
-    my $stylus_article = $c->model('DB::Article')->create(
-        {
-            type         => $data->{type},
-            article_date => $data->{date},
-            title        => $data->{title},
-            content      => $data->{article},
-        }
-    );
-
-    if ( $stylus_article ) {
-
-    }
-    else {
-        
-    }
-
+	$c->stash->{initial}   = 'createcontent.tt';
+	$c->stash->{righthalf} = 'createcontentright.tt';
 }
 
 ### chained methods ###
@@ -154,18 +123,18 @@ sub create_process :Path( '/stylus/content/create-process' ) :Args(0) {
 sub base :Chained('/') PathPart('stylus/content') :CaptureArgs( 1 ) {
     my ( $self, $c, $id) = @_;
 
-    $c->log->debug('in Articles - base');
+    $c->log->debug('in Content - base');
 
     # remove all non-digits
     $id =~ s/\D//g;
 
-    # get article ...
-    my $article = $c->model('DB::Article')->find({
+    # get content ...
+    my $content = $c->model('DB::Article')->find({
         id => $id
     });
 
-    if ( $article) {
-        $c->stash->{article} = $article
+    if ( $content) {
+        $c->stash->{content_data} = $content
     }
     else {
         $c->stash->{curent_view} = 'TT';
@@ -181,13 +150,13 @@ sub base :Chained('/') PathPart('stylus/content') :CaptureArgs( 1 ) {
 sub edit :Chained('base') :PathPart('edit') :Args(0) {
     my ( $self, $c ) = @_;
 
-    $c->log->debug('Article - edit process.');
+    $c->log->debug('Content - edit process.');
 
     # edit page
     $c->stash->{current_view} = 'TT';
 	$c->stash->{template}  = 'index.tt';
-	$c->stash->{initial}   = 'edit.tt';
-	$c->stash->{righthalf} = 'editright.tt';
+	$c->stash->{initial}   = 'editcontent.tt';
+	$c->stash->{righthalf} = 'editcontentright.tt';
 }
 
 =head2 end

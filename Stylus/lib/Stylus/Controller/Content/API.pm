@@ -1,4 +1,4 @@
-package Stylus::Controller::Articles::API;
+package Stylus::Controller::Content::API;
 use Moose;
 use namespace::autoclean;
 
@@ -40,14 +40,14 @@ sub base :Chained('/') PathPart('stylus/content') :CaptureArgs( 1 ) {
 sub base_new :Chained('/') PathPart('stylus/content') :CaptureArgs( 0 ) {
     my ( $self, $c ) = @_;
 
-    $c->log->debug('in Articles API - article_new');
+    $c->log->debug('in Articles API - base_new');
 }
 
 =head2 article_new
 
 =cut
 
-sub article_new :Chained('base_new') PathPart('') Args(0) : ActionClass('REST') {
+sub article_new :Chained('base_new') PathPart('create-process') Args(0) : ActionClass('REST') {
     my ($self, $c) = @_;
 }
 
@@ -161,6 +161,7 @@ sub article_new_POST :Private {
             article_date => $data->{date},
             title        => $data->{title},
             content      => $data->{article},
+            domain       => $c->session->{user_domain},
         }
     );
 

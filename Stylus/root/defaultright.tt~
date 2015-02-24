@@ -1,4 +1,0 @@
-	<aside style="padding: 40px;margin-top:90px;color:#acacac;font-size:16px;line-height:24px;">
-	    <p id="message" style="font-size:18px;line-height:2.5;margin-top:20px;margin-bottom:20px;padding-left:10px;border-left:4px solid #254960;font-weight:300;text-transform:uppercase;"></p>
-		<p style="font-size:16px;line-height:1.5;margin-top:20px;margin-bottom:20px;color:#acacac;font-weight:400;">[% righttext %]</p>
-	</aside>

@@ -1,6 +1,4 @@
 
-<link rel="stylesheet" type="text/css" href="/static/css/wrapper-dropdown.css" />
-
 <link rel="stylesheet" type="text/css" href="/static/pickadate/themes/default.css" />
 <link rel="stylesheet" type="text/css" href="/static/pickadate/themes/default.date.css" />
 <link rel="stylesheet" type="text/css" href="/static/pickadate/themes/default.time.css" />
@@ -24,46 +22,51 @@
 }
 </style>
 
-    <h1 style="margin:0;font-size:32px;font-weight:600;color:#000;padding-left:30px;padding-top:40px;text-transform:uppercase;"><span style="border-bottom:4px solid lightblue;">create content</span></h1>
+    <h1 style="margin:0;font-size:32px;font-weight:600;color:#000;padding-left:30px;padding-top:40px;text-transform:uppercase;"><span style="border-bottom:4px solid lightblue;">edit content</span></h1>
     <div style="padding:10px 20px;margin:20px 0;">
         <div style="padding:10px 20px;margin:20px 0;">
             <form>
-                <div style="margin-left:22px;border-left:4px solid #254960;">
-                    <div id="dd" class="wrapper-dropdown-3" tabindex="1">
-                        <span>Article Type</span>
-                        <ul class="dropdown">
-                            <li><a href="#">Event</a></li>
-                            <li><a href="#"></i>Article</a></li>
-                            <li><a href="#"></i>News</a></li>
-                        </ul>
-                    </div>
+                <div class="input" style="margin-bottom:10px;">
+                    <h3 class='login_input' id="type" style="font-weight:400;font-size:22px;color:gray;">[% content_data.type %]</h3>
                 </div>
-                <button class="button" id="title-button" style="margin-bottom:20px;width:220px;">Add Title</button>
-                <button class="button" id="date-button" style="margin-bottom:20px;width:220px;">Add Date</button>
-                <div id="titlefield" class="titlefield-hide">
-                    <label class="form_label" for="title">Title</label>
-	    		    <div class="input" style="margin-bottom:25px;">
-	    			    <input class="login_input" id="title" name="title" placeholder="Title" type="text">
+
+                <button class="button" id="title-button" style="margin-bottom:20px;width:220px;">[% IF content_data.title %]Remove Title [% ELSE %] Add Title[% END %]</button>
+                <button class="button" id="date-button" style="margin-bottom:20px;width:220px;">[% IF content_data.article_date %]Remove Date [% ELSE %]Add Date[% END %]</button>
+
+                [% IF content_data.article_date %]
+                <div id="datefield" class="datefield-show">
+                [% ELSE %]
+                <div id="datefield" class="datefield-hide">
+                [% END %]
+                    <label class="form_label" for="articleDate">Date</label>
+	    		    <div class="input" style="margin-bottom:25px;width:350px;">
+	    			    <input class="login_input" id="articleDate" name="articleDate" placeholder="Date" type="text" value="[% content_data.article_date %]" data-value="[% content_data.article_date %]" style="width:200px;">
 	    		    </div>
                 </div>
-                <div id="datefield" class="datefield-hide">
-                    <label class="form_label" for="title">Date</label>
-                    <div class="input" style="margin-bottom:25px;width:350px;">
-                        <input class="login_input" id="articleDate" name="articleDate" placeholder="Date" type="text" input size="16" style="width:200px; readonly">
-                    </div>
+                [% IF article.title %]
+                <div id="titlefield" class="titlefield-show">
+                [% ELSE %]
+                <div id="titlefield" class="titlefield-hide">
+                [% END %]
+                    <label class="form_label" for="title">Title</label>
+	    		    <div class="input" style="margin-bottom:25px;">
+	    			    <input class="login_input" id="title" name="title" placeholder="Title" type="text" value="[% content_data.title %]">
+	    		    </div>
                 </div>
                 <div style="clear:both;display:block;">
                     <label class="form_label" for="create">Article</label>
                     <div class="input">
-                        <textarea class="login_input wmd-input" id="article" placeholder="Article" type="text" rows="12"></textarea>
+                        <textarea class="login_input wmd-input" id="article" placeholder="Article" type="text" rows="12">[% content_data.content %]</textarea>
                     </div>
                 </div>
-                <button class="button" id="create" style="background-color:#1abc9c;margin-bottom:20px;width:220px;">Create</button>
+                <button class="button" id="update" style="background-color:#1abc9c;margin-bottom:20px;width:220px;">Update</button>
                 <button class="button" id="cancel" style="margin-bottom:20px;width:220px;">Cancel</button>
+
+                <!-- store 'id' of current article -->
+	    	    <input id='article_id' type='hidden' value="[% content_data.id %]">
             </form>
         </div>
     </div>
-    <!--<div id='date-outlet'></div>-->
 
     <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
     <!-- Datepicker -->
@@ -74,18 +77,9 @@
     <script type="text/javascript" src="/static/js/showdown.js"></script>
     <script type="text/javascript" src="/static/js/wmd.js"></script>
     <!-- Additional scripts -->
-    <script type="text/javascript" src="/static/js/wrapper-dropdown.js"></script>
     <script type="text/javascript" src="/static/js/functions.js"></script>
 
     <script type="text/javascript" language="javascript" charset="utf-8">
-
-        // set 'background' for the inputs
-	    $('form div.input .login_input').on('focus', function() {
-			$(this).parent().addClass('input_active');
-		});
-		$('form div.input .login_input').on('focusout', function() {
-			$(this).parent().removeClass('input_active');
-		});
 
         // process 'add title' button 'click'
         $('button#title-button').on('click', function(e) {
@@ -110,6 +104,7 @@
                 $(this).text('Add Date');
                 $('#datefield').removeClass('datefield-show').addClass('datefield-hide');
                 $('#articleDate').val('');
+                $('#articleDate_hidden').val('');
             }
             else {
                 $(this).text('Remove Date');
@@ -117,26 +112,24 @@
             }
         });
 
-        // process button 'click'
-		$('button#create').on('click', function(e) {
+        // process 'update' button 'click'
+		$('button#update').on('click', function(e) {
             e.preventDefault();
 
-            //reset border-color and remove 'active' class
+            //reset border-color
+            $('#dd').css({"border-color": "lightgray"});
             $('div.input').removeClass('input_active');
             $('div.input').removeClass('input_error');
 
 			// client-side validation - just check that fields have been populated
 			// all other validation will be done on the server
-			var type    = $('#dd span').text();
+			var type    = $('#type').text();
 			var date    = $('#articleDate_hidden').val();
 			var title   = $('#title').val();
 			var article = $('#article').val();
+			var id      = $('#article_id').val();
 
-			if ( type == 'Article Type' ) {
-			    $('#dd').css({"border-top-color": "#254960", "border-bottom-color": "#254960" });
-			    $('p#message').text('Type missing - please enter.');
-			}
-			else if ( !article ) {
+			if ( !article ) {
 			    $('#article').parent().addClass('input_error');
 			    $('p#message').text('Article missing - please enter.');
 			}
@@ -147,24 +140,30 @@
 			        title: title,
 			        article: article
 		        };
+		        var update_url = '/stylus/content/' + id;
 			    $.ajax({
-			        url: '/stylus/content-process',
-			        type: 'POST',
+			        url: update_url,
+			        type: 'PUT',
 			        data: formData,
 			        dataType: 'json',
 			        success: function(data,status) {
-			            window.location.assign('/stylus/content');
+			            if ( data.success == 0 ) {
+			                $('p#message').text('There was a problem adding this article - please try again or contact us.');
+			            }
+			            else {
+			                window.location.assign('/stylus/content');
+			            }
 			        },
 			        error: function(jqXHR,status,error) {
-			            $('p#message').text('A problem has occurred - please try again.');
+			            $('p#message').text('A problem has occurred - please try again in a few minutes or contact us.');
 			        }
 			    });
 			}
 
 		});
 
-        // process 'cancel' button 'click'
-        $('button#cancel').on('click', function(e) {
+		// process 'cancel' button 'click'
+		$('button#cancel').on('click', function(e) {
             e.preventDefault();
             window.location.assign('/stylus/content');
         });
@@ -181,9 +180,50 @@
     <script type="text/javascript">
         $(document).ready(function() {
             $('#articleDate').pickadate({
-                //container: '#date-outlet',
                 formatSubmit: 'yyyy-mm-dd',
                 hiddenName: true
+            });
+        });
+    </script>
+
+    <!-- dropdown code -->
+    <script type="text/javascript">
+        function DropDown(el) {
+            this.dd = el;
+            this.placeholder = this.dd.children('span');
+            this.opts = this.dd.find('ul.dropdown > li');
+            this.val = '';
+            this.index = -1;
+            this.initEvents();
+        }
+        DropDown.prototype = {
+            initEvents : function() {
+                var obj = this;
+
+                obj.dd.on('click', function(event){
+                   $(this).toggleClass('active');
+                   return false;
+                });
+
+                obj.opts.on('click',function(){
+                    var opt = $(this);
+                    obj.val = opt.text();
+                    obj.index = opt.index();
+                    obj.placeholder.text(obj.val);
+                });
+            },
+            getValue : function() {
+               return this.val;
+            },
+            getIndex : function() {
+                return this.index;
+            }
+        }
+        $(function() {
+            var dd = new DropDown( $('#dd') );
+            $(document).click(function() {
+                // all dropdowns
+                $('.wrapper-dropdown-3').removeClass('active');
             });
         });
     </script>
