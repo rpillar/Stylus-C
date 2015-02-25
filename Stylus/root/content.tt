@@ -29,16 +29,16 @@
 				<span id="article-content" style="font-size:17px;line-height:1.5;margin:0;padding-top:10px;padding-bottom:10px;color:#acacac;font-weight:400;"></span>
 				<!-- set initial value of 'publish' / 'hide' button -->
 				<div>
-					<button class="button" id="publish" style="margin-bottom:20px;"></button>
-					<button class="button" id="edit" style="margin-bottom:20px;">Edit</button>
-					<button class="button" id="delete" style="margin-bottom:20px;" value='1'>Delete</button>
+					<button class="button" id="publish" style="background-color:#367385;border-radius:10px;outline:0;margin-bottom:20px;"></button>
+					<button class="button" id="edit" style="background-color:#51acc7;border-radius:10px;outline:0;margin-bottom:20px;">Edit</button>
+					<button class="button" id="delete" style="border-radius:10px;outline:0;margin-bottom:20px;" value='1'>Delete</button>
 				</div>
 				<!-- store 'id' of current article -->
 				<input id='article_id' type='hidden' value="[% init.id %]">
 			</div>
 			<div style="display:block;width:100%;">
 				<p>
-					<button class="button" id="create_article" style="background-color:#1abc9c;width:300px;margin-bottom:20px;">Create new Content</button>
+					<button class="button" id="create_article" style="background-color:#1abc9c;width:300px;border-radius:10px;outline:0;margin-bottom:20px;">Create new Content</button>
 				</p>
 			</div>
 

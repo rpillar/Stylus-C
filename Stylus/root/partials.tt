@@ -40,7 +40,7 @@
 				For 'partials' that are not intended to display dynamic content the 'type' and 'number' parameters can be left blank. It should be noted that partials can be 'nested' (as seen here).</p>
 				<p class="p_text">More information can be found on the 'create partials' page.</p>
 				<p>
-					<button class="button" id="create_partial" style="background-color:#1abc9c;width:300px;margin-bottom:20px;">Create a New Partial</button>
+					<button class="button" id="create_partial" style="background-color:#1abc9c;width:300px;border-radius:10px;outline:0;margin-bottom:20px;">Create a New Partial</button>
 				</p>
 			</div>
 		[% END %]

@@ -30,8 +30,8 @@
                     <h3 class='login_input' id="type" style="font-weight:400;font-size:22px;color:gray;">[% content_data.type %]</h3>
                 </div>
 
-                <button class="button" id="title-button" style="margin-bottom:20px;width:220px;">[% IF content_data.title %]Remove Title [% ELSE %] Add Title[% END %]</button>
-                <button class="button" id="date-button" style="margin-bottom:20px;width:220px;">[% IF content_data.article_date %]Remove Date [% ELSE %]Add Date[% END %]</button>
+                <button class="button" id="title-button" style="border-radius:10px;margin-bottom:20px;width:220px;">[% IF content_data.title %]Remove Title [% ELSE %] Add Title[% END %]</button>
+                <button class="button" id="date-button" style="border-radius:10px;margin-bottom:20px;width:220px;">[% IF content_data.article_date %]Remove Date [% ELSE %]Add Date[% END %]</button>
 
                 [% IF content_data.article_date %]
                 <div id="datefield" class="datefield-show">
@@ -59,8 +59,8 @@
                         <textarea class="login_input wmd-input" id="article" placeholder="Article" type="text" rows="12">[% content_data.content %]</textarea>
                     </div>
                 </div>
-                <button class="button" id="update" style="background-color:#1abc9c;margin-bottom:20px;width:220px;">Update</button>
-                <button class="button" id="cancel" style="margin-bottom:20px;width:220px;">Cancel</button>
+                <button class="button" id="update" style="background-color:#1abc9c;border-radius:10px;margin-bottom:20px;width:220px;">Update</button>
+                <button class="button" id="cancel" style="border-radius:10px;margin-bottom:20px;width:220px;">Cancel</button>
 
                 <!-- store 'id' of current article -->
 	    	    <input id='article_id' type='hidden' value="[% content_data.id %]">

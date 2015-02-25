@@ -39,7 +39,7 @@ body {
         position: relative;
         margin-left: 52px;
         margin-top: 35px;
-        background-color: #000;
+        background-color: lightblue;
         border-radius: 100px;
         width: 42px;
         height: 42px;
@@ -56,7 +56,7 @@ body {
         position: relative;
         display: block;
         text-indent: -9999px;
-        background-color: #000;
+        background-color: #367385;
         width: 26px;
         height: 26px;
         border: 3px solid #fff;
