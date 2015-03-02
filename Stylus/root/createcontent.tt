@@ -38,8 +38,8 @@
                         </ul>
                     </div>
                 </div>
-                <button class="button" id="title-button" style="margin-bottom:20px;width:220px;">Add Title</button>
-                <button class="button" id="date-button" style="margin-bottom:20px;width:220px;">Add Date</button>
+                <button class="button" id="title-button" style="border-radius:10px;outline:0;margin-bottom:20px;width:220px;">Add Title</button>
+                <button class="button" id="date-button" style="border-radius:10px;outline:0;margin-bottom:20px;width:220px;">Add Date</button>
                 <div id="titlefield" class="titlefield-hide">
                     <label class="form_label" for="title">Title</label>
 	    		    <div class="input" style="margin-bottom:25px;">
@@ -58,8 +58,8 @@
                         <textarea class="login_input wmd-input" id="article" placeholder="Content" type="text" rows="12"></textarea>
                     </div>
                 </div>
-                <button class="button" id="create" style="background-color:#1abc9c;margin-bottom:20px;width:220px;">Create</button>
-                <button class="button" id="cancel" style="margin-bottom:20px;width:220px;">Cancel</button>
+                <button class="button" id="create" style="background-color:#1abc9c;border-radius:10px;outline:0;margin-bottom:20px;width:220px;">Create</button>
+                <button class="button" id="cancel" style="border-radius:10px;outline:0;margin-bottom:20px;width:220px;">Cancel</button>
             </form>
         </div>
     </div>
@@ -168,7 +168,7 @@
             e.preventDefault();
             window.location.assign('/stylus/content');
         });
-        
+
     </script>
 
     <!-- WMD stuff -->
