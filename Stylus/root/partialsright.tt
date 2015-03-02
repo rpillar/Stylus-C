@@ -48,13 +48,12 @@
                     [% FOREACH partial IN partials %]
                         <div class="partial_block">
                             <div>
-                                <input type="hidden" value="[% partial.id %]" class="partial_id">
                                 <h3 class="partial_name" style="font-size:24px;font-weight:600;margin:0;padding:12px 0;display:inline;"><span style="border-bottom:3px solid lightblue;">[% partial.label %]</span></h3><span style="margin-left:15px;font-size:18px;font-weight:400;color:gray;">(&nbsp;[% partial.type %]&nbsp;)</span>
                                 <p style="font-size:16px;line-height:1.5;margin:0;padding-top:10px;padding-bottom:10px;color:#acacac;font-weight:400;">[% partial.description %]</p>
                             </div>
                             <div>
-                                <button class="button" id="edit" style="background-color:#51acc7;outline:0;margin-top:0;margin-bottom:10px;width:110px;font-size:12px;padding:14px 0;border-radius:10px;">Edit</button>
-                                <button class="button" id="delete" style="outline:0;margin-top:0;margin-bottom:10px;width:110px;font-size:12px;padding:14px 0;border-radius:10px;" value='1'>Delete</button>
+                                <button class="button edit" style="background-color:#51acc7;outline:0;margin-top:0;margin-bottom:10px;width:110px;font-size:12px;padding:14px 0;border-radius:10px;" value="[% partial.id %]">Edit</button>
+                                <button class="button delete" style="outline:0;margin-top:0;margin-bottom:10px;width:110px;font-size:12px;padding:14px 0;border-radius:10px;" value='1'>Delete</button>
                             </div>
                         </div>
                     [% END %]
@@ -79,60 +78,26 @@
     <!-- click on an partial link .... -->
     <script>
 
-        // process 'click' on an partial ...
-        $('a.partial_link').on('click', function(){
-            var id = $(this).find('.partial_id').val();
-
-            var retrieve_url = '/stylus/partial/' + id;
-
-		    $.ajax({
-		        url: retrieve_url,
-                type: 'GET',
-		        dataType: 'json',
-		        success: function(data,status) {
-
-                    // check for logged_in state
-                    if ( data.logged_in == '0') {
-                        window.location.assign('/stylus/login');
-                    }
-                    else {
-
-		                // ensure that 'delete' button css / text is always reset - just in case ...
-		                set_delete_css();
-
-                        // set partial details
-		                $('input#partial_id').val( data.id );
-		                $('h2#partial-name').text( data.name );
-
-                        $('span#partial-content p').html( data.partial );
-	                }
-		        },
-		        error: function(jqXHR,status,error) {
-		            console.log('partials - an error has occurred on the ajax call - retrieve : status - ' + status + ' / ' + error);
-	                window.location.assign('/stylus');
-		        }
-		    });
-
-        });
-
         // process a 'button' click
-        $('button#edit').on( 'click', function() {
+        $('button.edit').on( 'click', function() {
             // (re)set delete button css / text
             set_delete_css();
-            $('button#delete').val(1);
+            $('button.delete').val(1);
 
-            var id       = $('input#partial_id').val();
+            var id       = $(this).val();
             var edit_url = '/stylus/partials/' + id + '/edit';
             window.location.assign(edit_url);
 
         });
-        $('button#delete').on( 'click', function() {
-            delete_value = $('button#delete').val();
+
+        $('button.delete').on( 'click', function() {
+            delete_value = $(this).val();
             if ( delete_value == 1) {
-                $('button#delete').val('2');
-                $('button#delete').css('width', '160px');
-                $('button#delete').css('background-color', 'red');
-                $('button#delete').text('Are you sure ?');
+                set_delete_css();
+                $(this).val('2');
+                $(this).css('width', '160px');
+                $(this).css('background-color', 'red');
+                $(this).text('Are you sure ?');
             }
             if ( delete_value == 2) {
                 var id = $('#partial_id').val();
@@ -173,10 +138,10 @@
 
         // function to reset text / css for the delete button when required
         var set_delete_css = function() {
-            $('button#delete').css('width', '120px');
-            $('button#delete').css('background-color', '#254960');
-            $('button#delete').text('Delete');
-            $('button#delete').val('1');
+            $('button.delete').css('width', '120px');
+            $('button.delete').css('background-color', '#254960');
+            $('button.delete').text('Delete');
+            $('button.delete').val('1');
         }
     </script>
 

@@ -1,0 +1,144 @@
+	<link rel="stylesheet" type="text/css" href="/static/css/wrapper-dropdown.css" />
+
+  	<style type="text/css" media="screen">
+    	/*body {
+        	overflow: hidden;
+    	}*/
+
+    	#container {
+      		/*margin-top: 40px;*/
+      		height: 380px;
+      		/*border: 1px solid lightgray;
+      		padding: 20px;*/
+    	}
+    	#editor {
+      		height: 380px;
+			marin-left: 22px;
+    	}
+
+		/* override bootstrap styling for editor */
+		pre {
+			border: none;
+		}
+		/* override ace styling */
+		.ace-tm .ace-gutter {
+			background-color: white;
+		}
+  	</style>
+
+	<h1 style="margin:0;font-size:32px;font-weight:600;color:#000;padding-left:30px;padding-top:40px;text-transform:uppercase;"><span style="border-bottom:4px solid lightblue;">Edit Partial</span></h1>
+	<div style="padding:10px 20px;margin:20px 0;">
+		<div style="padding:10px 20px;margin:20px 0;">
+			<form>
+				<div style="margin-bottom:30px;margin-left:22px;border-left:4px solid #254960;">
+					<div id="dd" class="wrapper-dropdown-3" tabindex="1">
+						<span>Partial Type</span>
+						<ul class="dropdown">
+							<li><a href="#"></i>Layout</a></li>
+							<li><a href="#">Partial</a></li>
+						</ul>
+					</div>
+				</div>
+				<div style="clear:both;">
+					<label class="form_label" for="create">Label</label>
+					<div class="input" style="margin-bottom:25px;">
+						<input class="login_input" id="label" name="label" placeholder="Label" type="text">
+					</div>
+				</div>
+				<div style="clear:both;">
+					<label class="form_label" for="description">Description</label>
+					<div class="input" style="margin-bottom:25px;">
+						<input class="login_input" id="description" name="description" placeholder="Description" type="text">
+					</div>
+				</div>
+				<div style="clear:both;">
+					<label class="form_label" for="create">Partial / Layout code</label>
+					<div id="container" style="margin-top:15px;margin-bottom:30px;margin-left:22px;border-left:4px solid #254960;border-right:1px solid lightgray;">
+						<pre id="editor"></pre>
+					</div>
+				</div>
+				<button class="button" id="create" style="background-color:#1abc9c;border-radius:10px;margin-bottom:20px;width:220px;">Create</button>
+				<button class="button" id="cancel" style="border-radius:10px;margin-bottom:20px;width:220px;">Cancel</button>
+	    	</form>
+		</div>
+    </div>
+
+	<script type="text/javascript" src="/static/js/wrapper-dropdown.js"></script>
+	<script src="/static/ace/src-min/ace.js" type="text/javascript" charset="utf-8"></script>
+	<script>
+    	var editor = ace.edit("editor");
+    	//editor.setTheme("ace/theme/twilight");
+    	editor.setTheme("ace/theme/textmate");
+    	editor.getSession().setMode("ace/mode/html");
+		editor.setHighlightActiveLine(false);
+		editor.setShowPrintMargin(false);
+		//editor.renderer.setShowGutter(false);
+    	document.getElementById('editor').style.fontSize='14px';
+
+		// form processing ...
+
+		// set 'background' for the inputs
+		$('form div.input .login_input').on('focus', function() {
+			$(this).parent().addClass('input_active');
+		});
+		$('form div.input .login_input').on('focusout', function() {
+			$(this).parent().removeClass('input_active');
+		});
+
+		// process button 'click'
+		$('button#create').on('click', function(e) {
+			e.preventDefault();
+
+			//reset border-color and remove 'active' class
+			$('div.input').removeClass('input_active');
+			$('div.input').removeClass('input_error');
+
+			// client-side validation - just check that fields have been populated
+			// all other validation will be done on the server
+			var type        = $('#dd span').text();
+			var label       = $('#label').val();
+			var description = $('#description').val();
+			var partial     = editor.getValue();
+
+			if ( type == 'Partial Type' ) {
+				$('#dd').css({"border-top-color": "#254960", "border-bottom-color": "#254960" });
+				$('p#message').text('Partial Type missing - please enter.');
+			}
+			else if ( !label ) {
+				$('#label').parent().addClass('input_error');
+				$('p#message').text('Label missing - please enter.');
+			}
+			else if ( !partial ) {
+				//$('#editor').parent().addClass('input_error');
+				$('p#message').text('No Partial code entered - please enter.');
+			}
+			else {
+				var formData = {
+					type: type,
+					label: label,
+					description: description,
+					partial: partial
+				};
+				$.ajax({
+					url: '/stylus/partials/create-process',
+					type: 'POST',
+					data: formData,
+					dataType: 'json',
+					success: function(data,status) {
+						window.location.assign('/stylus/partials');
+					},
+					error: function(jqXHR,status,error) {
+						$('p#message').text('A problem has occurred - please try again.');
+					}
+				});
+			}
+
+		});
+
+		// process 'cancel' button 'click'
+		$('button#cancel').on('click', function(e) {
+			e.preventDefault();
+			window.location.assign('/stylus/partials');
+		});
+
+	</script>

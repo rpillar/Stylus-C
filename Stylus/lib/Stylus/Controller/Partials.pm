@@ -130,6 +130,22 @@ sub base :Chained('/') PathPart('stylus/partials/') :CaptureArgs( 1 ) {
     }
 }
 
+=head2 edit
+
+=cut
+
+sub edit :Chained('base') :PathPart('edit') :Args(0) {
+    my ( $self, $c ) = @_;
+
+    $c->log->debug('Partials - edit process.');
+
+    # edit page
+    $c->stash->{current_view} = 'TT';
+    $c->stash->{template}  = 'index.tt';
+    $c->stash->{initial}   = 'editpartials.tt';
+    $c->stash->{righthalf} = 'createpartialsright.tt';
+}
+
 =head2 end
 
 Attempt to render a view, if needed.
