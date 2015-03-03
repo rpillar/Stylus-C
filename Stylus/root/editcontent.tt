@@ -62,8 +62,8 @@
                 <button class="button" id="update" style="background-color:#1abc9c;border-radius:10px;margin-bottom:20px;width:220px;">Update</button>
                 <button class="button" id="cancel" style="border-radius:10px;margin-bottom:20px;width:220px;">Cancel</button>
 
-                <!-- store 'id' of current article -->
-	    	    <input id='article_id' type='hidden' value="[% content_data.id %]">
+                <!-- store 'id' of current content -->
+	    	    <input id='content_id' type='hidden' value="[% content_data.id %]">
             </form>
         </div>
     </div>
@@ -127,7 +127,7 @@
 			var date    = $('#articleDate_hidden').val();
 			var title   = $('#title').val();
 			var article = $('#article').val();
-			var id      = $('#article_id').val();
+			var id      = $('#content_id').val();
 
 			if ( !article ) {
 			    $('#article').parent().addClass('input_error');
@@ -167,6 +167,7 @@
             e.preventDefault();
             window.location.assign('/stylus/content');
         });
+
     </script>
 
     <!-- WMD stuff -->

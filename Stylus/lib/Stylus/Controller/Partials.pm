@@ -79,7 +79,7 @@ sub index :Path( '/stylus/partials' ) :Args(0) {
             push(@data, $row);
         }
     }
-p @data;
+
     $c->stash->{partials} = \@data;
 }
 
@@ -107,7 +107,7 @@ sub create :Path( '/stylus/partials/create' ) :Args(0) {
 
 =cut
 
-sub base :Chained('/') PathPart('stylus/partials/') :CaptureArgs( 1 ) {
+sub base :Chained('/') PathPart('stylus/partials') :CaptureArgs( 1 ) {
     my ( $self, $c, $id) = @_;
 
     $c->log->debug('in Partials - base');
@@ -119,7 +119,7 @@ sub base :Chained('/') PathPart('stylus/partials/') :CaptureArgs( 1 ) {
     my $partial = $c->model('DB::Partial')->find({
         id => $id
     });
-
+p $partial;
     if ( $partial) {
         $c->stash->{partial} = $partial
     }
