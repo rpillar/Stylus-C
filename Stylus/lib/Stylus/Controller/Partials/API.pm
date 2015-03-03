@@ -110,6 +110,7 @@ sub partial_PUT :Private {
     try {
         $c->stash->{partial}->update(
             {
+                name        => $data->{label},
                 description => $data->{description},
                 partial     => $data->{partial},
             }
