@@ -1,4 +1,5 @@
 	<link rel="stylesheet" type="text/css" href="/static/css/wrapper-dropdown.css" />
+    <link rel="stylesheet" href="http://malihu.github.io/custom-scrollbar/jquery.mCustomScrollbar.min.css" />	
 
   	<style type="text/css" media="screen">
     	/*body {
@@ -7,12 +8,12 @@
 
     	#container {
       		/*margin-top: 40px;*/
-      		height: 380px;
+      		height: 350px;
       		/*border: 1px solid lightgray;
       		padding: 20px;*/
     	}
     	#editor {
-      		height: 380px;
+      		height: 350px;
 			marin-left: 22px;
     	}
 
@@ -103,6 +104,10 @@
 			if ( !label ) {
 				$('#label').parent().addClass('input_error');
 				$('p#message').text('Label missing - please enter.');
+			}
+			else if ( !description ) {
+				$('#description').parent().addClass('input_error');
+				$('p#message').text('Description missing - please enter.');
 			}
 			else if ( !partial ) {
 				$('p#message').text('No Partial code entered - please enter.');

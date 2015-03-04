@@ -1,3 +1,4 @@
+	<link rel="stylesheet" href="http://malihu.github.io/custom-scrollbar/jquery.mCustomScrollbar.min.css" />
 	<style>
 		pre {
 			font-size: 12px;
@@ -6,38 +7,61 @@
 		}
 	</style>
 
-	<aside style="padding: 40px;margin-top:40px;color:#acacac;font-size:16px;line-height:24px;">
-		<div style="height:70px;">
+	<aside style="padding: 10px 40px;margin-top:10px;color:#acacac;font-size:16px;line-height:24px;">
+		<div style="height:50px;">
 			<p id="message" style="font-size:20px;line-height:2.5;margin-top:20px;margin-bottom:20px;padding-left:10px;border-left:4px solid #254960;font-weight:400;text-transform:uppercase;"></p>
 		</div>
-	    <h2 style="margin:0;font-size:24px;font-weight:400;color:#000;padding-top:10px;text-transform:uppercase;"><span style="border-bottom:4px solid lightblue;">Layouts / Partials Info</span></h2>
-		<p style="padding-left:10px;font-size:18px;line-height:1.5;margin-top:20px;margin-bottom:10px;color:#acacac;font-weight:400;">
-			A 'layout' is analogous to a 'webpage' and as such should define the esential components that are required :-
-			<ul>
-				<li style="font-size:16px;"><span><</span><span>!DOCTYPE html</span><span>></span></li>
-				<li style="font-size:16px;">opening <span><</span><span>html</span><span>></span> - closing <span><</span><span>/html</span><span>></span> tags</li>
-				<li style="font-size:16px;">appropriate entries within the <span><</span><span>head</span><span>> / <span><</span><span>style</span><span>></span> tags if required.</li>
-				<li style="font-size:16px;">etc.</li>
-			</ul>
-		</p>
-		<p style="padding-left:10px;font-size:18px;line-height:1.5;margin-top:10px;margin-bottom:20px;color:#acacac;font-weight:400;">
-			A 'partial' can inserted into a 'layout' (or into another 'partial') using the following (JSON like) syntax :-
-		</p>
-		<pre><code>
+	    <h2 style="margin:0 0 10px 0;font-size:24px;font-weight:400;color:#000;padding-top:20px;text-transform:uppercase;"><span style="border-bottom:4px solid lightblue;">Layouts / Partials Info</span></h2>
+		<div id="partials_info" class="mCustomScrollbar" style="max-height:800px;overflow:auto;">
+		    <p style="padding-left:10px;font-size:18px;line-height:1.5;margin-top:20px;margin-bottom:10px;color:#acacac;font-weight:400;">
+			    A 'layout' is analogous to a 'webpage' and as such should define the essential components that are required :-
+			    <ul>
+					<li style="font-size:16px;"><span><</span><span>!DOCTYPE html</span><span>></span></li>
+					<li style="font-size:16px;">opening <span><</span><span>html</span><span>></span> - closing <span><</span><span>/html</span><span>></span> tags</li>
+					<li style="font-size:16px;">appropriate entries within the <span><</span><span>head</span><span>> / <span><</span><span>style</span><span>></span> tags if required.</li>
+					<li style="font-size:16px;">etc.</li>
+				</ul>
+			</p>
+			<p style="padding-left:10px;font-size:18px;line-height:1.5;margin-top:10px;margin-bottom:20px;color:#acacac;font-weight:400;">
+				A 'component' is a special 'partial' and is intended to be used for inserting common blocks of code into a webpage - for example the <em>head</em> tags or a common set of stylesheets / scripts that are used in every page.
+			</p>
+			<p style="padding-left:10px;font-size:18px;line-height:1.5;margin-top:10px;margin-bottom:20px;color:#acacac;font-weight:400;">
+				A 'partial' can inserted into a 'layout' (or into another 'partial') using the following (JSON like) syntax :-
+			</p>
+			<pre><code>
 ##########
-{ "partial": "p1", "type": "article", "number": "3", "order": "desc" }
+{ "partial": "p1", content-type": "news", "number": "3", "order": "desc" }
 ==========
-		</code></pre>
-		<p style="padding-left:10px;font-size:18px;line-height:1.5;margin-top:10px;margin-bottom:20px;color:#acacac;font-weight:400;">
-			A 'partial' declaration should always be preceded by a 'marker' of 10 'hashes' (or pound signs !) and terminated by a 'marker' of 10 'equals' signs.
-		</p>
-		<p style="padding-left:10px;font-size:18px;line-height:1.5;margin-top:10px;margin-bottom:20px;color:#acacac;font-weight:400;">
-			There are four parameters that can be set (currently) - <span style="border-bottom:1px solid lightblue;">partial</span>, <span style="border-bottom:1px solid lightblue;">type</span>, <span style="border-bottom:1px solid lightblue;">number</span> and <span style="border-bottom:1px solid lightblue;">order</span>.
-			<ul>
-				<li style="font-size:16px;">'partial' - the 'label' assigned to the 'content' when it was created,</li>
-				<li style="font-size:16px;">'type' - one of the 'content' types - article / news / event etc,</li>
-				<li style="font-size:16px;">'number' - this parameter is optional and will be used to control the number of articles / events that are displayed in this 'partial' (if not present then all the content for the specified type will be displayed), </li>
-				<li style="font-size:16px;">'order' - can be used to specify the order the content is displayed - 'oldest' / 'latest' first.</li>
-			</ul>
-		</p>
+			</code></pre>
+			<p style="padding-left:10px;font-size:18px;line-height:1.5;margin-top:10px;margin-bottom:20px;color:#acacac;font-weight:400;">
+				A 'partial' declaration should always be preceded by a 'marker' of 10 'hashes' (or pound signs !) and terminated by a 'marker' of 10 'equals' signs.
+			</p>
+			<p style="padding-left:10px;font-size:18px;line-height:1.5;margin-top:10px;margin-bottom:20px;color:#acacac;font-weight:400;">
+				There are four parameters that can be set (currently) - <span style="border-bottom:1px solid lightblue;">partial</span>, <span style="border-bottom:1px solid lightblue;">type</span>, <span style="border-bottom:1px solid lightblue;">number</span> and <span style="border-bottom:1px solid lightblue;">order</span>.
+				<ul>
+					<li style="font-size:16px;">'partial' - (required) the 'label' assigned to the 'content' when it was created,</li>
+					<li style="font-size:16px;">'content-type' - (optional) one of the 'content' types - article / news / event etc,</li>
+					<li style="font-size:16px;">'number' - (optional) used to control the number of articles / events that are displayed in this 'partial' (if not present then all the content for the specified type will be displayed), </li>
+					<li style="font-size:16px;">'order' - (optional) used to specify the order the content is displayed - 'oldest' / 'latest' first.</li>
+				</ul>
+			</p>
+			<p style="padding-left:10px;font-size:18px;line-height:1.5;margin-top:10px;margin-bottom:20px;color:#acacac;font-weight:400;">
+				If the 'partial' is a 'component' then only the partial label needs to be supplied.
+			</p>
+			<p style="padding-left:10px;font-size:18px;line-height:1.5;margin-top:10px;margin-bottom:20px;color:#acacac;font-weight:400;">
+				More information can be found on the &nbsp;<a href="http://www.developontheweb.co.uk/stylus.html" style="text-decoration:none;" target="_blank"><b>Stylus</b></a> page at &nbsp;<a href="http://www.developontheweb.co.uk/" style="text-decoration:none;" target="_blank"><b>developontheweb</b></a>
+			</p>
+	    </div>
 	</aside>
+
+	<!-- customer scrollbar -->
+	<script src="http://malihu.github.io/custom-scrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
+	<script>
+		$("#partials_info").mCustomScrollbar({
+			theme:"dark-2",
+			scrollInertia: 800,
+			scrollButtons: {
+				enable: true
+			}
+		});
+		</script>

@@ -48,7 +48,7 @@
 <div style="margin:20px 0;padding-left:125px;border-right:1px solid #eee;min-height:900px;">[% content %]</div>
 </section>
 <section style="display:block;float:left;width:42%;position:relative;">
-<div style="margin:20px 0;padding-right:50px;">[% INCLUDE $righthalf %]</div>
+<div style="margin:10px 0;padding-right:50px;">[% INCLUDE $righthalf %]</div>
 </section>
 <!-- custom script stuff -->
 <script>

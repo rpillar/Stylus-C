@@ -7,12 +7,12 @@
 
     	#container {
       		/*margin-top: 40px;*/
-      		height: 380px;
+      		height: 350px;
       		/*border: 1px solid lightgray;
       		padding: 20px;*/
     	}
     	#editor {
-      		height: 380px;
+      		height: 350px;
 			marin-left: 22px;
     	}
 
@@ -35,6 +35,7 @@
 						<span>Partial Type</span>
 						<ul class="dropdown">
 							<li><a href="#"></i>Layout</a></li>
+							<li><a href="#">Component</a></li>
 							<li><a href="#">Partial</a></li>
 						</ul>
 					</div>
