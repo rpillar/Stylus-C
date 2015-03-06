@@ -93,12 +93,12 @@
 
             if ( $('#titlefield').is(':visible') ) {
                 $(this).text('Add Title');
-                $('#titlefield').removeClass('titlefield-show').addClass('titlefield-hide');
+                $('#titlefield').hide('100');
                 $('#title').val('');
             }
             else {
                 $(this).text('Remove Title');
-                $('#titlefield').removeClass('titlefield-hide').addClass('titlefield-show');
+                $('#titlefield').show('100');
             }
         });
 
@@ -108,12 +108,12 @@
 
             if ( $('#datefield').is(':visible') ) {
                 $(this).text('Add Date');
-                $('#datefield').removeClass('datefield-show').addClass('datefield-hide');
+                $('#datefield').hide('100');
                 $('#articleDate').val('');
             }
             else {
                 $(this).text('Remove Date');
-                $('#datefield').removeClass('datefield-hide').addClass('datefield-show');
+                $('#datefield').show('100');
             }
         });
 
