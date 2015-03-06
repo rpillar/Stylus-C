@@ -1,6 +1,55 @@
+	<style>
+		.input .login_input {
+			min-width:65%;
+		}
+	</style>
+
 	<h1 style="margin:0;font-size:32px;font-weight:600;color:#000;padding-left:30px;padding-top:40px;text-transform:uppercase;"><span style="border-bottom:4px solid lightblue;">settings</span></h1>
 	<div style="padding: 10px 20px;margin:20px 0;">
 	    <div style="padding:20px;">
+				<div style="clear:both;display:block;">
+					<label class="form_label" for="domain">Domains</label>
+					[% FOREACH domain IN domains %]
+					<div>
+						<div class="input" style="margin-bottom:25px;">
+							<input class="login_input" name="domain" placeholder="Domain" type="text" value="[% domain.domain %]" size="25" disabled>
+							<input name="domain_id" type="hidden" value="[% domain.id %]">
+							<div style="position:absolute;top:10px;right:30px;">
+								<a href=""><img src="/static/images/pencil8.svg" height="40" width="40"></a>
+								<a href=""><img src="/static/images/trash48.svg" height="40" width="40" style="margin-left:15px;"></a>
+							</div>
+						</div>
+					</div>
+					[% END %]
+				</div>
+				<div style="display:none;">Icon made by <a href="http://icon-works.com" title="Icon Works">Icon Works</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> is licensed under <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0">CC BY 3.0</a></div>
+
+				<div id="new-domain-entry" style="display:none">
+					<div style="width:50%;margin:0 auto;">
+						<div>
+							<hr style="height:1px;color:lightgray;border:0 none;background-color:lightgray;" />
+						</div>
+					</div>
+					<div class="input new-domain" style="margin-bottom:25px;">
+						<input class="login_input" name="domain" placeholder="Domain" type="text" value="" size="25" autofocus>
+					</div>
+				</div>
+				<button class="button" id="new-domain-button" style="background-color:#1abc9c;border-radius:10px;margin-bottom:20px;width:220px;outline:0;">New Domain</button>
+				<button class="button" id="new-domain-button-cancel" style="display:none;border-radius:10px;margin-bottom:20px;width:220px;outline:0;">Cancel</button>
 
 	    </div>
     </div>
+
+	<script>
+		$('#new-domain-button').on('click', function() {
+			$(this).text('Save');
+			$('#new-domain-button-cancel').show();
+			$('#new-domain-entry').show('200');
+			$('.new-domain').addClass('input_active');
+		} );
+		$('#new-domain-button-cancel').on('click', function() {
+			$(this).hide();
+			$('#new-domain-button').text('New Domain');
+			$('#new-domain-entry').hide('100');
+		} );
+	</script>

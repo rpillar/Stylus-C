@@ -107,6 +107,18 @@ body {
         line-height: 30px;
         color: #000;
     }
+aside.navbar ul.navigator li#register a {
+    display: block;
+    font-size: 16px;
+    line-height: 30px;
+    color: #000;
+}
+aside.navbar ul.navigator li#register a {
+    display: block;
+    font-size: 16px;
+    line-height: 30px;
+    color: #000;
+}
     aside.navbar ul.navigator li a {
         display: block;
         font-size: 13px;

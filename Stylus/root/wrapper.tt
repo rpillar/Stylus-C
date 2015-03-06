@@ -8,6 +8,7 @@
 <!-- style stuff -->
 <link rel="stylesheet" type="text/css" href="/static/css/font-awesome.css" />
 <!--<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">-->
+<!--<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">-->
 
 <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.css" />
 <link media="all" type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Lato:300,400,900">
@@ -39,6 +40,8 @@
 <li><a href="/stylus/logout">logout</a></li>
 [% ELSE %]
 <li id="login" class="show"><a href="/stylus/login">login</a></li>
+<hr style="margin-top:10px;margin-bottom:10px;margin-left:20px;height:2px;color:lightblue;border:0 none;background-color:lightblue;">
+<li id="register" class="show"><a href="/stylus/register">register</a></li>
 [% END %]
 </ul>
 

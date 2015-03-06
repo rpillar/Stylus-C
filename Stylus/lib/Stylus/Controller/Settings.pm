@@ -22,24 +22,24 @@ Catalyst Controller.
 
 sub auto :Private {
     my ( $self, $c ) = @_;
-    
+
     unless ( $c->user_exists ) {
         $c->log->debug( " User does not exist - redirect to login page ...");
         if ( $c->req->method eq 'POST' ) {
-            $c->log->debug('Settings : session timed out on ajax request');	        
+            $c->log->debug('Settings : session timed out on ajax request');
         	$c->stash->{current_view} = 'JSON_Service';
         	$c->stash->{logged_in}    = 0;
         	$c->detach;
             return;
         }
         else {
-            $c->log->debug('Settings : get request ...');	    
+            $c->log->debug('Settings : get request ...');
             $c->response->redirect($c->uri_for('/stylus/login'));
             $c->detach;
             return;
         }
     }
-    
+
     return 1;
 }
 
@@ -51,10 +51,30 @@ sub index :Path( '/stylus/settings' ) :Args(0) {
     my ( $self, $c ) = @_;
 
     # set initial content for 'landing' page
-    $c->stash->{current_view} = 'TT';	
+    $c->stash->{current_view} = 'TT';
 	$c->stash->{template}  = 'index.tt';
 	$c->stash->{initial}   = 'settings.tt';
 	$c->stash->{righthalf} = 'settingsright.tt';
+
+    # get settings data - domains
+    my $domains_rs = $c->model('DB::UserDomain')->search(
+        { uid => $c->user->id },
+    );
+
+    my @data;
+    if ( $domains_rs->count ) {
+        while ( my $domain = $domains_rs->next ) {
+
+            my $row = {
+                id           => $domain->id,
+                domain       => $domain->domain,
+            };
+
+            push(@data, $row);
+        }
+    }
+
+    $c->stash->{domains} = \@data;
 }
 
 =head2 end
