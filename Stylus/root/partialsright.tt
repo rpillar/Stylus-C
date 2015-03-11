@@ -37,12 +37,12 @@
             width: 300px;
         }
         .delete-link img.svg {
-            height: 40px;
-            width: 40px;
-        }
-        .delete-link img.svg {
             color: red;
+            width:100%;
         }
+        /*.svg {
+            width: 100%;
+        }*/
 
     </style>
 
@@ -59,10 +59,10 @@
                                 <p style="font-size:16px;line-height:1.5;margin:0;padding-top:10px;padding-bottom:10px;color:#acacac;font-weight:400;">[% partial.description %]</p>
                                 <div style="position:absolute;top:20px;right:60px;">
                                     <div style="display:inline-block;height:40px; width:40px;">
-    								    <a href="" class="edit-link" id="[% partial.id %]"><img class="svg" src="/static/images/pencil8.svg"></a>
+    								    <a href="" class="edit-link" id="[% partial.id %]" title="Edit"><img class="svg" src="/static/images/pencil8.svg"></a>
                                     </div>
-                                    <div style="display:inline-block;height:40px; width:40px;margin-left:15px;">
-    								    <a href="" class="delete-link"><img class="svg" src="/static/images/trash48.svg"></a>
+                                    <div style="display:inline-block;height:40px; width:40px;margin-left:5px;">
+    								    <a href="" class="delete-link" title="Delete"><img class="svg" src="/static/images/trash48.svg"></a>
                                     </div>
     							</div>
                             </div>
@@ -87,40 +87,6 @@
             scrollButtons: {
                 enable: true
             }
-        });
-    </script>
-
-    <script>
-        /*
-     * Replace all SVG images with inline SVG
-     */
-        jQuery('img.svg').each(function(){
-            var $img = jQuery(this);
-            var imgID = $img.attr('id');
-            var imgClass = $img.attr('class');
-            var imgURL = $img.attr('src');
-
-            jQuery.get(imgURL, function(data) {
-                // Get the SVG tag, ignore the rest
-                var $svg = jQuery(data).find('svg');
-
-                // Add replaced image's ID to the new SVG
-                if(typeof imgID !== 'undefined') {
-                    $svg = $svg.attr('id', imgID);
-                }
-                // Add replaced image's classes to the new SVG
-                if(typeof imgClass !== 'undefined') {
-                    $svg = $svg.attr('class', imgClass+' replaced-svg');
-                }
-
-                // Remove any invalid XML tags as per http://validator.w3.org
-                $svg = $svg.removeAttr('xmlns:a');
-
-                // Replace image with new SVG
-                $img.replaceWith($svg);
-
-            }, 'xml');
-
         });
     </script>
 

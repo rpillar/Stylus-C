@@ -31,7 +31,7 @@
 				<div>
 					<button class="button" id="publish" style="background-color:#367385;border-radius:10px;outline:0;margin-bottom:20px;"></button>
 					<button class="button" id="edit" style="background-color:#51acc7;border-radius:10px;outline:0;margin-bottom:20px;">Edit</button>
-					<button class="button" id="delete" style="border-radius:10px;outline:0;margin-bottom:20px;" value='1'>Delete</button>
+					<button class="button" id="delete" style="background-color:red;border-radius:10px;outline:0;margin-bottom:20px;">Delete</button>
 				</div>
 				<!-- store 'id' of current article -->
 				<input id='article_id' type='hidden' value="[% init.id %]">
@@ -74,17 +74,8 @@
 
 	});
 	$('button#delete').on( 'click', function() {
-		delete_value = $('button#delete').val();
-		if ( delete_value == 1) {
-			$('button#delete').val('2');
-			$('button#delete').css('width', '160px');
-			$('button#delete').css('background-color', 'red');
-			$('button#delete').text('Are you sure ?');
-		}
-		if ( delete_value == 2) {
-			var id = $('#article_id').val();
-			delete_art(id);
-		}
+		var id = $('#article_id').val();
+		//delete_art(id);
 	});
 
 	$('button#create_article').on( 'click', function() {
