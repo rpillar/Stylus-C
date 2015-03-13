@@ -115,7 +115,7 @@
         });
     </script>
 
-    <!-- succinct - truncate article text (if required) -->
+    <!-- succinct - truncate content text (if required) -->
     <script>
       $(function(){
           $('.article_content').succinct({
@@ -148,6 +148,7 @@
 
                         // set article details
 		                $('input#article_id').val( data.id );
+                        $('input#content-type').val( data.type );
 		                $('h2#article-title').text( data.title );
 
 		                // a 'hack' to ensure that event dates are displayed ...

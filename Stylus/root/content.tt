@@ -11,7 +11,7 @@
 
 	<h1 style="margin:0;font-size:32px;font-weight:600;color:#000;padding-left:30px;padding-top:40px;text-transform:uppercase;"><span style="border-bottom:4px solid lightblue;">Content</span></h1>
 	<div style="padding: 10px 20px;margin:20px 0;">
-	    <div style="padding:20px;">
+	    <div style="padding:20px;width:100%;">
 
 			<div id='article-intro' style="width:100%;">
 				<p style="font-size:18px;line-height:1.5;margin-top:20px;margin-bottom:20px;color:#acacac;font-weight:400;">Add <span style="border-bottom:1px dashed gray;">content</span> to your website
@@ -26,6 +26,7 @@
 				<div id="content-date" class="contentdate-hide">
 					<h4></h4>
 				</div>
+				<input id="content-type" type="hidden">
 				<span id="article-content" style="font-size:17px;line-height:1.5;margin:0;padding-top:10px;padding-bottom:10px;color:#acacac;font-weight:400;"></span>
 				<!-- set initial value of 'publish' / 'hide' button -->
 				<div>
@@ -36,17 +37,52 @@
 				<!-- store 'id' of current article -->
 				<input id='article_id' type='hidden' value="[% init.id %]">
 			</div>
-			<div style="display:block;width:100%;">
+			<div style="display:block;">
 				<p>
 					<button class="button" id="create_article" style="background-color:#1abc9c;width:300px;border-radius:10px;outline:0;margin-bottom:20px;">Create new Content</button>
 				</p>
 			</div>
 
 	    </div>
+
     </div>
 
-	<script>
+	<div id="delete_modal" title="Delete Content" style="display:none; position: fixed; top: 0; left: 0; bottom: 0; right: 0; z-index:500; height: 450px; width: 700px; margin: 230px auto; border: 4px solid lightblue; background-color: #fff; text-align:center; padding: 20px;">
+		<h4 style="text-transform:uppercase;margin-top: 50px;"><span style="border-bottom:3px solid lightblue;">Are you sure you want to remove this Content ?</span></h4>
+		<div style="margin-left:40px;width:100%;">
+			<br />
+			<h4 style="text-transform:uppercase;text-align:left"><span style="border-bottom:2px solid lightblue;">Type</span></h4>
+			<p id="delete-modal-type" style="text-align:left;font-size:18px;font-weight:300;"></p>
+			<h4 style="text-transform:uppercase;text-align:left;"><span style="border-bottom:2px solid lightblue;">Title</span></h4>
+			<p id="delete-modal-title" style="text-align:left;font-size:18px;font-weight:300;"></p>
+		</div>
+		<div style="width:60%;margin: 0 auto;">
+			<hr style="height:2px;color:lightblue;border:0 none;background-color:lightblue;" />
+		</div>
+		<div style="width:100%;">
+			<button class="button" id="delete_content" style="background-color:#ff3232;width:120px;border-radius:10px;outline:0;margin-top:5px;margin-bottom:20px;margin-left:60px;">Delete</button>
+			<button class="button" id="cancel-action" style="border-radius:10px;margin-top:5px;margin-bottom:20px;width:120px;outline:0;">Cancel</button>
+		</div>
+		</div>
+	</div>
 
+	<script>
+		$('#delete').on ('click', function(e) {
+			e.preventDefault();
+
+			var id       = $('input#article_id').val();
+			$('#delete-modal-type').text( $('#content-type').val() );
+			$('#delete-modal-title').text( $('#article-title').text() );
+			$('#delete_modal').show();
+		} );
+
+		// 'cancel' delete modal ...
+		$('#cancel-action').on('click', function(e) {
+			$('#delete_modal').hide();
+		});
+	</script>
+
+	<script>
 	// process a 'button' click
 	$('button#publish').on( 'click', function() {
 		// (re)set delete button css / text
@@ -72,10 +108,6 @@
 		var edit_url = '/stylus/content/' + id + '/edit';
 		window.location.assign(edit_url);
 
-	});
-	$('button#delete').on( 'click', function() {
-		var id = $('#article_id').val();
-		//delete_art(id);
 	});
 
 	$('button#create_article').on( 'click', function() {

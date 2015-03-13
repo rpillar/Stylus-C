@@ -81,6 +81,14 @@
 
     <script type="text/javascript" language="javascript" charset="utf-8">
 
+        // set 'background' for the inputs
+		$('form div.input .login_input').on('focus', function() {
+			$(this).parent().addClass('input_active');
+		});
+		$('form div.input .login_input').on('focusout', function() {
+			$(this).parent().removeClass('input_active');
+		});
+
         // process 'add title' button 'click'
         $('button#title-button').on('click', function(e) {
             e.preventDefault();
