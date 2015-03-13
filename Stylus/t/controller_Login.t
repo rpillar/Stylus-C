@@ -4,7 +4,7 @@ use Test::More;
 
 
 use Catalyst::Test 'Stylus';
-use Stylus::Controller::Login;
+use Stylus::Controller::Logout;
 
-ok( request('/login')->is_success, 'Request should succeed' );
+ok( request('/stylus/logout')->is_success, 'Request should succeed' );
 done_testing();

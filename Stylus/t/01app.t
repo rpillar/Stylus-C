@@ -5,6 +5,6 @@ use Test::More;
 
 use Catalyst::Test 'Stylus';
 
-ok( request('/')->is_success, 'Request should succeed' );
+ok( request('/stylus')->is_success, 'Request should succeed' );
 
 done_testing();

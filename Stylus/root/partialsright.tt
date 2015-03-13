@@ -62,21 +62,37 @@
     								    <a href="" class="edit-link" id="[% partial.id %]" title="Edit"><img class="svg" src="/static/images/pencil8.svg"></a>
                                     </div>
                                     <div style="display:inline-block;height:40px; width:40px;margin-left:5px;">
-    								    <a href="" class="delete-link" title="Delete"><img class="svg" src="/static/images/trash48.svg"></a>
+    								    <a href="#" class="delete-link" title="Delete" data-id="[% partial.id %]" data-type="[% partial.type %]" data-description="[% partial.description %]"><img class="svg" src="/static/images/trash48.svg"></a>
                                     </div>
     							</div>
                             </div>
-                            <!--<div>
-                                <button class="button edit" style="background-color:#51acc7;outline:0;margin-top:0;margin-bottom:10px;width:120px;font-size:12px;padding:14px 0;border-radius:10px;" value="[% partial.id %]">Edit</button>
-                                <button class="button delete" style="outline:0;margin-top:0;margin-bottom:10px;width:120px;font-size:12px;padding:14px 0;border-radius:10px;" value='1'>Delete</button>
-                            </div>-->
                         </div>
                     [% END %]
                     </div>
                 </div>
             </aside>
         </div>
+
     </section>
+
+    <div id="delete_modal" title="Delete Partial" style="display:none; position: fixed; top: 0; left: 0; bottom: 0; right: 0; height: 450px; width: 700px; margin: 230px auto; border: 4px solid lightblue; background-color: #fff; text-align:center; padding: 20px;">
+        <h4 style="text-transform:uppercase;margin-top: 50px;"><span style="border-bottom:3px solid lightblue;">Are you sure you want to remove this Partial ?</span></h4>
+        <div style="margin-left:40px;width:100%;">
+            <br />
+            <h4 style="text-transform:uppercase;text-align:left"><span style="border-bottom:2px solid lightblue;">Type</span></h4>
+            <p id="delete-modal-type" style="text-align:left;font-size:18px;font-weight:300;"></p>
+            <h4 style="text-transform:uppercase;text-align:left;"><span style="border-bottom:2px solid lightblue;">Description</span></h4>
+            <p id="delete-modal-desc" style="text-align:left;font-size:18px;font-weight:300;"></p>
+        </div>
+        <div style="width:60%;margin: 0 auto;">
+            <hr style="height:2px;color:lightblue;border:0 none;background-color:lightblue;" />
+        </div>
+        <div style="width:100%;">
+            <button class="button" id="delete_partial" style="background-color:#ff3232;width:120px;border-radius:10px;outline:0;margin-top:5px;margin-bottom:20px;margin-left:60px;">Delete</button>
+            <button class="button" id="cancel-action" style="border-radius:10px;margin-top:5px;margin-bottom:20px;width:120px;outline:0;">Cancel</button>
+        </div>
+        </div>
+    </div>
 
     <!-- customer scrollbar -->
     <script src="http://malihu.github.io/custom-scrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
@@ -87,6 +103,22 @@
             scrollButtons: {
                 enable: true
             }
+        });
+    </script>
+
+    <script>
+        $('a.delete-link').on ('click', function(e) {
+            e.preventDefault();
+
+            var id = $(this).data('id');
+            $('#delete-modal-type').text( $(this).data('type') );
+            $('#delete-modal-desc').text( $(this).data('description') );
+            $('#delete_modal').show();
+        } );
+
+        // 'cancel' delete modal ...
+        $('#cancel-action').on('click', function(e) {
+            $('#delete_modal').hide();
         });
     </script>
 
