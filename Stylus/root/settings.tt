@@ -14,10 +14,9 @@
 				<div>
 					<div class="input" style="margin-bottom:25px;">
 						<input class="login_input domain-list" name="domain" placeholder="Domain" type="text" value="[% domain.domain %]" size="25" disabled>
-						<input name="domain_id" type="hidden" value="[% domain.id %]">
 						<div class="domain-actions" style="position:absolute;top:10px;right:30px;">
-							<a href="" class="edit-domain"><img src="/static/images/pencil8.svg" height="40" width="40"></a>
-							<a href="" class="delete-domain"><img src="/static/images/trash48.svg" height="40" width="40" style="margin-left:15px;"></a>
+							<a href="" class="edit-domain" data-id=[% domain.id %]><img src="/static/images/pencil8.svg" height="40" width="40"></a>
+							<a href="" class="delete-domain" data-domain=[% domain.domain %] data-id=[% domain.id %]><img src="/static/images/trash48.svg" height="40" width="40" style="margin-left:15px;"></a>
 						</div>
 					</div>
 				</div>
@@ -43,6 +42,23 @@
 			<button class="button" id="new-domain-button-cancel" style="display:none;border-radius:10px;margin-bottom:20px;width:220px;outline:0;">Cancel</button>
 
 	    </div>
+
+<div id="delete_domain_modal" title="Delete Content" style="display:none; position: fixed; top: 0; left: 0; bottom: 0; right: 0; z-index:500; height: 350px; width: 700px; margin: 230px auto; border: 4px solid lightblue; background-color: #fff; text-align:center; padding: 20px;">
+	<h4 style="text-transform:uppercase;margin-top: 50px;"><span style="border-bottom:3px solid lightblue;">Are you sure you want to remove this Domain ?</span></h4>
+	<div style="margin-left:40px;width:100%;">
+		<br />
+		<h4 style="text-transform:uppercase;text-align:left"><span style="border-bottom:2px solid lightblue;">Domain</span></h4>
+		<p id="delete-domain-modal-name" style="text-align:left;font-size:18px;font-weight:300;"></p>
+	</div>
+	<div style="width:60%;margin: 0 auto;">
+		<hr style="height:2px;color:lightblue;border:0 none;background-color:lightblue;" />
+	</div>
+	<div style="width:100%;">
+		<button class="button" id="delete_domain" style="background-color:#ff3232;width:120px;border-radius:10px;outline:0;margin-top:5px;margin-bottom:20px;margin-left:60px;">Delete</button>
+		<button class="button" id="cancel-action" style="border-radius:10px;margin-top:5px;margin-bottom:20px;width:120px;outline:0;">Cancel</button>
+	</div>
+	</div>
+</div>
 
 		<div style="padding:20px;">
 
@@ -113,6 +129,27 @@
 			$('#new-domain-button').show();
 		});
 
+		// delete domain ...
+		$('.delete-domain').on ('click', function(e) {
+			e.preventDefault();
+
+			var id = $(this).data('id')
+			var domain = $(this).data('domain');
+			$('#delete-domain-modal-name').text(domain);
+			$('#delete_domain_modal').show();
+		} );
+
+		// 'delete' content ...
+		$('#delete_content').on('click', function(e) {
+			var id = $('input#content_id').val();
+			delete_content( id );
+		});
+
+		// 'cancel' delete modal ...
+		$('#cancel-action').on('click', function(e) {
+			$('#delete_modal').hide();
+		});
+
 		// add a 'new' domain
 		$('#new-domain-button').on('click', function() {
 			$(this).text('Save');
@@ -139,5 +176,5 @@
 			$('#new-type-button').text('New Content Type');
 			$('#new-type-entry').hide();
 		} );
-		
+
 	</script>

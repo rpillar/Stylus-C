@@ -5,45 +5,45 @@
         a:hover, a:active, a:focus {
             outline: 0;
         }
-        .article_block {
+        .content_block {
             padding: 15px 5px;
             border-bottom: 1px solid lightgray;
             width:100%;
         }
-        .article_block:hover {
+        .content_block:hover {
             background-color: #383838;
             color: white;
             cursor:pointer;
         }
-        .article_block:hover h2 {
+        .content_block:hover h2 {
             background-color:  #383838;
             color: white;
         }
-        .article_block:hover h3 {
+        .content_block:hover h3 {
             background-color:  #383838;
             color: white;
         }
-        .article_block:hover h4 {
+        .content_block:hover h4 {
             background-color:  #383838;
             color: white;
         }
-        .article_block:hover h5 {
+        .content_block:hover h5 {
             background-color:  #383838;
             color: white;
         }
-        .article_block:hover a p {
+        .content_block:hover a p {
             background-color:  #383838;
             color: white;
         }
-        .article_block a p {
+        .content_block a p {
             font-weight: 500;
             color: #acacac;
         }
-        .article_block a {
+        .content_block a {
             text-decoration: none;
             cursor: pointer;
         }
-        .article_link {
+        .content_link {
             width: inherit;
             height: inherit;
         }
@@ -78,20 +78,20 @@
         <div style="padding-right:20px;">
             <aside style="padding:40px 10px 40px 40px;margin-top:30px;color:#acacac;font-size:16px;line-height:24px;">
                 <form method="post" action="" id="filter"><input id="filterinput" name="q" type="text" size="30" placeholder="Filter..." /></form>
-                <div id="articles-block">
+                <div id="contents-block">
                     <div class="mCustomScrollbar" style="max-height:750px;overflow:auto;">
                     [% FOREACH item IN content_data %]
-                        <div class="article_block">
-                            <a href="#" class="article_link">
-                                <input type="hidden" value="[% item.id %]" class="article_id">
-                                <h3 class="article_title" style="font-size:24px;font-weight:600;margin:0;padding:12px 0;">[% item.title %]</h3><span>
+                        <div class="content_block">
+                            <a href="#" class="content_link">
+                                <input type="hidden" value="[% item.id %]" class="content_id">
+                                <h3 class="content_title" style="font-size:24px;font-weight:600;margin:0;padding:12px 0;">[% item.title %]</h3><span>
                                 <h4 style="margin:5px 0;font-weight:300;color:gray;">(&nbsp;[% item.type %]&nbsp;)</h4></span>
                                 <span>
-                                    [% IF item.article_date %]
-                                    <h5 style="margin:0;padding:10px 0;">Date - [% item.article_date %]</h5>
+                                    [% IF item.content_date %]
+                                    <h5 style="margin:0;padding:10px 0;">Date - [% item.content_date %]</h5>
                                     [% END %]
                                 </span>
-                                <span style="font-size:16px;line-height:1.5;margin:0;padding-top:10px;padding-bottom:10px;color:#acacac;font-weight:400;" class="article_content">
+                                <span style="font-size:16px;line-height:1.5;margin:0;padding-top:10px;padding-bottom:10px;color:#acacac;font-weight:400;" class="content-short">
                                     [% item.content %]
                                 </span>
                             </a>
@@ -118,16 +118,16 @@
     <!-- succinct - truncate content text (if required) -->
     <script>
       $(function(){
-          $('.article_content').succinct({
+          $('.content-short').succinct({
               size: 150
           });
       });
     </script>
 
-    <!-- process 'click' on an article ... -->
+    <!-- process 'click' on a content block ... -->
     <script>
-        $('a.article_link').on('click', function(){
-            var id = $(this).find('.article_id').val();
+        $('a.content_link').on('click', function(){
+            var id = $(this).find('.content_id').val();
 
             var retrieve_url = '/stylus/content/' + id;
 
@@ -146,10 +146,10 @@
 		                // ensure that 'delete' button css / text is always reset - just in case ...
 		                set_delete_css();
 
-                        // set article details
-		                $('input#article_id').val( data.id );
+                        // set content details
+		                $('input#content_id').val( data.id );
                         $('input#content-type').val( data.type );
-		                $('h2#article-title').text( data.title );
+		                $('h2#content-title').text( data.title );
 
 		                // a 'hack' to ensure that event dates are displayed ...
 		                if ( data.date ) {
@@ -159,7 +159,7 @@
 		                else {
 		                    $('#content-date').removeClass('contentdate-show').addClass('contentdate-hide');
 		                }
-                        $('span#article-content').html( data.content );
+                        $('span#content-full').html( data.content );
 
 		                // set publish / hide button value
 		                if ( data.publish == 'y' ) {
@@ -169,13 +169,13 @@
 		                    $('button#publish').text('Publish');
 		                }
 	                }
-                    // hide article-intro
-                    $('#article-intro').hide();
-                    // show article-content
-                    $('#full-article').show();
+                    // hide content-intro
+                    $('#content-intro').hide();
+                    // show content
+                    $('#full-content').show();
 		        },
 		        error: function(jqXHR,status,error) {
-		            console.log('articles - an error has occurred on the ajax call - retrieve : status - ' + status + ' / ' + error);
+		            console.log('Content - an error has occurred on the ajax call - retrieve : status - ' + status + ' / ' + error);
 	                window.location.assign('/stylus');
 		        }
 		    });
@@ -184,7 +184,7 @@
 
     </script>
 
-    <!-- filter articles ... -->
+    <!-- filter Content ... -->
     <script>
         $(document).ready(function(){
             $("#filterinput").keyup(function(){
@@ -193,15 +193,15 @@
                 var filter = $(this).val(), count = 0;
 
                 // Loop through the comment list
-                $("h3.article_title").each(function(){
+                $("h3.content_title").each(function(){
 
                     // If the list item does not contain the text phrase fade it out
                     if ($(this).text().search(new RegExp(filter, "i")) < 0) {
-                        $(this).parents('div.article_block').fadeOut();
+                        $(this).parents('div.content_block').fadeOut();
 
                     // Show the list item if the phrase matches and increase the count by 1
                     } else {
-                        $(this).parents('div.article_block').show();
+                        $(this).parents('div.content_block').show();
                         count++;
                     }
                 });

@@ -13,7 +13,7 @@
 	<div style="padding: 10px 20px;margin:20px 0;">
 	    <div style="padding:20px;width:100%;">
 
-			<div id='article-intro' style="width:100%;">
+			<div id='content-intro' style="width:100%;">
 				<p style="font-size:18px;line-height:1.5;margin-top:20px;margin-bottom:20px;color:#acacac;font-weight:400;">Add <span style="border-bottom:1px dashed gray;">content</span> to your website
 				- you can create anything that you want to add to your website. It could be a news item, an article or an event (content types can be defined on the <strong>settings</strong> page).
 				</p>
@@ -21,25 +21,25 @@
 				Select one to view - then / edit / delete / set the 'publish' flag as appropriate.
 				</p>
 			</div>
-			<div id='full-article' style="display:none;width:100%;">
-				<h2 style="font-size:24px;font-weight:700;text-transform:uppercase;" id="article-title"></h2>
+			<div id='full-content' style="display:none;width:100%;">
+				<h2 style="font-size:24px;font-weight:700;text-transform:uppercase;" id="content-title"></h2>
 				<div id="content-date" class="contentdate-hide">
 					<h4></h4>
 				</div>
 				<input id="content-type" type="hidden">
-				<span id="article-content" style="font-size:17px;line-height:1.5;margin:0;padding-top:10px;padding-bottom:10px;color:#acacac;font-weight:400;"></span>
+				<span id="content-full" style="font-size:17px;line-height:1.5;margin:0;padding-top:10px;padding-bottom:10px;color:#acacac;font-weight:400;"></span>
 				<!-- set initial value of 'publish' / 'hide' button -->
 				<div>
 					<button class="button" id="publish" style="background-color:#367385;border-radius:10px;outline:0;margin-bottom:20px;"></button>
 					<button class="button" id="edit" style="background-color:#51acc7;border-radius:10px;outline:0;margin-bottom:20px;">Edit</button>
 					<button class="button" id="delete" style="background-color:red;border-radius:10px;outline:0;margin-bottom:20px;">Delete</button>
 				</div>
-				<!-- store 'id' of current article -->
-				<input id='article_id' type='hidden' value="[% init.id %]">
+				<!-- store 'id' of current content -->
+				<input id='content_id' type='hidden' value="[% init.id %]">
 			</div>
 			<div style="display:block;">
 				<p>
-					<button class="button" id="create_article" style="background-color:#1abc9c;width:300px;border-radius:10px;outline:0;margin-bottom:20px;">Create new Content</button>
+					<button class="button" id="create_content" style="background-color:#1abc9c;width:300px;border-radius:10px;outline:0;margin-bottom:20px;">Create new Content</button>
 				</p>
 			</div>
 
@@ -70,11 +70,17 @@
 		$('#delete').on ('click', function(e) {
 			e.preventDefault();
 
-			var id       = $('input#article_id').val();
+			var id = $('input#content_id').val();
 			$('#delete-modal-type').text( $('#content-type').val() );
-			$('#delete-modal-title').text( $('#article-title').text() );
+			$('#delete-modal-title').text( $('#content-title').text() );
 			$('#delete_modal').show();
 		} );
+
+		// 'delete' content ...
+		$('#delete_content').on('click', function(e) {
+			var id = $('input#content_id').val();
+			delete_content( id );
+		});
 
 		// 'cancel' delete modal ...
 		$('#cancel-action').on('click', function(e) {
@@ -91,7 +97,7 @@
 
 		//check current value
 		var pub_val = $('button#publish').text();
-		var id = $('input#article_id').val();
+		var id = $('input#content_id').val();
 		if ( pub_val == 'Publish' ) {
 			set_publish(id,'y');
 		}
@@ -104,13 +110,13 @@
 		set_delete_css();
 		$('button#delete').val(1);
 
-		var id       = $('input#article_id').val();
+		var id       = $('input#content_id').val();
 		var edit_url = '/stylus/content/' + id + '/edit';
 		window.location.assign(edit_url);
 
 	});
 
-	$('button#create_article').on( 'click', function() {
+	$('button#create_content').on( 'click', function() {
 		var create_url = '/stylus/content/create'
 		window.location.assign(create_url);
 	});
@@ -118,7 +124,7 @@
 	// ===== functions ===== //
 
 	// function to delete content
-	var delete_art = function(id) {
+	var delete_content = function(id) {
 		var formData = {
 			id: id
 		};
@@ -139,7 +145,7 @@
 				}
 			},
 			error: function(jqXHR,status,error) {
-				console.log('articles - an error has occurred on the ajax call - retrieve : status - ' + status + ' / ' + error);
+				console.log('Content - an error has occurred on the ajax call - retrieve : status - ' + status + ' / ' + error);
 				window.location.assign('/stylus');
 			}
 		});
@@ -173,7 +179,7 @@
 				}
 			},
 			error: function(jqXHR,status,error) {
-				console.log('articles - an error has occurred on the ajax call - retrieve : status - ' + status + ' / ' + error);
+				console.log('Content - an error has occurred on the ajax call - retrieve : status - ' + status + ' / ' + error);
 				window.location.assign('/stylus');
 			}
 		});
