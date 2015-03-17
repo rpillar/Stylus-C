@@ -43,6 +43,7 @@
 
 	    </div>
 
+<!-- delete domain modal -->
 <div id="delete_domain_modal" title="Delete Content" style="display:none; position: fixed; top: 0; left: 0; bottom: 0; right: 0; z-index:500; height: 350px; width: 700px; margin: 230px auto; border: 4px solid lightblue; background-color: #fff; text-align:center; padding: 20px;">
 	<h4 style="text-transform:uppercase;margin-top: 50px;"><span style="border-bottom:3px solid lightblue;">Are you sure you want to remove this Domain ?</span></h4>
 	<div style="margin-left:40px;width:100%;">
@@ -110,6 +111,7 @@
 			var edit_field = $(this).closest('.domain-actions').parent().children('.domain-list');
 			edit_field.parent().addClass('input_active');
 			// hide new-domain input / buttons // reset button text etc. !!
+			$(this).next('.delete-domain').attr('disabled', 'disabled');
 			$('#new-domain-entry').hide();
 			$('#new-domain-button').hide();
 			$('#new-domain-button').text('New Domain');
@@ -125,18 +127,29 @@
 
 			$('.domain-list').attr('disabled', 'disabled');
 			$('.domain-list').parent().removeClass('input_active');
+			$('.delete-domain').removeAttr('disabled');
 			$('div.domain-update-actions').hide();
 			$('#new-domain-button').show();
 		});
 
 		// delete domain ...
-		$('.delete-domain').on ('click', function(e) {
+		$('.delete-domain').on('click', function(e) {
 			e.preventDefault();
 
-			var id = $(this).data('id')
-			var domain = $(this).data('domain');
-			$('#delete-domain-modal-name').text(domain);
-			$('#delete_domain_modal').show();
+			// check if we are 'disabled'
+			if ( !$(this).is("[disabled=disabled]") ) {
+				var id = $(this).data('id')
+				var domain = $(this).data('domain');
+				$('#delete-domain-modal-name').text(domain);
+				$('#delete_domain_modal').show();
+			}
+		} );
+
+		// cancel 'delete' domain ...
+		$('#cancel-action').on ('click', function(e) {
+			e.preventDefault();
+
+			$('#delete_domain_modal').hide();
 		} );
 
 		// 'delete' content ...
