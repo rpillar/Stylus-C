@@ -8,6 +8,8 @@
 	<div style="padding: 10px 20px;margin:20px 0;">
 	    <div style="padding:20px;">
 
+			<!-- Domain process -->
+
 			<div style="clear:both;display:block;">
 				<label class="form_label" for="domain">Domains</label>
 				[% FOREACH domain IN domains %]
@@ -58,8 +60,9 @@
 		<button class="button" id="delete_domain" style="background-color:#ff3232;width:120px;border-radius:10px;outline:0;margin-top:5px;margin-bottom:20px;margin-left:60px;">Delete</button>
 		<button class="button" id="cancel-action" style="border-radius:10px;margin-top:5px;margin-bottom:20px;width:120px;outline:0;">Cancel</button>
 	</div>
-	</div>
 </div>
+
+		<!-- Content Types -->
 
 		<div style="padding:20px;">
 
