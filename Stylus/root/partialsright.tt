@@ -75,24 +75,28 @@
 
     </section>
 
-    <div id="delete_modal" title="Delete Partial" style="display:none; position: fixed; top: 0; left: 0; bottom: 0; right: 0; height: 450px; width: 700px; margin: 230px auto; border: 4px solid lightblue; background-color: #fff; text-align:center; padding: 20px;">
-        <h4 style="text-transform:uppercase;margin-top: 50px;"><span style="border-bottom:3px solid lightblue;">Are you sure you want to remove this Partial ?</span></h4>
-        <div style="margin-left:40px;width:100%;">
-            <br />
-            <h4 style="text-transform:uppercase;text-align:left"><span style="border-bottom:2px solid lightblue;">Type</span></h4>
-            <p id="delete-modal-type" style="text-align:left;font-size:18px;font-weight:300;"></p>
-            <h4 style="text-transform:uppercase;text-align:left;"><span style="border-bottom:2px solid lightblue;">Description</span></h4>
-            <p id="delete-modal-desc" style="text-align:left;font-size:18px;font-weight:300;"></p>
-        </div>
-        <div style="width:60%;margin: 0 auto;">
-            <hr style="height:2px;color:lightblue;border:0 none;background-color:lightblue;" />
-        </div>
-        <div style="width:100%;">
-            <button class="button" id="delete_partial" style="background-color:#ff3232;width:120px;border-radius:10px;outline:0;margin-top:5px;margin-bottom:20px;margin-left:60px;">Delete</button>
-            <button class="button" id="cancel-action" style="border-radius:10px;margin-top:5px;margin-bottom:20px;width:120px;outline:0;">Cancel</button>
-        </div>
-        </div>
+<!-- modal overlay -->
+<div id="overlay" style="display:none;z-index:200;"></div>
+
+<!-- delete partial modal -->
+<div id="delete_modal" title="Delete Partial" style="display:none; position: fixed; top: 0; left: 0; bottom: 0; right: 0; z-index:500; height: 450px; width: 700px; margin: 230px auto; border: 4px solid #8aacb8; background-color: #fff; text-align:center; padding: 20px;">
+    <h4 style="text-transform:uppercase;margin-top: 50px;"><span style="border-bottom:3px solid lightblue;">Are you sure you want to remove this Partial ?</span></h4>
+    <div style="margin-left:40px;width:100%;">
+        <br />
+        <h4 style="text-transform:uppercase;text-align:left"><span style="border-bottom:2px solid lightblue;">Type</span></h4>
+        <p id="delete-modal-type" style="text-align:left;font-size:18px;font-weight:300;"></p>
+        <h4 style="text-transform:uppercase;text-align:left;"><span style="border-bottom:2px solid lightblue;">Description</span></h4>
+        <p id="delete-modal-desc" style="text-align:left;font-size:18px;font-weight:300;"></p>
     </div>
+    <div style="width:60%;margin: 0 auto;">
+        <hr style="height:2px;color:lightblue;border:0 none;background-color:lightblue;" />
+    </div>
+    <div style="width:100%;">
+        <button class="button" id="delete_partial" style="background-color:#ff3232;width:120px;border-radius:10px;outline:0;margin-top:5px;margin-bottom:20px;margin-left:60px;">Delete</button>
+        <button class="button" id="cancel-action" style="border-radius:10px;margin-top:5px;margin-bottom:20px;width:120px;outline:0;">Cancel</button>
+    </div>
+    </div>
+</div>
 
     <!-- customer scrollbar -->
     <script src="http://malihu.github.io/custom-scrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
@@ -113,12 +117,14 @@
             var id = $(this).data('id');
             $('#delete-modal-type').text( $(this).data('type') );
             $('#delete-modal-desc').text( $(this).data('description') );
+            $('#overlay').show();
             $('#delete_modal').show();
         } );
 
         // 'cancel' delete modal ...
         $('#cancel-action').on('click', function(e) {
             $('#delete_modal').hide();
+            $('#overlay').hide();
         });
     </script>
 
