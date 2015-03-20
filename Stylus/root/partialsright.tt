@@ -53,12 +53,15 @@
                 <div id="partials-block">
                     <div class="mCustomScrollbar" style="max-height:750px;overflow:auto;">
                     [% FOREACH partial IN partials %]
-                        <div class="partial_block">
+                        <div class="partial_block [% 'p' _ partial.id %]">
                             <div style="position:relative;">
                                 <h3 class="partial_name" style="font-size:24px;font-weight:600;margin:0;padding:12px 0;display:inline;"><span style="border-bottom:3px solid lightblue;">[% partial.label %]</span></h3><span style="margin-left:15px;font-size:18px;font-weight:400;color:gray;">(&nbsp;[% partial.type %]&nbsp;)</span>
                                 <p style="font-size:16px;line-height:1.5;margin:0;padding-top:10px;padding-bottom:10px;color:#acacac;font-weight:400;">[% partial.description %]</p>
-                                <div style="position:absolute;top:20px;right:60px;">
+                                <div style="position:absolute;top:20px;right:30px;">
                                     <div style="display:inline-block;height:40px; width:40px;">
+                                        <a href="" class="view-link" id="[% partial.id %]" title="View"><img class="svg" src="/static/images/view.png"></a>
+                                    </div>
+                                    <div style="display:inline-block;height:40px; width:40px;margin-left:8px;">
     								    <a href="" class="edit-link" id="[% partial.id %]" title="Edit"><img class="svg" src="/static/images/pencil8.svg"></a>
                                     </div>
                                     <div style="display:inline-block;height:40px; width:40px;margin-left:5px;">
@@ -92,7 +95,7 @@
         <hr style="height:2px;color:lightblue;border:0 none;background-color:lightblue;" />
     </div>
     <div style="width:100%;">
-        <button class="button" id="delete_partial" style="background-color:#ff3232;width:120px;border-radius:10px;outline:0;margin-top:5px;margin-bottom:20px;margin-left:60px;">Delete</button>
+        <button class="button" id="delete_partial" value="" style="background-color:#ff3232;width:120px;border-radius:10px;outline:0;margin-top:5px;margin-bottom:20px;margin-left:60px;">Delete</button>
         <button class="button" id="cancel-action" style="border-radius:10px;margin-top:5px;margin-bottom:20px;width:120px;outline:0;">Cancel</button>
     </div>
     </div>
@@ -110,13 +113,17 @@
         });
     </script>
 
+    <!-- click on a 'delete' link -->
     <script>
+
         $('a.delete-link').on ('click', function(e) {
             e.preventDefault();
 
             var id = $(this).data('id');
+            console.log('delete this partial - ' + id);
             $('#delete-modal-type').text( $(this).data('type') );
             $('#delete-modal-desc').text( $(this).data('description') );
+            $("button#delete_partial").val( id );
             $('#overlay').show();
             $('#delete_modal').show();
         } );
@@ -126,36 +133,29 @@
             $('#delete_modal').hide();
             $('#overlay').hide();
         });
+
+        $('#delete_partial').on( 'click', function() {
+            var id = $(this).val();
+            var result = delete_art(id);
+            if ( result == 1 ) {
+                $('#overlay').hide();
+                $('#delete_modal').hide();
+                $('.p' + id).remove();
+            }
+        });
     </script>
 
-    <!-- click on an partial link .... -->
+    <!-- click on an 'edit' link .... -->
     <script>
 
         // process a 'button' click
         $('a.edit-link').on( 'click', function(e) {
             e.preventDefault();
-            // (re)set delete button css / text
-            set_delete_css();
 
             var id       = $(this).attr('id');
             var edit_url = '/stylus/partials/' + id + '/edit';
             window.location.assign(edit_url);
 
-        });
-
-        $('a.delete-link').on( 'click', function() {
-            delete_value = $(this).val();
-            if ( delete_value == 1) {
-                set_delete_css();
-                $(this).val('2');
-                $(this).css('width', '160px');
-                $(this).css('background-color', 'red');
-                $(this).text('Are you sure ?');
-            }
-            if ( delete_value == 2) {
-                var id = $('#partial_id').val();
-                delete_art(id);
-            }
         });
 
         // ===== functions ===== //
@@ -165,7 +165,7 @@
             var formData = {
 		        id: id
 	        };
-	        var delete_url = '/stylus/partial/' + id;
+	        var delete_url = '/stylus/partials/' + id;
 		    $.ajax({
 		        url: delete_url,
 		        type: 'DELETE',
@@ -177,25 +177,15 @@
                     if ( data.logged_in == '0') {
                         window.location.assign('/stylus/login');
                     }
-                    else {
-		                window.location.assign('/stylus/partials');
-	                }
 		        },
 		        error: function(jqXHR,status,error) {
 		            console.log('partials - an error has occurred on the ajax call - retrieve : status - ' + status + ' / ' + error);
 	                window.location.assign('/stylus');
 		        }
 		    });
-
+            return 1;
         };
 
-        // function to reset text / css for the delete button when required
-        var set_delete_css = function() {
-            $('button.delete').css('width', '120px');
-            $('button.delete').css('background-color', '#254960');
-            $('button.delete').text('Delete');
-            $('button.delete').val('1');
-        }
     </script>
 
     <!-- filter partials ... -->
