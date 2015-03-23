@@ -11,6 +11,11 @@
             border-top: 1px solid lightgray;
             width:100%;
         }
+        .partial_view {
+            clear: both;
+            padding: 15px 5px;
+            width:100%;
+        }
 
 #filter input[type="text"] {
             background: url(/static/images/search-white.png) no-repeat 15px 10px #fcfcfc;
@@ -40,13 +45,10 @@
             color: red;
             width:100%;
         }
-        /*.svg {
-            width: 100%;
-        }*/
 
     </style>
 
-    <section style="display:block;float:left;position:relative;width:100%;">
+    <section id="partial-right" style="display:block;float:left;position:relative;width:100%;">
         <div style="padding-right:20px;">
             <aside style="padding:40px 10px 40px 40px;margin-top:30px;color:#acacac;font-size:16px;line-height:24px;">
                 <form method="post" action="" id="filter"><input id="filterinput" name="q" type="text" size="30" placeholder="Filter..." /></form>
@@ -77,6 +79,29 @@
         </div>
 
     </section>
+
+    <!-- partial 'view' -->
+    <section id="partial-view" style="display:none;float:left;position:relative;width:100%;">
+        <div style="padding-right:20px;">
+            <aside style="padding:40px 10px 40px 40px;margin-top:30px;color:#acacac;font-size:16px;line-height:24px;">
+                <div class="partial_view">
+                    <div>
+                        <a href="" id="partial-close" style="float:right;">
+                            <span class="close-icon"><img src="/static/images/close.png" title="Close"></span>
+                        </div>
+                        <div style="display:block;">
+                            <hr />
+                        </div>
+                        <div style="position:relative;">
+                            <p>Hello World</p>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </section>
+
+    <div style="display:none;">Icons made by <a href="http://www.flaticon.com/authors/robin-kylander" title="Robin Kylander">Robin Kylander</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a>             is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0">CC BY 3.0</a></div>
 
 <!-- modal overlay -->
 <div id="overlay" style="display:none;z-index:200;"></div>
@@ -112,6 +137,36 @@
             }
         });
     </script>
+
+    <!-- click on a 'view' link -->
+    <script>
+
+        $('a.view-link').on ('click', function(e) {
+            e.preventDefault();
+
+            var id = $(this).data('id');
+            console.log('view this partial - ' + id);
+            $('#partial-right').hide();
+            $('#partial-view').show();
+        } );
+
+        // 'cancel' delete modal ...
+        $('#cancel-action').on('click', function(e) {
+            $('#delete_modal').hide();
+            $('#overlay').hide();
+        });
+
+        $('#delete_partial').on( 'click', function() {
+            var id = $(this).val();
+            var result = delete_art(id);
+            if ( result == 1 ) {
+                $('#overlay').hide();
+                $('#delete_modal').hide();
+                $('.p' + id).remove();
+            }
+        });
+    </script>
+
 
     <!-- click on a 'delete' link -->
     <script>
