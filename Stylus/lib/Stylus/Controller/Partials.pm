@@ -119,7 +119,7 @@ sub base :Chained('/') PathPart('stylus/partials') :CaptureArgs( 1 ) {
     my $partial = $c->model('DB::Partial')->find({
         id => $id
     });
-p $partial;
+
     if ( $partial) {
         $c->stash->{partial} = $partial
     }

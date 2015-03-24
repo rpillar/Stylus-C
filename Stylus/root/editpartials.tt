@@ -1,16 +1,9 @@
 	<link rel="stylesheet" type="text/css" href="/static/css/wrapper-dropdown.css" />
-    <link rel="stylesheet" href="http://malihu.github.io/custom-scrollbar/jquery.mCustomScrollbar.min.css" />	
+    <link rel="stylesheet" href="http://malihu.github.io/custom-scrollbar/jquery.mCustomScrollbar.min.css" />
 
   	<style type="text/css" media="screen">
-    	/*body {
-        	overflow: hidden;
-    	}*/
-
     	#container {
-      		/*margin-top: 40px;*/
       		height: 350px;
-      		/*border: 1px solid lightgray;
-      		padding: 20px;*/
     	}
     	#editor {
       		height: 350px;

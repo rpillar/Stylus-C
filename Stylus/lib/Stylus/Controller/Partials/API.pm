@@ -71,7 +71,8 @@ sub partial_GET :Private {
         $c,
         entity => {
             id          => $partial->id,
-            label       => $partial->label,
+            type        => $partial->type,
+            label       => $partial->name,
             description => $partial->description,
             partial     => $partial->partial,
         },
