@@ -33,6 +33,25 @@ sub index :Path :Args(0) {
 	$c->stash->{righthalf} = 'registerright.tt';
 }
 
+### all general methods come after this ###
+
+=head2 create
+
+register a 'new' user
+
+=cut
+
+sub create :Path( '/stylus/register/create' ) :Args(0) {
+    my ( $self, $c ) = @_;
+
+    # set initial content for 'landing' page
+    $c->stash->{current_view} = 'TT';
+    $c->stash->{template}  = 'index.tt';
+    $c->stash->{initial}   = 'createpartial.tt';
+    $c->stash->{righthalf} = 'createpartialsright.tt';
+}
+
+
 =head2 end
 
 Attempt to render a view, if needed.
