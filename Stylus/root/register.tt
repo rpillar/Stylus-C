@@ -91,17 +91,17 @@
 			        name: name,
 			        email: email,
 			        username: username,
-					password: password,
+					password: password1,
 					domain: domain
 		        };
 			    $.ajax({
-			        url: '/stylus/register',
+			        url: '/stylus/register/process',
 			        type: 'POST',
 			        data: formData,
 			        dataType: 'json',
 			        success: function(data,status) {
 			            if ( data.json.success == 0 ) {
-			                $('p#message').text('There was a problem processing this comment - please try again.');
+			                $('p#message').text(data.json.message);
 			            }
 			            else {
 			                window.location.assign('/stylus');
