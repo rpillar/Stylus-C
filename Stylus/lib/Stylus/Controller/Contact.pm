@@ -1,10 +1,10 @@
-package Stylus::Controller::Contact;
+package Stylus::Controller::Register;
 use Moose;
 use namespace::autoclean;
 
 BEGIN { extends 'Catalyst::Controller'; }
 
-__PACKAGE__->config(namespace => 'stylus/contact');
+__PACKAGE__->config(namespace => 'stylus/register');
 
 =head1 NAME
 
@@ -27,10 +27,10 @@ sub index :Path :Args(0) {
     my ( $self, $c ) = @_;
 
     # set initial content for 'landing' page
-    $c->stash->{current_view} = 'TT';	
+    $c->stash->{current_view} = 'TT';
 	$c->stash->{template}  = 'index.tt';
-	$c->stash->{initial}   = 'contact.tt';
-	$c->stash->{righthalf} = 'contactright.tt';
+	$c->stash->{initial}   = 'register.tt';
+	$c->stash->{righthalf} = 'registerright.tt';
 }
 
 =head2 end
