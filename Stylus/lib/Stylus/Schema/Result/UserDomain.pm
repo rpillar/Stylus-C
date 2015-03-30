@@ -49,11 +49,10 @@ __PACKAGE__->table("user_domains");
   data_type: 'integer'
   is_nullable: 1
 
-=head2 domain
+=head2 domain_id
 
-  data_type: 'char'
+  data_type: 'integer'
   is_nullable: 1
-  size: 25
 
 =cut
 
@@ -62,8 +61,8 @@ __PACKAGE__->add_columns(
   { data_type => "integer", is_auto_increment => 1, is_nullable => 0 },
   "uid",
   { data_type => "integer", is_nullable => 1 },
-  "domain",
-  { data_type => "char", is_nullable => 1, size => 25 },
+  "domain_id",
+  { data_type => "integer", is_nullable => 1 },
 );
 
 =head1 PRIMARY KEY
@@ -79,8 +78,8 @@ __PACKAGE__->add_columns(
 __PACKAGE__->set_primary_key("id");
 
 
-# Created by DBIx::Class::Schema::Loader v0.07042 @ 2015-02-11 08:35:57
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:TbeJtWeG2zgq5qZQUt2ziw
+# Created by DBIx::Class::Schema::Loader v0.07039 @ 2015-03-30 19:09:01
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:Pu328vxNzhQtfyTC0AWf3Q
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration
