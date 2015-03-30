@@ -65,13 +65,15 @@ sub process :Local {
     );
     my $password_hash = $pbkdf2->generate($password);
 
+    $c->log->debug('parameters : ' . $name . ' / ' . $email . ' / ' . $username . ' / ' . $password_hash);
+
     $c->stash->{current_view} = 'JSON_Service';
 
     # add user to the 'users' table
     my $error = 0;
     my $user_data;
     try {
-        $user_data = $c->model('DB::Users')->create({
+        $user_data = $c->model('DB::User')->create({
             name          => $name,
             email_address => $email,
             username      => $username,
