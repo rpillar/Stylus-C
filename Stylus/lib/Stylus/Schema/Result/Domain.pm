@@ -1,12 +1,12 @@
 use utf8;
-package Stylus::Schema::Result::User;
+package Stylus::Schema::Result::Domain;
 
 # Created by DBIx::Class::Schema::Loader
 # DO NOT MODIFY THE FIRST PART OF THIS FILE
 
 =head1 NAME
 
-Stylus::Schema::Result::User
+Stylus::Schema::Result::Domain
 
 =cut
 
@@ -30,11 +30,11 @@ extends 'DBIx::Class::Core';
 
 __PACKAGE__->load_components("InflateColumn::DateTime");
 
-=head1 TABLE: C<users>
+=head1 TABLE: C<domains>
 
 =cut
 
-__PACKAGE__->table("users");
+__PACKAGE__->table("domains");
 
 =head1 ACCESSORS
 
@@ -44,29 +44,9 @@ __PACKAGE__->table("users");
   is_auto_increment: 1
   is_nullable: 0
 
-=head2 username
-
-  data_type: 'text'
-  is_nullable: 1
-
 =head2 name
 
   data_type: 'text'
-  is_nullable: 1
-
-=head2 password
-
-  data_type: 'text'
-  is_nullable: 1
-
-=head2 email_address
-
-  data_type: 'text'
-  is_nullable: 1
-
-=head2 active
-
-  data_type: 'integer'
   is_nullable: 1
 
 =cut
@@ -74,16 +54,8 @@ __PACKAGE__->table("users");
 __PACKAGE__->add_columns(
   "id",
   { data_type => "integer", is_auto_increment => 1, is_nullable => 0 },
-  "username",
-  { data_type => "text", is_nullable => 1 },
   "name",
   { data_type => "text", is_nullable => 1 },
-  "password",
-  { data_type => "text", is_nullable => 1 },
-  "email_address",
-  { data_type => "text", is_nullable => 1 },
-  "active",
-  { data_type => "integer", is_nullable => 1 },
 );
 
 =head1 PRIMARY KEY
@@ -99,12 +71,12 @@ __PACKAGE__->add_columns(
 __PACKAGE__->set_primary_key("id");
 
 
-# Created by DBIx::Class::Schema::Loader v0.07039 @ 2015-03-30 19:09:01
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:IWcmPtk0wg23JxazKYOwzA
+# Created by DBIx::Class::Schema::Loader v0.07042 @ 2015-03-31 14:41:41
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:5VvsjiMO5v60iqwR5+4MTQ
 
-__PACKAGE__->has_many(
-    domains => 'Stylus::Schema::Result::UserDomain',
-    { 'foreign.uid' => 'self.id' },
+__PACKAGE__->belongs_to(
+    user => 'Stylus::Schema::Result::UserDomain',
+    { 'foreign.domain_id' => 'self.id' },
 );
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

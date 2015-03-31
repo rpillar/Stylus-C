@@ -2,6 +2,8 @@ package Stylus::Controller::Login;
 use Moose;
 use namespace::autoclean;
 
+use Crypt::PBKDF2;
+
 BEGIN { extends 'Catalyst::Controller'; }
 
 __PACKAGE__->config(namespace => 'stylus/login');
@@ -49,8 +51,18 @@ sub auth :Local {
 
     $c->stash->{current_view} = 'JSON_Service';
 
-    #unless ( $c->authenticate({ username => $username, domain => $domain, password => $password, })) {
-    unless ( $c->authenticate({ username => $username, password => $password, })) {
+    # encrypt the password
+    my $pbkdf2 = Crypt::PBKDF2->new(
+        hash_class => 'HMACSHA2',
+        hash_args => {
+            sha_size => 512,
+        },
+        iterations => 10000,
+        salt_len => 10,
+    );
+    my $password_hash = $pbkdf2->generate($password, $username);
+
+    unless ( $c->authenticate({ username => $username, password => $password_hash, })) {
         $c->stash->{json} = {
             success => 0,
         };
@@ -65,26 +77,25 @@ sub auth :Local {
 sub check_domain :Local {
     my ( $self, $c ) = @_;
 
-    my $domain   = $c->request->params->{domain};
+    my $domain_name = $c->request->params->{domain};
 
     $c->stash->{current_view} = 'JSON_Service';
+    $c->log->debug( 'Logged in user : ' . $c->user->username );
 
     # check that domain is associated with this user ...
-    my $user_domain = $c->model('DB::UserDomain')->find({
-        uid    => $c->user->id,
-        domain => $domain,
+    my $domain = $c->model('DB::Domain')->find({
+        name => $domain_name,
     });
-    $c->log->debug('Login - user_domain check : ' . $user_domain->domain );
-
-    if ( $user_domain ) {
-        $c->session->{user_domain} = $domain;
-        $c->stash->{json} =  {
-            success => 1
+    if ( !$domain || $domain->user->uid != $c->user->id ) {
+        $c->stash->{json} = {
+            success => 0,
+            message => 'Stylus - this domain does not belong to user.',
         }
     }
     else {
-        $c->stash->{json} = {
-            success => 0
+        $c->session->{user_domain} = $domain;
+        $c->stash->{json} =  {
+            success => 1
         }
     }
 }

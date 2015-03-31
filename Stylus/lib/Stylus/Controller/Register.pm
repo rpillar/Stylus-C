@@ -3,6 +3,7 @@ use Moose;
 use namespace::autoclean;
 
 use Crypt::PBKDF2;
+use Try::Tiny;
 
 BEGIN { extends 'Catalyst::Controller'; }
 
@@ -54,6 +55,31 @@ sub process :Local {
     my $password = $c->request->params->{password};
     my $domain   = $c->request->params->{domain};
 
+    # set view ...
+    $c->stash->{current_view} = 'JSON_Service';
+
+    # check whether username / domain already exist
+    my $user_rs = $c->model('DB::User')->search({
+        username => $username,
+    });
+    if ( $user_rs->count ) {
+        $c->stash->{json} = {
+            success => 0,
+            message => 'This Username already exists within Stylus.'
+        };
+        return;
+    }
+    my $domain_rs = $c->model('DB::Domain')->search({
+        name => $domain,
+    });
+    if ( $domain_rs && $domain_rs->count ) {
+        $c->stash->{json} = {
+            success => 0,
+            message => 'This Domain already exists within Stylus.'
+        };
+        return;
+    }
+
     # encrypt the password
     my $pbkdf2 = Crypt::PBKDF2->new(
         hash_class => 'HMACSHA2',
@@ -63,15 +89,11 @@ sub process :Local {
         iterations => 10000,
         salt_len => 10,
     );
-    my $password_hash = $pbkdf2->generate($password);
-
-    $c->log->debug('parameters : ' . $name . ' / ' . $email . ' / ' . $username . ' / ' . $password_hash);
-
-    $c->stash->{current_view} = 'JSON_Service';
+    my $password_hash = $pbkdf2->generate($password, $username);
 
     # add user to the 'users' table
     my $error = 0;
-    my $user_data;
+    my ( $user_data, $domain_data, $user_domain_data );
     try {
         $user_data = $c->model('DB::User')->create({
             name          => $name,
@@ -79,6 +101,14 @@ sub process :Local {
             username      => $username,
             password      => $password_hash,
         });
+        $domain_data = $c->model('DB::Domain')->create({
+            name => $domain,
+        });
+        $user_domain_data = $c->model('DB::UserDomain')->create({
+            uid       => $user_data->id,
+            domain_id => $domain_data->id,
+        });
+
     }
     catch {
         $c->log->debug('Register - create of new user data failed : ' . $_);
@@ -87,47 +117,7 @@ sub process :Local {
     if ( $error ) {
         $c->stash->{json} = {
             success => 0,
-            message => 'Register - create of new user data failed'
-        };
-
-        return;
-    }
-
-    # add the domain to the 'domain' table and to the 'user_domains' table
-    my $domain_data;
-    try {
-        $domain_data = $c->model('DB::Domain')->create({
-            domain => $domain
-        });
-    }
-    catch {
-        $c->log->debug('Register - create of new domain data failed : ' . $_);
-        $error = 1;
-    };
-    if ( $error ) {
-        $c->stash->{json} = {
-            success => 0,
-            message => 'Register - create of new domain data failed'
-        };
-
-        return;
-    }
-
-    my $user_domain_data;
-    try {
-        $user_domain_data = $c->model('DB::UserDomain')->create({
-            uid       => $user_data->id,
-            domain_id => $domain_data->id
-        });
-    }
-    catch {
-        $c->log->debug('Register - create of new user_domain data failed : ' . $_);
-        $error = 1;
-    };
-    if ( $error ) {
-        $c->stash->{json} = {
-            success => 0,
-            message => 'Register - create of new user_domain data failed'
+            message => 'Register - create of new user data failed.'
         };
 
         return;
