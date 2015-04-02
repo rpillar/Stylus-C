@@ -2,7 +2,7 @@ package Stylus::Controller::Content;
 use Moose;
 use namespace::autoclean;
 
-use Data::Dumper;
+use DDP;
 use Text::Markdown 'markdown';
 
 BEGIN { extends 'Catalyst::Controller'; }
@@ -60,8 +60,8 @@ sub index :Path( '/stylus/content' ) :Args(0) {
 	$c->stash->{righthalf} = 'contentright.tt';
 
 	# get content data - set initial content values
-    my $content_rs = $c->model('DB::Article')->search(
-        { domain => $c->session->{user_domain} }
+    my $content_rs = $c->model('DB::Content')->search(
+        { domain_id => $c->session->{user_domain_id} }
     );
 
 	# trim 'content' and convert to HTML (stored as Markdown)
@@ -82,11 +82,11 @@ sub index :Path( '/stylus/content' ) :Args(0) {
 
 	        my $row = {
 	            id           => $content->id,
-	            type         => $content->type,
+	            type_id      => $content->type_id,
 	            title        => $content->title,
 	            content      => markdown( $content_text ),
 	            publish      => $content->publish,
-	            article_date => $content->article_date,
+	            content_date => $content->content_date,
 	        };
 
 	        push(@data, $row);
@@ -107,11 +107,24 @@ create 'new' content
 sub create :Path( '/stylus/content/create' ) :Args(0) {
     my ( $self, $c ) = @_;
 
-    # set initial content for 'landing' page
+    # set initial content for 'create content' page
+    my $content_type_rs = $c->model('DB::ContentType')->search();
+    my @data;
+    while ( my $type = $content_type_rs->next ) {
+        my $row = {
+            id   => $type->id,
+            type => $type->type
+        };
+        p $row;
+        push(@data, $row);
+    }
+
     $c->stash->{current_view} = 'TT';
 	$c->stash->{template}  = 'index.tt';
 	$c->stash->{initial}   = 'createcontent.tt';
 	$c->stash->{righthalf} = 'createcontentright.tt';
+
+    $c->stash->{content_type} = \@data;
 }
 
 ### chained methods ###

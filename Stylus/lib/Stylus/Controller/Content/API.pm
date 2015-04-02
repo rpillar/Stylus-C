@@ -155,13 +155,18 @@ sub content_new_POST :Private {
     # get content data ..
     my $data = $c->req->data || $c->req->params;
 
-    my $stylus_content = $c->model('DB::Article')->create(
+    # need to get the type_id value (not sure it is possible to set / get this)
+    my $content_type = $c->model('DB::ContentType')->search({
+        type => $data->{type}
+    })->first();
+
+    my $stylus_content = $c->model('DB::Content')->create(
         {
-            type         => $data->{type},
-            article_date => $data->{date},
+            type_id      => $content_type->id,
+            content_date => $data->{date},
             title        => $data->{title},
             content      => $data->{article},
-            domain       => $c->session->{user_domain},
+            domain_id    => $c->session->{user_domain_id},
         }
     );
 

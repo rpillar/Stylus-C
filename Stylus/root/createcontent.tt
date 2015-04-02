@@ -30,11 +30,11 @@
             <form>
                 <div style="margin-left:22px;border-left:4px solid #254960;">
                     <div id="dd" class="wrapper-dropdown-3" tabindex="1">
-                        <span>Content Type</span>
+                        <span id="type_name">Content Type</span>
                         <ul class="dropdown">
-                            <li><a href="#">Event</a></li>
-                            <li><a href="#"></i>Article</a></li>
-                            <li><a href="#"></i>News</a></li>
+                            [% FOREACH type IN content_type %]
+                                <li><a href="#">[% type.type %]</a></li>
+                            [% END %]
                         </ul>
                     </div>
                 </div>
@@ -49,13 +49,13 @@
                 <div id="datefield" class="datefield-hide">
                     <label class="form_label" for="title">Date</label>
                     <div class="input" style="margin-bottom:25px;width:350px;">
-                        <input class="login_input" id="articleDate" name="articleDate" placeholder="Date" type="text" input size="16" style="width:200px; readonly">
+                        <input class="login_input" id="contentDate" name="contentDate" placeholder="Date" type="text" input size="16" style="width:200px; readonly">
                     </div>
                 </div>
                 <div style="clear:both;display:block;">
                     <label class="form_label" for="create">Content</label>
                     <div class="input">
-                        <textarea class="login_input wmd-input" id="article" placeholder="Content" type="text" rows="12"></textarea>
+                        <textarea class="login_input wmd-input" id="content" placeholder="Content" type="text" rows="12"></textarea>
                     </div>
                 </div>
                 <button class="button" id="create" style="background-color:#1abc9c;border-radius:10px;outline:0;margin-bottom:20px;width:220px;">Create</button>
@@ -109,7 +109,7 @@
             if ( $('#datefield').is(':visible') ) {
                 $(this).text('Add Date');
                 $('#datefield').hide('100');
-                $('#articleDate').val('');
+                $('#contentDate').val('');
             }
             else {
                 $(this).text('Remove Date');
@@ -128,16 +128,16 @@
 			// client-side validation - just check that fields have been populated
 			// all other validation will be done on the server
 			var type    = $('#dd span').text();
-			var date    = $('#articleDate_hidden').val();
+			var date    = $('#contentDate_hidden').val();
 			var title   = $('#title').val();
-			var article = $('#article').val();
+			var content = $('#content').val();
 
 			if ( type == 'Content Type' ) {
 			    $('#dd').css({"border-top-color": "#254960", "border-bottom-color": "#254960" });
 			    $('p#message').text('Content Type missing - please enter.');
 			}
-			else if ( !article ) {
-			    $('#article').parent().addClass('input_error');
+			else if ( !content ) {
+			    $('#content').parent().addClass('input_error');
 			    $('p#message').text('Content missing - please enter.');
 			}
 			else {
@@ -145,7 +145,7 @@
 			        type: type,
 			        date: date,
 			        title: title,
-			        article: article
+			        content: content
 		        };
 			    $.ajax({
 			        url: '/stylus/content/create-process',
@@ -174,14 +174,14 @@
     <!-- WMD stuff -->
     <script type="text/javascript">
         $(document).ready(function() {
-            new WMD("article", "toolbar", { preview: "preview" });
+            new WMD("content", "toolbar", { preview: "preview" });
         });
     </script>
 
     <!-- datepicker stuff -->
     <script type="text/javascript">
         $(document).ready(function() {
-            $('#articleDate').pickadate({
+            $('#contentDate').pickadate({
                 //container: '#date-outlet',
                 formatSubmit: 'yyyy-mm-dd',
                 hiddenName: true
