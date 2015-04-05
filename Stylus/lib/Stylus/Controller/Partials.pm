@@ -61,8 +61,8 @@ sub index :Path( '/stylus/partials' ) :Args(0) {
 
     # get partials data - set initial partial values
     my $partials_rs = $c->model('DB::Partial')->search(
-        { domain => $c->session->{user_domain} },
-        { order_by => [ qw/ type / ] }
+        { domain_id => $c->session->{user_domain_id} },
+#       { order_by    => [ qw/ type_id / ] }
     );
 
     my @data;
@@ -71,7 +71,7 @@ sub index :Path( '/stylus/partials' ) :Args(0) {
 
             my $row = {
                 id           => $partial->id,
-                type         => $partial->type,
+                type         => $partial->partial_type->type,
                 description  => $partial->description,
                 label        => $partial->name,
             };
@@ -94,11 +94,25 @@ create a 'new' partial
 sub create :Path( '/stylus/partials/create' ) :Args(0) {
     my ( $self, $c ) = @_;
 
+    # set initial content for 'create partials' page
+    my $partial_type_rs = $c->model('DB::PartialType')->search();
+    my @data;
+    while ( my $type = $partial_type_rs->next ) {
+        my $row = {
+            id   => $type->id,
+            type => $type->type
+        };
+        p $row;
+        push(@data, $row);
+    }
+
     # set initial content for 'landing' page
     $c->stash->{current_view} = 'TT';
     $c->stash->{template}  = 'index.tt';
     $c->stash->{initial}   = 'createpartial.tt';
     $c->stash->{righthalf} = 'createpartialsright.tt';
+
+    $c->stash->{partial_type} = \@data;
 }
 
 ### chained methods ###

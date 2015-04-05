@@ -82,13 +82,13 @@ sub index :Path( '/stylus/content' ) :Args(0) {
 
 	        my $row = {
 	            id           => $content->id,
-	            type_id      => $content->type_id,
+	            type         => $content->content_type->type,
 	            title        => $content->title,
 	            content      => markdown( $content_text ),
 	            publish      => $content->publish,
 	            content_date => $content->content_date,
 	        };
-
+p $row;
 	        push(@data, $row);
         }
 	}
@@ -142,7 +142,7 @@ sub base :Chained('/') PathPart('stylus/content') :CaptureArgs( 1 ) {
     $id =~ s/\D//g;
 
     # get content ...
-    my $content = $c->model('DB::Article')->find({
+    my $content = $c->model('DB::Content')->find({
         id => $id
     });
 

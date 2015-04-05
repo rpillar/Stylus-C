@@ -71,7 +71,7 @@ sub partial_GET :Private {
         $c,
         entity => {
             id          => $partial->id,
-            type        => $partial->type,
+            type        => $partial->partial_type->type,
             label       => $partial->name,
             description => $partial->description,
             partial     => $partial->partial,
@@ -142,13 +142,18 @@ sub partial_new_POST :Private {
     # get partial data ..
     my $data = $c->req->data || $c->req->params;
 
+    # need to get the type_id value (not sure it is possible to set / get this)
+    my $partial_type = $c->model('DB::PartialType')->search({
+        type => $data->{type}
+    })->first();
+
     my $stylus_partial = $c->model('DB::Partial')->create(
         {
-            type        => $data->{type},
+            type_id     => $partial_type->id,
             name        => $data->{label},
             description => $data->{description},
             partial     => $data->{partial},
-            domain      => $c->session->{user_domain},
+            domain_id   => $c->session->{user_domain_id},
         }
     );
 

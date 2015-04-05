@@ -25,7 +25,7 @@
 		<div style="padding:10px 20px;margin:20px 0;">
 			<form>
 				<div class="input" style="margin-bottom:20px;">
-					<h3 class='login_input' id="type" style="font-weight:400;font-size:22px;color:gray;">[% partial.type %]</h3>
+					<h3 class='login_input' id="type" style="font-weight:400;font-size:22px;color:gray;">[% partial.partial_type.type %]</h3>
 				</div>
 				<div style="clear:both;">
 					<label class="form_label" for="create">Label</label>

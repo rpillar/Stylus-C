@@ -34,10 +34,10 @@
 					<div id="dd" class="wrapper-dropdown-3" tabindex="1">
 						<span>Partial Type</span>
 						<ul class="dropdown">
-							<li><a href="#"></i>Layout</a></li>
-							<li><a href="#">Component</a></li>
-							<li><a href="#">Partial</a></li>
-						</ul>
+                            [% FOREACH type IN partial_type %]
+                                <li><a href="#">[% type.type %]</a></li>
+                            [% END %]
+                        </ul>
 					</div>
 				</div>
 				<div style="clear:both;">

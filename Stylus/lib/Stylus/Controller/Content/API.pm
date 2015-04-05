@@ -23,8 +23,8 @@ sub base :Chained('/') PathPart('stylus/content') :CaptureArgs( 1 ) {
     $id =~ s/\D//g;
 
     if ( looks_like_number( $id ) ) {
-        # get article ...
-        my $content = $c->model('DB::Article')->find({
+        # get content ...
+        my $content = $c->model('DB::Content')->find({
             id => $id
         });
         if ( $content ) {
@@ -84,10 +84,10 @@ sub content_GET :Private {
         entity => {
             id      => $content->id,
             title   => $content->title,
-            type    => $content->type,
+            type    => $content->content_type->type,
             content => $content_item,
             publish => $content->publish,
-            date    => $content->article_date,
+            date    => $content->content_date,
         },
     );
 }
@@ -124,9 +124,9 @@ sub content_PUT :Private {
     try {
         $c->stash->{content}->update(
             {
-                article_date => $data->{date},
+                content_date => $data->{date},
                 title        => $data->{title},
-                content      => $data->{article},
+                content      => $data->{content},
             }
         );
 
@@ -165,7 +165,7 @@ sub content_new_POST :Private {
             type_id      => $content_type->id,
             content_date => $data->{date},
             title        => $data->{title},
-            content      => $data->{article},
+            content      => $data->{content},
             domain_id    => $c->session->{user_domain_id},
         }
     );

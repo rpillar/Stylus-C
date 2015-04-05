@@ -27,20 +27,20 @@
         <div style="padding:10px 20px;margin:20px 0;">
             <form>
                 <div class="input" style="margin-bottom:10px;">
-                    <h3 class='login_input' id="type" style="font-weight:400;font-size:22px;color:gray;">[% content_data.type %]</h3>
+                    <h3 class='login_input' id="type" style="font-weight:400;font-size:22px;color:gray;">[% content_data.content_type.type %]</h3>
                 </div>
 
                 <button class="button" id="title-button" style="border-radius:10px;margin-bottom:20px;width:220px;outline:0;">[% IF content_data.title %]Remove Title [% ELSE %] Add Title[% END %]</button>
-                <button class="button" id="date-button" style="border-radius:10px;margin-bottom:20px;width:220px;outline:0;">[% IF content_data.article_date %]Remove Date [% ELSE %]Add Date[% END %]</button>
+                <button class="button" id="date-button" style="border-radius:10px;margin-bottom:20px;width:220px;outline:0;">[% IF content_data.content_date %]Remove Date [% ELSE %]Add Date[% END %]</button>
 
-                [% IF content_data.article_date %]
+                [% IF content_data.content_date %]
                 <div id="datefield" class="datefield-show">
                 [% ELSE %]
                 <div id="datefield" class="datefield-hide">
                 [% END %]
-                    <label class="form_label" for="articleDate">Date</label>
+                    <label class="form_label" for="contentDate">Date</label>
 	    		    <div class="input" style="margin-bottom:25px;width:350px;">
-	    			    <input class="login_input" id="articleDate" name="articleDate" placeholder="Date" type="text" value="[% content_data.article_date %]" data-value="[% content_data.article_date %]" style="width:200px;">
+	    			    <input class="login_input" id="contentDate" name="contentDate" placeholder="Date" type="text" value="[% content_data.content_date %]" data-value="[% content_data.content_date %]" style="width:200px;">
 	    		    </div>
                 </div>
                 [% IF content_data.title %]
@@ -54,9 +54,9 @@
 	    		    </div>
                 </div>
                 <div style="clear:both;display:block;">
-                    <label class="form_label" for="create">Article</label>
+                    <label class="form_label" for="create">Content</label>
                     <div class="input">
-                        <textarea class="login_input wmd-input" id="article" placeholder="Article" type="text" rows="12">[% content_data.content %]</textarea>
+                        <textarea class="login_input wmd-input" id="content" placeholder="Content" type="text" rows="12">[% content_data.content %]</textarea>
                     </div>
                 </div>
                 <button class="button" id="update" style="background-color:#1abc9c;border-radius:10px;margin-bottom:20px;width:220px;outline:0;">Update</button>
@@ -111,8 +111,8 @@
             if ( $('#datefield').is(':visible') ) {
                 $(this).text('Add Date');
                 $('#datefield').hide('100');
-                $('#articleDate').val('');
-                $('#articleDate_hidden').val('');
+                $('#contentDate').val('');
+                $('#contentDate_hidden').val('');
             }
             else {
                 $(this).text('Remove Date');
@@ -132,21 +132,21 @@
 			// client-side validation - just check that fields have been populated
 			// all other validation will be done on the server
 			var type    = $('#type').text();
-			var date    = $('#articleDate_hidden').val();
+			var date    = $('#contentDate_hidden').val();
 			var title   = $('#title').val();
-			var article = $('#article').val();
+			var content = $('#content').val();
 			var id      = $('#content_id').val();
 
-			if ( !article ) {
-			    $('#article').parent().addClass('input_error');
-			    $('p#message').text('Article missing - please enter.');
+			if ( !content ) {
+			    $('#content').parent().addClass('input_error');
+			    $('p#message').text('Content missing - please enter.');
 			}
 			else {
 			    var formData = {
 			        type: type,
 			        date: date,
 			        title: title,
-			        article: article
+			        content: content
 		        };
 		        var update_url = '/stylus/content/' + id;
 			    $.ajax({
@@ -156,7 +156,7 @@
 			        dataType: 'json',
 			        success: function(data,status) {
 			            if ( data.success == 0 ) {
-			                $('p#message').text('There was a problem adding this article - please try again or contact us.');
+			                $('p#message').text('There was a problem adding this content - please try again or contact us.');
 			            }
 			            else {
 			                window.location.assign('/stylus/content');
@@ -181,14 +181,14 @@
     <!-- WMD stuff -->
     <script type="text/javascript">
         $(document).ready(function() {
-            new WMD("article", "toolbar", { preview: "preview" });
+            new WMD("content", "toolbar", { preview: "preview" });
         });
     </script>
 
     <!-- datepicker stuff -->
     <script type="text/javascript">
         $(document).ready(function() {
-            $('#articleDate').pickadate({
+            $('#contentDate').pickadate({
                 formatSubmit: 'yyyy-mm-dd',
                 hiddenName: true
             });
