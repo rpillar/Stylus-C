@@ -57,24 +57,41 @@ sub index :Path( '/stylus/settings' ) :Args(0) {
 	$c->stash->{righthalf} = 'settingsright.tt';
 
     # get settings data - domains
-    my $domains_rs = $c->model('DB::UserDomain')->search(
+    my $userdomains_rs = $c->model('DB::UserDomain')->search(
         { uid => $c->user->id },
     );
 
-    my @data;
-    if ( $domains_rs->count ) {
-        while ( my $domain = $domains_rs->next ) {
+    my @ud_data;
+    if ( $userdomains_rs->count ) {
+        while ( my $userdomain = $userdomains_rs->next ) {
 
             my $row = {
-                id           => $domain->id,
-                domain       => $domain->domain,
+                id     => $userdomain->domains->id,
+                domain => $userdomain->domains->name,
             };
 
-            push(@data, $row);
+            push(@ud_data, $row);
         }
     }
 
-    $c->stash->{domains} = \@data;
+    # get settings data - content_types
+    my $contenttypes_rs = $c->model('DB::ContentType')->search();
+
+    my @ct_data;
+    if ( $contenttypes_rs->count ) {
+        while ( my $contenttype = $contenttypes_rs->next ) {
+
+            my $row = {
+                id   => $contenttype->id,
+                type => $contenttype->type,
+            };
+
+            push(@ct_data, $row);
+        }
+    }
+
+    $c->stash->{domains}       = \@ud_data;
+    $c->stash->{content_types} = \@ct_data;
 }
 
 =head2 end

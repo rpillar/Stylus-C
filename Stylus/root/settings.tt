@@ -73,10 +73,10 @@
 				<hr />
 				<label class="form_label" for="domain">Content type</label>
 				[% IF content_types.size > 0 %]
-					[% FOREACH types IN content_types %]
+					[% FOREACH type IN content_types %]
 					<div>
 						<div class="input" style="margin-bottom:25px;">
-							<input class="login_input" name="type" placeholder="Content Type" type="text" value="[% type.name %]" size="25" disabled>
+							<input class="login_input" name="type" placeholder="Content Type" type="text" value="[% type.type %]" size="25" disabled>
 							<input name="type_id" type="hidden" value="[% type.id %]">
 							<div style="position:absolute;top:10px;right:30px;">
 								<a href=""><img src="/static/images/pencil8.svg" height="40" width="40"></a>
