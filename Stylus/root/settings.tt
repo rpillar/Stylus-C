@@ -71,7 +71,7 @@
 
 			<div style="clear:both;display:block;">
 				<hr />
-				<label class="form_label" for="domain">Content type</label>
+				<label class="form_label" for="domain">Content types</label>
 				[% IF content_types.size > 0 %]
 					[% FOREACH type IN content_types %]
 					<div>
