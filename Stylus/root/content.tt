@@ -27,19 +27,22 @@
 					<h4></h4>
 				</div>
 				<input id="content-type" type="hidden">
-				<span id="content-full" style="font-size:17px;line-height:1.5;margin:0;padding-top:10px;padding-bottom:10px;color:#acacac;font-weight:400;"></span>
+				<span id="content-full" style="font-size:17px;line-height:1.5;margin:0;padding-top:10px;padding-bottom:20px;color:#acacac;font-weight:400;"></span>
+				<div>
+					<hr style="margin-top:20px;margin-bottom:0;margin-left:70px;margin-right:70px;height:1px;color:lightblue;border:0 none;background-color:lightblue;" />
+				</div>
 				<!-- set initial value of 'publish' / 'hide' button -->
 				<div>
-					<button class="button" id="publish" style="background-color:#367385;border-radius:10px;outline:0;margin-bottom:20px;"></button>
-					<button class="button" id="edit" style="background-color:#51acc7;border-radius:10px;outline:0;margin-bottom:20px;">Edit</button>
-					<button class="button" id="delete" style="background-color:red;border-radius:10px;outline:0;margin-bottom:20px;">Delete</button>
+					<button class="button" id="publish" style="background-color:#367385;outline:0;margin-bottom:20px;"></button>
+					<button class="button" id="edit" style="background-color:#51acc7;outline:0;margin-bottom:20px;">Edit</button>
+					<button class="button" id="delete" style="background-color:#ff3232;outline:0;margin-bottom:20px;">Delete</button>
 				</div>
 				<!-- store 'id' of current content -->
 				<input id='content_id' type='hidden' value="[% init.id %]">
 			</div>
-			<div style="display:block;">
+			<div id="create-content" style="display:block;">
 				<p>
-					<button class="button" id="create_content" style="background-color:#1abc9c;width:300px;border-radius:10px;outline:0;margin-bottom:20px;">Create new Content</button>
+					<button class="button" id="create_content" style="background-color:#1abc9c;width:250px;outline:0;margin-bottom:20px;">Create New Content</button>
 				</p>
 			</div>
 
@@ -70,34 +73,33 @@
 </div>
 
 	<script>
-		$('#delete').on ('click', function(e) {
-			e.preventDefault();
+	$('#delete').on ('click', function(e) {
+		e.preventDefault();
 
-			var id = $('input#content_id').val();
-			$('#delete-modal-type').text( $('#content-type').val() );
-			$('#delete-modal-title').text( $('#content-title').text() );
-			$('#overlay').show();
-			$('#delete_modal').show();
-		} );
+		var id = $('input#content_id').val();
+		$('#delete-modal-type').text( $('#content-type').val() );
+		$('#delete-modal-title').text( $('#content-title').text() );
+		$('#overlay').show();
+		$('#delete_modal').show();
+	} );
 
-		// 'delete' content ...
-		$('#delete_content').on('click', function(e) {
-			var id = $('input#content_id').val();
-			delete_content( id );
-		});
+	// 'delete' content ...
+	$('#delete_content').on('click', function(e) {
+		var id = $('input#content_id').val();
+		delete_content( id );
+	});
 
-		// 'cancel' delete modal ...
-		$('#cancel-action').on('click', function(e) {
-			$('#delete_modal').hide();
-			$('#overlay').hide();
-		});
+	// 'cancel' delete modal ...
+	$('#cancel-action').on('click', function(e) {
+		$('#delete_modal').hide();
+		$('#overlay').hide();
+	});
 	</script>
 
 	<script>
 	// process a 'button' click
 	$('button#publish').on( 'click', function() {
 		// (re)set delete button css / text
-		set_delete_css();
 		$('button#delete').val(1);
 
 		//check current value
@@ -112,7 +114,6 @@
 	});
 	$('button#edit').on( 'click', function() {
 		// (re)set delete button css / text
-		set_delete_css();
 		$('button#delete').val(1);
 
 		var id       = $('input#content_id').val();
@@ -192,11 +193,11 @@
 	};
 
 	// function to reset text / css for the delete button when required
-	var set_delete_css = function() {
-		$('button#delete').css('width', '120px');
-		$('button#delete').css('background-color', '#254960');
-		$('button#delete').text('Delete');
-		$('button#delete').val('1');
-	}
+	//var set_delete_css = function() {
+	//	$('button#delete').css('width', '120px');
+	//	$('button#delete').css('background-color', '#254960');
+	//	$('button#delete').text('Delete');
+	//	$('button#delete').val('1');
+	//}
 
 	</script>

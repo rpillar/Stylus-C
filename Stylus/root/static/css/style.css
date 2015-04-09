@@ -197,6 +197,13 @@ aside.navbar ul.navigator li#register a {
         margin-top: 25px;
         margin-left: 20px;
         width: 120px;
+        height:60px;
+        border-radius:7px;
+        color: white;
+        font-family: Lato;
+        font-weight: 400;
+        font-size: 18px;
+        border: 2px solid lightblue;
     }
     /* placeholder css */]
     input::-webkit-input-placeholder, textarea::-webkit-input-placeholder {

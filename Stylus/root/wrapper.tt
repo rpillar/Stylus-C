@@ -2,16 +2,16 @@
 <html>
 <head>
 <!-- script libraries -->
-<!-- <script src="http://code.jquery.com/jquery-1.9.1.js"></script> -->
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script src="/static/js/succinct.min.js"></script>
+<script src="/static/js/pnotify.custom.min.js"></script>
+
 <!-- style stuff -->
-<link rel="stylesheet" type="text/css" href="/static/css/font-awesome.css" />
-<!--<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">-->
-<!--<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">-->
+<link rel="stylesheet" type="text/css" href="/static/css/font-awesome/css/font-awesome.min.css" />
 
 <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.css" />
 <link media="all" type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Lato:300,400,900">
+<link rel="stylesheet" type="text/css" href="/static/css/pnotify.custom.min.css" />
 <link rel="stylesheet" type="text/css" href="/static/css/style.css" />
 
 <title>Stylus</title>

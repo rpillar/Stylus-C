@@ -42,6 +42,8 @@
 			$(this).parent().removeClass('input_active');
 		});
 
+		PNotify.prototype.options.styling = "fontawesome";
+
 		// process 'login-1' button 'click'
 		$('button#login-1').on('click', function(e) {
             e.preventDefault();
@@ -56,11 +58,33 @@
 			var password = $('#password').val();
 			if ( !username ) {
 			    $('#username').parent().addClass('input_error');
-			    $('p#message').text('Username missing - please enter.');
+				new PNotify({
+					title: 'Missing data',
+					text: 'Username missing - please enter.',
+					buttons: {
+						sticker: false
+					},
+					width: "350px",
+					type: 'error',
+					icon: false,
+					hide: false
+				});
+			    //$('p#message').text('Username missing - please enter.');
 			}
 			else if ( !password ) {
 			    $('#password').parent().addClass('input_error');
-			    $('p#message').text('Password missing - please enter.');
+				new PNotify({
+					title: 'Missing data',
+					text: 'Password missing - please enter.',
+					buttons: {
+						sticker: false
+					},
+					width: "350px",
+					type: 'error',
+					icon: false,
+					hide: false
+				});
+			    //$('p#message').text('Password missing - please enter.');
 			}
 			else {
 			    var formData = {
@@ -77,19 +101,46 @@
 			            if ( data.json.success == 0 ) {
 			                $('#username').parent().css({"border-color": "#254960"});
 			                $('#password').parent().css({"border-color": "#254960"});
-			                $('p#message').text('Invalid Username / Domain / Password - please try again.');
+							new PNotify({
+								title: 'Missing data',
+								text: 'Invalid Username / Password - please try again.',
+								buttons: {
+									sticker: false
+								},
+								width: "350px",
+								icon: false,
+								hide: false
+							});
+			                //$('p#message').text('Invalid Username / Domain / Password - please try again.');
 			            }
 			            else {
 							$('#login-1').removeClass('login-active').addClass('login-hidden');
 							$('#login-2').removeClass('login-hidden').addClass('login-active');
-							$('p#message').text('Select a domain and Continue.');
+							new PNotify({
+								title: 'Enter data',
+								text: 'Enter a valid Domain.',
+								buttons: {
+									sticker: false
+								},
+								width: "350px"
+							});
 							$('#domain').focus();
 			            }
 			        },
 			        error: function(jqXHR,status,error) {
 			            $('#username').parent().css({"border-color": "#254960"});
 			            $('#password').parent().css({"border-color": "#254960"});
-			            $('p#message').text('Invalid Username / Domain / Password - please try again.');
+						new PNotify({
+							title: 'Missing data',
+							text: 'Invalid Username / Password - please try again.',
+							buttons: {
+								sticker: false
+							},
+							width: "350px",
+							icon: false,
+							hide: false
+						});
+			            //$('p#message').text('Invalid Username / Domain / Password - please try again.');
 			        }
 			    });
 			}
@@ -99,6 +150,8 @@
 		// process 'login-2' button 'click' - select a domain
 		$('button#login-2').on('click', function(e) {
 			e.preventDefault();
+
+			PNotify.removeAll();
 
 			//reset border-color and remove 'active' class
 			$('div.input').removeClass('input_active');
@@ -123,7 +176,17 @@
 					success: function(data,status) {
 						if ( data.json.success == 0 ) {
 						    $('#domain').parent().css({"border-color": "#254960"});
-							$('p#message').text('The domain that has been entered is invalid - please correct.');
+							new PNotify({
+								title: 'Invalid data',
+								text: 'The domain that has been entered is invalid - please correct.',
+								buttons: {
+									sticker: false
+								},
+								width: "350px",
+								icon: false,
+								hide: false
+							});
+							//$('p#message').text('The domain that has been entered is invalid - please correct.');
 						}
 						else {
 							window.location.assign('/stylus');
@@ -131,7 +194,17 @@
 					},
 					error: function(jqXHR,status,error) {
 					    $('#domain').parent().css({"border-color": "#254960"});
-						$('p#message').text('The domain that has been entered is invalid - please correct.');
+						new PNotify({
+							title: 'Invalid data',
+							text: 'The domain that has been entered is invalid - please correct.',
+							buttons: {
+								sticker: false
+							},
+							width: "350px",
+							icon: false,
+							hide: false
+						});
+						//$('p#message').text('The domain that has been entered is invalid - please correct.');
 					}
 				});
 			}
