@@ -59,7 +59,7 @@
 					</div>
 				</div>
 				<button class="button" id="create" style="background-color:#1abc9c;border-radius:10px;margin-bottom:20px;width:220px;">Create</button>
-				<button class="button" id="cancel" style="border-radius:10px;margin-bottom:20px;width:220px;">Cancel</button>
+				<button class="button action-button" id="cancel">Cancel</button>
 	    	</form>
 		</div>
     </div>

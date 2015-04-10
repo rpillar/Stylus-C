@@ -17,30 +17,6 @@
             width:100%;
         }
 
-#filter input[type="text"] {
-            background: url(/static/images/search-white.png) no-repeat 15px 10px #fcfcfc;
-            /*border: 1px solid #254960;*/
-            border: 3px solid lightblue;
-            font-size: 20px;
-            color: #254960;;
-            width: 230px;
-            padding: 10px 15px 10px 35px;
-            -webkit-border-radius: 20px;
-            -moz-border-radius: 20px;
-            border-radius: 20px;
-            text-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
-            -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15) inset;
-            -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15) inset;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15) inset;
-            -webkit-transition: all 0.7s ease 0s;
-            -moz-transition: all 0.7s ease 0s;
-            -o-transition: all 0.7s ease 0s;
-            transition: all 0.7s ease 0s;
-            margin-bottom: 15px;
-        }
-        #filter input[type="text"]:focus {
-            width: 300px;
-        }
         .delete-link img.svg {
             color: red;
             width:100%;
@@ -54,7 +30,7 @@
         }
         #editor {
               height: 350px;
-            marin-left: 22px;
+            margin-left: 22px;
         }
 
         /* override bootstrap styling for editor */
@@ -161,8 +137,8 @@
         <hr style="height:2px;color:lightblue;border:0 none;background-color:lightblue;" />
     </div>
     <div style="width:100%;">
-        <button class="button" id="delete_partial" value="" style="background-color:#ff3232;width:120px;border-radius:10px;outline:0;margin-top:5px;margin-bottom:20px;margin-left:60px;">Delete</button>
-        <button class="button" id="cancel-action" style="border-radius:10px;margin-top:5px;margin-bottom:20px;width:120px;outline:0;">Cancel</button>
+        <button class="button" id="delete_partial" value="" style="background-color:#ff3232;width:120px;border-radius:10px;outline:0;margin-top:5px;margin-bottom:20px;margin-left:10px;">Delete</button>
+        <button class="button action-button" id="cancel-action" style="width:120px">Cancel</button>
     </div>
     </div>
 </div>

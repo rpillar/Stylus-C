@@ -193,6 +193,54 @@ aside.navbar ul.navigator li#register a {
         background-color: gray;
         border-left: 4px solid #fff;*/
     }
+
+    /* content link hovers etc */
+    a:hover, a:active, a:focus {
+        outline: 0;
+    }
+    .content_block {
+        padding: 15px 5px;
+        border-bottom: 1px solid lightgray;
+        width:100%;
+    }
+    .content_block:hover {
+        background-color: #383838;
+        color: white;
+        cursor:pointer;
+    }
+    .content_block:hover h2 {
+        background-color:  #383838;
+        color: white;
+    }
+    .content_block:hover h3 {
+        background-color:  #383838;
+        color: white;
+    }
+    .content_block:hover h4 {
+        background-color:  #383838;
+        color: white;
+    }
+    .content_block:hover h5 {
+        background-color:  #383838;
+        color: white;
+    }
+    .content_block:hover a p {
+        background-color:  #383838;
+        color: white;
+    }
+    .content_block a p {
+        font-weight: 500;
+        color: #acacac;
+    }
+    .content_block a {
+        text-decoration: none;
+        cursor: pointer;
+    }
+    .content_link {
+        width: inherit;
+        height: inherit;
+    }
+    
     .button {
         margin-top: 25px;
         margin-left: 20px;
@@ -204,6 +252,12 @@ aside.navbar ul.navigator li#register a {
         font-weight: 400;
         font-size: 18px;
         border: 2px solid lightblue;
+    }
+    .action-button {
+        margin-bottom:20px;
+        width:220px;
+        outline:0;
+        background-color:#367385;
     }
     /* placeholder css */]
     input::-webkit-input-placeholder, textarea::-webkit-input-placeholder {
@@ -246,4 +300,44 @@ aside.navbar ul.navigator li#register a {
         background: #000;
         opacity: 0.2;
         filter: alpha(opacity=50);
+    }
+
+    #filter input[type="text"] {
+        background: url(/static/images/search-white.png) no-repeat 15px 10px #fcfcfc;
+        /*border: 1px solid #254960;*/
+        border: 3px solid lightblue;
+        font-size: 20px;
+        color: #254960;;
+        width: 230px;
+        padding: 10px 15px 10px 35px;
+        -webkit-border-radius: 20px;
+        -moz-border-radius: 20px;
+        border-radius: 20px;
+        text-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+        -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15) inset;
+        -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15) inset;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15) inset;
+        -webkit-transition: all 0.7s ease 0s;
+        -moz-transition: all 0.7s ease 0s;
+        -o-transition: all 0.7s ease 0s;
+        transition: all 0.7s ease 0s;
+        margin-bottom: 15px;
+    }
+    #filter input[type="text"]:focus {
+        width: 300px;
+    }
+
+    /* PNotify updates */
+    .alert-danger {
+        background-color: #ff7f7f;
+        border: 3px solid lightblue;
+        border-radius: 10px;
+        font-family: Lato;
+        font-weight: 400;
+        font-size: 18px;
+    }
+    h4.ui-pnotify-title {
+        font-size: 22px;
+        font-weight: 500;
+        text-transform: uppercase;
     }

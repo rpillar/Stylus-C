@@ -45,8 +45,8 @@
 						<pre id="editor"></pre>
 					</div>
 				</div>
-				<button class="button" id="update" style="background-color:#1abc9c;border-radius:10px;margin-bottom:20px;width:220px;">update</button>
-				<button class="button" id="cancel" style="border-radius:10px;margin-bottom:20px;width:220px;">Cancel</button>
+				<button class="button" id="update" style="background-color:#1abc9c;border-radius:10px;margin-bottom:20px;width:220px;">Update</button>
+				<button class="button action-button" id="cancel">Cancel</button>
 
 				<!-- store 'id' of current partial -->
 				<input id='partial_id' type='hidden' value="[% partial.id %]">

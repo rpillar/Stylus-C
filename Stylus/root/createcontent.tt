@@ -22,20 +22,6 @@
     display: normal;
     clear: both;
 }
-
-.alert-danger {
-    background-color: #ff7f7f;
-    border: 3px solid lightblue;
-    border-radius: 10px;
-    font-family: Lato;
-    font-weight: 400;
-    font-size: 18px;
-}
-h4.ui-pnotify-title {
-    font-size: 22px;
-    font-weight: 500;
-    text-transform: uppercase;
-}
 </style>
 
     <h1 style="margin:0;font-size:32px;font-weight:600;color:#000;padding-left:30px;padding-top:40px;text-transform:uppercase;"><span style="border-bottom:4px solid lightblue;">create content</span></h1>

@@ -67,8 +67,8 @@
 		<hr style="height:2px;color:lightblue;border:0 none;background-color:lightblue;" />
 	</div>
 	<div style="width:100%;">
-		<button class="button" id="delete_content" style="background-color:#ff3232;width:120px;border-radius:10px;outline:0;margin-top:5px;margin-bottom:20px;margin-left:60px;">Delete</button>
-		<button class="button" id="cancel-action" style="border-radius:10px;margin-top:5px;margin-bottom:20px;width:120px;outline:0;">Cancel</button>
+		<button class="button" id="delete_content" style="background-color:#ff3232;width:120px;border-radius:10px;outline:0;margin-top:5px;margin-bottom:20px;margin-left:10px;">Delete</button>
+		<button class="button action-button" id="cancel-action" style="width:120px;">Cancel</button>
 	</div>
 </div>
 

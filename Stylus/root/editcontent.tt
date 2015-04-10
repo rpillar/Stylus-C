@@ -30,8 +30,8 @@
                     <h3 class='login_input' id="type" style="font-weight:400;font-size:22px;color:gray;">[% content_data.content_type.type %]</h3>
                 </div>
 
-                <button class="button" id="title-button" style="border-radius:10px;margin-bottom:20px;width:220px;outline:0;">[% IF content_data.title %]Remove Title [% ELSE %] Add Title[% END %]</button>
-                <button class="button" id="date-button" style="border-radius:10px;margin-bottom:20px;width:220px;outline:0;">[% IF content_data.content_date %]Remove Date [% ELSE %]Add Date[% END %]</button>
+                <button class="button action-button" id="title-button">[% IF content_data.title %]Remove Title [% ELSE %] Add Title[% END %]</button>
+                <button class="button action-button" id="date-button">[% IF content_data.content_date %]Remove Date [% ELSE %]Add Date[% END %]</button>
 
                 [% IF content_data.content_date %]
                 <div id="datefield" class="datefield-show">
@@ -60,7 +60,7 @@
                     </div>
                 </div>
                 <button class="button" id="update" style="background-color:#1abc9c;border-radius:10px;margin-bottom:20px;width:220px;outline:0;">Update</button>
-                <button class="button" id="cancel" style="border-radius:10px;margin-bottom:20px;width:220px;outline:0">Cancel</button>
+                <button class="button action-button" id="cancel">Cancel</button>
 
                 <!-- store 'id' of current content -->
 	    	    <input id='content_id' type='hidden' value="[% content_data.id %]">
@@ -124,6 +124,10 @@
 		$('button#update').on('click', function(e) {
             e.preventDefault();
 
+            // PNotify initialise ...
+            PNotify.prototype.options.styling = "fontawesome";
+            PNotify.removeAll();
+
             //reset border-color
             $('#dd').css({"border-color": "lightgray"});
             $('div.input').removeClass('input_active');
@@ -139,7 +143,18 @@
 
 			if ( !content ) {
 			    $('#content').parent().addClass('input_error');
-			    $('p#message').text('Content missing - please enter.');
+                new PNotify({
+                    title: 'Missing data',
+                    text: 'Content missing - please enter.',
+                    buttons: {
+                        sticker: false
+                    },
+                    width: "350px",
+                    type: 'error',
+                    icon: false,
+                    hide: false
+                });
+			    //$('p#message').text('Content missing - please enter.');
 			}
 			else {
 			    var formData = {
@@ -156,14 +171,36 @@
 			        dataType: 'json',
 			        success: function(data,status) {
 			            if ( data.success == 0 ) {
-			                $('p#message').text('There was a problem adding this content - please try again or contact us.');
+                            new PNotify({
+                                title: 'ERROR',
+                                text: 'There was a problem adding this content - please try again or contact us.',
+                                buttons: {
+                                    sticker: false
+                                },
+                                width: "350px",
+                                type: 'error',
+                                icon: false,
+                                hide: false
+                            });
+			                //$('p#message').text('There was a problem adding this content - please try again or contact us.');
 			            }
 			            else {
 			                window.location.assign('/stylus/content');
 			            }
 			        },
 			        error: function(jqXHR,status,error) {
-			            $('p#message').text('A problem has occurred - please try again in a few minutes or contact us.');
+                        new PNotify({
+                            title: 'ERROR',
+                            text: 'A problem has occurred - please try again in a few minutes or contact us.',
+                            buttons: {
+                                sticker: false
+                            },
+                            width: "350px",
+                            type: 'error',
+                            icon: false,
+                            hide: false
+                        });
+			            //$('p#message').text('A problem has occurred - please try again in a few minutes or contact us.');
 			        }
 			    });
 			}

@@ -6,7 +6,7 @@
 
 	<h1 style="margin:0;font-size:32px;font-weight:600;color:#000;padding-left:30px;padding-top:40px;text-transform:uppercase;"><span style="border-bottom:4px solid lightblue;">settings</span></h1>
 	<div style="padding: 10px 20px;margin:20px 0;">
-	    <div style="padding:20px;">
+	    <div style="padding:0 20px;">
 
 			<!-- Domain process -->
 
@@ -40,8 +40,8 @@
 					<input class="login_input" name="domain" placeholder="Domain" type="text" value="" size="25">
 				</div>
 			</div>
-			<button class="button" id="new-domain-button" style="background-color:#1abc9c;border-radius:10px;margin-bottom:20px;width:220px;outline:0;">New Domain</button>
-			<button class="button" id="new-domain-button-cancel" style="display:none;border-radius:10px;margin-bottom:20px;width:220px;outline:0;">Cancel</button>
+			<button class="button" id="new-domain-button" style="background-color:#1abc9c;border-radius:10px;width:220px;outline:0;">New Domain</button>
+			<button class="button" id="new-domain-button-cancel" style="display:none;border-radius:10px;width:220px;outline:0;">Cancel</button>
 
 	    </div>
 
@@ -67,7 +67,7 @@
 
 		<!-- Content Types -->
 
-		<div style="padding:20px;">
+		<div style="padding: 0 20px;">
 
 			<div style="clear:both;display:block;">
 				<hr />
