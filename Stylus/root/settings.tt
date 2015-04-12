@@ -24,8 +24,8 @@
 				</div>
 				[% END %]
 				<div class="domain-update-actions" style="display:none;">
-					<button class="button" id="update-domain-button" style="background-color:#1abc9c;border-radius:10px;margin-bottom:20px;width:160px;outline:0;">Update</button>
-					<button class="button" id="update-domain-button-cancel" style="border-radius:10px;margin-bottom:20px;width:160px;outline:0;">Cancel</button>
+					<button class="button" id="update-domain-button" style="background-color:#1abc9c;border-radius:5px;margin-bottom:20px;width:160px;outline:0;">Update</button>
+					<button class="button action-button" id="update-domain-button-cancel" style="width:160px;">Cancel</button>
 				</div>
 			</div>
 			<div style="display:none;">Icon made by <a href="http://icon-works.com" title="Icon Works">Icon Works</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> is licensed under <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0">CC BY 3.0</a></div>
@@ -40,8 +40,8 @@
 					<input class="login_input" name="domain" placeholder="Domain" type="text" value="" size="25">
 				</div>
 			</div>
-			<button class="button" id="new-domain-button" style="background-color:#1abc9c;border-radius:10px;width:220px;outline:0;">New Domain</button>
-			<button class="button" id="new-domain-button-cancel" style="display:none;border-radius:10px;width:220px;outline:0;">Cancel</button>
+			<button class="button" id="new-domain-button" style="background-color:#1abc9c;border-radius:5px;width:220px;outline:0;">New Domain</button>
+			<button class="button action-button" id="new-domain-button-cancel" style="display:none;width:220px;">Cancel</button>
 
 	    </div>
 
@@ -60,8 +60,8 @@
 		<hr style="height:2px;color:lightblue;border:0 none;background-color:lightblue;" />
 	</div>
 	<div style="width:100%;">
-		<button class="button" id="delete_domain" style="background-color:#ff3232;width:120px;border-radius:10px;outline:0;margin-top:5px;margin-bottom:20px;margin-left:60px;">Delete</button>
-		<button class="button" id="cancel-action" style="border-radius:10px;margin-top:5px;margin-bottom:20px;width:120px;outline:0;">Cancel</button>
+		<button class="button" id="delete_domain" style="background-color:#ff3232;width:120px;border-radius:5px;outline:0;margin-top:5px;margin-bottom:20px;margin-left:60px;">Delete</button>
+		<button class="button action-button" id="cancel-action" style="width:120px;">Cancel</button>
 	</div>
 </div>
 
@@ -103,8 +103,8 @@
 					<input class="login_input" name="type" placeholder="Content type" type="text" value="" size="25">
 				</div>
 			</div>
-			<button class="button" id="new-type-button" style="background-color:#1abc9c;border-radius:10px;margin-bottom:20px;width:220px;outline:0;">New Content Type</button>
-			<button class="button" id="new-type-button-cancel" style="display:none;border-radius:10px;margin-bottom:20px;width:220px;outline:0;">Cancel</button>
+			<button class="button" id="new-type-button" style="background-color:#1abc9c;border-radius:5px;margin-bottom:20px;width:220px;outline:0;">New Content Type</button>
+			<button class="button action-button" id="new-type-button-cancel" style="display:none;width:220px;">Cancel</button>
 
 	    </div>
     </div>
