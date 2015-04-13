@@ -28,7 +28,10 @@ sub index :Path :Args(0) {
 
     # Clear the user's state
     $c->logout;
-    
+
+    # set session 'user_domain_id' to '0'
+    $c->session->{user_domain_id} = 0;
+
     # Send the user to the starting point
     $c->response->redirect($c->uri_for('/stylus'));
 }

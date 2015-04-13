@@ -26,7 +26,7 @@ Catalyst Controller.
 sub auto :Private {
     my ( $self, $c ) = @_;
 
-    unless ( $c->user_exists ) {
+    unless ( $c->user_exists && $c->session->{user_domain_id} ) {
         $c->log->debug( " User does not exist - redirect to login page ...");
         if ( $c->req->method eq 'POST' ) {
             $c->log->debug('Content : session timed out on ajax request');
