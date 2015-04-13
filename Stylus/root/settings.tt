@@ -23,7 +23,7 @@
 					</div>
 				</div>
 				[% END %]
-				<div class="domain-update-actions" style="display:none;">
+				<div id="domain-update-actions" style="display:none;">
 					<button class="button" id="update-domain-button" data-id=0 style="background-color:#1abc9c;border-radius:5px;margin-bottom:20px;width:160px;outline:0;">Update</button>
 					<button class="button action-button" id="update-domain-button-cancel" style="width:160px;">Cancel</button>
 				</div>
@@ -144,7 +144,14 @@
 				var id = this.getAttribute('data-id');
 				var pElement = this.parentNode.previousElementSibling;
 				pElement.parentNode.classList.add( 'input_active' );
-				console.log('my input element value is : ' + pElement.className );
+
+				// hide 'new-domain-button'
+				var button_new = document.getElementById('new-domain-button');
+				button_new.style.display = 'none';
+
+				// display 'update actions'
+				var button_update = document.getElementById('domain-update-actions');
+				button_update.style.display = 'block';
 			});
 		} )
 
