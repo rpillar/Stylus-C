@@ -37,11 +37,13 @@
 					</div>
 				</div>
 				<div class="input new-domain" style="margin-bottom:25px;">
-					<input class="login_input" name="domain" placeholder="Domain" type="text" value="" size="25">
+					<input class="login_input" id="new-domain" name="domain" placeholder="Domain" type="text" value="" size="25">
 				</div>
 			</div>
-			<button class="button" id="new-domain-button" style="background-color:#1abc9c;border-radius:5px;width:220px;outline:0;">New Domain</button>
-			<button class="button action-button" id="new-domain-button-cancel" style="display:none;width:220px;">Cancel</button>
+			[% IF domains.size < 3 %]
+				<button class="button" id="new-domain-button" style="background-color:#1abc9c;border-radius:5px;width:220px;outline:0;">New Domain</button>
+				<button class="button action-button" id="new-domain-button-cancel" style="display:none;width:220px;">Cancel</button>
+			[% END %]
 
 	    </div>
 
@@ -60,7 +62,7 @@
 		<hr style="height:2px;color:lightblue;border:0 none;background-color:lightblue;" />
 	</div>
 	<div style="width:100%;">
-		<button class="button" id="delete_domain" style="background-color:#ff3232;width:120px;border-radius:5px;outline:0;margin-top:5px;margin-bottom:20px;margin-left:10px;">Delete</button>
+		<button class="button" id="delete_domain_button" data-id=0 style="background-color:#ff3232;width:120px;border-radius:5px;outline:0;margin-top:5px;margin-bottom:20px;margin-left:10px;">Delete</button>
 		<button class="button action-button" id="cancel-action" style="width:120px;">Cancel</button>
 	</div>
 </div>
@@ -110,12 +112,19 @@
     </div>
 
 	<script>
+
+		// PNotify initialise ...
+		PNotify.prototype.options.styling = "fontawesome";
+
 		// edit domain process ...
 		$('a.edit_domain').on('click', function(e) {
 			e.preventDefault();
 
 			// get 'id' of domain
 			var id = $(this).data("id");
+
+			// reset 'active' class
+			$('.input').removeClass('input_active');
 
 			// set 'active' class on input block
 			var edit_block = $(this).parent().parent();
@@ -160,9 +169,6 @@
 
 		$('#update-domain-button').on('click', function(e) {
 			e.preventDefault();
-
-			// PNotify initialise ...
-			PNotify.prototype.options.styling = "fontawesome";
 			PNotify.removeAll();
 
 			// get domain id / updated domain ...
@@ -235,10 +241,18 @@
 				var id = $(this).data('id')
 				var domain = $(this).data('domain');
 				$('#delete-domain-modal-name').text(domain);
+
+				// add id to the 'delete' - native javascript
+				var delete_button = document.getElementById('delete_domain_button');
+				delete_button.setAttribute('data-id', id);
+
 				$('#overlay').show();
 				$('#delete_domain_modal').show();
 			}
 		} );
+		$('#delete-domain').on( 'click', function(e) {
+			e.preventDefault();
+		});
 
 		// cancel 'delete' domain ...
 		$('#cancel-action').on ('click', function(e) {
@@ -261,10 +275,62 @@
 
 		// add a 'new' domain
 		$('#new-domain-button').on('click', function() {
-			$(this).text('Save');
-			$('#new-domain-button-cancel').show();
-			$('#new-domain-entry').show('200');
-			$('.new-domain').addClass('input_active');
+			var button_text = $(this).text();
+
+			if ( button_text == 'Save' ) {
+
+				// get domain
+				var domain = $('#new-domain').val();
+
+				if ( !domain ) {
+					$('#content').parent().addClass('input_error');
+					new PNotify({
+						title: 'Missing data',
+						text: 'The new domain field is empty - please enter a valid value.',
+						buttons: {
+							sticker: false
+						},
+						width: "350px",
+						type: 'error',
+						icon: false,
+						hide: false
+					});
+				}
+				else {
+					var formData = {
+						domain: domain
+					};
+					var update_url = '/stylus/settings/user_domain/';
+					$.ajax({
+						url: update_url,
+						type: 'PUT',
+						data: formData,
+						dataType: 'json',
+						success: function(data,status) {
+							window.location.assign('/stylus/settings');
+						},
+						error: function(jqXHR,status,error) {
+							new PNotify({
+								title: 'ERROR',
+								text: 'A problem has occurred - please try again in a few minutes or contact us.',
+								buttons: {
+									sticker: false
+								},
+								width: "350px",
+								type: 'error',
+								icon: false,
+								hide: false
+							});
+						}
+					});
+				}
+			}
+			else {
+				$(this).text('Save');
+				$('#new-domain-button-cancel').show();
+				$('#new-domain-entry').show('200');
+				$('.new-domain').addClass('input_active');
+			}
 		} );
 		$('#new-domain-button-cancel').on('click', function() {
 			$(this).hide();

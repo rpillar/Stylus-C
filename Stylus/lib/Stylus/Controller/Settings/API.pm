@@ -55,6 +55,14 @@ sub base_ud :Chained('/') PathPart('stylus/settings/user_domain') :CaptureArgs( 
     }
 }
 
+=head2 base method - for new 'user_domains'
+
+=cut
+
+sub base_ud_new :Chained('/') PathPart('stylus/settings/user_domain') :CaptureArgs( 0 ) {
+    my ( $self, $c ) = @_;
+}
+
 =head2 content_type
 
 =cut
@@ -63,7 +71,7 @@ sub content_type :Chained('base_ct') PathPart('') Args(0) : ActionClass('REST') 
     my ($self, $c) = @_;
 }
 
-=head2 domain
+=head2 user_domain
 
 =cut
 
@@ -72,6 +80,18 @@ sub user_domain :Chained('base_ud') PathPart('') Args(0) : ActionClass('REST') {
 
     $c->log->debug('in Settings API - user_domain');
 }
+
+=head2 user_domain_new
+
+=cut
+
+sub user_domain_new :Chained('base_ud_new') PathPart('') Args(0) : ActionClass('REST') {
+    my ($self, $c) = @_;
+
+    $c->log->debug('in Settings API - user_domain_new');
+}
+
+## RESTful methods ##
 
 =head2 content_type_DELETE
 
@@ -136,6 +156,41 @@ sub user_domain_PUT :Private {
         $self->status_bad_request(
             $c,
             message => "Settings - User Domains : there has been an error updating the Stylus DB !",
+        );
+    };
+}
+
+=head2 user_domain_new_PUT
+
+=cut
+
+sub user_domain_new_PUT :Private {
+    my ($self, $c) = @_;
+
+    # get user_domain data ..
+    my $data = $c->req->data || $c->req->params;
+
+    try {
+        my $domain = $c->model('DB::Domain')->create(
+            { name => $data->{domain} },
+        );
+        my $userdomain = $c->model('DB::UserDomain')->create(
+            { uid => $c->user->id, domain_id => $domain->id }
+        );
+
+        $self->status_created(
+            $c,
+            location => $c->req->uri,
+            entity  => {
+            },
+        );
+    }
+    catch {
+        $c->log->debug('Settings - user_domains_new_PUT : error ' . $_);
+
+        $self->status_bad_request(
+            $c,
+            message => "Settings - User Domains : there has been an error adding a new entry into the Stylus DB !",
         );
     };
 }
