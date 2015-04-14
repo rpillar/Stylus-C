@@ -154,7 +154,6 @@
                     icon: false,
                     hide: false
                 });
-			    //$('p#message').text('Content missing - please enter.');
 			}
 			else {
 			    var formData = {
@@ -182,7 +181,6 @@
                                 icon: false,
                                 hide: false
                             });
-			                //$('p#message').text('There was a problem adding this content - please try again or contact us.');
 			            }
 			            else {
 			                window.location.assign('/stylus/content');
@@ -200,7 +198,6 @@
                             icon: false,
                             hide: false
                         });
-			            //$('p#message').text('A problem has occurred - please try again in a few minutes or contact us.');
 			        }
 			    });
 			}

@@ -3,30 +3,54 @@ use Moose;
 use namespace::autoclean;
 
 use Data::Dumper;
+use Scalar::Util qw( looks_like_number);
 use Try::Tiny;
 
 BEGIN { extends 'Catalyst::Controller::REST' }
 __PACKAGE__->config(default => 'application/json');
 
-=head2 base method
+=head2 base method - for 'content_types'
 
 =cut
 
-sub base :Chained('/') PathPart('stylus/settings') :CaptureArgs( 1 ) {
+sub base_ct :Chained('/') PathPart('stylus/settings/content_type') :CaptureArgs( 1 ) {
     my ( $self, $c, $id) = @_;
 
-    $c->log->debug('in Settings API - base');
+    $c->log->debug('in Settings API - base_ct');
 
     # remove all non-digits
     $id =~ s/\D//g;
 
     if ( looks_like_number( $id ) ) {
         # get settings data ...
-        my $content = $c->model('DB::Article')->find({
+        my $contenttype = $c->model('DB::ContentType')->find({
             id => $id
         });
-        if ( $content ) {
-            $c->stash->{content} = $content;
+        if ( $contenttype ) {
+            $c->stash->{contenttype} = $contenttype;
+        }
+    }
+}
+
+=head2 base method - for 'user_domains'
+
+=cut
+
+sub base_ud :Chained('/') PathPart('stylus/settings/user_domain') :CaptureArgs( 1 ) {
+    my ( $self, $c, $id) = @_;
+
+    $c->log->debug('in Settings API - base_ud');
+
+    # remove all non-digits
+    $id =~ s/\D//g;
+
+    if ( looks_like_number( $id ) ) {
+        # get settings data ...
+        my $domain = $c->model('DB::Domain')->find({
+            id => $id
+        });
+        if ( $domain ) {
+            $c->stash->{domain} = $domain;
         }
     }
 }
@@ -35,7 +59,7 @@ sub base :Chained('/') PathPart('stylus/settings') :CaptureArgs( 1 ) {
 
 =cut
 
-sub content_type :Chained('base') PathPart('content_type') Args(0) : ActionClass('REST') {
+sub content_type :Chained('base_ct') PathPart('') Args(0) : ActionClass('REST') {
     my ($self, $c) = @_;
 }
 
@@ -43,41 +67,10 @@ sub content_type :Chained('base') PathPart('content_type') Args(0) : ActionClass
 
 =cut
 
-sub domain :Chained('base') PathPart('domain') Args(0) : ActionClass('REST') {
-    my ($self, $c) = @_;
-}
-
-=head2 settings
-
-=cut
-
-sub settings :Chained('base') PathPart('') Args(0) : ActionClass('REST') {
-    my ($self, $c) = @_;
-}
-
-=head2 settings_GET
-
-=cut
-
-sub settings_GET :Private {
+sub user_domain :Chained('base_ud') PathPart('') Args(0) : ActionClass('REST') {
     my ($self, $c) = @_;
 
-    my $content = $c->stash->{content};
-
-    # convert markdown content
-    my $content_item = markdown( $content->content );
-
-    $self->status_ok(
-        $c,
-        entity => {
-            id      => $content->id,
-            title   => $content->title,
-            type    => $content->type,
-            content => $content_item,
-            publish => $content->publish,
-            date    => $content->article_date,
-        },
-    );
+    $c->log->debug('in Settings API - user_domain');
 }
 
 =head2 content_type_DELETE
@@ -86,6 +79,17 @@ sub settings_GET :Private {
 
 sub content_type_DELETE :Private {
     my ($self, $c) = @_;
+
+    try {
+        $c->stash->{contenttypes}->delete();
+        $self->status_accepted( $c, entity => { status => "deleted" } );
+    }
+    catch {
+        $self->status_bad_request(
+            $c,
+            message => "Settings - Content Type : there has been an error deleting data from the Stylus DB !",
+        );
+    };
 }
 
 =head2 content_type_PUT
@@ -96,20 +100,44 @@ sub content_type_PUT :Private {
     my ($self, $c) = @_;
 }
 
-=head2 domain_DELETE
+=head2 user_domain_DELETE
 
 =cut
 
-sub domain_DELETE :Private {
+sub user_domain_DELETE :Private {
     my ($self, $c) = @_;
 }
 
-=head2 content_type_PUT
+=head2 user_domain_PUT
 
 =cut
 
-sub domain_PUT :Private {
+sub user_domain_PUT :Private {
     my ($self, $c) = @_;
+
+    # get user_domain data ..
+    my $data = $c->req->data || $c->req->params;
+
+    try {
+        $c->stash->{domain}->update(
+            { name => $data->{domain} }
+        );
+
+        $self->status_created(
+            $c,
+            location => $c->req->uri,
+            entity  => {
+            },
+        );
+    }
+    catch {
+        $c->log->debug('Settings - user_domains_PUT : error ' . $_);
+
+        $self->status_bad_request(
+            $c,
+            message => "Settings - User Domains : there has been an error updating the Stylus DB !",
+        );
+    };
 }
 
 1;
