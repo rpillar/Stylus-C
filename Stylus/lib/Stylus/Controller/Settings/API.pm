@@ -126,6 +126,8 @@ sub content_type_PUT :Private {
 
 sub user_domain_DELETE :Private {
     my ($self, $c) = @_;
+
+    $c->log->debug('Settings - in user_domains DELETE method.');
 }
 
 =head2 user_domain_PUT

@@ -62,7 +62,7 @@
 		<hr style="height:2px;color:lightblue;border:0 none;background-color:lightblue;" />
 	</div>
 	<div style="width:100%;">
-		<button class="button" id="delete_domain_button" data-id=0 style="background-color:#ff3232;width:120px;border-radius:5px;outline:0;margin-top:5px;margin-bottom:20px;margin-left:10px;">Delete</button>
+		<button class="button" id="delete-domain-button" data-id=0 style="background-color:#ff3232;width:120px;border-radius:5px;outline:0;margin-top:5px;margin-bottom:20px;margin-left:10px;">Delete</button>
 		<button class="button action-button" id="cancel-action" style="width:120px;">Cancel</button>
 	</div>
 </div>
@@ -243,15 +243,46 @@
 				$('#delete-domain-modal-name').text(domain);
 
 				// add id to the 'delete' - native javascript
-				var delete_button = document.getElementById('delete_domain_button');
+				var delete_button = document.getElementById('delete-domain-button');
 				delete_button.setAttribute('data-id', id);
 
 				$('#overlay').show();
 				$('#delete_domain_modal').show();
 			}
 		} );
-		$('#delete-domain').on( 'click', function(e) {
+		$('#delete-domain-button').on( 'click', function(e) {
 			e.preventDefault();
+
+			// get id from the 'delete' button - native javascript
+			var delete_button = document.getElementById('delete-domain-button');
+			var id = delete_button.getAttribute('data-id');
+
+			var formData = {
+				id: id
+			};
+			var update_url = '/stylus/settings/user_domain/' + id;
+			$.ajax({
+				url: update_url,
+				type: 'DELETE',
+				data: formData,
+				dataType: 'json',
+				success: function(data,status) {
+					window.location.assign('/stylus/settings');
+				},
+				error: function(jqXHR,status,error) {
+					new PNotify({
+						title: 'ERROR',
+						text: 'A problem has occurred - please try again in a few minutes or contact us.',
+						buttons: {
+							sticker: false
+						},
+						width: "350px",
+						type: 'error',
+						icon: false,
+						hide: false
+					});
+				}
+			});
 		});
 
 		// cancel 'delete' domain ...
