@@ -128,6 +128,102 @@ sub user_domain_DELETE :Private {
     my ($self, $c) = @_;
 
     $c->log->debug('Settings - in user_domains DELETE method.');
+
+    # check that there is more than one domain 'left'
+    my $ud_rs = $c->model('DB::UserDomain')->search({
+        uid => $c->user->id
+    });
+    if ( $ud_rs->count < 2 ) {
+        return
+            $self->status_ok(
+                $c,
+                entity => {
+                    message => "Settings : there is only one domain remaining for the current user - unable to delete as this would prevent login and processing. !",
+                }
+            );
+    }
+
+    # remove data from the user_domains table
+    my $error = 0;
+    try {
+        my $ud_data = $c->model('DB::UserDomain')-> find({
+            domain_id => $c->stash->{domain}->id
+        });
+        if ( $ud_data ) {
+            $ud_data->delete();
+        }
+    }
+    catch {
+        $c->log->debug('Settings : ud delete - ' . $_);
+        $error = 1;
+    };
+
+    if ( $error ) {
+        return
+            $self->status_bad_request(
+                $c,
+                message => "Settings : there has been an error deleting user-domain data from the Stylus DB !",
+            );
+    }
+
+    # remove data from the content table
+    try {
+        my $content_rs = $c->model('DB::Content')->search({
+            domain_id => $c->stash->{domain}->id
+        });
+        $content_rs->delete();
+    }
+    catch {
+        $c->log->debug('Settings : content delete - ' . $_);
+        $error = 1;
+    };
+
+    if ( $error ) {
+        return
+            $self->status_bad_request(
+                $c,
+                message => "Settings : there has been an error deleting content data from the Stylus DB !",
+            );
+    }
+
+    # remove data from the partials table
+    try {
+        my $partials_rs = $c->model('DB::Partial')->search({
+            domain_id => $c->stash->{domain}->id
+        });
+        $partials_rs->delete();
+    }
+    catch {
+        $c->log->debug('Settings : partials delete - ' . $_);
+        $error = 1;
+    };
+
+    if ( $error ) {
+        return
+            $self->status_bad_request(
+                $c,
+                message => "Settings : there has been an error deleting partials data from the Stylus DB !",
+            );
+    }
+
+    # remove data from the domains table
+    try {
+        $c->stash->{domain}->delete();
+    }
+    catch {
+        $error = 1;
+    };
+
+    if ( $error ) {
+        return
+            $self->status_bad_request(
+                $c,
+                message => "Settings : there has been an error deleting domain data from the Stylus DB !",
+            );
+    }
+    else {
+        $self->status_accepted( $c, entity => { status => "deleted" } );
+    }
 }
 
 =head2 user_domain_PUT

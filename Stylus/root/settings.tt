@@ -267,7 +267,22 @@
 				data: formData,
 				dataType: 'json',
 				success: function(data,status) {
-					window.location.assign('/stylus/settings');
+					if ( data.message ) {
+						new PNotify({
+							title: 'WARNING',
+							text: data.message,
+							buttons: {
+								sticker: false
+							},
+							width: "350px",
+							type: 'error',
+							icon: false,
+							hide: false
+						});
+					}
+					else {
+						window.location.assign('/stylus/settings');
+					}	
 				},
 				error: function(jqXHR,status,error) {
 					new PNotify({
