@@ -68,7 +68,6 @@
 </div>
 
 		<!-- Content Types -->
-
 		<div style="padding: 0 20px;">
 
 			<div style="clear:both;display:block;">
@@ -110,6 +109,23 @@
 
 	    </div>
     </div>
+
+<!-- delete content type modal -->
+<div id="delete_content_type_modal" title="Delete Content" style="display:none; position: fixed; top: 0; left: 0; bottom: 0; right: 0; z-index:500; height: 400px; width: 700px; margin: 230px auto; border: 4px solid #8aacb8; background-color: #fff; text-align:center; padding: 20px;">
+	<h4 style="text-transform:uppercase;margin-top: 50px;"><span style="border-bottom:3px solid lightblue;">Are you sure you want to remove this Content Type ?</span></h4>
+	<div style="margin-left:40px;width:100%;">
+		<br />
+		<h4 style="text-transform:uppercase;text-align:left"><span style="border-bottom:2px solid lightblue;">Content Type</span></h4>
+		<p id="delete-content-type-modal-name" style="text-align:left;font-size:18px;font-weight:300;"></p>
+	</div>
+	<div style="width:60%;margin: 0 auto;">
+		<hr style="height:2px;color:lightblue;border:0 none;background-color:lightblue;" />
+	</div>
+	<div style="width:100%;">
+		<button class="button" id="delete-content-type-button" data-id=0 style="background-color:#ff3232;width:120px;border-radius:5px;outline:0;margin-top:5px;margin-bottom:20px;margin-left:10px;">Delete</button>
+		<button class="button action-button" id="cancel-contenttype-action" style="width:120px;">Cancel</button>
+	</div>
+</div>
 
 	<script>
 
@@ -282,7 +298,7 @@
 					}
 					else {
 						window.location.assign('/stylus/settings');
-					}	
+					}
 				},
 				error: function(jqXHR,status,error) {
 					new PNotify({

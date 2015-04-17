@@ -6,6 +6,9 @@
             <aside style="padding:40px 10px 40px 40px;margin-top:30px;color:#acacac;font-size:16px;line-height:24px;">
                 <form method="post" action="" id="filter"><input id="filterinput" name="q" type="text" size="30" placeholder="Filter..." /></form>
                 <div id="contents-block">
+                    [% IF content_data.size == 0 %]
+                        <p style="font-size:18px;line-height:1.5;margin-top:20px;margin-bottom:20px;color:#acacac;font-weight:400;"><span style="border-bottom:2px solid lightblue;">No content has yet been defined.</span></p>
+                    [% ELSE %]
                     <div class="mCustomScrollbar" style="max-height:750px;overflow:auto;">
                     [% FOREACH item IN content_data %]
                         <div class="content_block">
@@ -25,6 +28,7 @@
                         </div>
                     [% END %]
                     </div>
+                    [% END %]
                 </div>
             </aside>
         </div>

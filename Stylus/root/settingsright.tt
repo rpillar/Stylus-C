@@ -10,6 +10,6 @@
 			Add, Edit and remove 'content types' - these allow you to create categories for the content that you want on your website. For example you may have a webpage that displays your latest set of blog posts - all contained within the cateory 'posts'. The use of 'partials' then allows you to select the 'posts' that you want to display.
 		</p>
 		<p style="padding-left:10px;font-size:16px;line-height:1.5;margin-top:20px;margin-bottom:20px;color:#acacac;font-weight:400;">
-			Take care when editing / removing 'content types' as you may have to update the partials that use them.
+			Take care when editing / removing 'content types' as you may have to update the partials that use them. Note - if an attempt is made to delete a content type that is used any of your <span style="border-bottom: 2px solid lightblue;">content</span> then it will be disallowed.
 		</p>
 	</aside>

@@ -1,0 +1,22 @@
+
+	<h1 style="margin:0;font-size:32px;font-weight:600;color:#000;padding-left:30px;padding-top:40px;text-transform:uppercase;"><span style="border-bottom:4px solid lightblue;">Process</span></h1>
+	<div style="padding: 10px 20px;margin:20px 0;">
+	    <div style="padding:20px;width:100%;">
+
+			<div id='content-intro' style="width:100%;">
+				<p style="font-size:18px;line-height:1.5;margin-top:20px;margin-bottom:20px;color:#acacac;font-weight:400;">Add <span style="border-bottom:1px dashed gray;">content</span> to your website
+				- you can create anything that you want to add to your website. It could be a news item, an article or an event (content types can be defined on the <strong>settings</strong> page).
+				</p>
+				<p style="font-size:18px;line-height:1.5;margin-top:20px;margin-bottom:20px;color:#acacac;font-weight:400;">Existing content is listed on the right-hand side - only the first 200 characters are displayed.
+				Select one to view - then / edit / delete / set the 'publish' flag as appropriate.
+				</p>
+			</div>
+			<div id="create-content" style="display:block;">
+				<p>
+					<button class="button" id="create_content" style="background-color:#1abc9c;width:250px;outline:0;margin-bottom:20px;">Create New Content</button>
+				</p>
+			</div>
+
+	    </div>
+
+    </div>
