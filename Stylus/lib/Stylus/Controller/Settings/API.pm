@@ -268,6 +268,30 @@ sub user_domain_new_PUT :Private {
     # get user_domain data ..
     my $data = $c->req->data || $c->req->params;
 
+    # check to see if a domain with this 'name' / 'user' already exists.
+    my $domain_rs = $c->model('DB::Domain')->search({
+        name => $data->{domain},
+    });
+
+    if ( $domain_rs->count ) {
+        while ( my $domain = $domain_rs->next ) {
+            my $userdomain_check = $c->model('DB::UserDomain')->find({
+                domain_id => $domain->id,
+                uid       => $c->user->id,
+            });
+
+            if ( $userdomain_check ) {
+                return
+                    $self->status_ok(
+                        $c,
+                        entity => {
+                            message => "Settings - User Domains : a domain with this name already exists for the current user !",
+                        }
+                    );
+            }
+        }
+    }
+
     try {
         my $domain = $c->model('DB::Domain')->create(
             { name => $data->{domain} },
