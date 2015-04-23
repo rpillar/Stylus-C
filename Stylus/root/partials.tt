@@ -7,9 +7,14 @@
 			color:#acacac;
 			font-weight:400;
 		}
+		pre {
+			font-size: 12px;
+			line-height: 1.2;
+			padding: 5px;
+		}
 	</style>
 
-	<h1 style="margin:0;font-size:32px;font-weight:600;color:#000;padding-left:30px;padding-top:40px;text-transform:uppercase;"><span style="border-bottom:4px solid lightblue;">Partials</span></h1>
+	<h1 style="margin:0;font-size:32px;font-weight:600;color:#000;padding-left:30px;padding-top:40px;text-transform:uppercase;"><span style="border-bottom:4px solid lightblue;">Partials</span> <span style="margin-left:15px;font-weight:400;text-transform:uppercase;">( [% c.session.user_domain %] )</span></h1>
 	<div style="padding: 10px 20px;margin:20px 0;">
 	    <div style="padding:20px;">
 		[% IF init %]
@@ -31,9 +36,16 @@
 				For example you may have common 'partials' for page 'headers' and 'footers'. </p>
 				<p class="p_text">An example of a <span style="border-bottom:1px dashed gray;">partial</span> (in the Stylus sense) is given below :-</p>
 
-				<p>
-					<script src="https://gist.github.com/rpillar/65d7aa252a8da5d9ee60.js"></script>
-				</p>
+				<pre style="border: 2px solid lightblue;padding-left:10px;"><code><xmp>
+<div class="testing">
+	<div class="this-one">
+#####################
+{ "partial": "p1", "domain": "demo", "type": "article", "number": "3" }
+=====================
+	</div>
+</div>
+				</xmp></code></pre>
+
 				<p class="p_text">Here the <span style="border-bottom:1px dashed gray;">partial</span> that we want to insert has been stored with a 'label' of <span style="border-bottom:1px dashed gray;">'p1'</span>,
 				the 'domain' that it is associated with is <span style="border-bottom:1px dashed gray;">'demo'</span>, the 'type' of content that we want to display here is <span style="border-bottom:1px dashed gray;">
 				'article'</span> and the 'number' of articles that should be displayed is <span style="border-bottom:1px dashed gray;">'3'</span>.

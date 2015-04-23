@@ -88,7 +88,6 @@ sub index :Path( '/stylus/content' ) :Args(0) {
 	            publish      => $content->publish,
 	            content_date => $content->content_date,
 	        };
-p $row;
 	        push(@data, $row);
         }
 	}

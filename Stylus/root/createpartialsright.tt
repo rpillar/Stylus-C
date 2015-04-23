@@ -7,7 +7,7 @@
 		}
 	</style>
 
-	<aside style="padding: 40px;margin-top:10px;color:#acacac;font-size:16px;line-height:24px;">		
+	<aside style="padding: 40px;margin-top:10px;color:#acacac;font-size:16px;line-height:24px;">
 	    <h2 style="margin:0 0 10px 0;font-size:24px;font-weight:400;color:#000;padding-top:20px;text-transform:uppercase;"><span style="border-bottom:4px solid lightblue;">Layouts / Partials Info</span></h2>
 		<div id="partials_info" class="mCustomScrollbar" style="max-height:800px;overflow:auto;">
 		    <p style="padding-left:10px;font-size:16px;line-height:1.5;margin-top:20px;margin-bottom:10px;color:#acacac;font-weight:400;">
@@ -25,11 +25,11 @@
 			<p style="padding-left:10px;font-size:16px;line-height:1.5;margin-top:10px;margin-bottom:20px;color:#acacac;font-weight:400;">
 				A 'partial' can inserted into a 'layout' (or into another 'partial') using the following (JSON like) syntax :-
 			</p>
-			<pre><code>
+			<pre style="border: 2px solid lightblue;padding-left:10px;"><code><xmp>
 ##########
 { "partial": "p1", content-type": "news", "number": "3", "order": "desc" }
 ==========
-			</code></pre>
+			</xmp></code></pre>
 			<p style="padding-left:10px;font-size:16px;line-height:1.5;margin-top:10px;margin-bottom:20px;color:#acacac;font-weight:400;">
 				A 'partial' declaration should always be preceded by a 'marker' of 10 'hashes' (or pound signs !) and terminated by a 'marker' of 10 'equals' signs.
 			</p>

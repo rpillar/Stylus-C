@@ -55,6 +55,14 @@ sub base_ud :Chained('/') PathPart('stylus/settings/user_domain') :CaptureArgs( 
     }
 }
 
+=head2 base method - for new 'content_types'
+
+=cut
+
+sub base_ct_new :Chained('/') PathPart('stylus/settings/content_type') :CaptureArgs( 0 ) {
+    my ( $self, $c ) = @_;
+}
+
 =head2 base method - for new 'user_domains'
 
 =cut
@@ -71,6 +79,15 @@ sub content_type :Chained('base_ct') PathPart('') Args(0) : ActionClass('REST') 
     my ($self, $c) = @_;
 }
 
+=head2 user_domain_new
+
+=cut
+
+sub content_type_new :Chained('base_ct_new') PathPart('') Args(0) : ActionClass('REST') {
+    my ($self, $c) = @_;
+
+    $c->log->debug('in Settings API - content_type_new');
+}
 =head2 user_domain
 
 =cut

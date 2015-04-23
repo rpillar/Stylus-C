@@ -94,6 +94,7 @@ sub check_domain :Local {
     }
     else {
         $c->session->{user_domain_id} = $domain->id;
+        $c->session->{user_domain} = $domain->name;
         $c->stash->{json} =  {
             success => 1
         }
