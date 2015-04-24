@@ -42,7 +42,7 @@
 			</div>
 			[% IF domains.size < 3 %]
 				<button class="button" id="new-domain-button" style="background-color:#1abc9c;border-radius:5px;width:220px;outline:0;">New Domain</button>
-				<button class="button action-button" id="new-domain-button-cancel" style="display:none;width:220px;">Cancel</button>
+				<button class="button action-button" id="new-domain-button-cancel" data-domain='' style="display:none;width:220px;">Cancel</button>
 			[% END %]
 
 	    </div>
@@ -136,8 +136,9 @@
 		$('a.edit_domain').on('click', function(e) {
 			e.preventDefault();
 
-			// get 'id' of domain
-			var id = $(this).data("id");
+			// get 'id' / 'name' of domain
+			var id     = $(this).data("id");
+			var domain = $('#domain-list' + id).val();
 
 			// reset 'active' class
 			$('.input').removeClass('input_active');
@@ -163,6 +164,7 @@
 			update_button.setAttribute('data-id', id);
 			var cancel_button = document.getElementById('update-domain-button-cancel');
 			cancel_button.setAttribute('data-id', id);
+			cancel_button.setAttribute('data-domain', domain);
 		});
 
 		$('#update-domain-button').on('click', function(e) {
@@ -174,7 +176,7 @@
 			var domain = $('#domain-list' + id).val();
 
 			if ( !domain ) {
-				$('#content').parent().addClass('input_error');
+				$('#' + domain).parent().addClass('input_error');
 				notifyProcess( 'Missing data', 'The domain field is empty - please enter a valid value.', 'error' );
 			}
 			else {
@@ -200,11 +202,13 @@
 		$('#update-domain-button-cancel').on('click', function(e) {
 			e.preventDefault();
 
-			// get the id of the domain being 'processed'
-			var id = $(this).data('id');
+			// get the id / name of the domain being 'processed'
+			var id     = $(this).data('id');
+			var domain = $(this).data('domain');
 
 			$('#domain-list' + id).attr('disabled', 'disabled');
 			$('#domain-list' + id).parent().removeClass('input_active');
+			$('#domain-list' + id).val(domain);
 			$('.delete-domain').removeAttr('disabled');
 			$('div#domain-update-actions').hide();
 			$('#new-domain-button').show();
@@ -338,7 +342,7 @@
 					var formData = {
 						type: type
 					};
-					var update_url = '/stylus/settings/user_domain/';
+					var update_url = '/stylus/settings/content_type/';
 					$.ajax({
 						url: update_url,
 						type: 'PUT',
@@ -371,6 +375,7 @@
 			$(this).hide();
 			$('#new-type-button').text('New Content Type');
 			$('#new-type-entry').hide();
+			$('#new-type').parent().removeClass('input_error');
 		} );
 
 		// 'delete' content ...
