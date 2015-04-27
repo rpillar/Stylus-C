@@ -81,7 +81,7 @@
 							<input name="type_id" type="hidden" value="[% type.id %]">
 							<div style="position:absolute;top:10px;right:30px;">
 								<a href=""><img src="/static/images/pencil8.svg" height="40" width="40"></a>
-								<a href=""><img src="/static/images/trash48.svg" height="40" width="40" style="margin-left:15px;"></a>
+								<a href="" class="delete-contenttype" data-contenttype=[% type.type %] data-id=[% type.id %]><img src="/static/images/trash48.svg" height="40" width="40" style="margin-left:15px;"></a>
 							</div>
 						</div>
 					</div>
@@ -111,18 +111,18 @@
     </div>
 
 <!-- delete content type modal -->
-<div id="delete_content_type_modal" title="Delete Content" style="display:none; position: fixed; top: 0; left: 0; bottom: 0; right: 0; z-index:500; height: 400px; width: 700px; margin: 230px auto; border: 4px solid #8aacb8; background-color: #fff; text-align:center; padding: 20px;">
+<div id="delete_contenttype_modal" title="Delete Content" style="display:none; position: fixed; top: 0; left: 0; bottom: 0; right: 0; z-index:500; height: 400px; width: 700px; margin: 230px auto; border: 4px solid #8aacb8; background-color: #fff; text-align:center; padding: 20px;">
 	<h4 style="text-transform:uppercase;margin-top: 50px;"><span style="border-bottom:3px solid lightblue;">Are you sure you want to remove this Content Type ?</span></h4>
 	<div style="margin-left:40px;width:100%;">
 		<br />
 		<h4 style="text-transform:uppercase;text-align:left"><span style="border-bottom:2px solid lightblue;">Content Type</span></h4>
-		<p id="delete-content-type-modal-name" style="text-align:left;font-size:18px;font-weight:300;"></p>
+		<p id="delete-contenttype-modal-name" style="text-align:left;font-size:18px;font-weight:300;"></p>
 	</div>
 	<div style="width:60%;margin: 0 auto;">
 		<hr style="height:2px;color:lightblue;border:0 none;background-color:lightblue;" />
 	</div>
 	<div style="width:100%;">
-		<button class="button" id="delete-content-type-button" data-id=0 style="background-color:#ff3232;width:120px;border-radius:5px;outline:0;margin-top:5px;margin-bottom:20px;margin-left:10px;">Delete</button>
+		<button class="button" id="delete-contenttype-button" data-id=0 style="background-color:#ff3232;width:120px;border-radius:5px;outline:0;margin-top:5px;margin-bottom:20px;margin-left:10px;">Delete</button>
 		<button class="button action-button" id="cancel-contenttype-action" style="width:120px;">Cancel</button>
 	</div>
 </div>
@@ -378,11 +378,62 @@
 			$('#new-type').parent().removeClass('input_error');
 		} );
 
-		// 'delete' content ...
-		$('#delete_content').on('click', function(e) {
-			var id = $('input#content_id').val();
-			delete_content( id );
+		// delete content_type ...
+		$('.delete-contenttype').on('click', function(e) {
+			e.preventDefault();
+
+			// check if we are 'disabled'
+			if ( !$(this).is("[disabled=disabled]") ) {
+				var id = $(this).data('id')
+				var contenttype = $(this).data('contenttype');
+				$('#delete-contenttype-modal-name').text(contenttype);
+
+				// add id to the 'delete' - native javascript
+				var delete_button = document.getElementById('delete-contenttype-button');
+				delete_button.setAttribute('data-id', id);
+
+				$('#overlay').show();
+				$('#delete_contenttype_modal').show();
+			}
+		} );
+
+		$('#delete-contenttype-button').on( 'click', function(e) {
+			e.preventDefault();
+
+			// get id from the 'delete' button - native javascript
+			var delete_button = document.getElementById('delete-domain-button');
+			var id = delete_button.getAttribute('data-id');
+
+			var formData = {
+				id: id
+			};
+			var update_url = '/stylus/settings/user_domain/' + id;
+			$.ajax({
+				url: update_url,
+				type: 'DELETE',
+				data: formData,
+				dataType: 'json',
+				success: function(data,status) {
+					if ( data.message ) {
+						notifyProcess( 'WARNING', data.message, 'error' );
+					}
+					else {
+						window.location.assign('/stylus/settings');
+					}
+				},
+				error: function(jqXHR,status,error) {
+					notifyProcess( 'ERROR', 'A problem has occurred - please try again in a few minutes or contact us.', 'error' );
+				}
+			});
 		});
+
+		// cancel 'delete' domain ...
+		$('#cancel-action').on ('click', function(e) {
+			e.preventDefault();
+
+			$('#delete_contenttype_modal').hide();
+			$('#overlay').hide();
+		} );
 
 		// single function for 'notify' stuff ...
 		function notifyProcess( title, text, type ) {
