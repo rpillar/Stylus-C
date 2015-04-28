@@ -118,11 +118,11 @@ sub content_type_DELETE :Private {
     my ($self, $c) = @_;
 
     try {
-        $c->stash->{contenttypes}->delete();
+        $c->stash->{contenttype}->delete();
         $self->status_accepted( $c, entity => { status => "deleted" } );
     }
     catch {
-        $self->status_bad_request(
+        $self->status_ok(
             $c,
             message => "Settings - Content Type : there has been an error deleting data from the Stylus DB !",
         );
@@ -135,6 +135,53 @@ sub content_type_DELETE :Private {
 
 sub content_type_PUT :Private {
     my ($self, $c) = @_;
+}
+
+=head2 content_type_new_PUT
+
+=cut
+
+sub content_type_new_PUT :Private {
+    my ($self, $c) = @_;
+
+    # get user_domain data ..
+    my $data = $c->req->data || $c->req->params;
+
+    # check to see if a content_type with this 'type' already exists.
+    my $contenttype_rs = $c->model('DB::ContentType')->search({
+        type => $data->{type},
+    });
+
+    if ( $contenttype_rs->count ) {
+        return
+            $self->status_ok(
+                $c,
+                entity => {
+                    message => "Settings - Content Type : a type with this name already exists !",
+                }
+            );
+    }
+
+    try {
+        my $domain = $c->model('DB::ContentType')->create(
+            { type => $data->{type} },
+        );
+
+        $self->status_created(
+            $c,
+            location => $c->req->uri,
+            entity  => {
+            },
+        );
+    }
+    catch {
+        $c->log->debug('Settings - user_domains_new_PUT : error ' . $_);
+
+        $self->status_bad_request(
+            $c,
+            message => "Settings - Content Types : there has been an error adding a new entry into the Stylus DB !",
+        );
+    };
 }
 
 =head2 user_domain_DELETE

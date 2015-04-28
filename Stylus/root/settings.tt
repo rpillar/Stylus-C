@@ -63,7 +63,7 @@
 	</div>
 	<div style="width:100%;">
 		<button class="button" id="delete-domain-button" data-id=0 style="background-color:#ff3232;width:120px;border-radius:5px;outline:0;margin-top:5px;margin-bottom:20px;margin-left:10px;">Delete</button>
-		<button class="button action-button" id="cancel-action" style="width:120px;">Cancel</button>
+		<button class="button action-button" id="cancel-domain-action" style="width:120px;">Cancel</button>
 	</div>
 </div>
 
@@ -77,37 +77,44 @@
 					[% FOREACH type IN content_types %]
 					<div>
 						<div class="input" style="margin-bottom:25px;">
-							<input class="login_input" name="type" placeholder="Content Type" type="text" value="[% type.type %]" size="25" disabled>
-							<input name="type_id" type="hidden" value="[% type.id %]">
-							<div style="position:absolute;top:10px;right:30px;">
-								<a href=""><img src="/static/images/pencil8.svg" height="40" width="40"></a>
+							<input class="login_input" id="contenttype-list[% type.id %]" name="type" placeholder="Content Type" type="text" value="[% type.type %]" size="25" disabled>
+							<div class="contenttype-actions" style="position:absolute;top:10px;right:30px;">
+								<a href="" class="edit-contenttype" data-id=[% type.id %]><img src="/static/images/pencil8.svg" height="40" width="40"></a>
 								<a href="" class="delete-contenttype" data-contenttype=[% type.type %] data-id=[% type.id %]><img src="/static/images/trash48.svg" height="40" width="40" style="margin-left:15px;"></a>
 							</div>
 						</div>
 					</div>
 					[% END %]
+
+					<div id="contenttype-update-actions" style="display:none;">
+						<button class="button" id="update-contenttype-button" data-id=0 style="background-color:#1abc9c;border-radius:5px;margin-bottom:20px;width:160px;outline:0;">Update</button>
+						<button class="button action-button" id="update-contenttype-button-cancel" data-id=0 style="width:160px;">Cancel</button>
+					</div>
+
 				[% ELSE %]
 					<div>
 						<p style="padding-left:10px;font-size:20px;line-height:1.5;margin-top:20px;margin-bottom:20px;color:#acacac;font-weight:300;">No Content Types have been defined. Please create.</p>
 					</div>
 				[% END %]
 			</div>
+
 			<div style="display:none;">Icon made by <a href="http://icon-works.com" title="Icon Works">Icon Works</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> is licensed under <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0">CC BY 3.0</a></div>
 
-			<div id="new-type-entry" style="display:none">
+			<div id="new-contenttype-entry" style="display:none">
 				<div style="width:50%;margin:0 auto;">
 					<div>
 						<hr style="height:1px;color:lightgray;border:0 none;background-color:lightgray;" />
 					</div>
 				</div>
-				<div class="input new-type" style="margin-bottom:25px;">
-					<input class="login_input" id="new-type" name="type" placeholder="Content type" type="text" value="" size="25">
+				<div class="input new-contenttype" style="margin-bottom:25px;">
+					<input class="login_input" id="new-contenttype" name="type" placeholder="Content type" type="text" value="" size="25">
 				</div>
 			</div>
-			<button class="button" id="new-type-button" style="background-color:#1abc9c;border-radius:5px;margin-bottom:20px;width:220px;outline:0;">New Content Type</button>
-			<button class="button action-button" id="new-type-button-cancel" style="display:none;width:220px;">Cancel</button>
+			<button class="button" id="new-contenttype-button" style="background-color:#1abc9c;border-radius:5px;margin-bottom:20px;width:220px;outline:0;">New Content Type</button>
+			<button class="button action-button" id="new-contenttype-button-cancel" style="display:none;width:220px;">Cancel</button>
 
 	    </div>
+
     </div>
 
 <!-- delete content type modal -->
@@ -132,9 +139,14 @@
 		// PNotify initialise ...
 		PNotify.prototype.options.styling = "fontawesome";
 
+		// ** Domains ** //
+
 		// edit domain process ...
 		$('a.edit_domain').on('click', function(e) {
 			e.preventDefault();
+
+			// ensure that other active 'edits' are disabled
+			$('.login_input').attr('disabled', 'disabled');
 
 			// get 'id' / 'name' of domain
 			var id     = $(this).data("id");
@@ -206,6 +218,9 @@
 			var id     = $(this).data('id');
 			var domain = $(this).data('domain');
 
+			// ensure this 'edit' is disabled
+			$('.login_input').attr('disabled', 'disabled');
+
 			$('#domain-list' + id).attr('disabled', 'disabled');
 			$('#domain-list' + id).parent().removeClass('input_active');
 			$('#domain-list' + id).val(domain);
@@ -264,7 +279,7 @@
 		});
 
 		// cancel 'delete' domain ...
-		$('#cancel-action').on ('click', function(e) {
+		$('#cancel-domain-action').on ('click', function(e) {
 			e.preventDefault();
 
 			$('#delete_domain_modal').hide();
@@ -323,6 +338,61 @@
 			$('#new-domain-button').text('New Domain');
 			$('#new-domain-entry').hide();
 		} );
+
+		// ** Content Types ** //
+
+		// edit contenttype process ...
+		$('a.edit-contenttype').on('click', function(e) {
+			e.preventDefault();
+
+			// get 'id' / 'type'
+			var id     = $(this).data("id");
+			var type = $('#contenttype-list' + id).val();
+
+			// reset 'active' class
+			$('.input').removeClass('input_active');
+
+			// set 'active' class on input block
+			var edit_block = $(this).parent().parent();
+			edit_block.addClass('input_active');
+
+			// hide new-contenttype input / buttons // reset button text etc. !!
+			$(this).next('.delete-contenttype').attr('disabled', 'disabled');
+			$('#new-contenttype-entry').hide();
+			$('#new-contenttype-button').hide();
+			$('#new-contenttype-button').text('New Content Type');
+			$('#new-contenttype-button-cancel').hide();
+
+			// display domain-update input and buttons
+			edit_block.find('.login_input').removeAttr('disabled').focus();
+			$('#new-contenttype-button').hide();
+			$('div#contenttype-update-actions').show('50');
+
+			// add id to the 'update' / cancel buttons - native javascript
+			var update_button = document.getElementById('update-contenttype-button');
+			update_button.setAttribute('data-id', id);
+			var cancel_button = document.getElementById('update-contenttype-button-cancel');
+			cancel_button.setAttribute('data-id', id);
+			cancel_button.setAttribute('data-contenttype', type);
+		});
+
+		$('#update-contenttype-button-cancel').on('click', function(e) {
+			e.preventDefault();
+
+			// get the id / type being 'processed'
+			var id     = $(this).data('id');
+			var type = $(this).data('contenttype');
+
+			// ensure this 'edit' is disabled
+			$('.login_input').attr('disabled', 'disabled');
+
+			$('#contenttype-list' + id).attr('disabled', 'disabled');
+			$('#contenttype-list' + id).parent().removeClass('input_active');
+			$('#contenttype-list' + id).val(type);
+			$('.delete-contenttype').removeAttr('disabled');
+			$('div#contenttype-update-actions').hide();
+			$('#new-contenttype-button').show();
+		});
 
 		// add a new 'Content Type'
 		$('#new-type-button').on('click', function() {
@@ -401,13 +471,13 @@
 			e.preventDefault();
 
 			// get id from the 'delete' button - native javascript
-			var delete_button = document.getElementById('delete-domain-button');
+			var delete_button = document.getElementById('delete-contenttype-button');
 			var id = delete_button.getAttribute('data-id');
 
 			var formData = {
 				id: id
 			};
-			var update_url = '/stylus/settings/user_domain/' + id;
+			var update_url = '/stylus/settings/content_type/' + id;
 			$.ajax({
 				url: update_url,
 				type: 'DELETE',
@@ -427,8 +497,8 @@
 			});
 		});
 
-		// cancel 'delete' domain ...
-		$('#cancel-action').on ('click', function(e) {
+		// cancel 'delete' contenttype ...
+		$('#cancel-contenttype-action').on ('click', function(e) {
 			e.preventDefault();
 
 			$('#delete_contenttype_modal').hide();
