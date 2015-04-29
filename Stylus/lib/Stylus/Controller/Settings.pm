@@ -66,8 +66,8 @@ sub index :Path( '/stylus/settings' ) :Args(0) {
         while ( my $userdomain = $userdomains_rs->next ) {
 
             my $row = {
-                id     => $userdomain->domains->id,
-                domain => $userdomain->domains->name,
+                id     => $userdomain->domain->id,
+                domain => $userdomain->domain->name,
             };
 
             push(@ud_data, $row);

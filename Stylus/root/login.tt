@@ -102,12 +102,13 @@
 			                $('#username').parent().css({"border-color": "#254960"});
 			                $('#password').parent().css({"border-color": "#254960"});
 							new PNotify({
-								title: 'Missing data',
+								title: 'Error',
 								text: 'Invalid Username / Password - please try again.',
 								buttons: {
 									sticker: false
 								},
 								width: "350px",
+								type: 'error',
 								icon: false,
 								hide: false
 							});
@@ -116,14 +117,6 @@
 			            else {
 							$('#login-1').removeClass('login-active').addClass('login-hidden');
 							$('#login-2').removeClass('login-hidden').addClass('login-active');
-							new PNotify({
-								title: 'Enter data',
-								text: 'Enter a valid Domain.',
-								buttons: {
-									sticker: false
-								},
-								width: "350px"
-							});
 							$('#domain').focus();
 			            }
 			        },
@@ -131,12 +124,13 @@
 			            $('#username').parent().css({"border-color": "#254960"});
 			            $('#password').parent().css({"border-color": "#254960"});
 						new PNotify({
-							title: 'Missing data',
-							text: 'Invalid Username / Password - please try again.',
+							title: 'Error',
+							text: 'Stylus - an error has ocurred - please try again.',
 							buttons: {
 								sticker: false
 							},
 							width: "350px",
+							type: 'error',
 							icon: false,
 							hide: false
 						});
@@ -162,7 +156,18 @@
 			var domain   = $('#domain').val();
 			if ( !domain ) {
 			    $('#domain').parent().addClass('input_error');
-			    $('p#message').text('A Domain has not been entered.');
+				new PNotify({
+					title: 'Missing data',
+					text: 'Domain missing - please enter.',
+					buttons: {
+						sticker: false
+					},
+					width: "350px",
+					type: 'error',
+					icon: false,
+					hide: false
+				});
+			    //$('p#message').text('A Domain has not been entered.');
 			}
 			else {
 				var formData = {
@@ -183,6 +188,7 @@
 									sticker: false
 								},
 								width: "350px",
+								type: "error",
 								icon: false,
 								hide: false
 							});
@@ -195,12 +201,13 @@
 					error: function(jqXHR,status,error) {
 					    $('#domain').parent().css({"border-color": "#254960"});
 						new PNotify({
-							title: 'Invalid data',
-							text: 'The domain that has been entered is invalid - please correct.',
+							title: 'Error',
+							text: 'Stylus - an error has occurred - please try later.',
 							buttons: {
 								sticker: false
 							},
 							width: "350px",
+							type: "error",
 							icon: false,
 							hide: false
 						});

@@ -82,7 +82,7 @@ __PACKAGE__->set_primary_key("id");
 # DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:Pu328vxNzhQtfyTC0AWf3Q
 
 __PACKAGE__->belongs_to(
-    domains => 'Stylus::Schema::Result::Domain',
+    domain => 'Stylus::Schema::Result::Domain',
     { 'foreign.id' => 'self.domain_id' },
 );
 

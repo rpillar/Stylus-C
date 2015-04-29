@@ -345,6 +345,9 @@
 		$('a.edit-contenttype').on('click', function(e) {
 			e.preventDefault();
 
+			// ensure that other active 'edits' are disabled
+			$('.login_input').attr('disabled', 'disabled');
+
 			// get 'id' / 'type'
 			var id     = $(this).data("id");
 			var type = $('#contenttype-list' + id).val();
@@ -395,17 +398,17 @@
 		});
 
 		// add a new 'Content Type'
-		$('#new-type-button').on('click', function() {
+		$('#new-contenttype-button').on('click', function() {
 			var button_text = $(this).text();
 
 			if ( button_text == 'Save' ) {
 
 				// get domain
-				var type = $('#new-type').val();
+				var type = $('#new-contenttype').val();
 
 				if ( !type ) {
-					$('#new-type').parent().addClass('input_error');
-					$('.new-type .login_input').focus();
+					$('#new-contenttype').parent().addClass('input_error');
+					$('.new-contenttype .login_input').focus();
 					notifyProcess( 'Missing data', 'The new content type field is empty - please enter a valid value.', 'error' );
 				}
 				else {
@@ -434,18 +437,18 @@
 			}
 			else {
 				$(this).text('Save');
-				$('#new-type-button-cancel').show();
-				$('#new-type-entry').show('200');
-				$('.new-type').addClass('input_active');
-				$('.new-type .login_input').focus();
+				$('#new-contenttype-button-cancel').show();
+				$('#new-contenttype-entry').show('200');
+				$('.new-contenttype').addClass('input_active');
+				$('.new-contenttype .login_input').focus();
 			}
 		} );
 
-		$('#new-type-button-cancel').on('click', function() {
+		$('#new-contenttype-button-cancel').on('click', function() {
 			$(this).hide();
-			$('#new-type-button').text('New Content Type');
-			$('#new-type-entry').hide();
-			$('#new-type').parent().removeClass('input_error');
+			$('#new-contenttype-button').text('New Content Type');
+			$('#new-contenttype-entry').hide();
+			$('#new-contenttype').parent().removeClass('input_error');
 		} );
 
 		// delete content_type ...

@@ -82,21 +82,32 @@ sub check_domain :Local {
     $c->stash->{current_view} = 'JSON_Service';
     $c->log->debug( 'Logged in user : ' . $c->user->username );
 
-    # check that domain is associated with this user ...
-    my $domain = $c->model('DB::Domain')->find({
-        name => $domain_name,
-    });
-    if ( !$domain || $domain->user->uid != $c->user->id ) {
+    # check that the domain is associated with this user ...
+    my $userdomain_rs = $c->model('DB::UserDomain')->search(
+        { uid => $c->user->id },
+    );
+
+    my $success = 0;
+    my $userdomain;
+    if ( $userdomain_rs->count ) {
+        while ( $userdomain = $userdomain_rs->next ) {
+            $c->log->debug("ud - $userdomain->uid / $userdomain->domain->name");
+            if ( $userdomain->domain->name eq $domain_name ) {
+
+                $success = 1;
+                $c->session->{user_domain_id} = $userdomain->domain_id;
+                $c->session->{user_domain}    = $userdomain->domain->name;
+                $c->stash->{json} =  {
+                    success => 1
+                }
+            }
+        }
+    }
+
+    if ( !$success ) {
         $c->stash->{json} = {
             success => 0,
             message => 'Stylus - this domain does not belong to user.',
-        }
-    }
-    else {
-        $c->session->{user_domain_id} = $domain->id;
-        $c->session->{user_domain} = $domain->name;
-        $c->stash->{json} =  {
-            success => 1
         }
     }
 }

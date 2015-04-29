@@ -69,16 +69,6 @@ sub process :Local {
         };
         return;
     }
-    my $domain_rs = $c->model('DB::Domain')->search({
-        name => $domain,
-    });
-    if ( $domain_rs && $domain_rs->count ) {
-        $c->stash->{json} = {
-            success => 0,
-            message => 'This Domain already exists within Stylus.'
-        };
-        return;
-    }
 
     # encrypt the password
     my $pbkdf2 = Crypt::PBKDF2->new(
@@ -123,9 +113,14 @@ sub process :Local {
         return;
     }
 
+    # set session variables ...
+    $c->session->{user_domain_id} = $domain_data->id;
+    $c->session->{user_domain}    = $domain_data->name;
+
     $c->stash->{json} = {
-        success => 1,
+        success => 1
     };
+
     return;
 }
 
