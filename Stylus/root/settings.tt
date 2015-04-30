@@ -2,6 +2,7 @@
 		.input .login_input {
 			min-width:65%;
 		}
+
 	</style>
 
 	<h1 style="margin:0;font-size:32px;font-weight:600;color:#000;padding-left:30px;padding-top:40px;text-transform:uppercase;"><span style="border-bottom:4px solid lightblue;">settings</span> <span style="margin-left:15px;font-weight:400;text-transform:uppercase;">( [% c.session.user_domain %] )</span></h1>
@@ -47,26 +48,6 @@
 
 	    </div>
 
-<!-- modal overlay -->
-<div id="overlay" style="display:none;z-index:200;"></div>
-
-<!-- delete domain modal -->
-<div id="delete_domain_modal" title="Delete Content" style="display:none; position: fixed; top: 0; left: 0; bottom: 0; right: 0; z-index:500; height: 400px; width: 700px; margin: 230px auto; border: 4px solid #8aacb8; background-color: #fff; text-align:center; padding: 20px;">
-	<h4 style="text-transform:uppercase;margin-top: 50px;"><span style="border-bottom:3px solid lightblue;">Are you sure you want to remove this Domain ?</span></h4>
-	<div style="margin-left:40px;width:100%;">
-		<br />
-		<h4 style="text-transform:uppercase;text-align:left"><span style="border-bottom:2px solid lightblue;">Domain</span></h4>
-		<p id="delete-domain-modal-name" style="text-align:left;font-size:18px;font-weight:300;"></p>
-	</div>
-	<div style="width:60%;margin: 0 auto;">
-		<hr style="height:2px;color:lightblue;border:0 none;background-color:lightblue;" />
-	</div>
-	<div style="width:100%;">
-		<button class="button" id="delete-domain-button" data-id=0 style="background-color:#ff3232;width:120px;border-radius:5px;outline:0;margin-top:5px;margin-bottom:20px;margin-left:10px;">Delete</button>
-		<button class="button action-button" id="cancel-domain-action" style="width:120px;">Cancel</button>
-	</div>
-</div>
-
 		<!-- Content Types -->
 		<div style="padding: 0 20px;">
 
@@ -110,12 +91,62 @@
 					<input class="login_input" id="new-contenttype" name="type" placeholder="Content type" type="text" value="" size="25">
 				</div>
 			</div>
-			<button class="button" id="new-contenttype-button" style="background-color:#1abc9c;border-radius:5px;margin-bottom:20px;width:220px;outline:0;">New Content Type</button>
+			<button class="button" id="new-contenttype-button" style="background-color:#1abc9c;border-radius:5px;width:220px;outline:0;">New Content Type</button>
 			<button class="button action-button" id="new-contenttype-button-cancel" style="display:none;width:220px;">Cancel</button>
+
+			<!-- Layout radio-buttons etc. -->
+			<div style="padding: 0 20px;">
+				<div style="clear:both;display:block;">
+					<hr />
+					<label class="form_label" for="domain">pages / layouts</label>
+
+					<fieldset style="margin-left:50px;">
+            			<label for="pages">
+                			<input type="radio" value="pages" name="build-choice" id="pages"> <span>Use Pages</span>
+            			</label>
+            			<label for="layouts">
+                			<input type="radio" value="layouts" name="build-choice" id="layouts" checked> <span>Use Layouts</span>
+            			</label>
+        			</fieldset>
+
+					<div id="new-pages-entry" style="display:none;">
+						<div style="width:50%;margin:0 auto;">
+							<div>
+								<hr style="height:1px;color:lightgray;border:0 none;background-color:lightgray;" />
+							</div>
+						</div>
+						<div class="input new-pages" style="margin-bottom:25px;">
+							<input class="login_input" id="new-pages" name="pages" placeholder="Pages - Location" type="text" value="" size="25">
+						</div>
+						<button class="button" id="new-pages-button" style="background-color:#1abc9c;border-radius:5px;width:220px;outline:0;">Update Pages Location</button>
+						<button class="button action-button" id="new-pages-button-cancel" data-pages='' style="width:220px;">Cancel</button>
+					</div>
+				</div>
+			</div>
 
 	    </div>
 
     </div>
+
+<!-- modal overlay -->
+<div id="overlay" style="display:none;z-index:200;"></div>
+
+<!-- delete domain modal -->
+<div id="delete_domain_modal" title="Delete Content" style="display:none; position: fixed; top: 0; left: 0; bottom: 0; right: 0; z-index:500; height: 400px; width: 700px; margin: 230px auto; border: 4px solid #8aacb8; background-color: #fff; text-align:center; padding: 20px;">
+	<h4 style="text-transform:uppercase;margin-top: 50px;"><span style="border-bottom:3px solid lightblue;">Are you sure you want to remove this Domain ?</span></h4>
+	<div style="margin-left:40px;width:100%;">
+		<br />
+		<h4 style="text-transform:uppercase;text-align:left"><span style="border-bottom:2px solid lightblue;">Domain</span></h4>
+		<p id="delete-domain-modal-name" style="text-align:left;font-size:18px;font-weight:300;"></p>
+	</div>
+	<div style="width:60%;margin: 0 auto;">
+		<hr style="height:2px;color:lightblue;border:0 none;background-color:lightblue;" />
+	</div>
+	<div style="width:100%;">
+		<button class="button" id="delete-domain-button" data-id=0 style="background-color:#ff3232;width:120px;border-radius:5px;outline:0;margin-top:5px;margin-bottom:20px;margin-left:10px;">Delete</button>
+		<button class="button action-button" id="cancel-domain-action" style="width:120px;">Cancel</button>
+	</div>
+</div>
 
 <!-- delete content type modal -->
 <div id="delete_contenttype_modal" title="Delete Content" style="display:none; position: fixed; top: 0; left: 0; bottom: 0; right: 0; z-index:500; height: 400px; width: 700px; margin: 230px auto; border: 4px solid #8aacb8; background-color: #fff; text-align:center; padding: 20px;">
@@ -507,6 +538,33 @@
 			$('#delete_contenttype_modal').hide();
 			$('#overlay').hide();
 		} );
+
+		// display / process pages radio button
+		$('input[name=build-choice]').on ('click', function(e) {
+			e.preventDefault();
+
+			if ( this.id == 'pages' ) {
+				$('#layouts').removeAttr("checked");
+				$('#pages').attr("checked", true);
+				$('#new-pages-entry').show(50);
+				moveUp( e.clientY );
+			}
+			if ( this.id == 'layouts' ) {
+				$('#pages').removeAttr("checked");
+				$('#layouts').attr("checked", true);
+				$('#new-pages-entry').hide();
+			}
+		});
+
+		// check where I am and move up if required ...
+        var moveUp = function ( pos ) {
+            var height = $(window).height();
+
+            if ( (pos + 200) > height ) {
+                var y = $(window).scrollTop();
+                $("html, body").animate({ scrollTop: y + 300 }, 500);
+            }
+        };
 
 		// single function for 'notify' stuff ...
 		function notifyProcess( title, text, type ) {
