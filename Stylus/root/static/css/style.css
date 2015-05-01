@@ -361,7 +361,7 @@ aside.navbar ul.navigator li#register a {
         font-weight:400;
     }
 
-    [type="radio"] + span {
+    [type="radio"] + span {  
         display: block;
     }
 

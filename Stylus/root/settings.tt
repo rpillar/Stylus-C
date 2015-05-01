@@ -105,7 +105,7 @@
                 			<input type="radio" value="pages" name="build-choice" id="pages"> <span>Use Pages</span>
             			</label>
             			<label for="layouts">
-                			<input type="radio" value="layouts" name="build-choice" id="layouts" checked> <span>Use Layouts</span>
+                			<input type="radio" value="layouts" name="build-choice" id="layouts" checked="checked"> <span>Use Layouts</span>
             			</label>
         			</fieldset>
 
@@ -545,14 +545,15 @@
 
 			if ( this.id == 'pages' ) {
 				$('#layouts').removeAttr("checked");
-				$('#pages').attr("checked", true);
+				$('#pages').attr("checked", true).css('background', 'lightblue');
+
 				$('#new-pages-entry').show(50);
 				moveUp( e.clientY );
 			}
 			if ( this.id == 'layouts' ) {
 				$('#pages').removeAttr("checked");
 				$('#layouts').attr("checked", true);
-				$('#new-pages-entry').hide();
+				$('#new-pages-entry').hide(100);
 			}
 		});
 
@@ -560,7 +561,7 @@
         var moveUp = function ( pos ) {
             var height = $(window).height();
 
-            if ( (pos + 200) > height ) {
+            if ( (pos + 250) > height ) {
                 var y = $(window).scrollTop();
                 $("html, body").animate({ scrollTop: y + 300 }, 500);
             }
