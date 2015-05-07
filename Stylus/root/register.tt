@@ -32,6 +32,9 @@
 
 	<script type="text/javascript" language="javascript" charset="utf-8">
 
+		// PNotify initialise ...
+		PNotify.prototype.options.styling = "fontawesome";
+
 		// set 'background' for the inputs
 	    $('form div.input .login_input').on('focus', function() {
 			$(this).parent().addClass('input_active');
@@ -58,33 +61,34 @@
 
 			if ( !name ) {
 			    $('#name').parent().addClass('input_error');
-			    $('p#message').text('Name missing - please enter.');
+				notifyProcess( 'Missing data', 'The Name field is empty - please enter a valid value.', 'error' );
 			}
 			else if ( !email ) {
 			    $('#email').parent().addClass('input_error');
-			    $('p#message').text('Email address missing - please enter.');
+				notifyProcess( 'Missing data', 'The Email Address field is empty - please enter a valid value.', 'error' );
 			}
 			else if ( !validateEmail(email) ) {
 			    $('#email').parent().addClass('input_error');
-			    $('p#message').text('Invalid Email address - please correct.');
+				notifyProcess( 'Invalid data', 'The format of the Email Address is invalid - please enter a valid value.', 'error' );
 			}
 			else if ( !username ) {
 			    $('#username').parent().addClass('input_error');
-			    $('p#message').text('Username missing - please enter.');
+				notifyProcess( 'Missing data', 'The Username field is empty - please enter a valid value.', 'error' );
 			}
 			else if ( !password1 || !password2 ) {
 				$('#password1').parent().addClass('input_error');
 				$('#password2').parent().addClass('input_error');
-				$('p#message').text('Password missing - please enter.');
+				notifyProcess( 'Missing data', 'The Password field is empty - please enter a valid value.', 'error' );
 			}
 			else if ( password1 != password2 ) {
 				$('#password1').parent().addClass('input_error');
 				$('#password2').parent().addClass('input_error');
-				$('p#message').text('Passwords do not match - please correct.');
+				notifyProcess( 'Invalid data', 'The Passwords entered do not match - please enter valid values.', 'error' );
 			}
 			else if ( !domain ) {
 				$('#domain').parent().addClass('input_error');
 				$('p#message').text('Domain missing - please enter.');
+				notifyProcess( 'Missing data', 'The Domain field is empty - please enter a valid value.', 'error' );
 			}
 			else {
 			    var formData = {
@@ -124,4 +128,20 @@
 	            return false;
 	        }
 	    }
+
+		// single function for 'notify' stuff ...
+		function notifyProcess( title, text, type ) {
+			new PNotify({
+				title: title,
+				text: text,
+				buttons: {
+					sticker: false
+				},
+				width: "350px",
+				type: type,
+				icon: false,
+				hide: false
+			});
+		}
+
 	</script>
