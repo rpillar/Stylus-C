@@ -32,16 +32,24 @@
 				that defines the outline structure of a small portion of a webpage.</p>
 				<p class="p_text">In the context of Stylus (confusingly I know) a partial can be either a 'true' <span style="border-bottom:1px dashed gray;">partial</span> (as defined above) or a
 				<span style="border-bottom:1px dashed gray;">layout</span>. A 'layout' is intended for defining a webpage - into which 'partials' can be inserted if required.
-				In this way a 'layout' may include a number of different 'partials' with each of them defining a portion of the completed webpage.
+				In this way a 'layout' may include a number of different 'partials' with each defining a portion of the completed webpage.
 				For example you may have common 'partials' for page 'headers' and 'footers'. </p>
-				<p class="p_text">An example of a <span style="border-bottom:1px dashed gray;">partial</span> (in the Stylus sense) is given below :-</p>
+				<p class="p_text">An example of a <span style="border-bottom:1px dashed gray;">partial</span> (in the Stylus sense) is given below (the '**********' is a 'marker' indicating where the data will be inserted) :-</p>
+
+				<pre style="border: 2px solid lightblue;padding-left:10px;"><code><xmp>
+<p class="this-paragraph">
+**********
+</p>
+				</xmp></code></pre>
+
+				<p class="p_text">The <span style="border-bottom:1px dashed gray;">partial</span> is then inserted into a 'component' / 'layout' / 'partial' using the format shown below. </p>
 
 				<pre style="border: 2px solid lightblue;padding-left:10px;"><code><xmp>
 <div class="testing">
 	<div class="this-one">
-#####################
+##########
 { "partial": "p1", "domain": "demo", "type": "article", "number": "3" }
-=====================
+==========
 	</div>
 </div>
 				</xmp></code></pre>
@@ -49,7 +57,7 @@
 				<p class="p_text">Here the <span style="border-bottom:1px dashed gray;">partial</span> that we want to insert has been stored with a 'label' of <span style="border-bottom:1px dashed gray;">'p1'</span>,
 				the 'domain' that it is associated with is <span style="border-bottom:1px dashed gray;">'demo'</span>, the 'type' of content that we want to display here is <span style="border-bottom:1px dashed gray;">
 				'article'</span> and the 'number' of articles that should be displayed is <span style="border-bottom:1px dashed gray;">'3'</span>.
-				For 'partials' that are not intended to display dynamic content the 'type' and 'number' parameters can be left blank. It should be noted that partials can be 'nested' (as seen here).</p>
+				For 'partials' that are not intended to display dynamic content the 'type' and 'number' parameters can be left blank. It should be noted that partials can be 'nested'.</p>
 				<p class="p_text">More information can be found on the 'create partials' page.</p>
 				<p>
 					<button class="button" id="create_partial" style="background-color:#1abc9c;width:300px;border-radius:10px;outline:0;margin-bottom:20px;">Create a New Partial</button>
