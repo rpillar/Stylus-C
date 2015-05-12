@@ -128,7 +128,7 @@
 							</div>
 						</div>
 						<div class="input new-pages" style="margin-bottom:25px;">
-							<input class="login_input" id="new-pages" name="pages" placeholder="Pages - Location" type="text" value="" size="25">
+							<input class="login_input" id="new-pages-path" name="pages" placeholder="Pages - Location" type="text" value="" size="25">
 						</div>
 						<button class="button" id="new-pages-button" style="background-color:#1abc9c;border-radius:5px;width:220px;outline:0;">Update</button>
 						<button class="button action-button" id="new-pages-button-cancel" data-pages='' style="width:220px;">Cancel</button>
@@ -571,9 +571,53 @@
 			}
 		});
 
+		// add a new 'Pages' process
+		$('#new-pages-button').on('click', function() {
+			var button_text = $(this).text();
+
+			// get domain and file path ...
+			var domain = $('#dd span').text();
+			var path   = $('#new-pages-path').val();
+
+			if ( domain == 'Domain' ) {
+				$('#dd').css({"border-top-color": "#254960", "border-bottom-color": "#254960" });
+				notifyProcess( 'Missing data', 'A Domain has not been selected - please enter a valid value.', 'error' );
+			}
+			else if ( !path ) {
+				$('#new-pages-path').parent().addClass('input_error');
+				$('.new-pages .login_input').focus();
+				notifyProcess( 'Missing data', 'The new Pages - Location field is empty - please enter a valid value.', 'error' );
+			}
+			else {
+				var formData = {
+					type: type
+				};
+				var update_url = '/stylus/settings/content_type/';
+				$.ajax({
+					url: update_url,
+					type: 'PUT',
+					data: formData,
+					dataType: 'json',
+					success: function(data,status) {
+						if ( data.message ) {
+							notifyProcess( 'WARNING', data.message, 'error' );
+						}
+						else {
+							window.location.assign('/stylus/settings');
+						}
+					},
+					error: function(jqXHR,status,error) {
+						notifyProcess( 'ERROR', 'A problem has occurred - please try again in a few minutes or contact us.', 'error' );
+					}
+				});
+			}
+		} );
+
 		$('#new-pages-button-cancel').on('click', function() {
+			$('#dd').css({"border-top-color": "lightgray", "border-bottom-color": "lightgray" });
 			$('#new-pages-entry').hide(100);
 			$('#pages_name').text('Domain');
+			$('#new-pages-path').val('');
 		} );
 
 		// check where I am and move up if required ...
