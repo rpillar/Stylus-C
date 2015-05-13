@@ -79,6 +79,9 @@
 
     <script type="text/javascript" language="javascript" charset="utf-8">
 
+        // PNotify initialise ...
+        PNotify.prototype.options.styling = "fontawesome";
+
         // set 'background' for the inputs
 	    $('form div.input .login_input').on('focus', function() {
 			$(this).parent().addClass('input_active');
@@ -121,7 +124,6 @@
 		$('button#create').on('click', function(e) {
             e.preventDefault();
 
-            PNotify.prototype.options.styling = "fontawesome";
             PNotify.removeAll();
 
             //reset border-color and remove 'active' class
@@ -137,24 +139,11 @@
 
 			if ( type == 'Content Type' ) {
 			    $('#dd').css({"border-top-color": "#254960", "border-bottom-color": "#254960" });
-
-                new PNotify({
-                    title: 'Missing data',
-                    text: 'Content Type missing - please select.',
-                    buttons: {
-                        sticker: false
-                    },
-                    width: "350px",
-                    type: 'error',
-                    icon: false,
-                    hide: false
-                });
-			    //$('p#message').text('Content Type missing - please enter.');
+                notifyProcess( 'ERROR', 'Content Type missing - please select.', 'error' );
 			}
 			else if ( !content ) {
 			    $('#content').parent().addClass('input_error');
-
-			    $('p#message').text('Content missing - please enter.');
+                notifyProcess( 'ERROR', 'Content missing - please enter.', 'error' );
 			}
 			else {
 			    var formData = {
@@ -172,7 +161,7 @@
 			            window.location.assign('/stylus/content');
 			        },
 			        error: function(jqXHR,status,error) {
-			            $('p#message').text('A problem has occurred - please try again.');
+                        notifyProcess( 'ERROR', 'A problem has occurred - please try again.', 'error' );
 			        }
 			    });
 			}
@@ -184,6 +173,21 @@
             e.preventDefault();
             window.location.assign('/stylus/content');
         });
+
+        // single function for 'notify' stuff ...
+        function notifyProcess( title, text, type ) {
+            new PNotify({
+                title: title,
+                text: text,
+                buttons: {
+                    sticker: false
+                },
+                width: "350px",
+                type: type,
+                icon: false,
+                hide: false
+            });
+        }
 
     </script>
 

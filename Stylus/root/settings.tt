@@ -226,6 +226,7 @@
 
 		$('#update-domain-button').on('click', function(e) {
 			e.preventDefault();
+
 			PNotify.removeAll();
 
 			// get domain id / updated domain ...
@@ -258,6 +259,8 @@
 
 		$('#update-domain-button-cancel').on('click', function(e) {
 			e.preventDefault();
+
+			PNotify.removeAll();
 
 			// get the id / name of the domain being 'processed'
 			var id     = $(this).data('id');
@@ -326,6 +329,8 @@
 		// cancel 'delete' domain ...
 		$('#cancel-domain-action').on ('click', function(e) {
 			e.preventDefault();
+
+			PNotify.removeAll();
 
 			$('#delete_domain_modal').hide();
 			$('#overlay').hide();
@@ -427,6 +432,8 @@
 		$('#update-contenttype-button-cancel').on('click', function(e) {
 			e.preventDefault();
 
+			PNotify.removeAll();
+
 			// get the id / type being 'processed'
 			var id     = $(this).data('id');
 			var type = $(this).data('contenttype');
@@ -490,6 +497,7 @@
 		} );
 
 		$('#new-contenttype-button-cancel').on('click', function() {
+			PNotify.removeAll();
 			$(this).hide();
 			$('#new-contenttype-button').text('New Content Type');
 			$('#new-contenttype-entry').hide();
@@ -614,7 +622,9 @@
 		} );
 
 		$('#new-pages-button-cancel').on('click', function() {
+			PNotify.removeAll();
 			$('#dd').css({"border-top-color": "lightgray", "border-bottom-color": "lightgray" });
+			$('.new-pages').removeClass('input_error');
 			$('#new-pages-entry').hide(100);
 			$('#pages_name').text('Domain');
 			$('#new-pages-path').val('');
@@ -632,6 +642,7 @@
 
 		// single function for 'notify' stuff ...
 		function notifyProcess( title, text, type ) {
+			PNotify.removeAll();
 			new PNotify({
 				title: title,
 				text: text,
