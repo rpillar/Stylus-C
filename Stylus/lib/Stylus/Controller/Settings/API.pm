@@ -32,6 +32,26 @@ sub base_ct :Chained('/') PathPart('stylus/settings/content_type') :CaptureArgs(
     }
 }
 
+=head2 base method - for 'pages_path'
+
+=cut
+
+sub base_pp :Chained('/') PathPart('stylus/settings/pages_path') :CaptureArgs( 1 ) {
+    my ( $self, $c, $domain) = @_;
+
+    $c->log->debug('in Settings API - base_pp');
+
+    # get settings data ...
+    if ( $domain ) {
+        my $pages_detail = $c->model('DB::PagesDetail')->find({
+            domain_id => $domain_id
+        });
+        if ( $contenttype ) {
+            $c->stash->{pagesdetail} = $pages_detail;
+        }
+    }
+}
+
 =head2 base method - for 'user_domains'
 
 =cut
@@ -79,7 +99,7 @@ sub content_type :Chained('base_ct') PathPart('') Args(0) : ActionClass('REST') 
     my ($self, $c) = @_;
 }
 
-=head2 user_domain_new
+=head2 content_type_new
 
 =cut
 
@@ -88,6 +108,17 @@ sub content_type_new :Chained('base_ct_new') PathPart('') Args(0) : ActionClass(
 
     $c->log->debug('in Settings API - content_type_new');
 }
+
+=head2 pages_path
+
+=cut
+
+sub pages_path :Chained('base_pp') PathPart('') Args(0) : ActionClass('REST') {
+    my ($self, $c) = @_;
+
+    $c->log->debug('in Settings API - pages_path');
+}
+
 =head2 user_domain
 
 =cut
@@ -180,6 +211,42 @@ sub content_type_new_PUT :Private {
         $self->status_bad_request(
             $c,
             message => "Settings - Content Types : there has been an error adding a new entry into the Stylus DB !",
+        );
+    };
+}
+
+=head2 pages_path_PUT
+
+=cut
+
+sub pages_path_PUT :Private {
+    my ($self, $c) = @_;
+
+    # get data parameters ...
+    my $data        = $c->req->data || $c->req->params;
+
+    # my page_details for this domain ...
+    my $pagesdetail = $c->stash->{pagesdetail};
+
+    # update the Pages Details entry ...
+    try {
+        my $pagesdetail->update(
+            { path => undef }
+        );
+
+        $self->status_created(
+            $c,
+            location => $c->req->uri,
+            entity  => {
+            },
+        );
+    }
+    catch {
+        $c->log->debug('Settings - pages_path_PUT : error ' . $_);
+
+        $self->status_bad_request(
+            $c,
+            message => "Settings - Pages Path : there has been an error updating the Stylus DB !",
         );
     };
 }

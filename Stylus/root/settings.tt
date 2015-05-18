@@ -102,12 +102,12 @@
 					<hr />
 					<label class="form_label" for="domain">pages / layouts</label>
 
-					<fieldset style="margin-left:50px;">
-            			<label for="pages">
+					<fieldset style="margin-top:15px;margin-left:50px;">
+						<label for="layouts" style="width:150px;float:left;text-align:right;">
+							<input type="radio" value="layouts" name="build-choice" id="layouts" checked="checked"> <span>Use Layouts</span>
+						</label>
+            			<label for="pages" style="width:150px;float:left;text-align:right;margin-left:15px;">
                 			<input type="radio" value="pages" name="build-choice" id="pages"> <span>Use Pages</span>
-            			</label>
-            			<label for="layouts">
-                			<input type="radio" value="layouts" name="build-choice" id="layouts" checked="checked"> <span>Use Layouts</span>
             			</label>
         			</fieldset>
 
@@ -119,10 +119,10 @@
 						</div>
 						<div style="margin-left:22px;border-left:4px solid #254960;">
 							<div id="dd" class="wrapper-dropdown-3" tabindex="1">
-								<span id="pages_name">Domain</span>
+								<span id="pages_name" data-id=0>Domain</span>
 								<ul class="dropdown">
 									[% FOREACH domain IN domains %]
-										<li><a href="#">[% domain.domain %]</a></li>
+										<li><a href="#" data-id="[% domain.id %]">[% domain.domain %]</a></li>
 									[% END %]
 								</ul>
 							</div>
@@ -563,12 +563,10 @@
 
 		// display / process pages radio button
 		$('input[name=build-choice]').on ('click', function(e) {
-			e.preventDefault();
+			//e.preventDefault();
 
 			if ( this.id == 'pages' ) {
 				$('#layouts').removeAttr("checked");
-				$('#pages').attr("checked", true).css('background', 'lightblue');
-
 				$('#new-pages-entry').show(50);
 				moveUp( e.clientY );
 			}
@@ -602,9 +600,10 @@
 			}
 			else {
 				var formData = {
-					type: type
+					domain: domain,
+					path: path
 				};
-				var update_url = '/stylus/settings/content_type/';
+				var update_url = '/stylus/settings/pages_path/';
 				$.ajax({
 					url: update_url,
 					type: 'PUT',
@@ -627,11 +626,17 @@
 
 		$('#new-pages-button-cancel').on('click', function() {
 			PNotify.removeAll();
+
+			// reset ...
 			$('#dd').css({"border-top-color": "lightgray", "border-bottom-color": "lightgray" });
 			$('.new-pages').removeClass('input_error');
 			$('#new-pages-entry').hide(100);
 			$('#pages_name').text('Domain');
 			$('#new-pages-path').val('');
+			$('#pages').removeAttr("checked");
+
+			// set 'default' option to 'checked'
+			$( 'input[name="build-choice"]:radio:first' ).click();
 		} );
 
 		// check where I am and move up if required ...
