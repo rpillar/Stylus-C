@@ -9,7 +9,7 @@
 
 	<aside style="padding: 40px;margin-top:10px;color:#acacac;font-size:16px;line-height:24px;">
 	    <h2 style="margin:0 0 10px 0;font-size:24px;font-weight:400;color:#000;padding-top:20px;text-transform:uppercase;"><span style="border-bottom:4px solid lightblue;">Layouts / Partials Info</span></h2>
-		<div id="partials_info" class="mCustomScrollbar" style="max-height:800px;overflow:auto;">
+		<div id="partials_info_xx" class="mCustomScrollbar" style="max-height:800px;overflow:auto;">
 		    <p style="padding-left:10px;font-size:16px;line-height:1.5;margin-top:20px;margin-bottom:10px;color:#acacac;font-weight:400;">
 			    A 'layout' is analogous to a 'webpage' and as such should define the essential components that are required :-
 			    <ul>
@@ -54,11 +54,11 @@
 	<!-- customer scrollbar -->
 	<script src="http://malihu.github.io/custom-scrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
 	<script>
-		$("#partials_info").mCustomScrollbar({
-			theme:"dark-2",
-			scrollInertia: 800,
-			scrollButtons: {
-				enable: true
-			}
-		});
+		//$("#partials_info").mCustomScrollbar({
+		//	theme:"dark-2",
+		//	scrollInertia: 800,
+		//	scrollButtons: {
+		//		enable: true
+		//	}
+		//});
 		</script>

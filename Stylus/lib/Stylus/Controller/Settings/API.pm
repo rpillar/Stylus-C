@@ -37,16 +37,17 @@ sub base_ct :Chained('/') PathPart('stylus/settings/content_type') :CaptureArgs(
 =cut
 
 sub base_pp :Chained('/') PathPart('stylus/settings/pages_path') :CaptureArgs( 1 ) {
-    my ( $self, $c, $domain) = @_;
+    my ( $self, $c, $domain_id) = @_;
 
     $c->log->debug('in Settings API - base_pp');
 
     # get settings data ...
-    if ( $domain ) {
+    if ( $domain_id ) {
         my $pages_detail = $c->model('DB::PagesDetail')->find({
             domain_id => $domain_id
         });
-        if ( $contenttype ) {
+        if ( $pages_detail ) {
+            $c->log->debug('Settings - I have found a pages_detail record ...');
             $c->stash->{pagesdetail} = $pages_detail;
         }
     }
@@ -225,13 +226,10 @@ sub pages_path_PUT :Private {
     # get data parameters ...
     my $data        = $c->req->data || $c->req->params;
 
-    # my page_details for this domain ...
-    my $pagesdetail = $c->stash->{pagesdetail};
-
     # update the Pages Details entry ...
     try {
-        my $pagesdetail->update(
-            { path => undef }
+        $c->stash->{pagesdetail}->update(
+            { path => $data->{path} }
         );
 
         $self->status_created(

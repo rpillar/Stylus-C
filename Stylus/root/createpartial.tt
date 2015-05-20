@@ -1,3 +1,4 @@
+	<link rel="stylesheet" href="http://malihu.github.io/custom-scrollbar/jquery.mCustomScrollbar.min.css" />
 	<link rel="stylesheet" type="text/css" href="/static/css/wrapper-dropdown.css" />
 
   	<style type="text/css" media="screen">
@@ -27,9 +28,27 @@
 		.fa {
 			color: #1abc9c;
 		}
+
+		#helpcontainer {
+            z-index: 200;
+            bottom: 0px ;
+            display: none ;
+            left: 0;
+            position: fixed ;
+            width: 100% ;
+			max-height: 600px;
+        }
+
+        #inner {
+            background-color: white ;
+            border: 1px solid #666666 ;
+            border-bottom-width: 0px ;
+            padding: 20px 150px 0px 150px ;
+            box-shadow: 0px 0px 25px gray;
+        }
   	</style>
 
-	<h1 style="margin:0;font-size:32px;font-weight:600;color:#000;padding-left:30px;padding-top:40px;text-transform:uppercase;"><span style="border-bottom:4px solid lightblue;">Create Partial</span> <span style="margin-left:15px;font-weight:400;text-transform:uppercase;">( [% c.session.user_domain %] )</span><a href=""><span style="float:right;margin-right:25px;"><i class="fa fa-info-circle fa-2x"></i></span></a></h1>
+	<h1 style="margin:0;font-size:32px;font-weight:600;color:#000;padding-left:30px;padding-top:40px;text-transform:uppercase;"><span style="border-bottom:4px solid lightblue;">Create Partial</span> <span style="margin-left:15px;font-weight:400;text-transform:uppercase;">( [% c.session.user_domain %] )</span><a id="infolink" href=""><span style="float:right;margin-right:25px;"><i class="fa fa-info-circle fa-2x"></i></span></a></h1>
 	<div style="padding:10px 20px;margin:20px 0;">
 		<div style="padding:10px 20px;margin:20px 0;">
 			<form>
@@ -67,7 +86,59 @@
 		</div>
     </div>
 
+<!-- help container -->
+<div id="helpcontainer">
+	<div id="inner">
+	<!--<div id="partials_info" class="mCustomScrollbar" style="max-height:450px;overflow:auto;">-->
+	<div id="partials_info" class="mCustomScrollbar" data-mcs-theme="3d">
+		<p style="padding-left:10px;font-size:16px;line-height:1.5;margin-top:20px;margin-bottom:10px;color:#acacac;font-weight:400;">
+			A 'layout' is analogous to a 'webpage' and as such should define the essential components that are required :-
+			<ul>
+				<li style="font-size:14px;"><span><</span><span>!DOCTYPE html</span><span>></span></li>
+				<li style="font-size:14px;">opening <span><</span><span>html</span><span>></span> - closing <span><</span><span>/html</span><span>></span> tags</li>
+				<li style="font-size:14px;">appropriate entries within the <span><</span><span>head</span><span>> / <span><</span><span>style</span><span>></span> tags if required.</li>
+				<li style="font-size:14px;">etc.</li>
+			</ul>
+		</p>
+		<p style="padding-left:10px;font-size:16px;line-height:1.5;margin-top:10px;margin-bottom:20px;color:#acacac;font-weight:400;">
+			A 'component' is a special 'partial' and is intended to be used for inserting common blocks of code into a webpage - for example the <em>head</em> tags or a common set of stylesheets / scripts that are used in every page.
+		</p>
+		<p style="padding-left:10px;font-size:16px;line-height:1.5;margin-top:10px;margin-bottom:20px;color:#acacac;font-weight:400;">
+			A 'partial' can inserted into a 'layout' (or into another 'partial') using the following (JSON like) syntax :-
+		</p>
+		<pre style="border: 2px solid lightblue;padding-left:10px;width:65%;"><code><xmp>
+##########
+{ "partial": "p1", content-type": "news", "number": "3", "order": "desc" }
+==========
+		</xmp></code></pre>
+		<p style="padding-left:10px;font-size:16px;line-height:1.5;margin-top:10px;margin-bottom:20px;color:#acacac;font-weight:400;">
+			A 'partial' declaration should always be preceded by a 'marker' of 10 'hashes' (or pound signs !) and terminated by a 'marker' of 10 'equals' signs.
+		</p>
+		<p style="padding-left:10px;font-size:16px;line-height:1.5;margin-top:10px;margin-bottom:20px;color:#acacac;font-weight:400;">
+			There are four parameters that can be set (currently) - <span style="border-bottom:1px solid lightblue;">partial</span>, <span style="border-bottom:1px solid lightblue;">type</span>, <span style="border-bottom:1px solid lightblue;">number</span> and <span style="border-bottom:1px solid lightblue;">order</span>.
+			<ul>
+				<li style="font-size:14px;">'partial' - (required) the 'label' assigned to the 'content' when it was created,</li>
+				<li style="font-size:14px;">'content-type' - (optional) one of the 'content' types - article / news / event etc,</li>
+				<li style="font-size:14px;">'number' - (optional) used to control the number of articles / events that are displayed in this 'partial' (if not present then all the content for the specified type will be displayed), </li>
+				<li style="font-size:14px;">'order' - (optional) used to specify the order the content is displayed - 'oldest' / 'latest' first.</li>
+			</ul>
+		</p>
+		<p style="padding-left:10px;font-size:16px;line-height:1.5;margin-top:10px;margin-bottom:20px;color:#acacac;font-weight:400;">
+			If the 'partial' is a 'component' then only the partial label needs to be supplied.
+		</p>
+		<p style="padding-left:10px;font-size:16px;line-height:1.5;margin-top:10px;margin-bottom:20px;color:#acacac;font-weight:400;">
+			More information can be found on the &nbsp;<a href="http://www.developontheweb.co.uk/stylus.html" style="text-decoration:none;" target="_blank"><b>Stylus</b></a> page at &nbsp;<a href="http://www.developontheweb.co.uk/" style="text-decoration:none;" target="_blank"><b>developontheweb</b></a>
+		</p>
+	</div>
+	</div>
+</div>
+
+	<!-- customer scrollbar -->
+	<script src="http://malihu.github.io/custom-scrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
+	<script></script>
+
 	<script type="text/javascript" src="/static/js/wrapper-dropdown.js"></script>
+	<script type="text/javascript" src="/static/js/showhelp.js"></script>
 	<script src="/static/ace/src-min/ace.js" type="text/javascript" charset="utf-8"></script>
 	<script>
     	var editor = ace.edit("editor");
