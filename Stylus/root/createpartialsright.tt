@@ -5,13 +5,17 @@
 			line-height: 1.2;
 			padding: 5px;
 		}
+
 	</style>
 
 	<aside style="padding: 40px;margin-top:10px;color:#acacac;font-size:16px;line-height:24px;">
-	    <h2 style="margin:0 0 10px 0;font-size:24px;font-weight:400;color:#000;padding-top:20px;text-transform:uppercase;"><span style="border-bottom:4px solid lightblue;">Layouts / Partials Info</span></h2>
-		<div id="partials_info_xx" class="mCustomScrollbar" style="max-height:800px;overflow:auto;">
-		    <p style="padding-left:10px;font-size:16px;line-height:1.5;margin-top:20px;margin-bottom:10px;color:#acacac;font-weight:400;">
-			    A 'layout' is analogous to a 'webpage' and as such should define the essential components that are required :-
+	    <h2 style="margin:0 0 30px 0;font-size:24px;font-weight:400;color:#000;padding-top:20px;text-transform:uppercase;"><span style="border-bottom:4px solid lightblue;">Layouts / Partials Info</span></h2>
+		<div id="partials_info" class="mCustomScrollbar" style="max-height:800px;overflow:auto;">
+			<p class="p_text">
+				A 'partial' can be one of three types - a <span style="border-bottom: 2px dotted lightblue;">Layout</span>, a <span style="border-bottom: 2px dotted lightblue;">Component</span> or a <span style="border-bottom: 2px dotted lightblue;">Partial</span>.
+			</p>
+		    <p class="p_text">
+			    A <span style="border-bottom: 2px dotted lightblue;">layout</span> is analogous to a 'webpage' and as such should define the essential components that are required :-
 			    <ul>
 					<li style="font-size:14px;"><span><</span><span>!DOCTYPE html</span><span>></span></li>
 					<li style="font-size:14px;">opening <span><</span><span>html</span><span>></span> - closing <span><</span><span>/html</span><span>></span> tags</li>
@@ -19,33 +23,66 @@
 					<li style="font-size:14px;">etc.</li>
 				</ul>
 			</p>
-			<p style="padding-left:10px;font-size:16px;line-height:1.5;margin-top:10px;margin-bottom:20px;color:#acacac;font-weight:400;">
-				A 'component' is a special 'partial' and is intended to be used for inserting common blocks of code into a webpage - for example the <em>head</em> tags or a common set of stylesheets / scripts that are used in every page.
+			<p class="p_text">
+				A <span style="border-bottom: 2px dotted lightblue;">component</span> is intended to be used for inserting common blocks of code into a webpage - for example the <em>head</em> tags or a common set of stylesheets / scripts that are used in every page.
 			</p>
-			<p style="padding-left:10px;font-size:16px;line-height:1.5;margin-top:10px;margin-bottom:20px;color:#acacac;font-weight:400;">
-				A 'partial' can inserted into a 'layout' (or into another 'partial') using the following (JSON like) syntax :-
+
+			<p class="p_text">
+				A <span style="border-bottom: 2px dotted lightblue;">partial</span> is intended to be used for inserting repeating items into a webpage. These may be blog posts, news items or events. It is possible to specify the number of items to insert and the order they should be displayed. This could mean that only the 'latest' news items are displayed for example.
 			</p>
+
+			<p class="p_text">
+				To insert a <span style="border-bottom: 2px dotted lightblue;">component</span> or a <span style="border-bottom: 2px dotted lightblue;">partial</span> into a <span style="border-bottom: 2px dotted lightblue;">layout</span> or an existing html file use the following format (format details are outlined below) :-
+			</p>
+
 			<pre style="border: 2px solid lightblue;padding-left:10px;"><code><xmp>
+<div class="testing">
+    <div class="this-one">
 ##########
-{ "partial": "p1", content-type": "news", "number": "3", "order": "desc" }
+{ "type": "article", "number": "2" }
 ==========
+    </div>
+</div>
 			</xmp></code></pre>
-			<p style="padding-left:10px;font-size:16px;line-height:1.5;margin-top:10px;margin-bottom:20px;color:#acacac;font-weight:400;">
-				A 'partial' declaration should always be preceded by a 'marker' of 10 'hashes' (or pound signs !) and terminated by a 'marker' of 10 'equals' signs.
+
+			<p class="p_text">The associated <span style="border-bottom:1px dashed gray;">partial</span> could look something like this (see below). The '**********' is a 'marker' indicating where the data (article data) will be inserted. As such the following structure will be created.</p>
+
+			<pre style="border: 2px solid lightblue;padding-left:10px;"><code><xmp>
+<p class="this-paragraph">
+**********
+</p>
+			</xmp></code></pre>
+
+			<p class="p_text">When processed the following structure will be created.</p>
+
+			<pre style="border: 2px solid lightblue;padding-left:10px;"><code><xmp>
+<div class="testing">
+	<div class="this-one">
+<p class="this-paragraph">This is article 1</p>
+<p class="this-paragraph">This is article 2</p>
+	</div>
+</div>
+			</xmp></code></pre>
+
+			<p class="p_text">Here the 'type' of content that we want to display here is <span style="border-bottom:1px dashed gray;">
+			'article'</span> and the 'number' of articles that should be displayed is <span style="border-bottom:1px dashed gray;">'2'</span>. It should be noted that partials can be 'nested'.</p>
+
+			<p class="p_text">
+				A 'partial' request should always be preceded by a 'marker' of 10 'hashes' (or pound signs !) and terminated by a 'marker' of 10 'equals' signs.
 			</p>
-			<p style="padding-left:10px;font-size:16px;line-height:1.5;margin-top:10px;margin-bottom:20px;color:#acacac;font-weight:400;">
+			<p class="p_text">
 				There are four parameters that can be set (currently) - <span style="border-bottom:1px solid lightblue;">partial</span>, <span style="border-bottom:1px solid lightblue;">type</span>, <span style="border-bottom:1px solid lightblue;">number</span> and <span style="border-bottom:1px solid lightblue;">order</span>.
 				<ul>
-					<li style="font-size:14px;">'partial' - (required) the 'label' assigned to the 'content' when it was created,</li>
-					<li style="font-size:14px;">'content-type' - (optional) one of the 'content' types - article / news / event etc,</li>
+					<li style="font-size:14px;">'partial' - (optional) the 'label' assigned to the 'content' when it was created. Where 'specific' partials or components that need to be inserted then the partial label will need to be specified ,</li>
+					<li style="font-size:14px;">'type' - (optional) one of the 'content' types - article / news / event etc,</li>
 					<li style="font-size:14px;">'number' - (optional) used to control the number of articles / events that are displayed in this 'partial' (if not present then all the content for the specified type will be displayed), </li>
 					<li style="font-size:14px;">'order' - (optional) used to specify the order the content is displayed - 'oldest' / 'latest' first.</li>
 				</ul>
 			</p>
-			<p style="padding-left:10px;font-size:16px;line-height:1.5;margin-top:10px;margin-bottom:20px;color:#acacac;font-weight:400;">
+			<p class="p_text">
 				If the 'partial' is a 'component' then only the partial label needs to be supplied.
 			</p>
-			<p style="padding-left:10px;font-size:16px;line-height:1.5;margin-top:10px;margin-bottom:20px;color:#acacac;font-weight:400;">
+			<p class="p_text">
 				More information can be found on the &nbsp;<a href="http://www.developontheweb.co.uk/stylus.html" style="text-decoration:none;" target="_blank"><b>Stylus</b></a> page at &nbsp;<a href="http://www.developontheweb.co.uk/" style="text-decoration:none;" target="_blank"><b>developontheweb</b></a>
 			</p>
 	    </div>
@@ -54,11 +91,11 @@
 	<!-- customer scrollbar -->
 	<script src="http://malihu.github.io/custom-scrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
 	<script>
-		//$("#partials_info").mCustomScrollbar({
-		//	theme:"dark-2",
-		//	scrollInertia: 800,
-		//	scrollButtons: {
-		//		enable: true
-		//	}
-		//});
+		$("#partials_info").mCustomScrollbar({
+			theme:"rounded-dots-dark",
+			scrollInertia: 400,
+			scrollButtons: {
+				enable: true
+			}
+		});
 		</script>
