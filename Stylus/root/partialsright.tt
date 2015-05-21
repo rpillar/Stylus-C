@@ -193,25 +193,24 @@
                 });
             };
 
-            $('#partial-right').hide();
+            $('#partial-right').hide(100);
 
             var result = get_partial(id);
             result.success(function (data) {
-                console.log('data : ' + data);
                 $('#partial-view-type').text( data.type );
                 $('#partial-view-name').text( data.label );
                 $('#partial-view-desc').text( data.description );
                 $('#code_view_store xmp').text( data.partial );
             } );
 
-            $('#partial-view').show('100');
+            $('#partial-view').show('200');
         } );
 
         // 'cancel' delete modal ...
         $('#partial-close').on('click', function(e) {
-            $('#partial-view').hide();
+            $('#partial-view').hide(100);
             $('#code_view_store xmp').text('');
-            $('#partial-right').show();
+            $('#partial-right').show(100);
         });
 
     </script>

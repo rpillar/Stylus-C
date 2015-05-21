@@ -39,7 +39,7 @@
 <div class="testing">
     <div class="this-one">
 ##########
-{ "type": "article", "number": "2" }
+{ "partial": "p1", type": "article", "number": "2" }
 ==========
     </div>
 </div>
