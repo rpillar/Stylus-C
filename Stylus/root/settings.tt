@@ -270,7 +270,7 @@
 			$('.login_input').attr('disabled', 'disabled');
 
 			$('#domain-list' + id).attr('disabled', 'disabled');
-			$('#domain-list' + id).parent().removeClass('input_active');
+			$('.input').removeClass('input_active');
 			$('#domain-list' + id).val(domain);
 			$('.delete-domain').removeAttr('disabled');
 			$('div#domain-update-actions').hide();
