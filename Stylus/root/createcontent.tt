@@ -41,8 +41,8 @@
                         </ul>
                     </div>
                 </div>
-                <button class="button" id="title-button" style="background-color:#1abc9c;border-radius:10px;outline:0;margin-bottom:20px;width:220px;">Add Title</button>
-                <button class="button" id="date-button" style="background-color:#1abc9c;border-radius:10px;outline:0;margin-bottom:20px;width:220px;">Add Date</button>
+                <button class="button" id="title-button" style="background-color:#367385;border-radius:10px;outline:0;margin-bottom:20px;width:220px;">Add Title</button>
+                <button class="button" id="date-button" style="background-color:#367385;border-radius:10px;outline:0;margin-bottom:20px;width:220px;">Add Date</button>
                 <div id="titlefield" class="titlefield-hide">
                     <label class="form_label" for="title">Title</label>
 	    		    <div class="input" style="margin-bottom:25px;">

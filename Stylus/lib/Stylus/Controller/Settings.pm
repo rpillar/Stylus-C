@@ -64,9 +64,10 @@ sub index :Path( '/stylus/settings' ) :Args(0) {
     my @ud_data;
     if ( $userdomains_rs->count ) {
         while ( my $userdomain = $userdomains_rs->next ) {
+            $c->log->debug('UD - process : domain id - ' . $userdomain->domain_id);
 
             my $row = {
-                id     => $userdomain->domain->id,
+                id     => $userdomain->domain_id,
                 domain => $userdomain->domain->name,
             };
 

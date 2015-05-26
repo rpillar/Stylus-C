@@ -425,8 +425,18 @@ sub user_domain_new_PUT :Private {
         my $domain = $c->model('DB::Domain')->create(
             { name => $data->{domain} },
         );
+        my $pagesdetail = $c->model('DB::PagesDetail')->create(
+            {
+                uid       => $c->user->id,
+                domain_id => $domain->id,
+                path      => '',
+            },
+        );
         my $userdomain = $c->model('DB::UserDomain')->create(
-            { uid => $c->user->id, domain_id => $domain->id }
+            {
+                uid       => $c->user->id,
+                domain_id => $domain->id
+            }
         );
 
         $self->status_created(

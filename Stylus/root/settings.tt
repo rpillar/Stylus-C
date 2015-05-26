@@ -40,7 +40,7 @@
 					</div>
 				</div>
 				<div class="input new-domain" style="margin-bottom:25px;">
-					<input class="login_input" id="new-domain" name="domain" placeholder="Domain" type="text" value="" size="25">
+					<input class="login_input" id="new-domain" name="domain" placeholder="Domain" type="text" value="" size="25" autocomplete="off">
 				</div>
 			</div>
 			[% IF domains.size < 3 %]
