@@ -1,22 +1,43 @@
+	<link rel="stylesheet" href="http://malihu.github.io/custom-scrollbar/jquery.mCustomScrollbar.min.css" />
+	<link rel="stylesheet" type="text/css" href="/static/css/wrapper-dropdown.css" />
 
-	<h1 style="margin:0;font-size:32px;font-weight:600;color:#000;padding-left:30px;padding-top:40px;text-transform:uppercase;"><span style="border-bottom:4px solid lightblue;">Process</span> <span style="margin-left:15px;font-weight:400;text-transform:uppercase;">( [% c.session.user_domain %] )</span></h1>
+
+	<h1 style="margin:0;font-size:32px;font-weight:600;color:#000;padding-left:30px;padding-top:40px;text-transform:uppercase;"><span style="border-bottom:4px solid lightblue;">Process</span></h1>
 	<div style="padding: 10px 20px;margin:20px 0;">
-	    <div style="padding:20px;width:100%;">
+	    <div style="padding:10px 20px;width:100%;">
 
-			<div id='content-intro' style="width:100%;">
-				<p style="font-size:18px;line-height:1.5;margin-top:20px;margin-bottom:20px;color:#acacac;font-weight:400;">Add <span style="border-bottom:1px dashed gray;">content</span> to your website
-				- you can create anything that you want to add to your website. It could be a news item, an article or an event (content types can be defined on the <strong>settings</strong> page).
-				</p>
-				<p style="font-size:18px;line-height:1.5;margin-top:20px;margin-bottom:20px;color:#acacac;font-weight:400;">Existing content is listed on the right-hand side - only the first 200 characters are displayed.
-				Select one to view - then / edit / delete / set the 'publish' flag as appropriate.
-				</p>
+			<div id='process-intro' style="width:100%;">
+				<div>
+					<p style="font-size:18px;line-height:1.5;margin-bottom:20px;color:#acacac;font-weight:400;">
+						Create the 'static' webpages based on the partials / content that has been created. Choose the 'domain' from the drop-down list and 'click' on Process. The output from the 'build' process will be displayed below.
+					</p>
+				</div>
+				<div style="width:50%;margin:0 auto;">
+					<div>
+						<hr style="height:1px;color:lightgray;border:0 none;background-color:lightgray;" />
+					</div>
+				</div>
+				<div style="margin-left:22px;border-left:4px solid #254960;">
+					<div id="dd" class="wrapper-dropdown-3" tabindex="1">
+						<span id="pages_name" data-id="xx">Domain</span>
+						<ul class="dropdown">
+							[% FOREACH domain IN domains %]
+								<li data-id="[% domain.id %]"><a href="#">[% domain.domain %]</a></li>
+							[% END %]
+						</ul>
+					</div>
+				</div>
 			</div>
 			<div id="create-content" style="display:block;">
 				<p>
-					<button class="button" id="create_content" style="background-color:#1abc9c;width:250px;outline:0;margin-bottom:20px;">Create New Content</button>
+					<button class="button" id="create_content" style="background-color:#1abc9c;width:250px;outline:0;margin-bottom:20px;">Process</button>
 				</p>
 			</div>
-
+			<div style="width:50%;margin:0 auto;">
+				<div>
+					<hr style="height:1px;color:lightgray;border:0 none;background-color:lightgray;" />
+				</div>
+			</div>
 	    </div>
 
     </div>

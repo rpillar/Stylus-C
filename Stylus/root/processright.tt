@@ -1,4 +1,5 @@
     <aside style="padding: 40px;color:#acacac;font-size:16px;line-height:24px;">
+        <h2 style="margin:0 0 30px 0;font-size:24px;font-weight:400;color:#000;padding-top:20px;text-transform:uppercase;"><span style="border-bottom:4px solid lightblue;">Process Info</span></h2>
         <p><h3 style="color:#254960;line-height:22px;font-size:20px;font-weight:400;text-transform:uppercase;letter-spacing:1px;"><span style="border-bottom: 2px solid lightblue;">domains</span></h3></p>
         <p style="padding-left:10px;font-size:16px;line-height:1.5;margin-top:20px;margin-bottom:20px;color:#acacac;font-weight:400;">
             Add, Edit and remove 'domains' - in this context a 'domain' is a <span style="border-bottom: 2px solid lightblue;">name</span> that will identify a set of 'layouts' / 'partials' and 'content' that will be processed to create some 'web' content.
