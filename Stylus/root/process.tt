@@ -17,7 +17,7 @@
 						<hr style="height:1px;color:lightgray;border:0 none;background-color:lightgray;" />
 					</div>
 				</div>
-				<div style="margin-left:22px;border-left:4px solid #254960;">
+				<div style="margin-left:22px;border-left:4px solid #254960;margin-bottom:25px;">
 					<div id="dd" class="wrapper-dropdown-3" tabindex="1">
 						<span id="pages_name" data-id="xx">Domain</span>
 						<ul class="dropdown">
@@ -25,6 +25,12 @@
 								<li data-id="[% domain.id %]"><a href="#">[% domain.domain %]</a></li>
 							[% END %]
 						</ul>
+					</div>
+				</div>
+				<div style="clear:both;">
+					<label class="form_label" for="description">Location for created files</label>
+					<div class="input" style="margin-bottom:25px;">
+						<input class="login_input" id="location" name="location" placeholder="Location" type="text">
 					</div>
 				</div>
 			</div>
@@ -36,6 +42,12 @@
 			<div style="width:50%;margin:0 auto;">
 				<div>
 					<hr style="height:1px;color:lightgray;border:0 none;background-color:lightgray;" />
+				</div>
+			</div>
+			<div style="clear:both;">
+				<label class="form_label" for="description">process log</label>
+				<div style="margin-bottom:25px;">
+					<textarea class="login_input" id="log" style="background:white;width:100%;padding:20px 20px;font-size:18px;font-weight:300;border:1px solid lightblue;" placeholder="Process Log" type="text" rows="10" disabled></textarea>
 				</div>
 			</div>
 	    </div>
