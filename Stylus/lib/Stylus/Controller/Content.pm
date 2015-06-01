@@ -107,14 +107,13 @@ sub create :Path( '/stylus/content/create' ) :Args(0) {
     my ( $self, $c ) = @_;
 
     # set initial content for 'create content' page
-    my $content_type_rs = $c->model('DB::ContentType')->search();
+    my $content_type_rs = $c->model('DB::ContentType')->search( {}, { order_by => 'type' } );
     my @data;
     while ( my $type = $content_type_rs->next ) {
         my $row = {
             id   => $type->id,
             type => $type->type
         };
-        p $row;
         push(@data, $row);
     }
 

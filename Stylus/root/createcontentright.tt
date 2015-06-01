@@ -1,12 +1,22 @@
-    <section style="display:block;float:left;position:relative;">
-        <div style="padding-right:50px;">
-            <!--<aside style="padding: 40px;margin-top:30px;color:#acacac;font-size:16px;line-height:24px;">-->
-            <aside style="padding: 40px;color:#acacac;line-height:24px;">                
-                <div style="margin-bottom:20px;">
-                    <h2 style="margin:0;font-size:32px;font-weight:400;color:#000;padding-left:30px;padding-top:20px;text-transform:uppercase;"><span style="border-bottom:4px solid lightblue;">Preview</span></h2>
-                </div>
-                <div id="preview" class="wmd-preview" style="padding-right:50px;">
-                </div>
-            </aside>
+    <link rel="stylesheet" href="http://malihu.github.io/custom-scrollbar/jquery.mCustomScrollbar.min.css" />
+
+    <aside style="padding: 40px;margin-top:10px;color:#acacac;font-size:16px;line-height:24px;">
+        <h2 style="margin:0 0 30px 0;font-size:24px;font-weight:400;color:#000;padding-top:20px;text-transform:uppercase;"><span style="border-bottom:4px solid lightblue;">create content Info</span></h2>
+        <div id="partials_info" class="mCustomScrollbar" style="max-height:800px;overflow:auto;">
+            <p class="p_text">
+                Use this page to create the <span style="border-bottom: 2px solid lightblue;">content</span>&nbsp;that you wish to display on your website.
+            </p>
         </div>
-    </section>
+    </aside>
+
+    <!-- customer scrollbar -->
+    <script src="http://malihu.github.io/custom-scrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script>
+        $("#partials_info").mCustomScrollbar({
+            theme:"rounded-dots-dark",
+            scrollInertia: 400,
+            scrollButtons: {
+                enable: true
+            }
+        });
+    </script>
