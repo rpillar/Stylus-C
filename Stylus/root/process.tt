@@ -1,6 +1,12 @@
 	<link rel="stylesheet" href="http://malihu.github.io/custom-scrollbar/jquery.mCustomScrollbar.min.css" />
 	<link rel="stylesheet" type="text/css" href="/static/css/wrapper-dropdown.css" />
 
+	<style>
+		.dropdown_error {
+			border-top-color: #254960;
+			border-bottom-color: #254960;
+		}
+	</style>
 
 	<h1 style="margin:0;font-size:32px;font-weight:600;color:#000;padding-left:30px;padding-top:40px;text-transform:uppercase;"><span style="border-bottom:4px solid lightblue;">Process</span></h1>
 	<div style="padding: 10px 20px;margin:20px 0;">
@@ -19,7 +25,7 @@
 				</div>
 				<div style="margin-left:22px;border-left:4px solid #254960;margin-bottom:25px;">
 					<div id="dd" class="wrapper-dropdown-3" tabindex="1">
-						<span id="pages_name" data-id="xx">Domain</span>
+						<span id="domain" data-id="xx">Domain</span>
 						<ul class="dropdown">
 							[% FOREACH domain IN domains %]
 								<li data-id="[% domain.id %]"><a href="#">[% domain.domain %]</a></li>
@@ -34,9 +40,9 @@
 					</div>
 				</div>
 			</div>
-			<div id="create-content" style="display:block;">
+			<div id="process" style="display:block;">
 				<p>
-					<button class="button" id="create_content" style="background-color:#1abc9c;width:250px;outline:0;margin-bottom:20px;">Process</button>
+					<button class="button" id="process-button" style="background-color:#1abc9c;width:250px;outline:0;margin-bottom:20px;">Process</button>
 				</p>
 			</div>
 			<div style="width:50%;margin:0 auto;">
@@ -53,3 +59,60 @@
 	    </div>
 
     </div>
+
+	<!-- use 'settings' dropdown - need to set domain_id -->
+	<script type="text/javascript" src="/static/js/wrapper-dropdown-settings.js"></script>
+
+	<script>
+
+		// PNotify initialise ...
+		PNotify.prototype.options.styling = "fontawesome";
+
+		// process ...
+		$('#process-button').on('click', function(e) {
+			e.preventDefault();
+
+			// reset 'notifys'
+			PNotify.removeAll();
+
+			//reset border-color and remove 'active' class
+			$('div.input').removeClass('input_active');
+			$('div.input').removeClass('input_error');
+			$('#dd').removeClass('dropdown_error');
+
+			// get 'id' / 'name' of domain and file location
+			var domain_text = $('#dd span').text();
+			var domain_id   = $('#domain').data("id");
+			var location    = $('#location').val();
+
+			// reset 'active' class
+			$('.input').removeClass('input_active');
+
+			// validate ...
+			if ( domain_text == 'Domain' ) {
+				$('#dd').addClass('dropdown_error');
+				notifyProcess( 'Missing data', 'No Domain has been selected - please correct', 'error' );
+			}
+			else if ( !location ) {
+				$('#location').parent().addClass('input_error');
+				notifyProcess( 'Missing data', 'A Location path has not been entered - please correct', 'error' );
+			}
+
+		});
+
+		// single function for 'notify' stuff ...
+		function notifyProcess( title, text, type ) {
+			new PNotify({
+				title: title,
+				text: text,
+				buttons: {
+					sticker: false
+				},
+				width: "350px",
+				type: type,
+				icon: false,
+				hide: false
+			});
+		}
+
+	</script>

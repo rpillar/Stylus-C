@@ -25,6 +25,11 @@
 .fa {
     color: #1abc9c;
 }
+
+.dropdown_error {
+    border-top-color: #254960;
+    border-bottom-color: #254960;
+}
 </style>
 
     <h1 style="margin:0;font-size:32px;font-weight:600;color:#000;padding-left:30px;padding-top:40px;text-transform:uppercase;"><span style="border-bottom:4px solid lightblue;">create content</span> <span style="margin-left:15px;font-weight:400;text-transform:uppercase;">( [% c.session.user_domain %] )</span></h1>
@@ -136,6 +141,7 @@
             //reset border-color and remove 'active' class
             $('div.input').removeClass('input_active');
             $('div.input').removeClass('input_error');
+            $('#dd').removeClass('dropdown_error');
 
 			// client-side validation - just check that fields have been populated
 			// all other validation will be done on the server
@@ -145,7 +151,7 @@
 			var content = $('#content').val();
 
 			if ( type == 'Content Type' ) {
-			    $('#dd').css({"border-top-color": "#254960", "border-bottom-color": "#254960" });
+			    $('#dd').addClass('dropdown_error');
                 notifyProcess( 'ERROR', 'Content Type missing - please select.', 'error' );
 			}
 			else if ( !content ) {

@@ -2,7 +2,6 @@ package Stylus::Controller::Settings::API;
 use Moose;
 use namespace::autoclean;
 
-use Data::Dumper;
 use Scalar::Util qw( looks_like_number);
 use Try::Tiny;
 

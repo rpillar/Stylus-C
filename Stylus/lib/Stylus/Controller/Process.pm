@@ -28,14 +28,14 @@ sub auto :Private {
     unless ( $c->user_exists && $c->session->{user_domain_id} ) {
         $c->log->debug( " User does not exist - redirect to login page ...");
         if ( $c->req->method eq 'POST' ) {
-            $c->log->debug('Content : session timed out on ajax request');
+            $c->log->debug('Process : session timed out on ajax request');
         	$c->stash->{current_view} = 'JSON_Service';
         	$c->stash->{logged_in}    = 0;
         	$c->detach;
             return;
         }
         else {
-            $c->log->debug('Content : get request ...');
+            $c->log->debug('Process : get request ...');
             $c->response->redirect($c->uri_for('/stylus/login'));
             $c->detach;
             return;
@@ -57,6 +57,24 @@ sub index :Path( '/stylus/process' ) :Args(0) {
 	$c->stash->{template}  = 'index.tt';
 	$c->stash->{initial}   = 'process.tt';
 	$c->stash->{righthalf} = 'processright.tt';
+
+    # get settings data - domains
+    my $userdomains_rs = $c->model('DB::UserDomain')->search(
+        { uid => $c->user->id },
+    );
+
+    my @ud_data;
+    if ( $userdomains_rs->count ) {
+        while ( my $userdomain = $userdomains_rs->next ) {
+            my $row = {
+                id     => $userdomain->domain_id,
+                domain => $userdomain->domain->name,
+            };
+
+            push(@ud_data, $row);
+        }
+    }
+    $c->stash->{domains}       = \@ud_data;
 }
 
 =head2 end
