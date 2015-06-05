@@ -97,6 +97,9 @@
 				$('#location').parent().addClass('input_error');
 				notifyProcess( 'Missing data', 'A Location path has not been entered - please correct', 'error' );
 			}
+			else {
+				
+			}
 
 		});
 
@@ -113,6 +116,10 @@
 				icon: false,
 				hide: false
 			});
+		}
+
+		function checkFilePath() {
+
 		}
 
 	</script>

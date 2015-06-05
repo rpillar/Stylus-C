@@ -46,8 +46,8 @@
                         </ul>
                     </div>
                 </div>
-                <button class="button" id="title-button" style="background-color:#1abc9c;border-radius:10px;outline:0;margin-bottom:20px;width:180px;">Add Title</button>
-                <button class="button" id="date-button" style="background-color:#1abc9c;border-radius:10px;outline:0;margin-bottom:20px;width:180px;">Add Date</button>
+                <button class="button" id="title-button" style="background-color:#1abc9c;border-radius:10px;outline:0;margin-bottom:20px;width:140px;">Add Title</button>
+                <button class="button" id="date-button" style="background-color:#1abc9c;border-radius:10px;outline:0;margin-bottom:20px;width:140px;">Add Date</button>
                 <div id="titlefield" class="titlefield-hide">
                     <label class="form_label" for="title">Title</label>
 	    		    <div class="input" style="margin-bottom:25px;">
@@ -66,7 +66,7 @@
                         <textarea class="login_input wmd-input" id="content" placeholder="Content" type="text" rows="12"></textarea>
                     </div>
                 </div>
-                <button class="button" id="view" style="background-color:#1abc9c;border-radius:10px;outline:0;margin-bottom:10px;width:180px;">Preview</button>
+                <button class="button" id="view" style="background-color:#1abc9c;border-radius:10px;outline:0;margin-bottom:10px;width:140px;">Preview</button>
                 <div>
                     <hr style="height:1px;color:lightgray;border:0 none;background-color:lightgray;margin-left:50px;margin-right:50px;" />
                 </div>
