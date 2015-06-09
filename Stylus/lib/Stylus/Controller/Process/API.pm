@@ -13,7 +13,7 @@ __PACKAGE__->config(default => 'application/json');
 =cut
 
 sub base :Chained('/') PathPart('stylus/process') :CaptureArgs( 0 ) {
-    my ( $self, $c, $id) = @_;
+    my ( $self, $c, ) = @_;
 
     $c->log->debug('in Process API - base');
 }
@@ -22,29 +22,34 @@ sub base :Chained('/') PathPart('stylus/process') :CaptureArgs( 0 ) {
 
 =cut
 
-sub partial :Chained('base') PathPart('check_filename') Args(0) : ActionClass('REST') {
+sub check_filename :Chained('base') PathPart('check_filename') Args(0) : ActionClass('REST') {
     my ($self, $c) = @_;
 }
 
-=head2 partial_GET
+=head2 check_filename_GET
 
 =cut
 
-sub partial_GET :Private {
+sub check_filename_GET :Private {
     my ($self, $c) = @_;
 
-    my $partial = $c->stash->{partial};
+    # get filename data ..
+    my $data = $c->req->data || $c->req->params;
 
-    $self->status_ok(
-        $c,
-        entity => {
-            id          => $partial->id,
-            type        => $partial->partial_type->type,
-            label       => $partial->name,
-            description => $partial->description,
-            partial     => $partial->partial,
-        },
-    );
+    if ( -e $data->{filename} ) {
+        $self->status_ok(
+            $c,
+            entity => {
+            },
+        );
+    }
+    else {
+        $self->status_bad_request(
+            $c,
+            message => "Partials : there has been an error deleting data from the Stylus DB !",
+        );
+    }
+
 }
 
 =head2 partial_DELETE
@@ -66,79 +71,6 @@ sub partial_DELETE :Private {
     };
 }
 
-=head2 partial_PUT
-
-=cut
-
-sub partial_PUT :Private {
-    my ($self, $c) = @_;
-
-    # get partial data ..
-    my $data = $c->req->data || $c->req->params;
-
-    try {
-        $c->stash->{partial}->update(
-            {
-                name        => $data->{label},
-                description => $data->{description},
-                partial     => $data->{partial},
-            }
-        );
-
-        $self->status_created(
-            $c,
-            location => $c->req->uri,
-            entity  => {
-            },
-        );
-    }
-    catch {
-        $self->status_bad_request(
-            $c,
-            message => "Partials : there has been an error updating the Stylus DB !",
-        );
-    };
-}
-
-=head2 partial_new_POST
-
-=cut
-
-sub partial_new_POST :Private {
-    my ($self, $c) = @_;
-
-    # get partial data ..
-    my $data = $c->req->data || $c->req->params;
-
-    # need to get the type_id value (not sure it is possible to set / get this)
-    my $partial_type = $c->model('DB::PartialType')->search({
-        type => $data->{type}
-    })->first();
-
-    my $stylus_partial = $c->model('DB::Partial')->create(
-        {
-            type_id     => $partial_type->id,
-            name        => $data->{label},
-            description => $data->{description},
-            partial     => $data->{partial},
-            domain_id   => $c->session->{user_domain_id},
-        }
-    );
-
-    if ( $stylus_partial ) {
-        $self->status_created(
-            $c,
-            location => $c->req->uri,
-            entity  => {
-            },
-        );
-    }
-    else {
-        $self->status_bad_request(
-            $c,
-            message => "Partials : there has been an error creating a partial !",
-        );
-    }
-}
+__PACKAGE__->meta->make_immutable;
 
 1;

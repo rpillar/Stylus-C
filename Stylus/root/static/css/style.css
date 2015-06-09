@@ -2,7 +2,7 @@ body {
         width: 100%;
         margin: 0;
         background-color: #fff;
-        font-family: 'Lato', 'Open Sans','Raleway', 'Helvetica Neue', 'Helvetica';
+        font-family: 'Helvetica Neue' 'Open Sans', 'Helvetica';
         font-weight: 400;
     }
     a {
@@ -248,7 +248,7 @@ aside.navbar ul.navigator li#register a {
         height:60px;
         border-radius:7px;
         color: white;
-        font-family: Lato;
+        font-family: 'Lato';
         font-weight: 400;
         font-size: 18px;
         border: 2px solid lightblue;
@@ -361,7 +361,7 @@ aside.navbar ul.navigator li#register a {
         font-weight:400;
     }
 
-    [type="radio"] + span {  
+    [type="radio"] + span {
         display: block;
     }
 
