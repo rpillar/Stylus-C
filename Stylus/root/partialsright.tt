@@ -115,7 +115,7 @@
                     <!--<div id="container" style="margin-top:15px;margin-bottom:30px;margin-left:22px;border-left:4px solid #254960;border-right:1px solid lightgray;">
                         <pre id="view-editor"></pre>
                     </div>-->
-                    <div id="code_view_store"><xmp style="font-family:courier; font-size:14px;"></xmp></div>
+                    <div id="code_view_store"><xmp style="font-family:courier; font-size:12px;font-weight:500;line-height:normal;color:black;"></xmp></div>
                 </div>
 
             </div>
