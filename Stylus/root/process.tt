@@ -14,7 +14,7 @@
 
 			<div id='process-intro' style="width:100%;">
 				<div>
-					<p style="font-size:18px;line-height:1.5;margin-bottom:20px;color:#acacac;font-weight:400;">
+					<p style="font-size:16px;line-height:1.5;margin-bottom:20px;color:#acacac;font-weight:400;">
 						Create the 'static' webpages based on the partials / content that has been created. Choose the 'domain' from the drop-down list and 'click' on Process. The output from the 'build' process will be displayed below.
 					</p>
 				</div>
@@ -98,7 +98,27 @@
 				notifyProcess( 'Missing data', 'A Location path has not been entered - please correct', 'error' );
 			}
 			else {
-				
+				var formData = {
+					path: location
+				};
+				var update_url = '/stylus/process/check_filename/';
+				$.ajax({
+					url: update_url,
+					type: 'GET',
+					data: formData,
+					dataType: 'json',
+					success: function(data,status) {
+						if ( data.message ) {
+							notifyProcess( 'WARNING', data.message, 'error' );
+						}
+						else {
+							window.location.assign('/stylus/settings');
+						}
+					},
+					error: function(jqXHR,status,error) {
+						notifyProcess( 'ERROR', 'A problem has occurred - please try again in a few minutes or contact us.', 'error' );
+					}
+				});
 			}
 
 		});

@@ -28,7 +28,7 @@
 			</p>
 
 			<p class="p_text">
-				A <span style="border-bottom: 2px dotted lightblue;">partial</span> is intended to be used for inserting repeating items into a webpage. These may be blog posts, news items or events. It is possible to specify the number of items to insert and the order they should be displayed. This could mean that only the 'latest' news items are displayed for example.
+				A <span style="border-bottom: 2px dotted lightblue;">partial</span> is intended to be used for inserting a single item (or repeating items) into a webpage. These may be blog posts, news items or events. Where thete is more than one item 'available' it is possible to specify the number of items to insert and the order they should be displayed. This could mean that only the 'latest' news items are displayed for example.
 			</p>
 
 			<p class="p_text">
@@ -45,7 +45,7 @@
 </div>
 			</xmp></code></pre>
 
-			<p class="p_text">The associated <span style="border-bottom:1px dashed gray;">partial</span> could look something like this (see below). The '**********' is a 'marker' indicating where the data (article data) will be inserted. As such the following structure will be created.</p>
+			<p class="p_text">Where the 'partial' itself needs to be wrapped in 'html tags' in order to enforce a particular style (for example) then something like the following can be used. The '**********' is a 'marker' indicating where the data (article data) will be inserted. As such the following structure will be created.</p>
 
 			<pre style="border: 2px solid lightblue;padding-left:10px;"><code><xmp>
 <p class="this-paragraph">
@@ -73,7 +73,7 @@
 			<p class="p_text">
 				There are four parameters that can be set (currently) - <span style="border-bottom:1px solid lightblue;">partial</span>, <span style="border-bottom:1px solid lightblue;">type</span>, <span style="border-bottom:1px solid lightblue;">number</span> and <span style="border-bottom:1px solid lightblue;">order</span>.
 				<ul>
-					<li style="font-size:14px;">'partial' - (optional) the 'label' assigned to the 'content' when it was created. Where 'specific' partials or components that need to be inserted then the partial label will need to be specified ,</li>
+					<li style="font-size:14px;">'partial' - (optional) the 'label' assigned to the 'content' when it was created. Where 'specific' partials or components that need to be inserted then only the partial label will need to be specified ,</li>
 					<li style="font-size:14px;">'type' - (optional) one of the 'content' types - article / news / event etc,</li>
 					<li style="font-size:14px;">'number' - (optional) used to control the number of articles / events that are displayed in this 'partial' (if not present then all the content for the specified type will be displayed), </li>
 					<li style="font-size:14px;">'order' - (optional) used to specify the order the content is displayed - 'oldest' / 'latest' first.</li>

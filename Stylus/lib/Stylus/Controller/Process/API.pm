@@ -36,7 +36,8 @@ sub check_filename_GET :Private {
     # get filename data ..
     my $data = $c->req->data || $c->req->params;
 
-    if ( -e $data->{filename} ) {
+    $c->log->debug('Process - check_filename - location : ' . $data->{path});
+    if ( -e $data->{path} ) {
         $self->status_ok(
             $c,
             entity => {

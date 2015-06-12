@@ -14,7 +14,7 @@
 	    <div style="padding:20px;width:100%;">
 
 			<div id='content-intro' style="width:100%;">
-				<p style="font-size:18px;line-height:1.5;margin-top:20px;margin-bottom:20px;color:#acacac;font-weight:400;">Add <span style="border-bottom:1px dashed gray;">content</span> to your website
+				<p style="font-size:16px;line-height:1.5;margin-top:20px;margin-bottom:20px;color:#acacac;font-weight:400;">Add <span style="border-bottom:1px dashed gray;">content</span> to your website
 				- you can create anything that you want to add to your website. It could be a news item, an article or an event (content types can be defined on the <strong>settings</strong> page).
 				</p>
 				<p style="font-size:18px;line-height:1.5;margin-top:20px;margin-bottom:20px;color:#acacac;font-weight:400;">Existing content is listed on the right-hand side - only the first 200 characters are displayed.
@@ -27,7 +27,7 @@
 					<h4></h4>
 				</div>
 				<input id="content-type" type="hidden">
-				<span id="content-full" style="font-size:17px;line-height:1.5;margin:0;padding-top:10px;padding-bottom:20px;color:#acacac;font-weight:400;"></span>
+				<span id="content-full" style="font-size:16px;line-height:1.5;margin:0;padding-top:10px;padding-bottom:20px;color:#acacac;font-weight:400;"></span>
 				<div>
 					<hr style="margin-top:20px;margin-bottom:0;margin-left:70px;margin-right:70px;height:1px;color:lightblue;border:0 none;background-color:lightblue;" />
 				</div>

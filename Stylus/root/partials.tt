@@ -1,12 +1,4 @@
 	<style>
-		.p_text {
-			font-size:18px;
-			line-height:1.5;
-			margin-top:20px;
-			margin-bottom:20px;
-			color:#acacac;
-			font-weight:400;
-		}
 		pre {
 			font-size: 12px;
 			line-height: 1.2;
@@ -19,7 +11,7 @@
 	    <div style="padding:20px;">
 		[% IF init %]
 	    	<h2 style="font-size:24px;font-weight:700;text-transform:uppercase;" id="partial-name">[% init.name %]</h2>
-	    	<span id="partial-content" style="font-size:17px;line-height:1.5;margin:0;padding-top:10px;padding-bottom:10px;color:#acacac;font-weight:400;">[% init.partial %]</span>
+	    	<span id="partial-content" style="font-size:16px;line-height:1.5;margin:0;padding-top:10px;padding-bottom:10px;color:#acacac;font-weight:400;">[% init.partial %]</span>
 
 	    	<button class="button" id="edit" style="margin-bottom:20px;">Edit</button>
 	    	<button class="button" id="delete" style="margin-bottom:20px;" value='1'>Delete</button>
