@@ -1,15 +1,15 @@
 	<aside style="padding: 40px;margin-top:40px;color:#acacac;font-size:16px;line-height:24px;">
-		<p style="border-left:4px solid #254960;padding-left:10px;font-size:20px;line-height:1.5;margin-top:20px;margin-bottom:20px;color:#acacac;font-weight:400;">
+		<p style="border-left:4px solid #254960;padding-left:10px;font-size:18px;line-height:1.5;margin-top:20px;margin-bottom:20px;color:#acacac;font-weight:400;">
 			Register in order to access <span style="text-transform:uppercase;font-weight:500;color:#4d4d4d;border-bottom:1px solid lightblue;">stylus</span>.
 		</p>
-		<p style="padding-left:10px;font-size:18px;font-weight:400;">
+		<p style="padding-left:10px;font-size:16px;font-weight:400;">
 			<span style="font-weight:500;color:#4d4d4d;border-bottom:1px solid lightblue;">All fields are mandatory.</span>
 		</p>
-		<p style="padding-left:10px;font-size:18px;font-weight:400;">
+		<p style="padding-left:10px;font-size:16px;font-weight:400;">
 			It should be noted that the <span>domain</span> field is used during the login process and within Stylus as a means of collecting content and partials into
 			'groups' (that could be thought of as a website). It should therefore be something meaningful.
 		</p>
-		<p style="padding-left:10px;font-size:18px;font-weight:400;">
+		<p style="padding-left:10px;font-size:16px;font-weight:400;">
 			After registration you should login using your chosen username and password in order to start using Stylus.
 		</p>
 	</aside>
