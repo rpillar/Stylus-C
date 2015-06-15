@@ -112,7 +112,7 @@
 							notifyProcess( 'WARNING', data.message, 'error' );
 						}
 						else {
-							window.location.assign('/stylus/settings');
+							window.location.assign('/stylus/process');
 						}
 					},
 					error: function(jqXHR,status,error) {

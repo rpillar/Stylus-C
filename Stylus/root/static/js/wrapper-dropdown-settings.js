@@ -25,6 +25,7 @@
                 obj.index = opt.index();
                 obj.placeholder.text(obj.val);
                 obj.spanholder.attr('data-id', obj.myId);
+                checkPagesData(obj.myId);
             });
         },
         getValue : function() {
@@ -34,6 +35,9 @@
             return this.index;
         }
     }
+    var checkPagesData = function(myId) {
+        console.log('Clicked - inside fundtion. My id is : ' + myId);
+    };
     $(function() {
         var dd = new DropDown( $('#dd') );
         $(document).click(function() {

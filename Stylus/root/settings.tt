@@ -632,6 +632,7 @@
 			$('.new-pages').removeClass('input_error');
 			$('#new-pages-entry').hide(100);
 			$('#pages_name').text('Domain');
+			$('#pages_name').attr('data-id', '0');
 			$('#new-pages-path').val('');
 			$('#pages').removeAttr("checked");
 

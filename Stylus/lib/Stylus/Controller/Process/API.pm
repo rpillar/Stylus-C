@@ -45,31 +45,14 @@ sub check_filename_GET :Private {
         );
     }
     else {
-        $self->status_bad_request(
+        $self->status_ok(
             $c,
-            message => "Partials : there has been an error deleting data from the Stylus DB !",
+            entity => {
+                message => "Process : there has been an error when checking the supplied location - please check.",
+            },
         );
     }
 
-}
-
-=head2 partial_DELETE
-
-=cut
-
-sub partial_DELETE :Private {
-    my ($self, $c) = @_;
-
-    try {
-        $c->stash->{partial}->delete();
-        $self->status_accepted( $c, entity => { status => "deleted" } );
-    }
-    catch {
-        $self->status_bad_request(
-            $c,
-            message => "Partials : there has been an error deleting data from the Stylus DB !",
-        );
-    };
 }
 
 __PACKAGE__->meta->make_immutable;
