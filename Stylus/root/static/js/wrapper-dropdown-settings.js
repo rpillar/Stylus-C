@@ -36,7 +36,32 @@
         }
     }
     var checkPagesData = function(myId) {
-        console.log('Clicked - inside fundtion. My id is : ' + myId);
+        console.log('Clicked - inside function. My id is : ' + myId);
+
+        var formData = {
+            domain_id: myId
+        };
+        var pages_url = '/stylus/settings/pages_path/' + myId;
+        console.log('call url : ' + pages_url);
+        $.ajax({
+            url: pages_url,
+            type: 'GET',
+            data: formData,
+            dataType: 'json',
+            success: function(data,status) {
+                if ( data.path ) {
+                    $('#new-pages-path').val( data.path );
+                }
+                else {
+                    $('#new-pages-path').val( '' );
+                }
+            },
+            error: function(jqXHR,status,error) {
+                notifyProcess( 'ERROR', 'A problem has occurred - please try again in a few minutes or contact us.', 'error' );
+            }
+        });
+
+        // check if this id has a 'pages path' ...
     };
     $(function() {
         var dd = new DropDown( $('#dd') );

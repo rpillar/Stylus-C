@@ -215,6 +215,23 @@ sub content_type_new_PUT :Private {
     };
 }
 
+=head2 pages_path_GET
+
+=cut
+
+sub pages_path_GET :Private {
+    my ($self, $c) = @_;
+
+    my $data = $c->stash->{pagesdetail};
+
+    $self->status_ok(
+        $c,
+        entity => {
+            path => $data->path,
+        }
+    );
+}
+
 =head2 pages_path_PUT
 
 =cut
