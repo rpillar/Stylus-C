@@ -50,10 +50,15 @@
             dataType: 'json',
             success: function(data,status) {
                 if ( data.path ) {
+                    console.log('processed click ...');
+                    $('#pages-actions').removeClass('pages-delete-hide');
+                    $('div#pages-actions').addClass('pages-delete-show');
                     $('#new-pages-path').val( data.path );
                 }
                 else {
                     $('#new-pages-path').val( '' );
+                    $('#pages-actions').removeClass('pages-delete-show');
+                    $('div#pages-actions').addClass('pages-delete-hide');
                 }
             },
             error: function(jqXHR,status,error) {

@@ -4,6 +4,12 @@
 		.input .login_input {
 			min-width:65%;
 		}
+		.pages-delete-hide {
+			display:none;
+		}
+		.pages-delete-show {
+			display:normal;
+		}
 
 	</style>
 
@@ -129,6 +135,9 @@
 						</div>
 						<div class="input new-pages" style="margin-bottom:25px;">
 							<input class="login_input" id="new-pages-path" name="pages" placeholder="Pages - Location" type="text" value="" size="25">
+							<div id="pages-actions" class="pages-delete-hide" style="position:absolute;top:10px;right:30px;">
+								<a href="" class="delete-pages" data-pages=[% type.type %] data-id=[% type.id %]><img src="/static/images/trash48.svg" height="40" width="40" style="margin-left:15px;"></a>
+							</div>
 						</div>
 						<button class="button" id="new-pages-button" style="background-color:#1abc9c;border-radius:5px;width:220px;outline:0;">Update</button>
 						<button class="button action-button" id="new-pages-button-cancel" data-pages='' style="width:220px;">Cancel</button>
@@ -635,6 +644,7 @@
 			$('#pages_name').attr('data-id', '0');
 			$('#new-pages-path').val('');
 			$('#pages').removeAttr("checked");
+			$('div#pages-actions').addClass('pages-delete-hide');
 
 			// set 'default' option to 'checked'
 			$( 'input[name="build-choice"]:radio:first' ).click();
