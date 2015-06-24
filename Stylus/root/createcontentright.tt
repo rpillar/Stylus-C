@@ -3,10 +3,13 @@
     <aside style="padding: 40px;margin-top:10px;color:#acacac;font-size:16px;line-height:24px;">
         <h2 style="margin:0 0 30px 0;font-size:24px;font-weight:400;color:#000;padding-top:20px;text-transform:uppercase;"><span style="border-bottom:4px solid lightblue;">create content Info</span></h2>
         <div id="partials_info" class="mCustomScrollbar" style="max-height:800px;overflow:auto;">
-            <p class="p_text">
-                Use this page to create the <span style="border-bottom: 2px solid lightblue;">content</span>&nbsp;that you wish to display on your website.
-            </p>
-        </div>
+            <div>
+                <p class="p_text" style="margin: 0 0;">
+                    Use this page to create the <span style="border-bottom: 2px solid lightblue;">content</span>&nbsp;that you wish to display on your website.
+                </p>
+                <h2 style="margin:0 0 30px 0;font-size:24px;font-weight:400;color:#000;padding-top:20px;text-transform:uppercase;"><span style="border-bottom:4px solid lightblue;">Preview</span></h2>
+                <div id="preview" class="wmd-preview" style="padding-right:50px;"></div>
+            </div>
     </aside>
 
     <!-- customer scrollbar -->

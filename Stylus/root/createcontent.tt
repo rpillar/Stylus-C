@@ -60,15 +60,11 @@
                         <input class="login_input" id="contentDate" name="contentDate" placeholder="Date" type="text" input size="16" style="width:200px; readonly">
                     </div>
                 </div>
-                <div style="clear:both;display:block;">
+                <div style="clear:both;display:block;margin-bottom:30px;">
                     <label class="form_label" for="create">Content</label>
                     <div class="input">
                         <textarea class="login_input wmd-input" id="content" placeholder="Content" type="text" rows="12"></textarea>
                     </div>
-                </div>
-                <button class="button" id="view" style="background-color:#1abc9c;border-radius:10px;outline:0;margin-bottom:10px;width:140px;">Preview</button>
-                <div>
-                    <hr style="height:1px;color:lightgray;border:0 none;background-color:lightgray;margin-left:50px;margin-right:50px;" />
                 </div>
                 <button class="button" id="create" style="background-color:#1abc9c;border-radius:10px;outline:0;margin-top:10px;margin-bottom:20px;width:220px;">Create</button>
                 <button class="button" id="cancel" style="background-color:#367385;border-radius:10px;outline:0;margin-top:10px;margin-bottom:20px;width:220px;">Cancel</button>

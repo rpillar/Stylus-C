@@ -1,23 +1,23 @@
 	<aside style="padding: 40px;color:#acacac;font-size:16px;line-height:24px;">
 		<h2 style="margin:0 0 30px 0;font-size:24px;font-weight:400;color:#000;padding-top:20px;text-transform:uppercase;"><span style="border-bottom:4px solid lightblue;">Settings Info</span></h2>
 		<p><h3 style="color:#254960;line-height:22px;font-size:20px;font-weight:400;text-transform:uppercase;letter-spacing:1px;"><span style="border-bottom: 2px solid lightblue;">domains</span></h3></p>
-		<p style="padding-left:10px;font-size:16px;line-height:1.5;margin-top:20px;margin-bottom:20px;color:#acacac;font-weight:400;">
+		<p style="font-size:16px;line-height:1.5;margin-top:20px;margin-bottom:20px;color:#acacac;font-weight:400;">
 			Add, Edit and remove 'domains' - in this context a 'domain' is a <span style="border-bottom: 2px solid lightblue;">name</span> that will identify a set of 'layouts' / 'partials' and 'content' that will be processed to create some 'web' content.
 			It should be noted that there <span style="border-bottom: 2px solid lightblue;">must</span> always be at least one domain defined for a user and when deleting a 'domain' all the associated data will be deleted.
 		</p>
-		<p style="padding-left:10px;font-size:16px;line-height:1.5;margin-top:20px;margin-bottom:20px;color:#acacac;font-weight:400;">Each user is currently restricted to having three associated domains - this will be amended in a future release.</p>
+		<p style="font-size:16px;line-height:1.5;margin-top:20px;margin-bottom:20px;color:#acacac;font-weight:400;">Each user is currently restricted to having three associated domains - this will be amended in a future release.</p>
 		<p><h3 style="color:#254960;line-height:22px;font-size:20px;font-weight:400;text-transform:uppercase;letter-spacing:1px;"><span style="border-bottom: 2px solid lightblue;">content types</span></h3></p>
-		<p style="padding-left:10px;font-size:16px;line-height:1.5;margin-top:20px;margin-bottom:20px;color:#acacac;font-weight:400;">
+		<p style="font-size:16px;line-height:1.5;margin-top:20px;margin-bottom:20px;color:#acacac;font-weight:400;">
 			Add, Edit and remove 'content types' - these allow you to create categories for the content that you want on your website. For example you may have a webpage that displays your latest set of blog posts - all contained within the cateory 'posts'. The use of 'partials' then allows you to select the 'posts' that you want to display.
 		</p>
-		<p style="padding-left:10px;font-size:16px;line-height:1.5;margin-top:20px;margin-bottom:20px;color:#acacac;font-weight:400;">
+		<p style="font-size:16px;line-height:1.5;margin-top:20px;margin-bottom:20px;color:#acacac;font-weight:400;">
 			Take care when editing / removing 'content types' as you may have to update the partials that use them. Note - if an attempt is made to delete a content type that is used any of your <span style="border-bottom: 2px solid lightblue;">content</span> then it will be disallowed.
 		</p>
 		<p><h3 style="color:#254960;line-height:22px;font-size:20px;font-weight:400;text-transform:uppercase;letter-spacing:1px;"><span style="border-bottom: 2px solid lightblue;">pages / layouts</span></h3></p>
-		<p style="padding-left:10px;font-size:16px;line-height:1.5;margin-top:20px;margin-bottom:20px;color:#acacac;font-weight:400;">
+		<p style="font-size:16px;line-height:1.5;margin-top:20px;margin-bottom:20px;color:#acacac;font-weight:400;">
 			<span style="border-bottom: 2px solid lightblue;">Pages</span> - if you are using a set of 'html' files that have been created and are maintained externally (not within Stylus) then selecting the 'Pages' option will display a field that will allow you to enter the 'path' to the location of these files. The 'file path' has to be explicit (relative paths may not work). <span style="border-bottom: 2px solid lightblue;">Please note</span> - there is currently no validation of the 'path'.
 		</p>
-		<p style="padding-left:10px;font-size:16px;line-height:1.5;margin-top:20px;margin-bottom:20px;color:#acacac;font-weight:400;">
+		<p style="font-size:16px;line-height:1.5;margin-top:20px;margin-bottom:20px;color:#acacac;font-weight:400;">
 			<span style="border-bottom: 2px solid lightblue;">Layouts</span> - if 'Layouts' have been selected then Stylus will use the 'layouts' defined within Stylus as the basis of your webpages.
 		</p>
 	</aside>
