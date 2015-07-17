@@ -85,9 +85,6 @@
 			var domain_id   = $('#domain').data("id");
 			var location    = $('#location').val();
 
-			// reset 'active' class
-			$('.input').removeClass('input_active');
-
 			// validate ...
 			if ( domain_text == 'Domain' ) {
 				$('#dd').addClass('dropdown_error');
@@ -98,30 +95,32 @@
 				notifyProcess( 'Missing data', 'A Location path has not been entered - please correct', 'error' );
 			}
 			else {
-				var formData = {
-					path: location
-				};
-				var update_url = '/stylus/process/check_filename/';
-				$.ajax({
-					url: update_url,
-					type: 'GET',
-					data: formData,
-					dataType: 'json',
-					success: function(data,status) {
-						if ( data.message ) {
-							notifyProcess( 'WARNING', data.message, 'error' );
-						}
-						else {
-							window.location.assign('/stylus/process');
-						}
-					},
-					error: function(jqXHR,status,error) {
-						notifyProcess( 'ERROR', 'A problem has occurred - please try again in a few minutes or contact us.', 'error' );
-					}
-				});
+				$.checkFilename( location );
 			}
 
 		});
+
+   		// check file name call ...
+		function checkFilename( location ) {
+			var formData = {
+				path: location
+			};
+			var update_url = '/stylus/process/check_filename/';
+			$.ajax({
+				url: update_url,
+				type: 'GET',
+				data: formData,
+				dataType: 'json',
+				success: function(data,status) {
+					if ( data.message ) {
+						notifyProcess( 'WARNING', data.message, 'error' );
+					}
+				},
+				error: function(jqXHR,status,error) {
+					notifyProcess( 'ERROR', 'A problem has occurred - please try again in a few minutes or contact us.', 'error' );
+				}
+			});
+		}
 
 		// single function for 'notify' stuff ...
 		function notifyProcess( title, text, type ) {
@@ -136,10 +135,6 @@
 				icon: false,
 				hide: false
 			});
-		}
-
-		function checkFilePath() {
-
 		}
 
 	</script>
