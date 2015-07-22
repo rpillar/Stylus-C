@@ -68,6 +68,32 @@
 		// PNotify initialise ...
 		PNotify.prototype.options.styling = "fontawesome";
 
+		// check file name call ...
+		$.checkFilename = function ( location ) {
+			var dfd = $.Deferred();
+
+			var formData = {
+				path: location
+			};
+			var update_url = '/stylus/process/check_filename/';
+			return $.ajax({
+				url: update_url,
+				type: 'GET',
+				data: formData,
+				dataType: 'json'
+
+			}).promise();
+		}
+
+//success: function(data,status) {
+//	if ( data.message ) {
+//		notifyProcess( 'WARNING', data.message, 'error' );
+//	}
+//},
+//error: function(jqXHR,status,error) {
+//	notifyProcess( 'ERROR', 'A problem has occurred - please try again in a few minutes or contact us.', 'error' );
+//}
+
 		// process ...
 		$('#process-button').on('click', function(e) {
 			e.preventDefault();
@@ -95,32 +121,27 @@
 				notifyProcess( 'Missing data', 'A Location path has not been entered - please correct', 'error' );
 			}
 			else {
-				$.checkFilename( location );
+				// check file path supplied ...
+				var checkFN = $.checkFilename( location );
+				checkFN.done(function( data ) {
+					if ( data.message ) {
+						console.log(data.message)
+					}
+					else {
+						console.log('checkfilename - okay');
+					}
+				});
+				checkFN.fail(function() {
+					console.log('checkfilename - failed');
+				});
+
+				// get domain details
+				// collection files / layouts etc.
+				// process - log ...
+				// end
 			}
 
 		});
-
-   		// check file name call ...
-		function checkFilename( location ) {
-			var formData = {
-				path: location
-			};
-			var update_url = '/stylus/process/check_filename/';
-			$.ajax({
-				url: update_url,
-				type: 'GET',
-				data: formData,
-				dataType: 'json',
-				success: function(data,status) {
-					if ( data.message ) {
-						notifyProcess( 'WARNING', data.message, 'error' );
-					}
-				},
-				error: function(jqXHR,status,error) {
-					notifyProcess( 'ERROR', 'A problem has occurred - please try again in a few minutes or contact us.', 'error' );
-				}
-			});
-		}
 
 		// single function for 'notify' stuff ...
 		function notifyProcess( title, text, type ) {

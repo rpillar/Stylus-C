@@ -136,7 +136,7 @@
 						<div class="input new-pages" style="margin-bottom:25px;">
 							<input class="login_input" id="new-pages-path" name="pages" placeholder="Pages - Location" type="text" value="" size="25">
 							<div id="pages-actions" class="pages-delete-hide" style="position:absolute;top:10px;right:30px;">
-								<a href="" class="delete-pages" data-pages=[% type.type %] data-id=[% type.id %]><img src="/static/images/trash48.svg" height="40" width="40" style="margin-left:15px;"></a>
+								<a href="" class="delete-pages" data-pages-domain='' data-pages-path='' data-id=''><img src="/static/images/trash48.svg" height="40" width="40" style="margin-left:15px;"></a>
 							</div>
 						</div>
 						<button class="button" id="new-pages-button" style="background-color:#1abc9c;border-radius:5px;width:220px;outline:0;">Update</button>
@@ -182,6 +182,23 @@
 	</div>
 	<div style="width:100%;">
 		<button class="button" id="delete-contenttype-button" data-id=0 style="background-color:#ff3232;width:120px;border-radius:5px;outline:0;margin-top:5px;margin-bottom:20px;margin-left:10px;">Delete</button>
+		<button class="button action-button" id="cancel-contenttype-action" style="width:120px;">Cancel</button>
+	</div>
+</div>
+
+<!-- delete pages modal -->
+<div id="delete_pages_modal" title="Delete Content" style="display:none; position: fixed; top: 0; left: 0; bottom: 0; right: 0; z-index:500; height: 400px; width: 700px; margin: 230px auto; border: 4px solid #8aacb8; background-color: #fff; text-align:center; padding: 20px;">
+	<h4 style="text-transform:uppercase;margin-top: 50px;"><span style="border-bottom:3px solid lightblue;">Are you sure you want to remove the Pages location for this domain ?</span></h4>
+	<div style="margin-left:40px;width:100%;">
+		<br />
+		<h4 style="text-transform:uppercase;text-align:left"><span style="border-bottom:2px solid lightblue;">Pages - Location</span></h4>
+		<p id="delete-pages-modal-name" style="text-align:left;font-size:18px;font-weight:300;"></p>
+	</div>
+	<div style="width:60%;margin: 0 auto;">
+		<hr style="height:2px;color:lightblue;border:0 none;background-color:lightblue;" />
+	</div>
+	<div style="width:100%;">
+		<button class="button" id="delete-pages-button" data-id=0 style="background-color:#ff3232;width:120px;border-radius:5px;outline:0;margin-top:5px;margin-bottom:20px;margin-left:10px;">Delete</button>
 		<button class="button action-button" id="cancel-contenttype-action" style="width:120px;">Cancel</button>
 	</div>
 </div>
@@ -650,6 +667,24 @@
 			$( 'input[name="build-choice"]:radio:first' ).click();
 		} );
 
+		$('.delete-pages').on('click', function() {
+			e.preventDefault();
+
+			PNotify.removeAll();
+
+			var id = $(this).data('id');
+			console.log('delete pages - id : ' + id);
+			var page_location = $(this).data('contenttype');
+			$('#delete-pages-modal-name').text(page_location);
+
+			// add id to the 'delete' - native javascript
+			var delete_button = document.getElementById('delete-pages-button');
+			delete_button.setAttribute('data-id', id);
+			$('#overlay').show();
+			$('#delete_pages_modal').show();
+
+		} );
+
 		// check where I am and move up if required ...
         var moveUp = function ( pos ) {
             var height = $(window).height();
@@ -659,6 +694,18 @@
                 $("html, body").animate({ scrollTop: y + 300 }, 500);
             }
         };
+
+		// check where I am and move up if required ...
+		var moveUp = function ( pos ) {
+			var height = $(window).height();
+
+			if ( (pos + 250) > height ) {
+				var y = $(window).scrollTop();
+				$("html, body").animate({ scrollTop: y + 300 }, 500);
+			}
+		};
+
+		// ================================= //
 
 		// single function for 'notify' stuff ...
 		function notifyProcess( title, text, type ) {

@@ -25,7 +25,7 @@
                 obj.index = opt.index();
                 obj.placeholder.text(obj.val);
                 obj.spanholder.attr('data-id', obj.myId);
-                checkPagesData(obj.myId);
+                checkPagesData(obj.myId, obj.val);
             });
         },
         getValue : function() {
@@ -35,8 +35,9 @@
             return this.index;
         }
     }
-    var checkPagesData = function(myId) {
+    var checkPagesData = function(myId, domain) {
         console.log('Clicked - inside function. My id is : ' + myId);
+        console.log('Clicked - inside function. My domain is : ' + domain);
 
         var formData = {
             domain_id: myId
@@ -50,10 +51,13 @@
             dataType: 'json',
             success: function(data,status) {
                 if ( data.path ) {
-                    console.log('processed click ...');
+                    console.log('processed click :- ' + data);
                     $('#pages-actions').removeClass('pages-delete-hide');
                     $('div#pages-actions').addClass('pages-delete-show');
                     $('#new-pages-path').val( data.path );
+                    $('#pages-actions a').attr('data-id', myId);
+                    $('#pages-actions a').attr('data-pages-path', data.path)
+                    $('#pages-actions a').attr('data-pages-domain', myId)
                 }
                 else {
                     $('#new-pages-path').val( '' );
