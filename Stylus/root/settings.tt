@@ -18,7 +18,6 @@
 	    <div style="padding:0 20px;">
 
 			<!-- Domain process -->
-
 			<div style="clear:both;display:block;">
 				<label class="form_label" for="domain">Domains</label>
 				[% FOREACH domain IN domains %]
@@ -102,7 +101,7 @@
 			<button class="button" id="new-contenttype-button" style="background-color:#1abc9c;border-radius:5px;width:220px;outline:0;">New Content Type</button>
 			<button class="button action-button" id="new-contenttype-button-cancel" style="display:none;width:220px;">Cancel</button>
 
-			<!-- Layout radio-buttons etc. -->
+			<!-- Pages / Layouts -->
 			<div style="padding: 0 20px;">
 				<div style="clear:both;display:block;">
 					<hr />
@@ -136,7 +135,7 @@
 						<div class="input new-pages" style="margin-bottom:25px;">
 							<input class="login_input" id="new-pages-path" name="pages" placeholder="Pages - Location" type="text" value="" size="25">
 							<div id="pages-actions" class="pages-delete-hide" style="position:absolute;top:10px;right:30px;">
-								<a href="" class="delete-pages" data-pages-domain='' data-pages-path='' data-id=''><img src="/static/images/trash48.svg" height="40" width="40" style="margin-left:15px;"></a>
+								<a href="" class="delete-pages" data-pages-domain-id='' data-pages-domain='' data-pages-path='' data-id=''><img src="/static/images/trash48.svg" height="40" width="40" style="margin-left:15px;"></a>
 							</div>
 						</div>
 						<button class="button" id="new-pages-button" style="background-color:#1abc9c;border-radius:5px;width:220px;outline:0;">Update</button>
@@ -192,19 +191,19 @@
 	<div style="margin-left:40px;width:100%;">
 		<br />
 		<h4 style="text-transform:uppercase;text-align:left"><span style="border-bottom:2px solid lightblue;">Pages - Domain</span></h4>
-		<p id="delete-pages-modal-name" style="text-align:left;font-size:18px;font-weight:300;"></p>
+		<p id="delete-pages-modal-domain" style="text-align:left;font-size:18px;font-weight:300;"></p>
 	</div>
 	<div style="margin-left:40px;width:100%;">
 		<br />
 		<h4 style="text-transform:uppercase;text-align:left"><span style="border-bottom:2px solid lightblue;">Pages - Location</span></h4>
-		<p id="delete-pages-modal-name" style="text-align:left;font-size:18px;font-weight:300;"></p>
+		<p id="delete-pages-modal-path" style="text-align:left;font-size:18px;font-weight:300;"></p>
 	</div>
-	<div style="width:60%;margin: 50px auto;">
+	<div style="width:60%;margin: 20px auto;">
 		<hr style="height:2px;color:lightblue;border:0 none;background-color:lightblue;" />
 	</div>
 	<div style="width:100%;">
 		<button class="button" id="delete-pages-button" data-id=0 style="background-color:#ff3232;width:120px;border-radius:5px;outline:0;margin-top:5px;margin-bottom:20px;margin-left:10px;">Delete</button>
-		<button class="button action-button" id="cancel-contenttype-action" style="width:120px;">Cancel</button>
+		<button class="button action-button" id="cancel-pages-action" style="width:120px;">Cancel</button>
 	</div>
 </div>
 
@@ -592,6 +591,8 @@
 			$('#overlay').hide();
 		} );
 
+		// ** Pages / Layouts ** //
+
 		// display / process pages radio button
 		$('input[name=build-choice]').on ('click', function(e) {
 			//e.preventDefault();
@@ -678,9 +679,10 @@
 			PNotify.removeAll();
 
 			var id = $(this).data('id');
-			console.log('delete pages - id : ' + id);
-			var page_location = $(this).data('contenttype');
-			$('#delete-pages-modal-name').text(page_location);
+			var pages_domain = $(this).data('pages-domain');
+			var pages_path   = $(this).data('pages-path');
+			$('#delete-pages-modal-domain').text(pages_domain);
+			$('#delete-pages-modal-path').text(pages_path);
 
 			// add id to the 'delete' - native javascript
 			var delete_button = document.getElementById('delete-pages-button');
@@ -689,6 +691,46 @@
 			$('#delete_pages_modal').show();
 
 		} );
+
+		$('#delete-pages-button').on( 'click', function(e) {
+			e.preventDefault();
+
+			// get id from the 'delete' button - native javascript
+			var delete_button = document.getElementById('delete-pages-button');
+			var id = delete_button.getAttribute('data-id');
+
+			var formData = {
+				id: id
+			};
+			var update_url = '/stylus/settings/pages/' + id;
+			$.ajax({
+				url: update_url,
+				type: 'DELETE',
+				data: formData,
+				dataType: 'json',
+				success: function(data,status) {
+					if ( data.message ) {
+						notifyProcess( 'WARNING', data.message, 'error' );
+					}
+					else {
+						window.location.assign('/stylus/settings');
+					}
+				},
+				error: function(jqXHR,status,error) {
+					notifyProcess( 'ERROR', 'A problem has occurred - please try again in a few minutes or contact us.', 'error' );
+				}
+			});
+		});
+
+		// cancel 'delete' pages ...
+		$('#cancel-pages-action').on ('click', function(e) {
+			e.preventDefault();
+
+			$('#delete_pages_modal').hide();
+			$('#overlay').hide();
+		} );
+
+		// ================================= //
 
 		// check where I am and move up if required ...
         var moveUp = function ( pos ) {
@@ -700,15 +742,6 @@
             }
         };
 
-		// check where I am and move up if required ...
-		var moveUp = function ( pos ) {
-			var height = $(window).height();
-
-			if ( (pos + 250) > height ) {
-				var y = $(window).scrollTop();
-				$("html, body").animate({ scrollTop: y + 300 }, 500);
-			}
-		};
 
 		// ================================= //
 

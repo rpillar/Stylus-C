@@ -57,7 +57,8 @@
                     $('#new-pages-path').val( data.path );
                     $('#pages-actions a').attr('data-id', myId);
                     $('#pages-actions a').attr('data-pages-path', data.path)
-                    $('#pages-actions a').attr('data-pages-domain', myId)
+                    $('#pages-actions a').attr('data-pages-domain-id', myId)
+                    $('#pages-actions a').attr('data-pages-domain', domain)
                 }
                 else {
                     $('#new-pages-path').val( '' );
