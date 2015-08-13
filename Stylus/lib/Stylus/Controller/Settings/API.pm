@@ -215,6 +215,38 @@ sub content_type_new_PUT :Private {
     };
 }
 
+=head2 pages_path_DELETE
+
+=cut
+
+sub pages_path_DELETE :Private {
+    my ($self, $c) = @_;
+
+    $c->log->debug('Settings - in pages_path DELETE method.');
+
+    # remove data from the pages detail table
+    my $error = 0;
+    try {
+        $c->stash->{pagesdetail}->update(
+            { path => '' }
+        );
+    }
+    catch {
+        $error = 1;
+    };
+
+    if ( $error ) {
+        return
+            $self->status_bad_request(
+                $c,
+                message => "Settings : there has been an error deleting pagesdetails data from the Stylus DB !",
+            );
+    }
+    else {
+        $self->status_accepted( $c, entity => { status => "deleted" } );
+    }
+}
+
 =head2 pages_path_GET
 
 =cut

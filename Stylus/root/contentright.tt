@@ -59,7 +59,7 @@
     <script>
         $('a.content_link').on('click', function(){
             // hide 'create content' button
-            $('#create-content').hide();
+            // $('#create-content').hide();
 
             var id = $(this).find('.content_id').val();
             var retrieve_url = '/stylus/content/' + id;

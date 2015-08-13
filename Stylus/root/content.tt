@@ -40,6 +40,9 @@
 				<!-- store 'id' of current content -->
 				<input id='content_id' type='hidden' value="[% init.id %]">
 			</div>
+			<div>
+				<hr style="margin-top:10px;margin-bottom:10px;margin-left:90px;margin-right:90px;height:1px;color:lightblue;border:0 none;background-color:lightblue;" />
+			</div>
 			<div id="create-content" style="display:block;">
 				<p>
 					<button class="button" id="create_content" style="background-color:#1abc9c;width:250px;outline:0;margin-bottom:20px;">Create New Content</button>
