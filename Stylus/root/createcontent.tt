@@ -22,9 +22,9 @@
     display: normal;
     clear: both;
 }
-.fa {
+/*.fa {
     color: #1abc9c;
-}
+}*/
 
 .dropdown_error {
     border-top-color: #254960;
