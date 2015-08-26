@@ -148,6 +148,21 @@ sub user_domain_new :Chained('base_ud_new') PathPart('') Args(0) : ActionClass('
 sub content_type_DELETE :Private {
     my ($self, $c) = @_;
 
+    # check to see if any of the my 'content' uses this content type.
+    my $content_rs = $c->model('DB::Content')->search({
+        type_id => $c->stash->{contenttype}->id
+    });
+
+    if ( $content_rs->count ) {
+        return
+            $self->status_ok(
+                $c,
+                entity => {
+                    message => "Settings - Content Type : this type is currently in use. !",
+                }
+            );
+    }
+
     try {
         $c->stash->{contenttype}->delete();
         $self->status_accepted( $c, entity => { status => "deleted" } );

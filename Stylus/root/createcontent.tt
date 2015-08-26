@@ -40,8 +40,12 @@
                     <div id="dd" class="wrapper-dropdown-3" tabindex="1">
                         <span id="type_name">Content Type</span>
                         <ul class="dropdown">
-                            [% FOREACH type IN content_type %]
-                                <li><a href="#">[% type.type %]</a></li>
+                            [% IF content_type.size %]
+                                [% FOREACH type IN content_type %]
+                                    <li><a href="#">[% type.type %]</a></li>
+                                [% END %]
+                            [% ELSE %]
+                                <li><a href="#">NONE DEFINED</a></li>
                             [% END %]
                         </ul>
                     </div>
@@ -146,9 +150,9 @@
 			var title   = $('#title').val();
 			var content = $('#content').val();
 
-			if ( type == 'Content Type' ) {
+			if ( type == 'Content Type' || type == 'NONE DEFINED' ) {
 			    $('#dd').addClass('dropdown_error');
-                notifyProcess( 'ERROR', 'Content Type missing - please select.', 'error' );
+                notifyProcess( 'ERROR', 'Content Type missing - please select / add (Settings).', 'error' );
 			}
 			else if ( !content ) {
 			    $('#content').parent().addClass('input_error');

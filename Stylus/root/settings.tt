@@ -81,7 +81,7 @@
 
 				[% ELSE %]
 					<div>
-						<p style="padding-left:10px;font-size:20px;line-height:1.5;margin-top:20px;margin-bottom:20px;color:#acacac;font-weight:300;">No Content Types have been defined. Please create.</p>
+						<p style="padding-left:10px;font-size:18px;line-height:1.5;margin-top:20px;margin-bottom:20px;color:#acacac;font-weight:400;">No Content Types have been defined. Please create.</p>
 					</div>
 				[% END %]
 			</div>
