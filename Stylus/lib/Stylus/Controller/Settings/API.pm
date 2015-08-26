@@ -306,6 +306,17 @@ sub user_domain_DELETE :Private {
 
     $c->log->debug('Settings - in user_domains DELETE method.');
 
+    # check if I am trying to delete the domain that I am working with ...
+    if ( $c->stash->{domain}->id == $c->session->{user_domain_id} ) {
+        return
+            $self->status_ok(
+                $c,
+                entity => {
+                    message => "Settings : you cannot remove the domain that you are currently working with. !",
+                }
+            );
+    }
+
     # check that there is more than one domain 'left'
     my $ud_rs = $c->model('DB::UserDomain')->search({
         uid => $c->user->id

@@ -31,7 +31,7 @@
 <hr style="margin-top:10px;margin-bottom:10px;margin-left:20px;height:2px;color:lightblue;border:0 none;background-color:lightblue;">
 [% END %]
 [% IF c.user_exists AND c.session.user_domain_id %]
-<li id="contact" style="margin-top:5px;"><a href="/stylus/settings">settings</a></li>
+<li id="settings" style="margin-top:5px;"><a href="/stylus/settings">settings</a></li>
 <hr style="margin-top:10px;margin-bottom:10px;margin-left:20px;height:2px;color:lightblue;border:0 none;background-color:lightblue;">
 <li id="process" style="margin-top:5px;"><a href="/stylus/process">process</a></li>
 <hr style="margin-top:10px;margin-bottom:10px;margin-left:20px;height:2px;color:lightblue;border:0 none;background-color:lightblue;">
@@ -41,7 +41,7 @@
 [% ELSE %]
 <li id="login" class="show"><a href="/stylus/login">login</a></li>
 <hr style="margin-top:10px;margin-bottom:10px;margin-left:20px;height:2px;color:lightblue;border:0 none;background-color:lightblue;">
-<li id="register" class="show"><a href="/stylus/register">register</a></li>
+<li id="register"><a href="/stylus/register">register</a></li>
 [% END %]
 </ul>
 

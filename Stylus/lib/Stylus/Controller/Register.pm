@@ -83,7 +83,7 @@ sub process :Local {
 
     # add user to the 'users' table
     my $error = 0;
-    my ( $user_data, $domain_data, $user_domain_data );
+    my ( $user_data, $domain_data, $user_domain_data, $domain_pages_data );
     try {
         $user_data = $c->model('DB::User')->create({
             name          => $name,
@@ -97,6 +97,11 @@ sub process :Local {
         $user_domain_data = $c->model('DB::UserDomain')->create({
             uid       => $user_data->id,
             domain_id => $domain_data->id,
+        });
+        $domain_pages_data = $c->model('DB::PagesDetail')->create({
+            uid       => $user_data->id,
+            domain_id => $domain_data->id,
+            path      => '',
         });
 
     }
@@ -117,10 +122,13 @@ sub process :Local {
     $c->session->{user_domain_id} = $domain_data->id;
     $c->session->{user_domain}    = $domain_data->name;
 
+    # login registered user
+    $c->logout;
+    $c->authenticate({ username => $username, password => $password_hash, });
+
     $c->stash->{json} = {
         success => 1
     };
-
     return;
 }
 

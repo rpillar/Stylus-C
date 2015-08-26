@@ -24,8 +24,6 @@ Catalyst Controller.
 
 =cut
 
-use Data::Dumper;
-
 sub index :Path :Args(0) {
     my ( $self, $c ) = @_;
 
