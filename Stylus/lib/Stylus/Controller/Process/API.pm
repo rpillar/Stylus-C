@@ -45,14 +45,11 @@ sub check_filename_GET :Private {
         );
     }
     else {
-        $self->status_ok(
+        $self->status_bad_request(
             $c,
-            entity => {
-                message => "Process : there has been an error when checking the supplied location - please check.",
-            },
+            message => "Process : there has been an error when checking the supplied location - please check.",   
         );
     }
-
 }
 
 __PACKAGE__->meta->make_immutable;

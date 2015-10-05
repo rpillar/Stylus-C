@@ -53,7 +53,7 @@
 			<div style="clear:both;">
 				<label class="form_label" for="description">process log</label>
 				<div style="margin-bottom:25px;">
-					<textarea class="login_input" id="log" style="background:white;width:100%;padding:20px 20px;font-size:18px;font-weight:300;border:1px solid lightblue;" placeholder="Process Log" type="text" rows="10" disabled></textarea>
+					<div class="login_input" id="process-log" class="mCustomScrollbar" style="background:white;width:100%;padding:20px 20px;font-size:18px;font-weight:300;border:1px solid lightblue;padding:15px;min-height:350px; max-height:450px;overflow:auto;" ></div>
 				</div>
 			</div>
 	    </div>
@@ -62,6 +62,19 @@
 
 	<!-- use 'settings' dropdown - need to set domain_id -->
 	<script type="text/javascript" src="/static/js/wrapper-dropdown-settings.js"></script>
+
+	<!-- customer scrollbar -->
+	<script src="http://malihu.github.io/custom-scrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
+
+	<script>
+		$("#process-log").mCustomScrollbar({
+			theme:"rounded-dots-dark",
+			scrollInertia: 400,
+			scrollButtons: {
+				enable: true
+			}
+		});
+	</script>
 
 	<script>
 
@@ -113,20 +126,22 @@
 			}
 			else {
 				// check file path supplied ...
-				var checkFN = $.checkFilename( location );
 				var processError = 0;
-				checkFN.done(function( data ) {
-					if ( data.message ) {
-						notifyProcess( 'Error', data.message, 'error' );
-					}
-					else {
-						console.log('checkfilename - okay');
-					}
-				});
-				checkFN.fail(function() {
-					console.log('checkfilename - failed');
-					processError = 1;
-					notifyProcess( 'Error', 'There has been an error - please contact support.', 'error' );
+
+				var formData = {
+					path: location
+				};
+				var update_url = '/stylus/process/check_filename/';
+				$.ajax({
+					url: update_url,
+					type: 'GET',
+					data: formData,
+					dataType: 'json'
+				}).done( function( data ) {
+					$('#process-log').append('<p>Location for files found.</p> ');
+				}).fail(function( jqXHR, status, error  ) {
+					var message = $.parseJSON(jqXHR.responseText);
+					notifyProcess( 'ERROR', message.error, 'error' );
 				});
 
 				// get domain details
