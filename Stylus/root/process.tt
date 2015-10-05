@@ -114,9 +114,10 @@
 			else {
 				// check file path supplied ...
 				var checkFN = $.checkFilename( location );
+				var processError = 0;
 				checkFN.done(function( data ) {
 					if ( data.message ) {
-						console.log(data.message)
+						notifyProcess( 'Error', data.message, 'error' );
 					}
 					else {
 						console.log('checkfilename - okay');
@@ -124,6 +125,8 @@
 				});
 				checkFN.fail(function() {
 					console.log('checkfilename - failed');
+					processError = 1;
+					notifyProcess( 'Error', 'There has been an error - please contact support.', 'error' );
 				});
 
 				// get domain details
