@@ -85,15 +85,6 @@
 			}).promise();
 		}
 
-//success: function(data,status) {
-//	if ( data.message ) {
-//		notifyProcess( 'WARNING', data.message, 'error' );
-//	}
-//},
-//error: function(jqXHR,status,error) {
-//	notifyProcess( 'ERROR', 'A problem has occurred - please try again in a few minutes or contact us.', 'error' );
-//}
-
 		// process ...
 		$('#process-button').on('click', function(e) {
 			e.preventDefault();
