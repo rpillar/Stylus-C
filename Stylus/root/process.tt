@@ -139,6 +139,25 @@
 					dataType: 'json'
 				}).done( function( data ) {
 					$('#process-log').append('<p>Location for files found.</p> ');
+
+					// check settings - do I get my layouts or pages (pages_details)
+					// get selected domain id
+					var formData = {
+						domain_id: domain_id
+					};
+					var update_url = '/stylus/process/settings/';
+					$.ajax({
+						url: update_url,
+						type: 'GET',
+						data: formData,
+						dataType: 'json'
+					}).done( function( data ) {
+						$('#process-log').append('<p>Location for files found.</p> ');
+					}).fail(function( jqXHR, status, error  ) {
+						var message = $.parseJSON(jqXHR.responseText);
+						notifyProcess( 'ERROR', message.error, 'error' );
+					});
+
 				}).fail(function( jqXHR, status, error  ) {
 					var message = $.parseJSON(jqXHR.responseText);
 					notifyProcess( 'ERROR', message.error, 'error' );
