@@ -36,14 +36,11 @@
         }
     }
     var checkPagesData = function(myId, domain) {
-        console.log('Clicked - inside function. My id is : ' + myId);
-        console.log('Clicked - inside function. My domain is : ' + domain);
 
         var formData = {
             domain_id: myId
         };
         var pages_url = '/stylus/settings/pages_path/' + myId;
-        console.log('call url : ' + pages_url);
         $.ajax({
             url: pages_url,
             type: 'GET',
@@ -51,7 +48,6 @@
             dataType: 'json',
             success: function(data,status) {
                 if ( data.path ) {
-                    console.log('processed click :- ' + data);
                     $('#pages-actions').removeClass('pages-delete-hide');
                     $('div#pages-actions').addClass('pages-delete-show');
                     $('#new-pages-path').val( data.path );
