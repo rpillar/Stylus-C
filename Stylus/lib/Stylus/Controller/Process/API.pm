@@ -3,6 +3,7 @@ use Moose;
 use namespace::autoclean;
 
 use Data::Dumper;
+use File::Slurp;
 use Try::Tiny;
 
 BEGIN { extends 'Catalyst::Controller::REST' }
@@ -67,10 +68,33 @@ sub check_filename_GET :Private {
 sub settings_GET :Private {
     my ($self, $c) = @_;
 
-    # get filename data ..
+    # get domain name data ..
     my $data = $c->req->data || $c->req->params;
 
     $c->log->debug('Process - settings - domain : ' . $data->{domain});
+
+    # get settings data for this domain
+    my $settings = $c->model('DB::PagesDetail')->search(
+        { domain_id => $data->{domain} },
+    )->first;
+use DDP;
+    # if I find a 'path' then get all the file names contained here ...
+    if ( $settings->path ) {
+        # check that 'path' is a directory
+        my $status = 0;
+
+        if ( -d $settings->path ) {
+            my @files = read_dir( $settings->path );
+p @files;
+        }
+        eilse {
+            return $self->status_bad_request(
+                $c,
+                message => "Process : the Settings path location is incorrect - please check.",
+            );
+        }
+p $settings->path
+    }
 
     $self->status_ok(
         $c,

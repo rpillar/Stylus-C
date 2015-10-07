@@ -61,7 +61,7 @@
     </div>
 
 	<!-- use 'settings' dropdown - need to set domain_id -->
-	<script type="text/javascript" src="/static/js/wrapper-dropdown-settings.js"></script>
+	<script type="text/javascript" src="/static/js/wrapper-dropdown.js"></script>
 
 	<!-- customer scrollbar -->
 	<script src="http://malihu.github.io/custom-scrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
@@ -141,10 +141,11 @@
 					$('#process-log').append('<p>Location for files found.</p> ');
 
 					// check settings - do I get my layouts or pages (pages_details)
-					var domain = $('#domain').text();
-					console.log('domain selected : ' + domain);
+					var domain_dropdown = document.getElementById('domain');
+					var domainId = domain_dropdown.getAttribute('data-id');
+					console.log('domain selected : ' + domainId);
 					var formData = {
-						domain: domain
+						domain: domainId
 					};
 					var update_url = '/stylus/process/settings/';
 					$.ajax({
@@ -155,8 +156,8 @@
 					}).done( function( data ) {
 					//	$('#process-log').append('<p>Location for files found.</p> ');
 					}).fail(function( jqXHR, status, error  ) {
-					//	var message = $.parseJSON(jqXHR.responseText);
-					//	notifyProcess( 'ERROR', message.error, 'error' );
+						var message = $.parseJSON(jqXHR.responseText);
+						notifyProcess( 'ERROR', message.error, 'error' );
 					});
 
 				}).fail(function( jqXHR, status, error  ) {

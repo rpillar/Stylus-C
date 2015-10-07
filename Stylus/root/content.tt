@@ -195,12 +195,4 @@
 
 	};
 
-	// function to reset text / css for the delete button when required
-	//var set_delete_css = function() {
-	//	$('button#delete').css('width', '120px');
-	//	$('button#delete').css('background-color', '#254960');
-	//	$('button#delete').text('Delete');
-	//	$('button#delete').val('1');
-	//}
-
 	</script>
