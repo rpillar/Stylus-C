@@ -67,7 +67,7 @@
                 <div style="clear:both;display:block;margin-bottom:30px;">
                     <label class="form_label" for="create">Content</label>
                     <div class="input">
-                        <textarea class="login_input wmd-input" id="content" placeholder="Content" type="text" rows="12"></textarea>
+                        <textarea class="login_input wmd-input" id="content" placeholder="Content" type="text" rows="12 style="width:95%;""></textarea>
                     </div>
                 </div>
                 <button class="button" id="create" style="background-color:#1abc9c;border-radius:10px;outline:0;margin-top:10px;margin-bottom:20px;width:220px;">Create</button>

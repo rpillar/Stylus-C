@@ -56,7 +56,7 @@
                 <div style="clear:both;display:block;">
                     <label class="form_label" for="create">Content</label>
                     <div class="input">
-                        <textarea class="login_input wmd-input" id="content" placeholder="Content" type="text" rows="12">[% content_data.content %]</textarea>
+                        <textarea class="login_input wmd-input" id="content" placeholder="Content" type="text" rows="12" style="width:95%;">[% content_data.content %]</textarea>
                     </div>
                 </div>
                 <button class="button" id="update" style="background-color:#1abc9c;border-radius:10px;margin-bottom:20px;width:220px;outline:0;">Update</button>

@@ -77,7 +77,7 @@ sub settings_GET :Private {
     my $settings = $c->model('DB::PagesDetail')->search(
         { domain_id => $data->{domain} },
     )->first;
-use DDP;
+
     # if I find a 'path' then get all the file names contained here ...
     if ( $settings->path ) {
         # check that 'path' is a directory
@@ -85,15 +85,23 @@ use DDP;
 
         if ( -d $settings->path ) {
             my @files = read_dir( $settings->path );
-p @files;
+
+            return $self->status_ok(
+                $c,
+                entity => {
+                    files => \@files,
+                },
+            );
         }
-        eilse {
+        else {
             return $self->status_bad_request(
                 $c,
                 message => "Process : the Settings path location is incorrect - please check.",
             );
         }
-p $settings->path
+    }
+    else { # get names of 'layouts' ...
+## needs a partials resultset class - methods to retrieve by 'type' ...
     }
 
     $self->status_ok(

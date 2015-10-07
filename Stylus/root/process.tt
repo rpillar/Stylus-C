@@ -53,7 +53,7 @@
 			<div style="clear:both;">
 				<label class="form_label" for="description">process log</label>
 				<div style="margin-bottom:25px;">
-					<div class="login_input" id="process-log" class="mCustomScrollbar" style="background:white;width:100%;padding:20px 20px;font-size:18px;font-weight:300;border:1px solid lightblue;padding:15px;min-height:350px; max-height:450px;overflow:auto;" ></div>
+					<div class="login_input" id="process-log" class="mCustomScrollbar" style="background:white;width:100%;padding:20px 20px;font-size:16px;font-weight:300;border:1px solid lightblue;padding:15px;min-height:350px; max-height:450px;overflow:auto;" ></div>
 				</div>
 			</div>
 	    </div>
@@ -110,6 +110,9 @@
 			$('div.input').removeClass('input_error');
 			$('#dd').removeClass('dropdown_error');
 
+			// initialise the 'process log'
+			$('.process-log-content').remove();
+
 			// get 'id' / 'name' of domain and file location
 			var domain_text = $('#dd span').text();
 			var domain_id   = $('#domain').data("id");
@@ -138,12 +141,12 @@
 					data: formData,
 					dataType: 'json'
 				}).done( function( data ) {
-					$('#process-log').append('<p>Location for files found.</p> ');
+					$('#process-log').append('<p class="process-log-content">Location for files found.</p> ');
 
 					// check settings - do I get my layouts or pages (pages_details)
 					var domain_dropdown = document.getElementById('domain');
 					var domainId = domain_dropdown.getAttribute('data-id');
-					console.log('domain selected : ' + domainId);
+
 					var formData = {
 						domain: domainId
 					};
@@ -154,7 +157,17 @@
 						data: formData,
 						dataType: 'json'
 					}).done( function( data ) {
-					//	$('#process-log').append('<p>Location for files found.</p> ');
+
+						if ( data.files ) {
+							$('#process-log').append('<div class="process-log-content"><span style="font-weight:500;">Files to process :-</span></div>');
+							var numerOfFiles = data.files.length;
+							for ( var i = 0; i < data.files.length; i++ ) {
+								$('#process-log').append('<div class="process-log-content">' + data.files[i] + '</div>');
+							}
+						}
+						else {
+							$('#process-log').append('<div class="process-log-content"><span style="font-weight:500;">Processing Layouts :-</span></div>');
+						}
 					}).fail(function( jqXHR, status, error  ) {
 						var message = $.parseJSON(jqXHR.responseText);
 						notifyProcess( 'ERROR', message.error, 'error' );

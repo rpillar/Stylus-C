@@ -273,13 +273,11 @@
 					url: update_url,
 					type: 'PUT',
 					data: formData,
-					dataType: 'json',
-					success: function(data,status) {
-						window.location.assign('/stylus/settings');
-					},
-					error: function(jqXHR,status,error) {
-						notifyProcess( 'ERROR', 'A problem has occurred - please try again in a few minutes or contact us.', 'error' );
-					}
+					dataType: 'json'
+				}).done( function( data ) {
+					window.location.assign('/stylus/settings');
+				}).fail( function( jqXHR, status, error  ) {
+					notifyProcess( 'ERROR', 'A problem has occurred - please try again in a few minutes or contact us.', 'error' );
 				});
 			}
 		});
@@ -338,18 +336,16 @@
 				url: update_url,
 				type: 'DELETE',
 				data: formData,
-				dataType: 'json',
-				success: function(data,status) {
-					if ( data.message ) {
-						notifyProcess( 'WARNING', data.message, 'error' );
-					}
-					else {
-						window.location.assign('/stylus/settings');
-					}
-				},
-				error: function(jqXHR,status,error) {
-					notifyProcess( 'ERROR', 'A problem has occurred - please try again in a few minutes or contact us.', 'error' );
+				dataType: 'json'
+			}).done( function( data ) {
+				if ( data.message ) {
+					notifyProcess( 'WARNING', data.message, 'error' );
 				}
+				else {
+					window.location.assign('/stylus/settings');
+				}
+			}).fail( function( jqXHR, status, error  ) {
+				notifyProcess( 'ERROR', 'A problem has occurred - please try again in a few minutes or contact us.', 'error' );
 			});
 		});
 
@@ -386,18 +382,16 @@
 						url: update_url,
 						type: 'PUT',
 						data: formData,
-						dataType: 'json',
-						success: function(data,status) {
-							if ( data.message ) {
-								notifyProcess( 'WARNING', data.message, 'error' );
-							}
-							else {
-								window.location.assign('/stylus/settings');
-							}
-						},
-						error: function(jqXHR,status,error) {
-							notifyProcess( 'ERROR', 'A problem has occurred - please try again in a few minutes or contact us.', 'error' );
+						dataType: 'json'
+					}).done( function( data ) {
+						if ( data.message ) {
+							notifyProcess( 'WARNING', data.message, 'error' );
 						}
+						else {
+							window.location.assign('/stylus/settings');
+						}
+					}).fail( function( jqXHR, status, error  ) {
+							notifyProcess( 'ERROR', 'A problem has occurred - please try again in a few minutes or contact us.', 'error' );
 					});
 				}
 			}
@@ -499,18 +493,16 @@
 						url: update_url,
 						type: 'PUT',
 						data: formData,
-						dataType: 'json',
-						success: function(data,status) {
-							if ( data.message ) {
-								notifyProcess( 'WARNING', data.message, 'error' );
-							}
-							else {
-								window.location.assign('/stylus/settings');
-							}
-						},
-						error: function(jqXHR,status,error) {
-							notifyProcess( 'ERROR', 'A problem has occurred - please try again in a few minutes or contact us.', 'error' );
+						dataType: 'json'
+					}).done( function( data ) {
+						if ( data.message ) {
+							notifyProcess( 'WARNING', data.message, 'error' );
 						}
+						else {
+							window.location.assign('/stylus/settings');
+						}
+					}).fail( function( jqXHR, status, error  ) {
+						notifyProcess( 'ERROR', 'A problem has occurred - please try again in a few minutes or contact us.', 'error' );
 					});
 				}
 			}
@@ -565,18 +557,16 @@
 				url: update_url,
 				type: 'DELETE',
 				data: formData,
-				dataType: 'json',
-				success: function(data,status) {
-					if ( data.message ) {
-						notifyProcess( 'WARNING', data.message, 'error' );
-					}
-					else {
-						window.location.assign('/stylus/settings');
-					}
-				},
-				error: function(jqXHR,status,error) {
-					notifyProcess( 'ERROR', 'A problem has occurred - please try again in a few minutes or contact us.', 'error' );
+				dataType: 'json'
+			}).done( function( data ) {
+				if ( data.message ) {
+					notifyProcess( 'WARNING', data.message, 'error' );
 				}
+				else {
+					window.location.assign('/stylus/settings');
+				}
+			}).fail( function( jqXHR, status, error  ) {
+				notifyProcess( 'ERROR', 'A problem has occurred - please try again in a few minutes or contact us.', 'error' );
 			});
 		});
 
@@ -637,18 +627,16 @@
 					url: update_url,
 					type: 'PUT',
 					data: formData,
-					dataType: 'json',
-					success: function(data,status) {
-						if ( data.message ) {
-							notifyProcess( 'WARNING', data.message, 'error' );
-						}
-						else {
-							window.location.assign('/stylus/settings');
-						}
-					},
-					error: function(jqXHR,status,error) {
-						notifyProcess( 'ERROR', 'A problem has occurred - please try again in a few minutes or contact us.', 'error' );
+					dataType: 'json'
+				}).done( function( data ) {
+					if ( data.message ) {
+						notifyProcess( 'WARNING', data.message, 'error' );
 					}
+					else {
+						window.location.assign('/stylus/settings');
+					}
+				}).fail( function( jqXHR, status, error  ) {
+					notifyProcess( 'ERROR', 'A problem has occurred - please try again in a few minutes or contact us.', 'error' );
 				});
 			}
 		} );
@@ -704,19 +692,16 @@
 				url: update_url,
 				type: 'DELETE',
 				data: formData,
-				dataType: 'json',
-				success: function(data,status) {
-					if ( data.message ) {
-						notifyProcess( 'WARNING', data.message, 'error' );
-					}
-					else {
-						window.location.assign('/stylus/settings');
-					}
-				},
-				error: function(jqXHR,status,error) {
-					console.log
-					notifyProcess( 'ERROR', 'A problem has occurred - please try again in a few minutes or contact us.', 'error' );
+				dataType: 'json'
+			}).done( function( data ) {
+				if ( data.message ) {
+					notifyProcess( 'WARNING', data.message, 'error' );
 				}
+				else {
+					window.location.assign('/stylus/settings');
+				}
+			}).fail( function( jqXHR, status, error  ) {
+				notifyProcess( 'ERROR', 'A problem has occurred - please try again in a few minutes or contact us.', 'error' );
 			});
 		});
 
