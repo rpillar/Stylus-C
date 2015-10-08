@@ -150,11 +150,15 @@
     <!-- customer scrollbar -->
     <script src="http://malihu.github.io/custom-scrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
     <script>
-        $(".content").mCustomScrollbar({
+        //$(".content").mCustomScrollbar({
+        $("#partials-block").mCustomScrollbar({
             theme:"dark-2",
             scrollInertia: 800,
             scrollButtons: {
                 enable: true
+            },
+            advanced: {
+                updateOnContentResize: true
             }
         });
     </script>
@@ -180,7 +184,7 @@
                     data: formData,
                     dataType: 'json',
                     success: function(data,status) {
-
+                        console.log('Partials - open partial view.');
                         // check for logged_in state
                         if ( data.logged_in == '0') {
                             window.location.assign('/stylus/login');
@@ -208,6 +212,7 @@
 
         // 'cancel' delete modal ...
         $('#partial-close').on('click', function(e) {
+            console.log('Partials - close partial view.');
             $('#partial-view').hide(100);
             $('#code_view_store xmp').text('');
             $('#partial-right').show(100);

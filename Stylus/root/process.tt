@@ -53,7 +53,7 @@
 			<div style="clear:both;">
 				<label class="form_label" for="description">process log</label>
 				<div style="margin-bottom:25px;">
-					<div class="login_input" id="process-log" class="mCustomScrollbar" style="background:white;width:100%;padding:20px 20px;font-size:16px;font-weight:300;border:1px solid lightblue;padding:15px;min-height:350px; max-height:450px;overflow:auto;" ></div>
+					<div class="login_input" id="process-log" class="mCustomScrollbar" style="background:white;width:100%;padding:20px 20px;font-size:16px;font-weight:300;border:1px solid lightblue;padding:15px;min-height:350px; max-height:350px;overflow:auto;" ></div>
 				</div>
 			</div>
 	    </div>
