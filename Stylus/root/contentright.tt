@@ -1,5 +1,5 @@
 
-    <link rel="stylesheet" href="http://malihu.github.io/custom-scrollbar/jquery.mCustomScrollbar.min.css" />
+    <link rel="stylesheet" href="/static/css/content-display.css">
 
     <section style="display:block;float:left;position:relative;width:100%;">
         <div style="padding-right:20px;">
@@ -12,19 +12,26 @@
                     <div class="mCustomScrollbar" style="max-height:750px;overflow:auto;">
                     [% FOREACH item IN content_data %]
                         <div class="content_block">
-                            <a href="#" class="content_link">
+                            <div href="#" class="content_link">
                                 <input type="hidden" value="[% item.id %]" class="content_id">
-                                <h3 class="content_title" style="font-size:24px;font-weight:600;margin:0;padding:12px 0;">[% item.title %]</h3><span>
-                                <h4 style="margin:5px 0;font-weight:300;color:gray;">(&nbsp;[% item.type %]&nbsp;)</h4></span>
-                                <span>
+                                <h3 class="content_title" style="font-size:24px;font-weight:600;margin:0;padding:12px 0;">[% item.title %]</h3>
+                                <div style="display:inline;">
+                                    <h4 style="margin:5px 0;font-weight:300;color:gray;">(&nbsp;[% item.type %]&nbsp;)</h4>
+                                </div>
+                                <div style="display:inline;">
+                                    <div style="display:inline-block;height:40px; width:40px;">
+                                        <a href="#" class="view-link cd-btn" data-id="[% partial.id %]" data-name="[% partial.label %]" data-type="[% partial.type %]" data-description="[% partial.description %]"  title="View"><i class="fa fa-expand fa-2x" style="color:lightblue;"></i></a>
+                                    </div>
+                                </div>
+                                <div>
                                     [% IF item.content_date %]
                                     <h5 style="margin:0;padding:10px 0;">Date - [% item.content_date %]</h5>
                                     [% END %]
-                                </span>
-                                <span style="font-size:16px;line-height:1.5;margin:0;padding-top:10px;padding-bottom:10px;color:#acacac;font-weight:400;" class="content-short">
+                                </div>
+                                <div style="font-size:16px;line-height:1.5;margin:0;padding-top:10px;padding-bottom:10px;color:#acacac;font-weight:400;" class="content-short">
                                     [% item.content %]
-                                </span>
-                            </a>
+                                </div>
+                            </div>
                         </div>
                     [% END %]
                     </div>
@@ -34,17 +41,22 @@
         </div>
     </section>
 
-    <!-- customer scrollbar -->
-    <script src="http://malihu.github.io/custom-scrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
-    <script>
-        $(".content").mCustomScrollbar({
-            theme:"dark-2",
-            scrollInertia: 800,
-            scrollButtons: {
-                enable: true
-            }
-        });
-    </script>
+    <div class="cd-panel from-right">
+        <header class="cd-panel-header">
+            <h2>Test Title</h2>
+            <a href="#0" class="cd-panel-close">Close</a>
+        </header>
+
+        <div class="cd-panel-container">
+            <div class="cd-panel-content">
+                Test Content
+            </div>
+        </div>
+
+    </div>
+
+    <!-- content display -->
+    <script type="text/javascript" src="/static/js/content-display.js"></script>
 
     <!-- succinct - truncate content text (if required) -->
     <script>
