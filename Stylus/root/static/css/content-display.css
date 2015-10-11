@@ -1,4 +1,4 @@
-/* -------------------------------- 
+/* --------------------------------
 
 Primary style
 
@@ -25,9 +25,9 @@ a {
   text-decoration: none;
 }
 
-/* -------------------------------- 
+/* --------------------------------
 
-Main components 
+Main components
 
 -------------------------------- */
 html, body {
@@ -47,7 +47,7 @@ html, body {
   position: relative;
   display: inline-block;
   padding: 1em 2em;
-  background-color: #89ba2c;
+  /*background-color: #89ba2c;*/
   color: #ffffff;
   font-weight: bold;
   -webkit-font-smoothing: antialiased;
@@ -294,7 +294,8 @@ html, body {
   width: 90%;
   height: 100%;
   top: 0;
-  background: #dbe2e9;
+  /*background: #dbe2e9;*/
+  background: #fff;
   z-index: 100;
   -webkit-transition-property: -webkit-transform;
   -moz-transition-property: -moz-transform;

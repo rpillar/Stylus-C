@@ -21,31 +21,12 @@
 				Select one to view - then / edit / delete / set the 'publish' flag as appropriate.
 				</p>
 			</div>
-			<div id='full-content' style="display:none;width:100%;">
-				<h2 style="font-size:24px;font-weight:700;text-transform:uppercase;" id="content-title"></h2>
-				<div id="content-date" class="contentdate-hide">
-					<h4></h4>
-				</div>
-				<input id="content-type" type="hidden">
-				<span id="content-full" style="font-size:16px;line-height:1.5;margin:0;padding-top:10px;padding-bottom:20px;color:#acacac;font-weight:400;"></span>
-				<div>
-					<hr style="margin-top:20px;margin-bottom:0;margin-left:70px;margin-right:70px;height:1px;color:lightblue;border:0 none;background-color:lightblue;" />
-				</div>
-				<!-- set initial value of 'publish' / 'hide' button -->
-				<div>
-					<button class="button" id="publish" style="background-color:#367385;outline:0;margin-bottom:20px;"></button>
-					<button class="button" id="edit" style="background-color:#51acc7;outline:0;margin-bottom:20px;">Edit</button>
-					<button class="button" id="delete" style="background-color:#ff3232;outline:0;margin-bottom:20px;">Delete</button>
-				</div>
-				<!-- store 'id' of current content -->
-				<input id='content_id' type='hidden' value="[% init.id %]">
-			</div>
 			<div>
 				<hr style="margin-top:10px;margin-bottom:10px;margin-left:90px;margin-right:90px;height:1px;color:lightblue;border:0 none;background-color:lightblue;" />
 			</div>
 			<div id="create-content" style="display:block;">
 				<p>
-					<button class="button" id="create_content" style="background-color:#1abc9c;width:250px;outline:0;margin-bottom:20px;">Create New Content</button>
+					<button class="button" id="create_content" style="border: 4px solid #1abc9c;width:250px;outline:0;margin-bottom:20px;">Create New Content</button>
 				</p>
 			</div>
 
@@ -58,141 +39,19 @@
 
 <!-- delete content modal -->
 <div id="delete_modal" title="Delete Content" style="display:none; position: fixed; top: 0; left: 0; bottom: 0; right: 0; z-index:500; height: 450px; width: 700px; margin: 230px auto; border: 4px solid  #8aacb8; background-color: #fff; text-align:center; padding: 20px;">
-	<h4 style="text-transform:uppercase;margin-top: 50px;"><span style="border-bottom:3px solid lightblue;">Are you sure you want to remove this Content ?</span></h4>
+	<h4 style="text-transform:uppercase;margin-top: 50px;color:gray;"><span style="border-bottom:3px solid lightblue;">Are you sure you want to remove this Content ?</span></h4>
 	<div style="margin-left:40px;width:100%;">
 		<br />
-		<h4 style="text-transform:uppercase;text-align:left"><span style="border-bottom:2px solid lightblue;">Type</span></h4>
-		<p id="delete-modal-type" style="text-align:left;font-size:18px;font-weight:300;"></p>
-		<h4 style="text-transform:uppercase;text-align:left;"><span style="border-bottom:2px solid lightblue;">Title</span></h4>
-		<p id="delete-modal-title" style="text-align:left;font-size:18px;font-weight:300;"></p>
+		<h4 style="text-transform:uppercase;text-align:left"><span style="border-bottom:2px solid lightblue;color:gray;">Type</span></h4>
+		<p id="delete-modal-type" style="text-align:left;font-size:18px;font-weight:300;color:gray"></p>
+		<h4 style="text-transform:uppercase;text-align:left;"><span style="border-bottom:2px solid lightblue;color:gray;">Title</span></h4>
+		<p id="delete-modal-title" style="text-align:left;font-size:18px;font-weight:300;color:gray;"></p>
 	</div>
 	<div style="width:60%;margin: 0 auto;">
 		<hr style="height:2px;color:lightblue;border:0 none;background-color:lightblue;" />
 	</div>
 	<div style="width:100%;">
-		<button class="button" id="delete_content" style="background-color:#ff3232;width:120px;border-radius:10px;outline:0;margin-top:5px;margin-bottom:20px;margin-left:10px;">Delete</button>
-		<button class="button action-button" id="cancel-action" style="width:120px;">Cancel</button>
+		<button class="button" id="delete_content" style="border: 4px solid #ff3232;width:120px;border-radius:10px;outline:0;margin-top:5px;margin-bottom:20px;margin-left:10px;">Delete</button>
+		<button class="button" id="cancel-action" style="border: 4px solid #367385;border-radius:10px;outline:0;margin-top:10px;margin-bottom:20px;width:120px;">Cancel</button>
 	</div>
 </div>
-
-	<script>
-	$('#delete').on ('click', function(e) {
-		e.preventDefault();
-
-		var id = $('input#content_id').val();
-		$('#delete-modal-type').text( $('#content-type').val() );
-		$('#delete-modal-title').text( $('#content-title').text() );
-		$('#overlay').show();
-		$('#delete_modal').show();
-	} );
-
-	// 'delete' content ...
-	$('#delete_content').on('click', function(e) {
-		var id = $('input#content_id').val();
-		delete_content( id );
-	});
-
-	// 'cancel' delete modal ...
-	$('#cancel-action').on('click', function(e) {
-		$('#delete_modal').hide();
-		$('#overlay').hide();
-	});
-	</script>
-
-	<script>
-	// process a 'button' click
-	$('button#publish').on( 'click', function() {
-		// (re)set delete button css / text
-		$('button#delete').val(1);
-
-		//check current value
-		var pub_val = $('button#publish').text();
-		var id = $('input#content_id').val();
-		if ( pub_val == 'Publish' ) {
-			set_publish(id,'y');
-		}
-		if ( pub_val == 'Hide' ) {
-			set_publish(id,'n');
-		}
-	});
-	$('button#edit').on( 'click', function() {
-		// (re)set delete button css / text
-		$('button#delete').val(1);
-
-		var id       = $('input#content_id').val();
-		var edit_url = '/stylus/content/' + id + '/edit';
-		window.location.assign(edit_url);
-
-	});
-
-	$('button#create_content').on( 'click', function() {
-		var create_url = '/stylus/content/create'
-		window.location.assign(create_url);
-	});
-
-	// ===== functions ===== //
-
-	// function to delete content
-	var delete_content = function(id) {
-		var formData = {
-			id: id
-		};
-		var delete_url = '/stylus/content/' + id;
-		$.ajax({
-			url: delete_url,
-			type: 'DELETE',
-			data: formData,
-			dataType: 'json',
-			success: function(data,status) {
-
-				// check for logged_in state
-				if ( data.logged_in == '0') {
-					window.location.assign('/stylus/login');
-				}
-				else {
-					window.location.assign('/stylus/content');
-				}
-			},
-			error: function(jqXHR,status,error) {
-				console.log('Content - an error has occurred on the ajax call - retrieve : status - ' + status + ' / ' + error);
-				window.location.assign('/stylus');
-			}
-		});
-
-	};
-
-	// function to update the publish / hide flag for content
-	var set_publish = function(id,update) {
-		var formData = {
-			flag : update
-		};
-		var publish_url = '/stylus/content/' + id + '/publish';
-		$.ajax({
-			url: publish_url,
-			type: 'PUT',
-			data: formData,
-			dataType: 'json',
-			success: function(data,status) {
-
-				// check for logged_in state
-				if ( data.logged_in == '0') {
-					window.location.assign('/stylus/login');
-				}
-				else {
-					if ( update == 'n' ) {
-						$('button#publish').text('Publish');
-					}
-					else {
-						$('button#publish').text('Hide');
-					}
-				}
-			},
-			error: function(jqXHR,status,error) {
-				console.log('Content - an error has occurred on the ajax call - retrieve : status - ' + status + ' / ' + error);
-				window.location.assign('/stylus');
-			}
-		});
-
-	};
-
-	</script>
