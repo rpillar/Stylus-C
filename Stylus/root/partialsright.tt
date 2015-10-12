@@ -42,6 +42,10 @@
             background-color: white;
         }
 
+        .glyphicon {
+            font-size: 30px;
+        }
+
     </style>
 
     <section id="partial-right" style="display:block;float:left;position:relative;width:100%;">
@@ -60,13 +64,9 @@
                                 <p style="font-size:16px;line-height:1.5;margin:0;padding-top:10px;padding-bottom:10px;color:#acacac;font-weight:400;">[% partial.description %]</p>
                                 <div style="position:absolute;top:20px;right:30px;">
                                     <div style="display:inline-block;height:40px; width:40px;">
-                                        <a href="#" class="view-link" data-id="[% partial.id %]" data-name="[% partial.label %]" data-type="[% partial.type %]" data-description="[% partial.description %]"  title="View"><img class="svg" src="/static/images/view.png"></a>
-                                    </div>
-                                    <div style="display:inline-block;height:40px; width:40px;margin-left:8px;">
-    								    <a href="#" class="edit-link" id="[% partial.id %]" title="Edit"><img class="svg" src="/static/images/pencil8.svg"></a>
-                                    </div>
-                                    <div style="display:inline-block;height:40px; width:40px;margin-left:5px;">
-    								    <a href="#" class="delete-link" title="Delete" data-id="[% partial.id %]" data-type="[% partial.type %]" data-description="[% partial.description %]"><img class="svg" src="/static/images/trash48.svg"></a>
+                                        <span style="margin-left:30px;">
+                                            <a href="#" class="view-link cd-btn" data-id="[% item.id %]" data-name="[% partial.label %]" data-type="[% partial.type %]" data-description="[% partial.description %]"  title="View"><span class="glyphicon glyphicon-zoom-in" aria-hidden="true"></span></a>
+                                        </span>
                                     </div>
     							</div>
                             </div>

@@ -32,8 +32,8 @@
 				</div>
 				[% END %]
 				<div id="domain-update-actions" style="display:none;">
-					<button class="button" id="update-domain-button" data-id=0 style="background-color:#1abc9c;border-radius:5px;margin-bottom:20px;width:160px;outline:0;">Update</button>
-					<button class="button action-button" id="update-domain-button-cancel" data-id=0 style="width:160px;">Cancel</button>
+					<button class="button" id="update-domain-button" data-id=0 style="border: 4px solid #1abc9c;border-radius:5px;margin-bottom:20px;width:160px;outline:0;">Update</button>
+					<button class="button" id="update-domain-button-cancel" data-id=0 style="border: 4px solid #367385;border-radius:10px;outline:0;margin-top:10px;margin-bottom:20px;width:160px;">Cancel</button>
 				</div>
 			</div>
 			<div style="display:none;">Icon made by <a href="http://icon-works.com" title="Icon Works">Icon Works</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> is licensed under <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0">CC BY 3.0</a></div>
@@ -49,8 +49,8 @@
 				</div>
 			</div>
 			[% IF domains.size < 3 %]
-				<button class="button" id="new-domain-button" style="background-color:#1abc9c;border-radius:5px;width:220px;outline:0;">New Domain</button>
-				<button class="button action-button" id="new-domain-button-cancel" data-domain='' style="display:none;width:220px;">Cancel</button>
+				<button class="button" id="new-domain-button" style="border: 4px solid #1abc9c;border-radius:5px;width:220px;outline:0;">New Domain</button>
+				<button class="button" id="new-domain-button-cancel" data-domain='' style="display:none; border: 4px solid #367385;border-radius:10px;outline:0;margin-top:10px;margin-bottom:20px;width:220px;">Cancel</button>
 			[% END %]
 
 	    </div>
@@ -75,8 +75,8 @@
 					[% END %]
 
 					<div id="contenttype-update-actions" style="display:none;">
-						<button class="button" id="update-contenttype-button" data-id=0 style="background-color:#1abc9c;border-radius:5px;margin-bottom:20px;width:160px;outline:0;">Update</button>
-						<button class="button action-button" id="update-contenttype-button-cancel" data-id=0 style="width:160px;">Cancel</button>
+						<button class="button" id="update-contenttype-button" data-id=0 style="border: 4px solid #1abc9c;border-radius:5px;margin-bottom:20px;width:160px;outline:0;">Update</button>
+						<button class="button" id="update-contenttype-button-cancel" data-id=0 style="border: 4px solid #367385;border-radius:10px;outline:0;margin-top:10px;margin-bottom:20px;width:160px;">Cancel</button>
 					</div>
 
 				[% ELSE %]
@@ -98,8 +98,8 @@
 					<input class="login_input" id="new-contenttype" name="type" placeholder="Content type" type="text" value="" size="25">
 				</div>
 			</div>
-			<button class="button" id="new-contenttype-button" style="background-color:#1abc9c;border-radius:5px;width:220px;outline:0;">New Content Type</button>
-			<button class="button action-button" id="new-contenttype-button-cancel" style="display:none;width:220px;">Cancel</button>
+			<button class="button" id="new-contenttype-button" style="border: 4px solid #1abc9c;border-radius:5px;width:220px;outline:0;">New Content Type</button>
+			<button class="button" id="new-contenttype-button-cancel" style="display:none; border: 4px solid #367385;border-radius:10px;outline:0;margin-top:10px;margin-bottom:20px;width:220px;">Cancel</button>
 
 			<!-- Pages / Layouts -->
 			<div style="padding: 0 20px;">
@@ -138,8 +138,8 @@
 								<a href="" class="delete-pages" data-pages-domain-id='' data-pages-domain='' data-pages-path='' data-id=''><img src="/static/images/trash48.svg" height="40" width="40" style="margin-left:15px;"></a>
 							</div>
 						</div>
-						<button class="button" id="new-pages-button" style="background-color:#1abc9c;border-radius:5px;width:220px;outline:0;">Update</button>
-						<button class="button action-button" id="new-pages-button-cancel" data-pages='' style="width:220px;">Cancel</button>
+						<button class="button" id="new-pages-button" style="border: 4px solid #1abc9c;border-radius:5px;width:220px;outline:0;">Update</button>
+						<button class="button" id="new-pages-button-cancel" data-pages='' style="border: 4px solid #367385;border-radius:10px;outline:0;margin-top:10px;margin-bottom:20px;width:220px;">Cancel</button>
 					</div>
 				</div>
 			</div>
@@ -163,8 +163,8 @@
 		<hr style="height:2px;color:lightblue;border:0 none;background-color:lightblue;" />
 	</div>
 	<div style="width:100%;">
-		<button class="button" id="delete-domain-button" data-id=0 style="background-color:#ff3232;width:120px;border-radius:5px;outline:0;margin-top:5px;margin-bottom:20px;margin-left:10px;">Delete</button>
-		<button class="button action-button" id="cancel-domain-action" style="width:120px;">Cancel</button>
+		<button class="button" id="delete-domain-button" data-id=0 style="border: 4px solid #ff3232;width:120px;border-radius:5px;outline:0;margin-top:5px;margin-bottom:20px;margin-left:10px;">Delete</button>
+		<button class="button" id="cancel-domain-action" style="border: 4px solid #367385;border-radius:10px;outline:0;margin-top:10px;margin-bottom:20px;width:120px;">Cancel</button>
 	</div>
 </div>
 
@@ -180,8 +180,8 @@
 		<hr style="height:2px;color:lightblue;border:0 none;background-color:lightblue;" />
 	</div>
 	<div style="width:100%;">
-		<button class="button" id="delete-contenttype-button" data-id=0 style="background-color:#ff3232;width:120px;border-radius:5px;outline:0;margin-top:5px;margin-bottom:20px;margin-left:10px;">Delete</button>
-		<button class="button action-button" id="cancel-contenttype-action" style="width:120px;">Cancel</button>
+		<button class="button" id="delete-contenttype-button" data-id=0 style="border: 4px solid #ff3232;width:120px;border-radius:5px;outline:0;margin-top:5px;margin-bottom:20px;margin-left:10px;">Delete</button>
+		<button class="button" id="cancel-contenttype-action" style="border: 4px solid #367385;border-radius:10px;outline:0;margin-top:10px;margin-bottom:20px;width:120px;">Cancel</button>
 	</div>
 </div>
 
@@ -199,8 +199,8 @@
 		<hr style="height:2px;color:lightblue;border:0 none;background-color:lightblue;" />
 	</div>
 	<div style="width:100%;">
-		<button class="button" id="delete-pages-button" data-id=0 style="background-color:#ff3232;width:120px;border-radius:5px;outline:0;margin-top:5px;margin-bottom:20px;margin-left:10px;">Delete</button>
-		<button class="button action-button" id="cancel-pages-action" style="width:120px;">Cancel</button>
+		<button class="button" id="delete-pages-button" data-id=0 style="border: 4px solid #ff3232;width:120px;border-radius:5px;outline:0;margin-top:5px;margin-bottom:20px;margin-left:10px;">Delete</button>
+		<button class="button" id="cancel-pages-action" style="border: 4px solid #367385;border-radius:10px;outline:0;margin-top:10px;margin-bottom:20px;width:220px;">Cancel</button>
 	</div>
 </div>
 

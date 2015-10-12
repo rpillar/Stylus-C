@@ -9,7 +9,8 @@
 <!-- style stuff -->
 <link rel="stylesheet" type="text/css" href="/static/css/font-awesome/css/font-awesome.min.css" />
 
-<link rel="stylesheet" type="text/css" href="/static/css/bootstrap.css" />
+<!--<link rel="stylesheet" type="text/css" href="/static/css/bootstrap.css" />-->
+<link rel="stylesheet" type="text/css" href="/static/css/bootstrap/css/bootstrap.css" />
 <link media="all" type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Lato:300,400,900">
 <link rel="stylesheet" type="text/css" href="/static/css/pnotify.custom.min.css" />
 <link rel="stylesheet" type="text/css" href="/static/css/style.css" />

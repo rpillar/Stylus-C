@@ -9,6 +9,9 @@
             color:#acacac;
             font-weight:400;
         }
+        .glyphicon {
+            font-size: 30px;
+        }
     </style>
 
     <section style="display:block;float:left;position:relative;width:100%;">
@@ -22,15 +25,15 @@
                     <div class="mCustomScrollbar" style="max-height:750px;overflow:auto;">
                     [% FOREACH item IN content_data %]
                         <div class="content_block">
-                            <div href="#" class="content_link">
-                                <!--<input type="hidden" value="[% item.id %]" class="content_id">-->
-                                <h3 class="content_title" style="font-size:24px;font-weight:600;margin:0;padding:12px 0;">[% item.title %]</h3>
-                                <div style="display:inline;">
-                                    <h4 style="margin:5px 0;font-weight:300;color:gray;">(&nbsp;[% item.type %]&nbsp;)
+                            <div style="position:relative;">
+                                <h3 class="content_title" style="font-size:24px;font-weight:600;margin:0;padding:12px 0;display:inline;">[% item.title %]</h3>
+                                <p style="font-size:16px;line-height:1.5;margin:0;padding-top:10px;padding-bottom:10px;color:#acacac;font-weight:400;">(&nbsp;[% item.type %]&nbsp;)</p>
+                                <div style="position:absolute;top:0px;right:30px;">
+                                    <div style="display:inline-block;height:30px; width:30px;">
                                         <span style="margin-left:30px;">
-                                            <a href="#" class="view-link cd-btn" data-id="[% item.id %]" data-name="[% partial.label %]" data-type="[% partial.type %]" data-description="[% partial.description %]"  title="View"><i class="fa fa-expand" style="color:lightblue;"></i></a>
+                                            <a href="#" class="view-link cd-btn" data-id="[% item.id %]" title="View"><span class="glyphicon glyphicon-zoom-in" aria-hidden="true"></span></a>
                                         </span>
-                                    </h4>
+                                    </div>
                                 </div>
                                 <div>
                                     [% IF item.content_date %]
@@ -181,6 +184,8 @@
     $('#delete').on ('click', function(e) {
         e.preventDefault();
 
+        $('.cd-panel-close').hide();
+
         var id = $('input#content_id').val();
         $('#delete-modal-type').text( $('#content-type').val() );
         $('#delete-modal-title').text( $('#content-title').text() );
@@ -198,6 +203,8 @@
     $('#cancel-action').on('click', function(e) {
         $('#delete_modal').hide();
         $('#overlay').hide();
+
+        $('.cd-panel-close').show();
     });
     </script>
 

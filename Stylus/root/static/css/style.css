@@ -175,6 +175,7 @@ body {
         outline: 0;
     }
     .content_block {
+        clear: both;
         padding: 15px 5px;
         border-bottom: 1px solid lightgray;
         width:100%;

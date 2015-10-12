@@ -77,8 +77,8 @@
 						<pre id="editor"></pre>
 					</div>
 				</div>
-				<button class="button" id="create" style="background-color:#1abc9c;border-radius:10px;margin-bottom:20px;width:220px;">Create</button>
-				<button class="button action-button" id="cancel">Cancel</button>
+				<button class="button" id="create" style="border: 4px solid #1abc9c;border-radius:10px;margin-bottom:20px;width:220px;">Create</button>
+				<button class="button" id="cancel" style="border: 4px solid #367385;border-radius:10px;outline:0;margin-top:10px;margin-bottom:20px;width:220px;">Cancel</button>
 	    	</form>
 		</div>
     </div>
