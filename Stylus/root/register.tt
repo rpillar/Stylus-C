@@ -25,7 +25,7 @@
 				<div class="input" style="margin-bottom:25px;">
 					<input class="login_input" id="domain" placeholder="Domain" type="text" autocomplete="off">
 				</div>
-	    		<button href="#" class="button" id="register" style="background-color:#367385;border-radius:10px;outline:0;">Register</button>
+	    		<button href="#" class="button" id="register" style="border: 4px solid #367385;border-radius:10px;outline:0;">Register</button>
 	    	</form>
 	    </div>
     </div>
