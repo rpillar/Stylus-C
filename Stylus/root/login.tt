@@ -20,14 +20,14 @@
 		    	<div class="input">
 		    		<input class="login_input" id="password" name="password" placeholder="Password" type="password">
 		    	</div>
-		    	<button id="login-1" class="button" style="border: 4px solid #367385;border-radius:10px;outline:0;">Log in</button>
+		    	<button id="login-1" class="button" style="border: 4px solid #1abc9c;border-radius:10px;outline:0;">Log in</button>
 		    </form>
 			<form id="login-2" class="login-hidden">
 				<label class="form_label" for="domain">Domain</label>
 				<div class="input" style="margin-bottom:25px;">
 					<input class="login_input" id="domain" name="domain" placeholder="Domain" type="text" autocomplete="off">
 				</div>
-				<button id="login-2" class="button" style="border: 4px solid #367385;border-radius:10px;outline:0;">Continue</button>
+				<button id="login-2" class="button" style="border: 4px solid #1abc9c;border-radius:10px;outline:0;">Continue</button>
 			</form>
 	    </div>
     </div>
