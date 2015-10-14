@@ -164,9 +164,10 @@
 							for ( var i = 0; i < data.files.length; i++ ) {
 								$('#process-log').append('<div class="process-log-content">' + data.files[i] + '</div>');
 							}
+							$('#process-log').append('<br /><div class="process-log-content"><span style="font-weight:500;">Processing files.-</span></div>');
 						}
 						else {
-							$('#process-log').append('<div class="process-log-content"><span style="font-weight:500;">Processing Layouts :-</span></div>');
+							$('#process-log').append('<br /><div class="process-log-content"><span style="font-weight:500;">Processing Layouts :-</span></div>');
 						}
 					}).fail(function( jqXHR, status, error  ) {
 						var message = $.parseJSON(jqXHR.responseText);

@@ -101,7 +101,7 @@
                         <hr style="height:2px;color:lightblue;border:0 none;background-color:lightblue;" />
                     </div>
                     <div style="margin-left:40px;clear:both;">
-                        <h4 style="text-transform:uppercase;text-align:left;margin-bottom:10px;"><span style="border-bottom:2px solid lightblue;">Partial / Layout code</span></h4>
+                        <h4 style="text-transform:uppercase;text-align:left;margin-bottom:10px;color:gray;"><span style="border-bottom:2px solid lightblue;">Partial / Layout code</span></h4>
                         <div id="code_view_store"><xmp style="font-family:courier; font-size:13px;font-weight:500;line-height:normal;color:black;"></xmp></div>
                     </div>
                     <div style="width:60%;margin: 0 auto;">

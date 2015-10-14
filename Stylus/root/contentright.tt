@@ -60,8 +60,8 @@
             <div class="cd-panel-content">
                 <a href="#0" class="cd-panel-close">Close</a>
                 <div id='full-content' style="display:none;width:100%;">
-    				<h2 style="font-size:24px;font-weight:700;text-transform:uppercase;" id="content-title"></h2>
-    				<div id="content-date" class="contentdate-hide">
+    				<h2 style="font-size:24px;font-weight:700;text-transform:uppercase;color:gray;" id="content-title"></h2>
+    				<div id="content-date" class="contentdate-hide" style="color:gray;">
     					<h4></h4>
     				</div>
     				<input id="content-type" type="hidden">

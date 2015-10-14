@@ -3,7 +3,7 @@
 Primary style
 
 -------------------------------- */
-*, *::after, *::before {
+/**, *::after, *::before {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -20,10 +20,10 @@ body {
   background: white;
 }
 
-a {
+a {*/
   /*color: #89ba2c;*/
-  text-decoration: none;
-}
+  /*text-decoration: none;
+}*/
 
 /* --------------------------------
 
