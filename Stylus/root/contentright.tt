@@ -24,7 +24,7 @@
                     [% ELSE %]
                     <div class="mCustomScrollbar" style="max-height:750px;overflow:auto;">
                     [% FOREACH item IN content_data %]
-                        <div class="content_block">
+                        <div class="content_block block-[%item.id %]">
                             <div style="position:relative;">
                                 <h3 class="content_title" style="font-size:24px;font-weight:600;margin:0;padding:12px 0;display:inline;">[% item.title %]</h3>
                                 <p style="font-size:16px;line-height:1.5;margin:0;padding-top:10px;padding-bottom:10px;color:#acacac;font-weight:400;">(&nbsp;[% item.type %]&nbsp;)</p>
@@ -80,6 +80,28 @@
         </div>
 
     </div>
+
+<!-- modal overlay -->
+<div id="overlay" style="display:none;z-index:200;"></div>
+
+<!-- delete content modal -->
+<div id="delete_modal" title="Delete Content" style="display:none; position: fixed; top: 0; left: 0; bottom: 0; right: 0; z-index:500; height: 450px; width: 700px; margin: 230px auto; border: 4px solid  #8aacb8; background-color: #fff; text-align:center; padding: 20px;">
+    <h4 style="text-transform:uppercase;margin-top: 50px;"><span style="border-bottom:3px solid lightblue;">Are you sure you want to remove this Content ?</span></h4>
+    <div style="margin-left:40px;width:100%;">
+        <br />
+        <h4 style="text-transform:uppercase;text-align:left"><span style="border-bottom:2px solid lightblue;">Type</span></h4>
+        <p id="delete-modal-type" style="text-align:left;font-size:18px;font-weight:300;color:gray"></p>
+        <h4 style="text-transform:uppercase;text-align:left;"><span style="border-bottom:2px solid lightblue;">Title</span></h4>
+        <p id="delete-modal-title" style="text-align:left;font-size:18px;font-weight:300;color:gray;"></p>
+    </div>
+    <div style="width:60%;margin: 0 auto;">
+        <hr style="height:2px;color:lightblue;border:0 none;background-color:lightblue;" />
+    </div>
+    <div style="width:100%;">
+        <button class="button" id="delete_content" style="border: 4px solid #ff3232;width:120px;border-radius:10px;outline:0;margin-top:5px;margin-bottom:20px;margin-left:10px;">Delete</button>
+        <button class="button" id="cancel-action" style="border: 4px solid #367385;border-radius:10px;outline:0;margin-top:10px;margin-bottom:20px;width:120px;">Cancel</button>
+    </div>
+</div>
 
     <!-- content display -->
     <script type="text/javascript" src="/static/js/content-display.js"></script>
@@ -178,6 +200,9 @@
     </script>
 
     <script>
+    // delete content process ...
+
+    // 'delete' button from slide-out
     $('#delete').on ('click', function(e) {
         e.preventDefault();
 
@@ -196,7 +221,7 @@
         delete_content( id );
     });
 
-    // 'cancel' delete modal ...
+    // 'cancel' delete ...
     $('#cancel-action').on('click', function(e) {
         $('#delete_modal').hide();
         $('#overlay').hide();
@@ -221,6 +246,7 @@
             set_publish(id,'n');
         }
     });
+
     $('button#edit').on( 'click', function() {
         // (re)set delete button css / text
         $('button#delete').val(1);
@@ -235,7 +261,9 @@
         var create_url = '/stylus/content/create'
         window.location.assign(create_url);
     });
+    </script>
 
+    <script>
     // ===== functions ===== //
 
     // function to delete content
@@ -256,7 +284,11 @@
                     window.location.assign('/stylus/login');
                 }
                 else {
-                    window.location.assign('/stylus/content');
+                    $('#overlay').hide();
+                    $('#delete_modal').hide();
+                    $('.cd-panel-close').show();
+                    $('.cd-panel').removeClass('is-visible');
+                    $('.block-' + id).remove();
                 }
             },
             error: function(jqXHR,status,error) {

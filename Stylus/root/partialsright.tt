@@ -59,7 +59,7 @@
                     [% ELSE %]
                     <div class="mCustomScrollbar" style="max-height:750px;overflow:auto;">
                     [% FOREACH partial IN partials %]
-                        <div class="partial_block [% 'p' _ partial.id %]">
+                        <div class="partial_block [% 'p' _ partial.id %] [% 'block-' _ partial.id %]">
                             <div style="position:relative;">
                                 <h3 class="partial_name" style="font-size:24px;font-weight:600;margin:0;padding:12px 0;display:inline;"><span style="border-bottom:3px solid lightblue;">[% partial.label %]</span></h3><span style="margin-left:15px;font-size:18px;font-weight:400;color:gray;">(&nbsp;[% partial.type %]&nbsp;)</span></h3>
                                 <p style="font-size:16px;line-height:1.5;margin:0;padding-top:10px;padding-bottom:10px;color:#acacac;font-weight:400;">[% partial.description %]</p>
@@ -111,49 +111,12 @@
                         <button class="button" id="edit" style="border: 4px solid #51acc7;outline:0;margin-bottom:20px;">Edit</button>
                         <button class="button" id="delete" style="border: 4px solid #ff3232;outline:0;margin-bottom:20px;">Delete</button>
                     </div>
+                    <input id='partial_id' type='hidden' value="[% init.id %]">
                 </div>
             </div>
         </div>
 
     </div>
-
-    <!-- partial 'view' -->
-    <!--<section id="partial-view" style="display:none;float:left;position:relative;width:100%;">
-        <div style="padding-right:20px;">
-            <div class="partial_view" style="padding:40px 10px 40px 40px;margin-top:30px;color:#acacac;font-size:16px;line-height:24px;">
-
-                <div style="clear:both;margin-bottom:30px;height:50px;">
-                    <a href="#" id="partial-close" style="float:right;">
-                        <span class="close-icon"><img src="/static/images/close.png" title="Close"></span>
-                    </a>
-                </div>
-                <div style="display:block;clear:both;">
-                    <div style="width:80%;margin:0 auto;">
-                        <hr style="margin-top:20px;margin-bottom:20px;height:3px;color:lightblue;border:0 none;background-color:lightblue;"/>
-                    </div>
-                </div>
-                <div style="margin-left:40px;width:100%;">
-                    <h3 style="text-transform:uppercase;text-align:left"><span style="border-bottom:2px solid lightblue;">Partial Details</span></h3>
-                </div>
-                <div style="margin-left:40px;width:100%;">
-                    <br />
-                    <h4 style="text-transform:uppercase;text-align:left"><span style="border-bottom:2px solid lightblue;">Name</span></h4>
-                    <p id="partial-view-name" style="text-align:left;font-size:18px;font-weight:300;"></p>
-                    <h4 style="text-transform:uppercase;text-align:left"><span style="border-bottom:2px solid lightblue;">Type</span></h4>
-                    <p id="partial-view-type" style="text-align:left;font-size:18px;font-weight:300;"></p>
-                    <h4 style="text-transform:uppercase;text-align:left;"><span style="border-bottom:2px solid lightblue;">Description</span></h4>
-                    <p id="partial-view-desc" style="text-align:left;font-size:18px;font-weight:300;"></p>
-                </div>
-                <div style="width:60%;margin: 0 auto;">
-                    <hr style="height:2px;color:lightblue;border:0 none;background-color:lightblue;" />
-                </div>
-                <div style="margin-left:40px;clear:both;">
-                    <h4 style="text-transform:uppercase;text-align:left;margin-bottom:10px;"><span style="border-bottom:2px solid lightblue;">Partial / Layout code</span></h4>
-                    <div id="code_view_store"><xmp style="font-family:courier; font-size:13px;font-weight:500;line-height:normal;color:black;"></xmp></div>
-                </div>
-            </div>
-        </div>
-    </section>-->
 
 <!-- modal overlay -->
 <div id="overlay" style="display:none;z-index:200;"></div>
@@ -164,16 +127,16 @@
     <div style="margin-left:40px;width:100%;">
         <br />
         <h4 style="text-transform:uppercase;text-align:left"><span style="border-bottom:2px solid lightblue;">Type</span></h4>
-        <p id="delete-modal-type" style="text-align:left;font-size:18px;font-weight:300;"></p>
+        <p id="delete-modal-type" style="text-align:left;font-size:18px;font-weight:300;color:gray"></p>
         <h4 style="text-transform:uppercase;text-align:left;"><span style="border-bottom:2px solid lightblue;">Description</span></h4>
-        <p id="delete-modal-desc" style="text-align:left;font-size:18px;font-weight:300;"></p>
+        <p id="delete-modal-desc" style="text-align:left;font-size:18px;font-weight:300;color:gray"></p>
     </div>
     <div style="width:60%;margin: 0 auto;">
         <hr style="height:2px;color:lightblue;border:0 none;background-color:lightblue;" />
     </div>
     <div style="width:100%;">
-        <button class="button" id="delete_partial" value="" style="background-color:#ff3232;width:120px;border-radius:10px;outline:0;margin-top:5px;margin-bottom:20px;margin-left:10px;">Delete</button>
-        <button class="button action-button" id="cancel-action" style="width:120px">Cancel</button>
+        <button class="button" id="delete_partial" value="" style="border: 4px solid #ff3232;width:120px;border-radius:10px;outline:0;margin-top:5px;margin-bottom:20px;margin-left:10px;">Delete</button>
+        <button class="button" id="cancel-action" style="border: 4px solid #367385;border-radius:10px;outline:0;margin-top:10px;margin-bottom:20px;width:120px;">Cancel</button>
     </div>
     </div>
 </div>
@@ -185,16 +148,38 @@
     <script type="text/javascript" src="/static/js/content-display.js"></script>
 
     <script>
-        //$(".content").mCustomScrollbar({
-        $("#partials-block").mCustomScrollbar({
-            theme:"dark-2",
-            scrollInertia: 800,
+        $("#partials_block").mCustomScrollbar({
+            theme:"rounded-dots-dark",
+            scrollInertia: 400,
             scrollButtons: {
                 enable: true
-            },
-            advanced: {
-                updateOnContentResize: true
             }
+        });
+    </script>
+
+    <!-- filter partials ... -->
+    <script>
+        $(document).ready(function(){
+            $("#filterinput").keyup(function(){
+
+                // Retrieve the input field text and reset the count to zero
+                var filter = $(this).val(), count = 0;
+
+                // Loop through the comment list
+                $("h3.partial_name").each(function(){
+
+                    // If the list item does not contain the text phrase fade it out
+                    if ($(this).text().search(new RegExp(filter, "i")) < 0) {
+                        $(this).parents('div.partial_block').fadeOut();
+
+                    // Show the list item if the phrase matches and increase the count by 1
+                    } else {
+                        $(this).parents('div.partial_block').show();
+                        count++;
+                    }
+                });
+
+            });
         });
     </script>
 
@@ -224,6 +209,9 @@
                         if ( data.logged_in == '0') {
                             window.location.assign('/stylus/login');
                         }
+                        else {
+                            $('input#partial_id').val( data.id );
+                        }
                     },
                     error: function(jqXHR,status,error) {
                         console.log('partials - an error has occurred on the ajax call - retrieve : status - ' + status + ' / ' + error);
@@ -245,7 +233,7 @@
             $('#full-partial').show('200');
         } );
 
-        // 'cancel' delete modal ...
+        // 'close partial view ...
         $('#partial-close').on('click', function(e) {
             console.log('Partials - close partial view.');
             $('#partial-view').hide(100);
@@ -259,13 +247,14 @@
     <!-- click on a 'delete' link -->
     <script>
 
-        $('a.delete-link').on ('click', function(e) {
+        $('#delete').on ('click', function(e) {
             e.preventDefault();
 
-            var id = $(this).data('id');
-            console.log('delete this partial - ' + id);
-            $('#delete-modal-type').text( $(this).data('type') );
-            $('#delete-modal-desc').text( $(this).data('description') );
+            $('.cd-panel-close').hide();
+
+            var id = $('input#partial_id').val();
+            $('#delete-modal-type').text( $('#partial-view-type').text() );
+            $('#delete-modal-desc').text( $('#partial-view-desc').text() );
             $("button#delete_partial").val( id );
             $('#overlay').show();
             $('#delete_modal').show();
@@ -275,36 +264,32 @@
         $('#cancel-action').on('click', function(e) {
             $('#delete_modal').hide();
             $('#overlay').hide();
+
+            $('.cd-panel-close').show();
         });
 
         $('#delete_partial').on( 'click', function() {
             var id = $(this).val();
-            var result = delete_art(id);
-            if ( result == 1 ) {
-                $('#overlay').hide();
-                $('#delete_modal').hide();
-                $('.p' + id).remove();
-            }
+            delete_partial(id);
         });
     </script>
 
     <!-- click on an 'edit' link .... -->
     <script>
-
-        // process a 'button' click
-        $('a.edit-link').on( 'click', function(e) {
-            e.preventDefault();
-
-            var id       = $(this).attr('id');
+        $('button#edit').on( 'click', function() {
+            console.log('clicked on the edit - partials.');
+            var id       = $('input#partial_id').val();
             var edit_url = '/stylus/partials/' + id + '/edit';
             window.location.assign(edit_url);
 
         });
+    </script>
 
+    <script>
         // ===== functions ===== //
 
         // function to delete an partial
-        var delete_art = function(id) {
+        var delete_partial = function(id) {
             var formData = {
 		        id: id
 	        };
@@ -320,6 +305,13 @@
                     if ( data.logged_in == '0') {
                         window.location.assign('/stylus/login');
                     }
+                    else {
+                        $('#overlay').hide();
+                        $('#delete_modal').hide();
+                        $('.cd-panel-close').show();
+                        $('.cd-panel').removeClass('is-visible');
+                        $('.block-' + id).remove();
+                    }
 		        },
 		        error: function(jqXHR,status,error) {
 		            console.log('partials - an error has occurred on the ajax call - retrieve : status - ' + status + ' / ' + error);
@@ -329,30 +321,4 @@
             return 1;
         };
 
-    </script>
-
-    <!-- filter partials ... -->
-    <script>
-        $(document).ready(function(){
-            $("#filterinput").keyup(function(){
-
-                // Retrieve the input field text and reset the count to zero
-                var filter = $(this).val(), count = 0;
-
-                // Loop through the comment list
-                $("h3.partial_name").each(function(){
-
-                    // If the list item does not contain the text phrase fade it out
-                    if ($(this).text().search(new RegExp(filter, "i")) < 0) {
-                        $(this).parents('div.partial_block').fadeOut();
-
-                    // Show the list item if the phrase matches and increase the count by 1
-                    } else {
-                        $(this).parents('div.partial_block').show();
-                        count++;
-                    }
-                });
-
-            });
-        });
     </script>
