@@ -2,7 +2,7 @@
         <h2 style="margin:0 0 30px 0;font-size:24px;font-weight:400;color:#000;padding-top:20px;text-transform:uppercase;"><span style="border-bottom:4px solid lightblue;">Process Info</span></h2>
         <p><h3 style="color:#254960;line-height:22px;font-size:20px;font-weight:400;text-transform:uppercase;letter-spacing:1px;"><span style="border-bottom: 2px solid lightblue;">domain</span></h3></p>
         <p style="font-size:16px;line-height:1.5;margin-top:20px;margin-bottom:10px;color:#acacac;font-weight:400;">
-            Select the <span style="border-bottom: 2px solid lightblue;">Domain</span> that you want to <span style="border-bottom: 2px solid lightblue;">process</span>.
+            Select the <span style="border-bottom: 2px solid lightblue;">Sitename</span> that you want to <span style="border-bottom: 2px solid lightblue;">process</span>.
         </p>
         <p style="font-size:16px;line-height:1.5;margin-top:10px;margin-bottom:20px;color:#acacac;font-weight:400;">
             Please note that the pages / layouts will be selected depending on the <span style="border-bottom: 2px solid lightblue;">settings</span> for the selected domain.

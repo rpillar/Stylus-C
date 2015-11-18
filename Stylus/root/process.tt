@@ -15,7 +15,7 @@
 			<div id='process-intro' style="width:100%;">
 				<div>
 					<p style="font-size:16px;line-height:1.5;margin-bottom:20px;color:#acacac;font-weight:400;">
-						Create the 'static' webpages based on the partials / content that has been created. Choose the 'domain' from the drop-down list and 'click' on Process. The output from the 'build' process will be displayed below.
+						Create the 'static' webpages based on the partials / content that has been created. Choose the 'sitename' from the drop-down list and 'click' on Process. The output from the 'build' process will be displayed below.
 					</p>
 				</div>
 				<div style="width:50%;margin:0 auto;">
@@ -25,7 +25,7 @@
 				</div>
 				<div style="margin-left:22px;border-left:4px solid #254960;margin-bottom:25px;">
 					<div id="dd" class="wrapper-dropdown-3" tabindex="1">
-						<span id="domain" data-id="xx">Domain</span>
+						<span id="domain" data-id="xx">Sitename</span>
 						<ul class="dropdown">
 							[% FOREACH domain IN domains %]
 								<li data-id="[% domain.id %]"><a href="#">[% domain.domain %]</a></li>
@@ -158,6 +158,7 @@
 						dataType: 'json'
 					}).done( function( data ) {
 
+						// if I have 'files' to process - get them and process ...
 						if ( data.files ) {
 							$('#process-log').append('<div class="process-log-content"><span style="font-weight:500;">Files to process :-</span></div>');
 							var numerOfFiles = data.files.length;

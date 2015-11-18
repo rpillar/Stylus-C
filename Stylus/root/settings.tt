@@ -19,7 +19,7 @@
 
 			<!-- Domain process -->
 			<div style="clear:both;display:block;">
-				<label class="form_label" for="domain">Domains</label>
+				<label class="form_label" for="domain">Sitenames</label>
 				[% FOREACH domain IN domains %]
 				<div>
 					<div class="input" style="margin-bottom:25px;">
@@ -45,11 +45,11 @@
 					</div>
 				</div>
 				<div class="input new-domain" style="margin-bottom:25px;">
-					<input class="login_input" id="new-domain" name="domain" placeholder="Domain" type="text" value="" size="25" autocomplete="off">
+					<input class="login_input" id="new-domain" name="domain" placeholder="Sitename" type="text" value="" size="25" autocomplete="off">
 				</div>
 			</div>
 			[% IF domains.size < 3 %]
-				<button class="button" id="new-domain-button" style="border: 4px solid #1abc9c;border-radius:5px;width:220px;outline:0;">New Domain</button>
+				<button class="button" id="new-domain-button" style="border: 4px solid #1abc9c;border-radius:5px;width:220px;outline:0;">New Sitename</button>
 				<button class="button" id="new-domain-button-cancel" data-domain='' style="display:none; border: 4px solid #367385;border-radius:10px;outline:0;margin-top:10px;margin-bottom:20px;width:220px;">Cancel</button>
 			[% END %]
 
@@ -124,7 +124,7 @@
 						</div>
 						<div style="margin-left:22px;border-left:4px solid #254960;">
 							<div id="dd" class="wrapper-dropdown-3" tabindex="1">
-								<span id="pages_name" data-id="xx">Domain</span>
+								<span id="pages_name" data-id="xx">Sitename</span>
 								<ul class="dropdown">
 									[% FOREACH domain IN domains %]
 										<li data-id="[% domain.id %]"><a href="#">[% domain.domain %]</a></li>
@@ -153,10 +153,10 @@
 
 <!-- delete domain modal -->
 <div id="delete_domain_modal" title="Delete Content" style="display:none; position: fixed; top: 0; left: 0; bottom: 0; right: 0; z-index:500; height: 400px; width: 700px; margin: 230px auto; border: 4px solid #8aacb8; background-color: #fff; text-align:center; padding: 20px;">
-	<h4 style="text-transform:uppercase;margin-top: 50px;"><span style="border-bottom:3px solid lightblue;">Are you sure you want to remove this Domain ?</span></h4>
+	<h4 style="text-transform:uppercase;margin-top: 50px;"><span style="border-bottom:3px solid lightblue;">Are you sure you want to remove this Sitename ?</span></h4>
 	<div style="margin-left:40px;width:100%;">
 		<br />
-		<h4 style="text-transform:uppercase;text-align:left"><span style="border-bottom:2px solid lightblue;">Domain</span></h4>
+		<h4 style="text-transform:uppercase;text-align:left"><span style="border-bottom:2px solid lightblue;">Sitename</span></h4>
 		<p id="delete-domain-modal-name" style="text-align:left;font-size:18px;font-weight:300;"></p>
 	</div>
 	<div style="width:60%;margin: 0 auto;">
@@ -187,10 +187,10 @@
 
 <!-- delete pages modal -->
 <div id="delete_pages_modal" title="Delete Content" style="display:none; position: fixed; top: 0; left: 0; bottom: 0; right: 0; z-index:500; height: 450px; width: 900px; margin: 210px auto; border: 4px solid #8aacb8; background-color: #fff; text-align:center; padding: 20px;">
-	<h4 style="text-transform:uppercase;margin-top: 50px;"><span style="border-bottom:3px solid lightblue;">Are you sure you want to remove the Pages location for this domain ?</span></h4>
+	<h4 style="text-transform:uppercase;margin-top: 50px;"><span style="border-bottom:3px solid lightblue;">Are you sure you want to remove the Pages location for this sitename ?</span></h4>
 	<div style="margin-left:40px;width:100%;">
 		<br />
-		<h4 style="text-transform:uppercase;text-align:left"><span style="border-bottom:2px solid lightblue;">Pages - Domain</span></h4>
+		<h4 style="text-transform:uppercase;text-align:left"><span style="border-bottom:2px solid lightblue;">Pages - Sitename</span></h4>
 		<p id="delete-pages-modal-domain" style="text-align:left;font-size:18px;font-weight:300;"></p>
 		<h4 style="text-transform:uppercase;text-align:left;"><span style="border-bottom:2px solid lightblue;">Pages - Location</span></h4>
 		<p id="delete-pages-modal-path" style="text-align:left;font-size:18px;font-weight:300;"></p>

@@ -90,9 +90,26 @@ sub index :Path( '/stylus/content' ) :Args(0) {
 	        };
 	        push(@data, $row);
         }
-	}
+	}    
+    $c->stash->{content_data} = \@data;
 
-	$c->stash->{content_data} = \@data;
+    # get domains
+    my $userdomains_rs = $c->model('DB::UserDomain')->search(
+        { uid => $c->user->id },
+    );
+
+    my @ud_data;
+    if ( $userdomains_rs->count ) {
+        while ( my $userdomain = $userdomains_rs->next ) {
+            my $row = {
+                id     => $userdomain->domain_id,
+                domain => $userdomain->domain->name,
+            };
+
+            push(@ud_data, $row);
+        }
+    }
+    $c->stash->{domains} = \@ud_data;
 }
 
 ### all general methods come after this ###

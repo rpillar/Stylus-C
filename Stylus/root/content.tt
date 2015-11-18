@@ -1,3 +1,5 @@
+	<link rel="stylesheet" type="text/css" href="/static/css/nice-select.css" />
+
 	<style>
 		.contentdate-hide {
 			display: none;
@@ -7,9 +9,35 @@
 			display: normal;
 			clear: both;
 		}
+
+		.wrapper-dropdown-3 {
+			width: 450px;
+		}
+		#site_name {
+			font-size: 22px;
+		}
+		ul.dropdown {
+			margin-top: 10px;
+		}
+		hr.sitename_modal_separator {
+			margin-bottom: 10px;
+			margin-top: 10px;
+		}
 	</style>
 
-	<h1 style="margin:0;font-size:32px;font-weight:600;color:#000;padding-left:30px;padding-top:40px;text-transform:uppercase;"><span style="border-bottom:4px solid lightblue;">Content</span> <span style="margin-left:15px;font-weight:400;text-transform:uppercase;">( [% c.session.user_domain %] )</span></h1>
+	<div style="margin:0;font-size:32px;font-weight:600;color:#000;padding-left:30px;padding-top:40px;text-transform:uppercase;">
+		<div style="display:"inline"border-bottom:4px solid lightblue;">Content</div>
+		<div style="display:"inline";margin-left:15px;font-weight:400;text-transform:uppercase;">
+			<div class="nice-select" style="display:inline;">
+				<ul>
+					<li class="option selected focus" data-value="1">[% c.session.user_domain %]</li>
+					<li class="option" data-value="2">Another one</li>
+					<li class="option" data-value="3">And Another one</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
 	<div style="padding: 10px 20px;margin:20px 0;">
 	    <div style="padding:20px;width:100%;">
 
@@ -30,3 +58,66 @@
 	    </div>
 
     </div>
+
+	<!-- modal overlay -->
+	<div id="overlay" style="display:none;z-index:200;"></div>
+
+	<!-- change sitename modal -->
+	<div id="sitename_modal" title="Change Sitename" style="display:none; position: fixed; top: 0; left: 0; bottom: 0; right: 0; z-index:500; height: 380px; width: 700px; margin: 230px auto; border: 4px solid  #8aacb8; border-radius:10px; background-color: #fff; text-align:center; padding: 20px;">
+		<h2 style="text-transform:uppercase;margin-top: 20px;"><span style="border-bottom:3px solid lightblue;">Change sitename</span></h2>
+
+		<div style="width:90%;margin: 40px auto;">
+			<div style="margin-left:22px;border-left:4px solid #254960;">
+				<div id="dd" class="wrapper-dropdown-3" tabindex="1">
+					<span id="site_name">Sitename</span>
+					<ul class="dropdown">
+						[% FOREACH domain IN domains %]
+							<li><a href="#" data-id="[% domain.id %]">[% domain.domain %]</a></li>
+						[% END %]
+					</ul>
+				</div>
+			</div>
+		</div>
+
+		<div style="width:60%;margin: 100px auto 0 auto;">
+			<hr class="sitename_modal_separator" style="height:2px;color:lightblue;border:0 none;background-color:lightblue;" />
+		</div>
+
+		<div style="width:100%;">
+			<button class="button" id="change_sitename_content" style="border: 4px solid #ff3232;width:120px;border-radius:10px;outline:0;margin-top:5px;margin-bottom:20px;margin-left:10px;">Change</button>
+			<button class="button" id="cancel-sitename_content" style="border: 4px solid #367385;border-radius:10px;outline:0;margin-top:10px;margin-bottom:20px;width:120px;">Cancel</button>
+		</div>
+	</div>
+
+	<script src="/static/js/bootstrap.min.js"></script>
+
+	<!-- use 'settings' dropdown - need to set domain_id -->
+	<script type="text/javascript" src="/static/js/jquery.nice-select.min.js"></script>
+
+	<script>
+		$(document).ready(function() {
+  			$('select').niceSelect();
+		});
+	</script>
+
+	<script>
+		$(function () {
+  			$('[data-toggle="tooltip"]').tooltip()
+		});
+	</script>
+
+	<script>
+		// change the current 'sitename'
+		$('#change_sitename').on ('click', function(e) {
+			e.preventDefault();
+
+			$('#overlay').show();
+			$('#sitename_modal').show();
+		} );
+
+		// 'cancel' change_sitename ...
+		$('#cancel-sitename_content').on('click', function(e) {
+			$('#sitename_modal').hide();
+			$('#overlay').hide();
+		});
+	</script>

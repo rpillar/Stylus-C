@@ -6,7 +6,7 @@
 			<span style="font-weight:500;color:#4d4d4d;border-bottom:1px solid lightblue;">All fields are mandatory.</span>
 		</p>
 		<p style="padding-left:10px;font-size:16px;font-weight:400;">
-			It should be noted that the <span>domain</span> field is used during the login process and within Stylus as a means of collecting content and partials into
+			It should be noted that the <span>sitename</span> field is used during the login process and within Stylus as a means of collecting content and partials into
 			'groups' (that could be thought of as a website). It should therefore be something meaningful.
 		</p>
 		<p style="padding-left:10px;font-size:16px;font-weight:400;">
