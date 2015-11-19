@@ -25,16 +25,17 @@
 		}
 	</style>
 
-	<div style="margin:0;font-size:32px;font-weight:600;color:#000;padding-left:30px;padding-top:40px;text-transform:uppercase;">
-		<div style="display:"inline"border-bottom:4px solid lightblue;">Content</div>
-		<div style="display:"inline";margin-left:15px;font-weight:400;text-transform:uppercase;">
-			<div class="nice-select" style="display:inline;">
-				<ul>
-					<li class="option selected focus" data-value="1">[% c.session.user_domain %]</li>
-					<li class="option" data-value="2">Another one</li>
-					<li class="option" data-value="3">And Another one</li>
-				</ul>
-			</div>
+	<!--<div style="margin:0;padding-left:30px;padding-top:40px;text-transform:uppercase;">-->
+	<div style="margin:0;padding-left:30px;padding-top:40px;text-transform:uppercase;">
+		<div style="display:inline-block;line-height:1;">
+			<label style="font-size:32px;font-weight:600;color:#000;margin: 0 2px 4px;float:left;"><span style="border-bottom:4px solid lightblue;">Content</span></label>
+		</div>
+		<div style="display:inline-block;line-height:1;">
+			<select class="domain-select">
+				<option value="1">[% c.session.user_domain %]</option>
+				<option value="2">Another one</option>
+				<option value="3">And Another one</option>
+			</select>
 		</div>
 	</div>
 
@@ -96,7 +97,7 @@
 
 	<script>
 		$(document).ready(function() {
-  			$('select').niceSelect();
+  			$('select.domain-select').niceSelect();
 		});
 	</script>
 
