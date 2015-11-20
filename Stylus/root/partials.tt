@@ -7,8 +7,9 @@
 	</style>
 
 	<h1 style="margin:0;font-size:32px;font-weight:600;color:#000;padding-left:30px;padding-top:40px;text-transform:uppercase;"><span style="border-bottom:4px solid lightblue;">Partials</span> <span style="margin-left:15px;font-weight:400;text-transform:uppercase;">( [% c.session.user_domain %] )</span></h1>
+
 	<div style="padding: 10px 20px;margin:20px 0;">
-	    <div style="padding:20px;">
+			<div style="padding-left:20px;width:100%;">
 		[% IF init %]
 	    	<h2 style="font-size:24px;font-weight:700;text-transform:uppercase;" id="partial-name">[% init.name %]</h2>
 	    	<span id="partial-content" style="font-size:16px;line-height:1.5;margin:0;padding-top:10px;padding-bottom:10px;color:#acacac;font-weight:400;">[% init.partial %]</span>
