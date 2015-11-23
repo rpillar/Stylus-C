@@ -2,6 +2,7 @@ package Stylus::Controller::Content;
 use Moose;
 use namespace::autoclean;
 
+use Data::Dumper;
 use DDP;
 use Text::Markdown 'markdown';
 
@@ -90,7 +91,7 @@ sub index :Path( '/stylus/content' ) :Args(0) {
 	        };
 	        push(@data, $row);
         }
-	}    
+	}
     $c->stash->{content_data} = \@data;
 
     # get domains
@@ -110,6 +111,10 @@ sub index :Path( '/stylus/content' ) :Args(0) {
         }
     }
     $c->stash->{domains} = \@ud_data;
+
+$c->log->debug('** in stylus/content **');
+$c->log->debug('* data is : ' . Dumper( \@data ) );
+$c->log->debug('* data is : ' . Dumper( \@ud_data ) );  
 }
 
 ### all general methods come after this ###

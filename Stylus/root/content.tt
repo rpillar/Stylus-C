@@ -28,7 +28,7 @@
 		}
 	</style>
 
-	<h1 style="margin:0;font-size:32px;font-weight:600;color:#000;padding-left:30px;padding-top:40px;text-transform:uppercase;"><span style="border-bottom:4px solid lightblue;">Contents</span> <span style="margin-left:15px;font-weight:400;text-transform:uppercase;">( <a href="" id="change_sitename" style="text-decoration:none;">[% c.session.user_domain %]</a> )</span></h1>
+	<h1 style="margin:0;font-size:32px;font-weight:600;color:#000;padding-left:30px;padding-top:40px;text-transform:uppercase;"><span style="border-bottom:4px solid lightblue;">Contents</span> <span style="margin-left:15px;font-weight:400;text-transform:uppercase;">( <a href="" id="change_sitename" style="text-decoration:none;border-bottom:2px solid lightblue;">[% c.session.user_domain %]</a> )</span></h1>
 
 	<div style="padding: 10px 20px;margin:20px 0;">
 	    <div style="padding-left:20px;width:100%;">
@@ -55,32 +55,28 @@
 	<div id="overlay" style="display:none;z-index:200;"></div>
 
 	<!-- change sitename modal -->
-	<div id="sitename_modal" title="Change Sitename" style="display:none; position: fixed; top: 0; left: 0; bottom: 0; right: 0; z-index:500; height: 100px; width: 700px; margin: 230px auto; border: 4px solid  #8aacb8; border-radius:10px; background-color: #fff; text-align:center; padding: 20px;">
+	<div id="sitename_modal" title="Change Sitename" style="display:none; position: fixed; top: 0; left: 0; bottom: 0; right: 0; z-index:500; height: 180px; width: 650px; margin: 230px auto; border: 4px solid  #8aacb8; border-radius:10px; background-color: #fff; text-align:center; padding: 20px;">
 
-		<div style="display:table;width:100%;">
+		<div style="display:table;width:100%;text-align:left;">
 			<div style="display:table-row;">
 				<div style="display:table-cell;width:330px;">
             		<label style="font-size:32px;margin-right:15px;float:left;line-height:1;width:300px;">
-                		<span style="border-bottom:2px solid lightblue;">Change Sitename</span>
+                		<span style="border-bottom:2px solid lightblue;">Change Sitename</span> :-
             		</label>
 				</div>
-        		<div style="display:table-cell;width:100px;font-size:18px;">
+        		<div style="display:table-cell;width:200px;font-size:18px;">
             		<select class="domain-select">
-                		<option data-display="Select">Nothing</option>
-                		<option value="1">Some option</option>
-                		<option value="2">Another option</option>
-                		<option value="3">Potato</option>
+						[% FOREACH domain IN domains %]
+                		    <option value="[% domain.id %]">[% domain.domain %]</option>
+						[% END %]
             		</select>
 				</div>
-				<div style="display:table-cell;width:100px;"><a href="" style="text-decoration:none;font-size:28px;padding-botton:10px;line-height:1;"><span style="padding:7px;border:2px solid lightblue;">Go</span></a></div>
-				<div style="display:table-cell;width:140px;"><a href="" style="text-decoration:none;font-size:28px;padding-botton:10px;line-height:1;"><span style="padding:7px;border:2px solid lightblue;">Cancel</span></a></div>
 			</div>
-        </div>
-
-		<!--<div style="width:100%;">
-			<button class="button" id="change_sitename_content" style="border: 4px solid #ff3232;width:120px;border-radius:10px;outline:0;margin-top:5px;margin-bottom:20px;margin-left:10px;">Change</button>
-			<button class="button" id="cancel-sitename_content" style="border: 4px solid #367385;border-radius:10px;outline:0;margin-top:10px;margin-bottom:20px;width:120px;">Cancel</button>
-		</div>-->
+		</div>
+		<div style="width:100%;text-align:left;">
+			<button class="button" id="change_sitename_content" style="border: 4px solid #1abc9c;width:120px;border-radius:10px;outline:0;margin-top:2px;margin-bottom:20px;margin-left:40px;">Change</button>
+			<button class="button" id="cancel_sitename_content" style="border: 4px solid #367385;border-radius:10px;outline:0;margin-top:25px;margin-bottom:20px;width:120px;">Cancel</button>
+		</div>
 	</div>
 
 	<script src="/static/js/bootstrap.min.js"></script>
@@ -101,7 +97,7 @@
 	</script>
 
 	<script>
-		// change the current 'sitename'
+		// change the current 'sitename' - display modal
 		$('#change_sitename').on ('click', function(e) {
 			e.preventDefault();
 
@@ -109,8 +105,17 @@
 			$('#sitename_modal').show();
 		} );
 
+		// change the current 'sitename' - process
+		$('#change_sitename_content').on ('click', function(e) {
+			e.preventDefault();
+
+			var sitename = $('.domain-select').val();
+			console.log('selected domain : ' + sitename);
+
+		} );
+
 		// 'cancel' change_sitename ...
-		$('#cancel-sitename_content').on('click', function(e) {
+		$('#cancel_sitename_content').on('click', function(e) {
 			$('#sitename_modal').hide();
 			$('#overlay').hide();
 		});
