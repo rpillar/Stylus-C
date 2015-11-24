@@ -25,6 +25,14 @@
 		}
 		.nice-select {
 			font-size: 18px;
+			width:250px;
+			border: 2px solid lightblue;
+		}
+		.nice-select:active, .nice-select.open, .nice-select:focus {
+			border: 3px solid lightblue;
+		}
+		.nice-select ul {
+			width: 250px;
 		}
 	</style>
 
@@ -61,13 +69,15 @@
 			<div style="display:table-row;">
 				<div style="display:table-cell;width:330px;">
             		<label style="font-size:32px;margin-right:15px;float:left;line-height:1;width:300px;">
-                		<span style="border-bottom:2px solid lightblue;">Change Sitename</span> :-
+                		<span style="border-bottom:3px solid lightblue;">Change Sitename</span> :-
             		</label>
 				</div>
         		<div style="display:table-cell;width:200px;font-size:18px;">
             		<select class="domain-select">
 						[% FOREACH domain IN domains %]
+							[% IF domain.domain != c.session.user_domain %]
                 		    <option value="[% domain.id %]">[% domain.domain %]</option>
+							[% END %]
 						[% END %]
             		</select>
 				</div>
