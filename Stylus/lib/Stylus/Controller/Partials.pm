@@ -81,6 +81,24 @@ sub index :Path( '/stylus/partials' ) :Args(0) {
     }
 
     $c->stash->{partials} = \@data;
+
+    # get domains
+    my $userdomains_rs = $c->model('DB::UserDomain')->search(
+        { uid => $c->user->id },
+    );
+
+    my @ud_data;
+    if ( $userdomains_rs->count ) {
+        while ( my $userdomain = $userdomains_rs->next ) {
+            my $row = {
+                id     => $userdomain->domain_id,
+                domain => $userdomain->domain->name,
+            };
+
+            push(@ud_data, $row);
+        }
+    }
+    $c->stash->{domains} = \@ud_data;
 }
 
 ### all general methods come after this ###
@@ -113,6 +131,33 @@ sub create :Path( '/stylus/partials/create' ) :Args(0) {
     $c->stash->{righthalf} = 'createpartialsright.tt';
 
     $c->stash->{partial_type} = \@data;
+}
+
+
+=head2 domain_change
+
+=cut
+
+sub domain_change :Path('/stylus/partials/domain_change') :Args(1) {
+    my ( $self, $c, $domain_id ) = @_;
+
+    $c->log->debug('Partials - domain_change process - domain_id : ' . $domain_id);
+
+    # get domain_name - just in case ...
+    my $userdomain = $c->model('DB::UserDomain')->find({
+        id => $domain_id
+    });
+
+    # update session variable
+    if ( $userdomain ) {
+        $c->session->{user_domain_id} = $domain_id;
+        $c->session->{user_domain}    = $userdomain->domain->name;
+    }
+
+    # redirect
+    $c->response->redirect($c->uri_for('/stylus/partials'));
+    $c->detach;
+    return;
 }
 
 ### chained methods ###

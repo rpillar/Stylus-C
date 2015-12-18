@@ -36,7 +36,7 @@
 		}
 	</style>
 
-	<h1 style="margin:0;font-size:32px;font-weight:600;color:#000;padding-left:30px;padding-top:40px;text-transform:uppercase;"><span style="border-bottom:4px solid lightblue;">Contents</span> <span style="margin-left:15px;font-weight:400;text-transform:uppercase;">( <a href="" id="change_sitename" style="text-decoration:none;border-bottom:2px solid lightblue;">[% c.session.user_domain %]</a> )</span></h1>
+	<h1 style="margin:0;font-size:32px;font-weight:600;color:#000;padding-left:30px;padding-top:40px;text-transform:uppercase;"><span style="border-bottom:4px solid lightblue;">Contents</span> <span style="margin-left:15px;font-weight:400;text-transform:uppercase;">( <a href="" id="change_sitename" data-id="[% c.session.user_domain_id %]"  style="text-decoration:none;border-bottom:2px solid lightblue;">[% c.session.user_domain %]</a> )</span></h1>
 
 	<div style="padding: 10px 20px;margin:20px 0;">
 	    <div style="padding-left:20px;width:100%;">
@@ -119,8 +119,12 @@
 		$('#change_sitename_content').on ('click', function(e) {
 			e.preventDefault();
 
-			var sitename = $('.domain-select').val();
-			console.log('selected domain : ' + sitename);
+			var current_sitename_id = $('#change_sitename').data('id');
+			var sitename_id         = $('.domain-select').val();
+			console.log('selected domain : ' + sitename_id);
+
+			var sitename_url = '/stylus/content/domain_change/' + sitename_id;
+			window.location.assign( sitename_url );
 
 		} );
 

@@ -111,10 +111,6 @@ sub index :Path( '/stylus/content' ) :Args(0) {
         }
     }
     $c->stash->{domains} = \@ud_data;
-
-$c->log->debug('** in stylus/content **');
-$c->log->debug('* data is : ' . Dumper( \@data ) );
-$c->log->debug('* data is : ' . Dumper( \@ud_data ) );  
 }
 
 ### all general methods come after this ###
@@ -145,6 +141,32 @@ sub create :Path( '/stylus/content/create' ) :Args(0) {
 	$c->stash->{righthalf} = 'createcontentright.tt';
 
     $c->stash->{content_type} = \@data;
+}
+
+=head2 domain_change
+
+=cut
+
+sub domain_change :Path('/stylus/content/domain_change') :Args(1) {
+    my ( $self, $c, $domain_id ) = @_;
+
+    $c->log->debug('Content - domain_change process - domain_id : ' . $domain_id);
+
+    # get domain_name - just in case ...
+    my $userdomain = $c->model('DB::UserDomain')->find({
+        id => $domain_id
+    });
+
+    # update session variable
+    if ( $userdomain ) {
+        $c->session->{user_domain_id} = $domain_id;
+        $c->session->{user_domain}    = $userdomain->domain->name;
+    }
+
+    # redirect
+    $c->response->redirect($c->uri_for('/stylus/content'));
+    $c->detach;
+    return;
 }
 
 ### chained methods ###
