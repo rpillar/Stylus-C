@@ -5,7 +5,7 @@
             Select the <span style="border-bottom: 2px solid lightblue;">Sitename</span> that you want to <span style="border-bottom: 2px solid lightblue;">process</span>.
         </p>
         <p style="font-size:16px;line-height:1.5;margin-top:10px;margin-bottom:20px;color:#acacac;font-weight:400;">
-            Please note that the pages / layouts will be selected depending on the <span style="border-bottom: 2px solid lightblue;">settings</span> for the selected domain.
+            Please note that the pages / layouts will be selected depending on the <span style="border-bottom: 2px solid lightblue;">settings</span> for the selected sitename.
         </p>
         <p><h3 style="color:#254960;line-height:22px;font-size:20px;font-weight:400;text-transform:uppercase;letter-spacing:1px;"><span style="border-bottom: 2px solid lightblue;">location</span></h3></p>
         <p style="font-size:16px;line-height:1.5;margin-top:20px;margin-bottom:20px;color:#acacac;font-weight:400;">

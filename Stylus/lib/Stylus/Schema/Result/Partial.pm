@@ -114,5 +114,23 @@ __PACKAGE__->belongs_to(
     { 'foreign.id' => 'self.type_id' },
 );
 
+sub is_component {
+    my $self = shift;
+
+    return ( $self->partial_type->type eq 'Component' ) ? 1 : 0;
+}
+
+sub is_layout {
+    my $self = shift;
+
+    return ( $self->partial_type->type eq 'Layout' ) ? 1 : 0;
+}
+
+sub is_partial {
+    my $self = shift;
+
+    return ( $self->partial_type->type eq 'Partial' ) ? 1 : 0;
+}
+
 __PACKAGE__->meta->make_immutable;
 1;

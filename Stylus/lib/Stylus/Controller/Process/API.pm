@@ -101,14 +101,22 @@ sub settings_GET :Private {
         }
     }
     else { # get names of 'layouts' ...
-## needs a partials resultset class - methods to retrieve by 'type' ...
-    }
+        my $user_domain = $c->model('DB::UserDomain')->search(
+            { domain_id => $data->{domain} }
+        )->first;
+        my @layouts = $user_domain->domain->partials->layouts->all;
 
-    $self->status_ok(
-        $c,
-        entity => {
+        my @layout_names;
+        foreach( @layouts ) {
+            push(@layout_names, $_->name);
         }
-    );
+        return $self->status_ok(
+            $c,
+            entity => {
+                layouts => \@layout_names,
+            }
+        );
+    }
 }
 
 __PACKAGE__->meta->make_immutable;
