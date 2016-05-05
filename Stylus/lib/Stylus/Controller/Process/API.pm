@@ -50,6 +50,7 @@ sub check_filename_GET :Private {
         $self->status_ok(
             $c,
             entity => {
+                message => 'Process : Check filename - complete.'
             },
         );
     }
@@ -80,6 +81,7 @@ sub settings_GET :Private {
 
     # if I find a 'path' then get all the file names contained here ...
     if ( $settings->path ) {
+        $c->log->debug('Process - settings - path : ' . $settings->path);
         # check that 'path' is a directory
         my $status = 0;
 
@@ -101,6 +103,7 @@ sub settings_GET :Private {
         }
     }
     else { # get names of 'layouts' ...
+        $c->log->debug('Process - settings - layouts.');
         my $user_domain = $c->model('DB::UserDomain')->search(
             { domain_id => $data->{domain} }
         )->first;
@@ -110,6 +113,7 @@ sub settings_GET :Private {
         foreach( @layouts ) {
             push(@layout_names, $_->name);
         }
+      
         return $self->status_ok(
             $c,
             entity => {

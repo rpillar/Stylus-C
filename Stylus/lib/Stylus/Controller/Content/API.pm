@@ -3,6 +3,7 @@ use Moose;
 use namespace::autoclean;
 
 use Data::Dumper;
+use HTML::Entities;
 use Text::Markdown 'markdown';
 use Scalar::Util qw( looks_like_number);
 use Try::Tiny;
@@ -125,8 +126,8 @@ sub content_PUT :Private {
         $c->stash->{content}->update(
             {
                 content_date => $data->{date},
-                title        => $data->{title},
-                content      => $data->{content},
+                title        => encode_entities( $data->{title} ),
+                content      => encode_entities( $data->{content} ),
             }
         );
 
@@ -163,9 +164,9 @@ sub content_new_POST :Private {
     my $stylus_content = $c->model('DB::Content')->create(
         {
             type_id      => $content_type->id,
-            content_date => $data->{date},
-            title        => $data->{title},
-            content      => $data->{content},
+            content_date => encode_entities( $data->{date} ),
+            title        => encode_entities( $data->{title} ),
+            content      => encode_entities( $data->{content} ),
             domain_id    => $c->session->{user_domain_id},
         }
     );

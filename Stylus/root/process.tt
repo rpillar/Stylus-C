@@ -157,13 +157,12 @@
 						data: formData,
 						dataType: 'json'
 					}).done( function( data ) {
-
 						// if I have 'files' to process - get them and process ...
 						if ( data.files ) {
-							$('#process-log').prepend('<div class="process-log-content"><span style="font-weight:500;">Files to process :-</span></div>');
-							var numerOfFiles = data.files.length;
+							$('#process-log').append('<div class="process-log-content"><span style="font-weight:500;">Files to process :-</span></div>');
+							var numberOfFiles = data.files.length;
 							for ( var i = 0; i < data.files.length; i++ ) {
-								$('#process-log').prepend('<div class="process-log-content">File :- ' + data.files[i] + '</div>');
+								$('#process-log').append('<div class="process-log-content">File :- ' + data.files[i] + '</div>');
 
 
 								// process file - parse for partials details / insert data etc.
@@ -171,6 +170,12 @@
 						}
 						else {
 							$('#process-log').append('<br /><div class="process-log-content"><span style="font-weight:500;">Processing Layouts :-</span></div>');
+							for ( var i = 0; i < data.layouts.length; i++ ) {
+								$('#process-log').append('<div class="process-log-content">Layout :- ' + data.layouts[i] + '</div>');
+
+
+								// process file - parse for partials details / insert data etc.
+							}
 						}
 					}).fail(function( jqXHR, status, error  ) {
 						var message = $.parseJSON(jqXHR.responseText);

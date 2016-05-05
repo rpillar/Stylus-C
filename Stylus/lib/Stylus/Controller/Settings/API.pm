@@ -2,6 +2,7 @@ package Stylus::Controller::Settings::API;
 use Moose;
 use namespace::autoclean;
 
+use HTML::Entities;
 use Scalar::Util qw( looks_like_number);
 use Try::Tiny;
 
@@ -292,7 +293,7 @@ sub pages_path_PUT :Private {
     # update the Pages Details entry ...
     try {
         $c->stash->{pagesdetail}->update(
-            { path => $data->{path} }
+            { path => encode_entities( $data->{path} ) }
         );
 
         $self->status_created(
@@ -441,7 +442,7 @@ sub user_domain_PUT :Private {
 
     try {
         $c->stash->{domain}->update(
-            { name => $data->{domain} }
+            { name => encode_entities( $data->{domain} ) }
         );
 
         $self->status_created(
@@ -497,7 +498,7 @@ sub user_domain_new_PUT :Private {
 
     try {
         my $domain = $c->model('DB::Domain')->create(
-            { name => $data->{domain} },
+            { name => encode_entities( $data->{domain} ) },
         );
         my $pagesdetail = $c->model('DB::PagesDetail')->create(
             {

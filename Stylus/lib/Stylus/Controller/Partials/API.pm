@@ -3,6 +3,7 @@ use Moose;
 use namespace::autoclean;
 
 use Data::Dumper;
+use HTML::Entities;
 use Scalar::Util qw( looks_like_number);
 use Try::Tiny;
 
@@ -111,9 +112,9 @@ sub partial_PUT :Private {
     try {
         $c->stash->{partial}->update(
             {
-                name        => $data->{label},
-                description => $data->{description},
-                partial     => $data->{partial},
+                name        => encode_entities( $data->{label} ),
+                description => encode_entities( $data->{description} ),
+                partial     => ( $data->{partial} ),
             }
         );
 
@@ -150,9 +151,9 @@ sub partial_new_POST :Private {
     my $stylus_partial = $c->model('DB::Partial')->create(
         {
             type_id     => $partial_type->id,
-            name        => $data->{label},
-            description => $data->{description},
-            partial     => $data->{partial},
+            name        => encode_entities( $data->{label} ),
+            description => encode_entities( $data->{description} ),
+            partial     => ( $data->{partial} ),
             domain_id   => $c->session->{user_domain_id},
         }
     );

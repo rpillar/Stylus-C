@@ -3,6 +3,7 @@ use Moose;
 use namespace::autoclean;
 
 use DDP;
+use HTML::Entities;
 use Text::Markdown 'markdown';
 
 BEGIN { extends 'Catalyst::Controller'; }
@@ -179,6 +180,7 @@ sub base :Chained('/') PathPart('stylus/partials') :CaptureArgs( 1 ) {
         id => $id
     });
 
+    # ensure that we decode the 'editor' content
     if ( $partial) {
         $c->stash->{partial} = $partial
     }

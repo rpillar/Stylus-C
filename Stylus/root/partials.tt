@@ -41,7 +41,7 @@
 		}
 	</style>
 
-	<h1 style="margin:0;font-size:32px;font-weight:600;color:#000;padding-left:30px;padding-top:40px;text-transform:uppercase;"><span style="border-bottom:4px solid lightblue;">Partials</span> <span style="margin-left:15px;font-weight:400;text-transform:uppercase;">( <a href="" id="change_sitename" data-id="[% c.session.user_domain_id %]"  style="text-decoration:none;border-bottom:2px solid lightblue;">[% c.session.user_domain %]</a> )</span></h1>
+	<h1 style="margin:0;font-size:32px;font-weight:600;color:#000;padding-left:30px;padding-top:40px;text-transform:uppercase;"><span style="border-bottom:4px solid lightblue;">Partials</span> <span style="margin-left:15px;font-weight:400;text-transform:uppercase;">( <a href="" id="change_sitename" data-id="[% c.session.user_domain_id %]"  [% IF domains.size > 1 %] style="text-decoration:none;border-bottom:2px solid lightblue;" [% ELSE %] style="text-decoration:none;border-bottom:2px solid lightblue;pointer-events:none;cursor:default;" [% END %]>[% c.session.user_domain %]</a> )</span></h1>
 
 	<div style="padding: 10px 20px;margin:20px 0;">
 			<div style="padding-left:20px;width:100%;">
