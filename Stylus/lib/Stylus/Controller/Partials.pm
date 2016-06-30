@@ -63,7 +63,7 @@ sub index :Path( '/stylus/partials' ) :Args(0) {
     # get partials data - set initial partial values
     my $partials_rs = $c->model('DB::Partial')->search(
         { domain_id => $c->session->{user_domain_id} },
-#       { order_by    => [ qw/ type_id / ] }
+        { order_by    => [ qw/ type_id / ] }
     );
 
     my @data;

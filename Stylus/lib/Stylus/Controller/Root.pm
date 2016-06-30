@@ -30,7 +30,7 @@ sub index :Path :Args(0) {
     my ( $self, $c ) = @_;
 
     # set initial content for 'landing' page
-    $c->stash->{current_view} = 'TT';	
+    $c->stash->{current_view} = 'TT';
 	$c->stash->{template}  = 'index.tt';
 	$c->stash->{initial}   = 'home.tt';
 	$c->stash->{righthalf} = 'homeright.tt';
@@ -54,7 +54,13 @@ Attempt to render a view, if needed.
 
 =cut
 
-sub end : ActionClass('RenderView') {}
+sub end : ActionClass('RenderView') {
+    my ( $self, $c ) = @_;
+    
+    $c->response->headers->header(
+        'Strict-Transport-Security' => 'max-age=3600, includeSubDomains'
+    );
+}
 
 =head1 AUTHOR
 

@@ -225,8 +225,8 @@
             var result = get_partial(id);
             result.success(function (data) {
                 $('#partial-view-type').text( data.type );
-                $('#partial-view-name').text( data.label );
-                $('#partial-view-desc').text( data.description );
+                $('#partial-view-name').html( data.label );
+                $('#partial-view-desc').html( data.description );
                 $('#code_view_store xmp').text( data.partial );
             } );
 

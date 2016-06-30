@@ -27,7 +27,7 @@
                     [% FOREACH item IN content_data %]
                         <div class="content_block block-[%item.id %]">
                             <div style="position:relative;">
-                                <h3 class="content_title" style="font-size:24px;font-weight:600;margin:0;padding:12px 0;display:inline;">[% item.title %]</h3>
+                                <h3 class="content_title" style="font-size:24px;font-weight:600;margin:0;padding:12px 0;display:inline;">[% item.title | html %]</h3>
                                 <p style="font-size:16px;line-height:1.5;margin:0;padding-top:10px;padding-bottom:10px;color:#acacac;font-weight:400;">(&nbsp;[% item.type %]&nbsp;)</p>
                                 <div style="position:absolute;top:0px;right:30px;">
                                     <div style="display:inline-block;height:30px; width:30px;">
@@ -151,7 +151,7 @@
                         // set content details
 		                $('input#content_id').val( data.id );
                         $('input#content-type').val( data.type );
-		                $('h2#content-title').text( data.title );
+		                $('h2#content-title').html( data.title ); // set as html - could be !!
 
 		                // a 'hack' to ensure that event dates are displayed ...
 		                if ( data.date ) {

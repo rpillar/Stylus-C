@@ -163,18 +163,28 @@
 							var numberOfFiles = data.files.length;
 							for ( var i = 0; i < data.files.length; i++ ) {
 								$('#process-log').append('<div class="process-log-content">File :- ' + data.files[i] + '</div>');
-
-
-								// process file - parse for partials details / insert data etc.
 							}
 						}
 						else {
+							// check for 'layouts' and process ...
 							$('#process-log').append('<br /><div class="process-log-content"><span style="font-weight:500;">Processing Layouts :-</span></div>');
 							for ( var i = 0; i < data.layouts.length; i++ ) {
-								$('#process-log').append('<div class="process-log-content">Layout :- ' + data.layouts[i] + '</div>');
+								$('#process-log').append('<div class="process-log-content"><span style="margin-left:20px;">- ' + data.layouts[i] + '</span></div>');
 
-
-								// process file - parse for partials details / insert data etc.
+								// process layout
+								var formData = {
+									layout: data.layouts[i]
+								};
+								var update_url = '/stylus/process/layout/';
+								$.ajax({
+									url: update_url,
+									type: 'POST',
+									data: formData,
+									dataType: 'json'
+								}).fail(function( jqXHR, status, error ){
+   									var message = $.parseJSON(jqXHR.responseText);
+									notifyProcess( 'ERROR', message.error, 'error' );
+								});
 							}
 						}
 					}).fail(function( jqXHR, status, error  ) {

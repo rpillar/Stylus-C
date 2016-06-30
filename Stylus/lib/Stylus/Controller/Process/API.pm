@@ -27,6 +27,14 @@ sub check_filename :Chained('base') PathPart('check_filename') Args(0) : ActionC
     my ($self, $c) = @_;
 }
 
+=head2 layout
+
+=cut
+
+sub layout :Chained('base') PathPart('layout') Args(0) : ActionClass('REST') {
+    my ($self, $c, $layout) = @_;
+}
+
 =head2 settings
 
 =cut
@@ -59,6 +67,33 @@ sub check_filename_GET :Private {
             $c,
             message => "Process : there has been an error when checking the supplied location - please check.",
         );
+    }
+}
+
+=head2layout_POST
+
+=cut
+
+sub layout_POST :Private {
+    my ($self, $c) = @_;
+
+    # get filename data ..
+    my $data = $c->req->data || $c->req->params;
+
+    $c->log->debug('Process - layout : ' . $data->{layout});
+
+    my $status = $self->parse_layout( $c, $data );
+
+    if ( $status eq 'success' ) {
+        $self->status_ok(
+            $c,
+            entity => {
+                success => 1,
+            }
+        );
+    }
+    else {
+
     }
 }
 
@@ -113,7 +148,7 @@ sub settings_GET :Private {
         foreach( @layouts ) {
             push(@layout_names, $_->name);
         }
-      
+
         return $self->status_ok(
             $c,
             entity => {
@@ -121,6 +156,30 @@ sub settings_GET :Private {
             }
         );
     }
+}
+
+# utility methods ...
+
+=head2 parse_layout
+
+=cut
+
+sub parse_layout {
+    my ($self, $c, $data ) = @_;
+
+    $c->log->debug('Process - parse_layout : ' . $data->{layout});    
+
+    my $layout = $c->model('DB::Partial')->search(
+        { name => $data->{layout} }
+    )->first;
+}
+
+=head2 write_web_file
+
+=cut
+
+sub write_web_file {
+
 }
 
 __PACKAGE__->meta->make_immutable;

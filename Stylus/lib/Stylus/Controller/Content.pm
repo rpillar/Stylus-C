@@ -4,6 +4,7 @@ use namespace::autoclean;
 
 use Data::Dumper;
 use DDP;
+use HTML::Entities;
 use Text::Markdown 'markdown';
 
 BEGIN { extends 'Catalyst::Controller'; }
