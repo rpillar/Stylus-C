@@ -8,6 +8,7 @@ requires ‘Catalyst::Plugin::StackTrace’;
 requires ‘Catalyst::Authentication::Realm::SimpleDB’;
 requires ‘Catalyst::View::TT’;
 requires ‘Catalyst::View::JSON’;
+requires 'Catalyst::ScriptRunner';
 requires ‘Crypt::PBKDF2’;
 requires ‘Data::Printer’;
 requires ‘Text::Markdown’;
