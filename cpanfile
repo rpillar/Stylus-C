@@ -1,4 +1,5 @@
 requires 'Term::ReadKey';
+requires 'Cpanel::JSON::XS';
 requires 'Catalyst::Runtime';
 requires 'Catalyst::Devel';
 requires 'Catalyst::Plugin::Session::State::Cookie';
