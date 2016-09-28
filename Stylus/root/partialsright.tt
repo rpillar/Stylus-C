@@ -43,10 +43,6 @@
             background-color: white;
         }
 
-        .glyphicon {
-            font-size: 30px;
-        }
-
     </style>
 
     <section id="partial-right" style="display:block;float:left;position:relative;width:100%;">
@@ -61,15 +57,19 @@
                     [% FOREACH partial IN partials %]
                         <div class="partial_block [% 'p' _ partial.id %] [% 'block-' _ partial.id %]">
                             <div style="position:relative;">
-                                <h3 class="partial_name" style="font-size:24px;font-weight:600;margin:0;padding:12px 0;display:inline;"><span style="border-bottom:3px solid lightblue;">[% partial.label %]</span></h3><span style="margin-left:15px;font-size:18px;font-weight:400;color:gray;">(&nbsp;[% partial.type %]&nbsp;)</span></h3>
+                                <h3 class="partial_name" style="font-size:24px;font-weight:400;color:#000;margin:0;padding:12px 0;display:inline;"><span>[% partial.label %]</span></h3>
+                                <div>
+                                    <span style="font-size:16px;line-height:1.5;margin:0;padding-top:10px;padding-bottom:10px;color:#acacac;font-weight:400;">(&nbsp;[% partial.type %]&nbsp;)</span>
+                                    <a href="#" class="view-link cd-btn" style="float:right;" data-id="[% partial.id %]" data-name="[% partial.label %]" data-type="[% partial.type %]" data-description="[% partial.description %]" title="View"><i class="material-icons" style="font-size:24px;">add_circle</i></a>
+                                </div>
                                 <p style="font-size:16px;line-height:1.5;margin:0;padding-top:10px;padding-bottom:10px;color:#acacac;font-weight:400;">[% partial.description %]</p>
-                                <div style="position:absolute;top:0px;right:30px;">
+                                <!--<div style="position:absolute;top:0px;right:30px;">
                                     <div style="display:inline-block;height:30px; width:30px;">
                                         <span style="margin-left:30px;">
-                                            <a href="#" class="view-link cd-btn" data-id="[% partial.id %]" data-name="[% partial.label %]" data-type="[% partial.type %]" data-description="[% partial.description %]"  title="View"><span class="glyphicon glyphicon-zoom-in" aria-hidden="true"></span></a>
+                                            <a href="#" class="view-link cd-btn" data-id="[% partial.id %]" data-name="[% partial.label %]" data-type="[% partial.type %]" data-description="[% partial.description %]"  title="View"><i class="material-icons">add_circle</i></a>
                                         </span>
                                     </div>
-    							</div>
+    							</div>-->
                             </div>
                         </div>
                     [% END %]

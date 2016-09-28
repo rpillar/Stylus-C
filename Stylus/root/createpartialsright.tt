@@ -28,7 +28,7 @@
 			</p>
 
 			<p class="p_text">
-				A <span style="border-bottom: 2px dotted lightblue;">partial</span> is intended to be used for inserting a single item (or repeating items) into a webpage. These may be blog posts, news items or events. Where thete is more than one item 'available' it is possible to specify the number of items to insert and the order they should be displayed. This could mean that only the 'latest' news items are displayed for example.
+				A <span style="border-bottom: 2px dotted lightblue;">partial</span> is intended to be used for inserting a single item (or repeating items) into a webpage. These may be blog posts, news items or events. Where there is more than one item 'available' it is possible to specify the number of items to insert and the order they should be displayed. This could mean that only the 'latest' news items are displayed for example.
 			</p>
 
 			<p class="p_text">

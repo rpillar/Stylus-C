@@ -47,6 +47,8 @@
 		$('button#register').on('click', function(e) {
             e.preventDefault();
 
+			PNotify.removeAll();
+
             //reset border-color and remove 'active' class
             $('div.input').removeClass('input_active');
             $('div.input').removeClass('input_error');
