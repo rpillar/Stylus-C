@@ -54,9 +54,9 @@ sub index :Path( '/stylus/process' ) :Args(0) {
 
     # set initial content for 'landing' page
     $c->stash->{current_view} = 'TT';
-	$c->stash->{template}  = 'index.tt';
-	$c->stash->{initial}   = 'process.tt';
-	$c->stash->{righthalf} = 'processright.tt';
+	  $c->stash->{template}  = 'index.tt';
+	  $c->stash->{initial}   = 'process.tt';
+	  $c->stash->{righthalf} = 'processright.tt';
 
     # get settings data - domains
     my $userdomains_rs = $c->model('DB::UserDomain')->search(

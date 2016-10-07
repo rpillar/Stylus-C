@@ -15,7 +15,7 @@
 		</p>
 		<p><h3 style="color:#254960;line-height:22px;font-size:20px;font-weight:400;text-transform:uppercase;letter-spacing:1px;"><span style="border-bottom: 2px solid lightblue;">pages / layouts</span></h3></p>
 		<p style="font-size:16px;line-height:1.5;margin-top:20px;margin-bottom:20px;color:#acacac;font-weight:400;">
-			<span style="border-bottom: 2px solid lightblue;">Pages</span> - if you are using a set of 'html' files that have been created and are maintained externally (not within Stylus) then selecting the 'Pages' option will display a field that will allow you to enter the 'path' to the location of these files. The 'file path' has to be explicit (relative paths may not work). <span style="border-bottom: 2px solid lightblue;">Please note</span> - there is currently no validation of the 'path'.
+			<span style="border-bottom: 2px solid lightblue;">Pages</span> - if you are using a set of 'html' files that have been created and are maintained externally (not within Stylus) then selecting the 'Pages' option will display a field that will allow you to enter the 'path' to the location of these files. The 'file path' has to be explicit (relative paths may not work).
 		</p>
 		<p style="font-size:16px;line-height:1.5;margin-top:20px;margin-bottom:20px;color:#acacac;font-weight:400;">
 			<span style="border-bottom: 2px solid lightblue;">Layouts</span> - if 'Layouts' have been selected then Stylus will use the 'layouts' defined within Stylus as the basis of your webpages.

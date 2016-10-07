@@ -118,7 +118,7 @@
 			var domain_id   = $('#domain').data("id");
 			var location    = $('#location').val();
 
-			// validate ...
+			// validate - check data entry ...
 			if ( domain_text == 'Sitename' ) {
 				$('#dd').addClass('dropdown_error');
 				notifyProcess( 'Missing data', 'No Sitename has been selected - please correct', 'error' );
@@ -127,70 +127,78 @@
 				$('#location').parent().addClass('input_error');
 				notifyProcess( 'Missing data', 'A Location path has not been entered - please correct', 'error' );
 			}
+			// validate - check file path / settings
 			else {
-				// check file path supplied ...
 				var processError = 0;
+				var domain_dropdown = document.getElementById('domain');
+				var domainId = domain_dropdown.getAttribute('data-id');
 
 				var formData = {
-					path: location
+					path: location,
+					domain: domainId
 				};
-				var update_url = '/stylus/process/check_filename/';
+				var update_url = '/stylus/process/validate/';
 				$.ajax({
 					url: update_url,
 					type: 'GET',
 					data: formData,
 					dataType: 'json'
 				}).done( function( data ) {
-					$('#process-log').append('<p class="process-log-content">Location for files found.</p> ');
-
-					// check settings - do I get my layouts or pages (pages_details)
-					var domain_dropdown = document.getElementById('domain');
-					var domainId = domain_dropdown.getAttribute('data-id');
-
-					var formData = {
-						domain: domainId
-					};
-					var update_url = '/stylus/process/settings/';
+					$('#process-log').append('<p class="process-log-content">Validation complete - Stylus processing has started .......</p> ');
+					
+					var build_url = '/stylus/process/build_site/';
 					$.ajax({
-						url: update_url,
+						url: build_url,
 						type: 'GET',
 						data: formData,
 						dataType: 'json'
 					}).done( function( data ) {
-						// if I have 'files' to process - get them and process ...
-						if ( data.files ) {
-							$('#process-log').append('<div class="process-log-content"><span style="font-weight:500;">Files to process :-</span></div>');
-							var numberOfFiles = data.files.length;
-							for ( var i = 0; i < data.files.length; i++ ) {
-								$('#process-log').append('<div class="process-log-content">File :- ' + data.files[i] + '</div>');
-							}
-						}
-						else {
-							// check for 'layouts' and process ...
-							$('#process-log').append('<br /><div class="process-log-content"><span style="font-weight:500;">Processing Layouts :-</span></div>');
-							for ( var i = 0; i < data.layouts.length; i++ ) {
-								$('#process-log').append('<div class="process-log-content"><span style="margin-left:20px;">- ' + data.layouts[i] + '</span></div>');
-
-								// process layout
-								var formData = {
-									layout: data.layouts[i]
-								};
-								var update_url = '/stylus/process/layout/';
-								$.ajax({
-									url: update_url,
-									type: 'POST',
-									data: formData,
-									dataType: 'json'
-								}).fail(function( jqXHR, status, error ){
-   									var message = $.parseJSON(jqXHR.responseText);
-									notifyProcess( 'ERROR', message.error, 'error' );
-								});
-							}
-						}
+						$('#process-log').append('<p class="process-log-content">Validation complete - Stylus processing has completed .......</p> ');
 					}).fail(function( jqXHR, status, error  ) {
 						var message = $.parseJSON(jqXHR.responseText);
 						notifyProcess( 'ERROR', message.error, 'error' );
 					});
+					//var build_url = '/stylus/process/build_site/';
+					//$.ajax({
+					//	url: build_url,
+					//	type: 'GET',
+					//	data: formData,
+					//	dataType: 'json'
+					//}).done( function( data ) {
+						// if I have 'files' to process - get them and process ...
+					//	if ( data.files ) {
+					//		$('#process-log').append('<div class="process-log-content"><span style="font-weight:500;">Files to process :-</span></div>');
+					//		var numberOfFiles = data.files.length;
+					//		for ( var i = 0; i < data.files.length; i++ ) {
+					//			$('#process-log').append('<div class="process-log-content">File :- ' + data.files[i] + '</div>');
+					//		}
+					//	}
+					//	else {
+					//		// check for 'layouts' and process ...
+					//		$('#process-log').append('<br /><div class="process-log-content"><span style="font-weight:500;">Processing Layouts :-</span></div>');
+					//		for ( var i = 0; i < data.layouts.length; i++ ) {
+					//			$('#process-log').append('<div class="process-log-content"><span style="margin-left:20px;">- ' + data.layouts[i] + '</span></div>');
+//
+								// process layout
+					//			var formData = {
+					//				layout: data.layouts[i]
+					//			};
+					//			var update_url = '/stylus/process/layout/';
+					//			$.ajax({
+					//				url: update_url,
+					//				type: 'POST',
+					//				data: formData,
+					//				dataType: 'json'
+					//			}).fail(function( jqXHR, status, error ){
+   					//				var message = $.parseJSON(jqXHR.responseText);
+					//				notifyProcess( 'ERROR', message.error, 'error' );
+					//			});
+					//		}
+					//	}
+					//}).fail(function( jqXHR, status, error  ) {
+					//	var message = $.parseJSON(jqXHR.responseText);
+					//	notifyProcess( 'ERROR', message.error, 'error' );
+					//});
 
 				}).fail(function( jqXHR, status, error  ) {
 					$('#location').parent().addClass('input_error');
@@ -198,9 +206,7 @@
 					notifyProcess( 'ERROR', message.error, 'error' );
 				});
 
-				// get domain details
-				// collection files / layouts etc.
-				// process - log ...
+				// display 'processed' files etc.
 				// end
 			}
 

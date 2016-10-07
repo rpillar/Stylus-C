@@ -19,63 +19,67 @@ sub base :Chained('/') PathPart('stylus/process') :CaptureArgs( 0 ) {
     $c->log->debug('in Process API - base');
 }
 
-=head2 check_filename
+=head2 build_site
 
 =cut
 
-sub check_filename :Chained('base') PathPart('check_filename') Args(0) : ActionClass('REST') {
+sub build_site :Chained('base') PathPart('build-site') Args(0) : ActionClass('REST') {
     my ($self, $c) = @_;
+}
+
+sub build_site_GET :Private {
+    my ($self, $c) = @_;
+}
+
+=head2 validate
+
+=cut
+
+sub validate :Chained('base') PathPart('validate') Args(0) : ActionClass('REST') {
+    my ($self, $c) = @_;   
+}
+
+sub validate_GET :Private {
+    my ($self, $c) = @_;
+
+    # check if the location supplied actually exists ...
+    unless ( check_filename( $c->req->params ) ) {
+        $c->log->debug('Process - check_filename - location : ' . $c->req->params->{path});
+        return $self->status_bad_request(
+            $c,
+            message => "Process : the file name / path supplied is incorrect - please check.",
+        );
+    }
+
+    # check for files / layouts ...
+
+    $self->status_ok(
+        $c,
+        entity => {
+            message => 'Process : Validate - complete.'
+        },
+    );
+}
+
+# validation methods
+
+sub check_filename {
+    my ( $params ) = @_;
+
+    if ( -e $params->{path} ) {
+        return 1;
+    }
+    else {
+        return 0;
+    }
 }
 
 =head2 layout
 
 =cut
 
-sub layout :Chained('base') PathPart('layout') Args(0) : ActionClass('REST') {
+sub layout {
     my ($self, $c, $layout) = @_;
-}
-
-=head2 settings
-
-=cut
-
-sub settings :Chained('base') PathPart('settings') Args(0) : ActionClass('REST') {
-    my ($self, $c) = @_;
-}
-
-=head2 check_filename_GET
-
-=cut
-
-sub check_filename_GET :Private {
-    my ($self, $c) = @_;
-
-    # get filename data ..
-    my $data = $c->req->data || $c->req->params;
-
-    $c->log->debug('Process - check_filename - location : ' . $data->{path});
-    if ( -e $data->{path} ) {
-        $self->status_ok(
-            $c,
-            entity => {
-                message => 'Process : Check filename - complete.'
-            },
-        );
-    }
-    else {
-        $self->status_bad_request(
-            $c,
-            message => "Process : there has been an error when checking the supplied location - please check.",
-        );
-    }
-}
-
-=head2layout_POST
-
-=cut
-
-sub layout_POST :Private {
-    my ($self, $c) = @_;
 
     # get filename data ..
     my $data = $c->req->data || $c->req->params;
@@ -97,11 +101,11 @@ sub layout_POST :Private {
     }
 }
 
-=head2 settings_GET
+=head2 settings
 
 =cut
 
-sub settings_GET :Private {
+sub settings {
     my ($self, $c) = @_;
 
     # get domain name data ..

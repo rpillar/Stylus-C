@@ -636,7 +636,9 @@
 						window.location.assign('/stylus/settings');
 					}
 				}).fail( function( jqXHR, status, error  ) {
-					notifyProcess( 'ERROR', 'A problem has occurred - please try again in a few minutes or contact us.', 'error' );
+					// notifyProcess( 'ERROR', 'A problem has occurred - please try again in a few minutes or contact us.', 'error' );
+					var message = $.parseJSON(jqXHR.responseText);
+					notifyProcess( 'ERROR', message.error, 'error' );
 				});
 			}
 		} );

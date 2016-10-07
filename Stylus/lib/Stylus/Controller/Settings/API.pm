@@ -290,6 +290,14 @@ sub pages_path_PUT :Private {
     # get data parameters ...
     my $data        = $c->req->data || $c->req->params;
 
+    # validate the 'path' supplied ...
+    unless ( -e $data->{path} ) {
+        return $self->status_bad_request(
+            $c,
+            message => "Settings - Pages Path : the path entered is invalid. Please correct !",
+        );
+    }
+
     # update the Pages Details entry ...
     try {
         $c->stash->{pagesdetail}->update(
