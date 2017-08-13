@@ -27,7 +27,7 @@ sub build_site :Chained('base') PathPart('build-site') Args(0) : ActionClass('RE
     my ($self, $c) = @_;
 }
 
-sub build_site_GET :Private {
+sub build_site_POST :Private {
     my ($self, $c) = @_;
 }
 

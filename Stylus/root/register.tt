@@ -108,6 +108,7 @@
 			        success: function(data,status) {
 			            if ( data.json.success == 0 ) {
 			                $('p#message').text(data.json.message);
+							notifyProcess( 'Registration error : ', data.json.message, 'error' );
 			            }
 			            else {
 			                window.location.assign('/stylus');
