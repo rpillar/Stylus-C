@@ -146,7 +146,11 @@
 				}).done( function( data ) {
 					$('#process-log').append('<p class="process-log-content">Validation complete - Stylus processing has started .......</p> ');
 					
-					var build_url = '/stylus/process/build_site/';
+					var formData = {
+						path: location,
+						domain: domainId
+					};
+					var build_url = '/stylus/process/build-site/';
 					$.ajax({
 						url: build_url,
 						type: 'POST',

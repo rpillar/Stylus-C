@@ -29,6 +29,17 @@ sub build_site :Chained('base') PathPart('build-site') Args(0) : ActionClass('RE
 
 sub build_site_POST :Private {
     my ($self, $c) = @_;
+
+    $c->log->debug( 'Process - build_site_POST ' );
+
+    # process files / layouts - parse and insert partials as specified.
+    
+    $self->status_ok(
+        $c,
+        entity => {
+            message => 'Process : Build_Site - complete.'
+        },
+    );
 }
 
 =head2 validate
@@ -51,7 +62,29 @@ sub validate_GET :Private {
         );
     }
 
+    # check the domain_id that has been supplied ...
+    my $domain = $c->model('DB::Domain')->search(
+        { id => $c->req->params->{domain} },
+    )->first;
+    unless ( $domain->name ) {
+        $c->log->debug('Process - validate - domain not found : ' . $c->req->params->{domain});
+        return $self->status_bad_request(
+            $c,
+            message => "Process : validate - domain not found - please check.",
+        );
+    }
+
     # check for files / layouts ...
+    my $pages_detail = $c->model('DB::PagesDetail')->search(
+        { id => $c->req->params->{domain} },
+    )->first;
+    unless ( $pages_detail ) {
+        $c->log->debug('Process - validate -  : no pages_detail data found ' . $c->req->params->{domain});
+        return $self->status_bad_request(
+            $c,
+            message => "Process : validate - pages / layout data not found - please check.",
+        );
+    }
 
     $self->status_ok(
         $c,

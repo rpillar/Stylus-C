@@ -39,7 +39,7 @@
 <div class="testing">
     <div class="this-one">
 ##########
-{ "partial": "p1", type": "article", "number": "2" }
+{ "partial": "p1", contentType": "article", "number": "2" }
 ==========
     </div>
 </div>
@@ -74,9 +74,9 @@
 				There are four parameters that can be set (currently) - <span style="border-bottom:1px solid lightblue;">partial</span>, <span style="border-bottom:1px solid lightblue;">type</span>, <span style="border-bottom:1px solid lightblue;">number</span> and <span style="border-bottom:1px solid lightblue;">order</span>.
 				<ul>
 					<li style="font-size:14px;">'partial' - (optional) the 'label' assigned to the 'content' when it was created. Where 'specific' partials or components that need to be inserted then only the partial label will need to be specified ,</li>
-					<li style="font-size:14px;">'type' - (optional) one of the 'content' types - article / news / event etc,</li>
+					<li style="font-size:14px;">'contentType' - (optional) one of the 'content' types - article / news / event etc,</li>
 					<li style="font-size:14px;">'number' - (optional) used to control the number of articles / events that are displayed in this 'partial' (if not present then all the content for the specified type will be displayed), </li>
-					<li style="font-size:14px;">'order' - (optional) used to specify the order the content is displayed - 'oldest' / 'latest' first.</li>
+					<li style="font-size:14px;">'order' - (optional) used to specify the order the content is displayed (the only field currently used for ordering is Date) - 'reverse' first.</li>
 				</ul>
 			</p>
 			<p class="p_text">

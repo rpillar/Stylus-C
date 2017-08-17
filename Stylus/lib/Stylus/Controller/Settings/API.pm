@@ -3,7 +3,7 @@ use Moose;
 use namespace::autoclean;
 
 use HTML::Entities;
-use Scalar::Util qw( looks_like_number);
+use Scalar::Util qw( looks_like_number );
 use Try::Tiny;
 
 BEGIN { extends 'Catalyst::Controller::REST' }
