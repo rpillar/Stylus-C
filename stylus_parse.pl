@@ -1,4 +1,3 @@
-
 #!/usr/bin/perl
 
 use strict;
@@ -22,14 +21,14 @@ foreach ( @file  ) {
         next;
     }
 
-    if ( $_ !~ /^##########$|^==========$/ ) {
+    if ( $_ !~ /^#{10}$|^={10}$/ ) {
         print $_;
     }
     
-    if ( $_ =~ /^##########$/ ) {
+    if ( $_ =~ /^#{10}$/ ) {
         $process_line = 1;
     }
-    if ( $_ =~ /^==========$/ ) {
+    if ( $_ =~ /^={10}$/ ) {
         next;
     }
 }
@@ -40,7 +39,7 @@ sub process_partial {
     my $hash = from_json( $json_string );
     my $html_string = "";
 
-    # is this <content> ...
+    # is this <content> / or a partial ...
     if ( $hash->{ contentType } ) {
 
         # get id of <contentType>
@@ -63,11 +62,7 @@ sub process_partial {
         my $content = $dbh->selectall_hashref( $sth, 'id', undef ,@values );
 
         # get partial - into which the content will be inserted.
-        @values = ();
-        push @values, $hash->{partial};      
-        $sth = "SELECT partial FROM partials WHERE name = ?";       
-        $db_ref = $dbh->selectrow_hashref( $sth, undef ,@values );
-        my $partial = $db_ref->{partial};
+        my $partial = get_partial( $hash->{ partial } );
   
         # iterate over the content (using the partial text) to create the html_string  
         if ( $hash->{order} and $hash->{order} eq 'reverse' ) {
@@ -75,21 +70,27 @@ sub process_partial {
         }  
         foreach my $id ( @content_ids ) {
             my $html = $partial;
-            $html =~ s/\*\*\*\*\*\*\*\*\*\*/$content->{ $id->[0] }{ content }/;
+            $html =~ s/\*{10}/$content->{ $id->[0] }{ content }/;
             $html_string = $html_string . $html;           
         }
     }
     else {
-        # get partial - into which the content will be inserted.
-        my @values = ();
-        push @values, $hash->{partial};            
-        my $sth = "SELECT partial FROM partials WHERE name = ?";       
-        my $db_ref = $dbh->selectrow_hashref( $sth, undef ,@values );
-        my $html = $db_ref->{partial};
-        $html_string = $html_string . $html;
+        $html_string = $html_string . get_partial( $hash->{partial} );
     }
 
     return $html_string;
+}
+
+sub get_partial {
+    my $name = shift;
+
+    my @values = ();
+    push @values, $name;      
+    my $sth = "SELECT partial FROM partials WHERE name = ?";       
+    my $db_ref = $dbh->selectrow_hashref( $sth, undef ,@values );
+    my $partial = $db_ref->{partial};
+
+    return $partial;
 }
 
 __END__
