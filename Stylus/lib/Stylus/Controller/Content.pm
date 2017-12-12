@@ -53,23 +53,23 @@ sub auto :Private {
 =cut
 
 sub index :Path( '/stylus/content' ) :Args(0) {
-    my ( $self, $c ) = @_;
+     my ( $self, $c ) = @_;
 
-    # set initial content for 'landing' page
-    $c->stash->{current_view} = 'TT';
-	$c->stash->{template}  = 'index.tt';
-	$c->stash->{initial}   = 'content.tt';
-	$c->stash->{righthalf} = 'contentright.tt';
+     # set initial content for 'landing' page
+     $c->stash->{current_view} = 'TT';
+	   $c->stash->{template}  = 'index.tt';
+	   $c->stash->{initial}   = 'content.tt';
+	   $c->stash->{righthalf} = 'contentright.tt';
 
-	# get content data - set initial content values
-    my $content_rs = $c->model('DB::Content')->search(
+	   # get content data - set initial content values
+     my $content_rs = $c->model('DB::Content')->search(
         { domain_id => $c->session->{user_domain_id} }
-    );
+        );
 
-	# trim 'content' and convert to HTML (stored as Markdown)
-	my @data;
-    if ( $content_rs->count ) {
-	    while ( my $content = $content_rs->next ) {
+	   # trim 'content' and convert to HTML (stored as Markdown)
+	   my @data;
+     if ( $content_rs->count ) {
+	      while ( my $content = $content_rs->next ) {
 	        # get length of string / position of first line-break
 	        my $content_len  = length( $content->content );
 	        my $line_end_pos = index($content->content, $/);
@@ -91,8 +91,8 @@ sub index :Path( '/stylus/content' ) :Args(0) {
 	            content_date => $content->content_date,
 	        };
 	        push(@data, $row);
-        }
-	}
+      }
+	  }
     $c->stash->{content_data} = \@data;
 
     # get domains
