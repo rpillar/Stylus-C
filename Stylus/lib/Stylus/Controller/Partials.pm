@@ -121,7 +121,6 @@ sub create :Path( '/stylus/partials/create' ) :Args(0) {
             id   => $type->id,
             type => $type->type
         };
-        p $row;
         push(@data, $row);
     }
 

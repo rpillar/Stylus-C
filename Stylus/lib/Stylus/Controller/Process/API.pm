@@ -54,7 +54,7 @@ sub validate_GET :Private {
     my ($self, $c) = @_;
 
     # check if the location supplied actually exists ...
-    unless ( check_filename( $c->req->params ) ) {
+    unless ( $self->check_filename( $c->req->params ) ) {
         $c->log->debug('Process - check_filename - location : ' . $c->req->params->{path});
         return $self->status_bad_request(
             $c,
@@ -96,8 +96,14 @@ sub validate_GET :Private {
 
 # validation methods
 
+=head2 check_filename
+
+Check that the filename supplied actually exists
+
+=cut
+
 sub check_filename {
-    my ( $params ) = @_;
+    my ( $self, $params ) = @_;
 
     if ( -e $params->{path} ) {
         return 1;
